@@ -5211,7 +5211,7 @@ button.textContent='Delete Purchase';
 
 
 /* ==========================================
-   BALANCES
+   CALCULATE NET BALANCES
 ========================================== */
 
 function calculateBalances(){
@@ -5229,22 +5229,42 @@ Array.isArray(purchase.people)
 ?purchase.people
 :[];
 
-if(!people.length)return;
+if(!people.length){
+return;
+}
 
 const amount=
 Number(purchase.amount)||0;
 
+if(amount<=0){
+return;
+}
+
 const share=
 amount/people.length;
+
+const payer=
+purchase.payer;
+
+
+/*
+   The payer gets credit for the full purchase.
+   Every person included in the purchase,
+   including the payer, gets charged their
+   equal share.
+
+   This keeps the overall balances consistent
+   with the purchase-level debt ledger below.
+*/
 
 if(
 Object.prototype.hasOwnProperty.call(
 balances,
-purchase.payer
+payer
 )
 ){
 
-balances[purchase.payer]+=amount;
+balances[payer]+=amount;
 
 }
 
@@ -5266,6 +5286,192 @@ balances[person]-=share;
 });
 
 return balances;
+
+}
+
+
+/* ==========================================
+   CALCULATE PURCHASE-LEVEL DEBTS
+========================================== */
+
+/*
+   Every purchase creates individual debts.
+
+   Example:
+
+   Mike pays £80 for:
+   Mike, Eric, Brian, Veer
+
+   Each person's share is £20.
+
+   The ledger creates:
+
+   Eric  -> Mike   £20
+   Brian -> Mike   £20
+   Veer  -> Mike   £20
+
+   Mike's own £20 share creates no debt.
+
+   These debts are then accumulated across ALL
+   purchases, preserving the actual person-to-person
+   relationship instead of collapsing everything
+   into one global settlement.
+*/
+
+function calculatePurchaseDebts(){
+
+const debts={};
+
+purchases.forEach(purchase=>{
+
+const people=
+Array.isArray(purchase.people)
+?purchase.people
+:[];
+
+if(!people.length){
+return;
+}
+
+const amount=
+Number(purchase.amount)||0;
+
+if(amount<=0){
+return;
+}
+
+const share=
+amount/people.length;
+
+const payer=
+purchase.payer;
+
+if(!PEOPLE.includes(payer)){
+return;
+}
+
+people.forEach(person=>{
+
+if(
+!PEOPLE.includes(person) ||
+person===payer
+){
+
+return;
+
+}
+
+
+/*
+   Key format:
+
+   debtor||creditor
+
+   Example:
+
+   Eric||Mike
+
+   means Eric owes Mike.
+*/
+
+const key=
+person+'||'+payer;
+
+debts[key]=
+(debts[key]||0)+share;
+
+});
+
+});
+
+return debts;
+
+}
+
+
+/* ==========================================
+   CALCULATE PAIRWISE SETTLEMENTS
+========================================== */
+
+/*
+   Take the purchase-level debts and combine them
+   for every debtor/creditor relationship.
+
+   If:
+
+   Mike owes Eric £20
+   Eric owes Mike £7
+
+   those two obligations offset to:
+
+   Mike owes Eric £13
+
+   Importantly, this DOES NOT globally collapse
+   everyone into one creditor and one debtor.
+
+   Mike can therefore owe Eric, Brian, Veer,
+   Zach, Tom, Clem, and/or Yeags simultaneously.
+*/
+
+function calculatePairwiseSettlements(){
+
+const debts=
+calculatePurchaseDebts();
+
+const settlements={};
+
+const processed=new Set();
+
+Object.entries(debts).forEach(
+([key,amount])=>{
+
+if(processed.has(key)){
+return;
+}
+
+const parts=
+key.split('||');
+
+const debtor=
+parts[0];
+
+const creditor=
+parts[1];
+
+const reverseKey=
+creditor+'||'+debtor;
+
+const reverseAmount=
+debts[reverseKey]||0;
+
+const difference=
+amount-reverseAmount;
+
+if(
+Math.abs(difference)>0.005
+){
+
+if(difference>0){
+
+settlements[key]=difference;
+
+}else{
+
+settlements[reverseKey]=
+Math.abs(difference);
+
+}
+
+}
+
+processed.add(key);
+
+processed.add(reverseKey);
+
+});
+
+
+return settlements;
 
 }
 
@@ -5294,11 +5500,13 @@ let label='Even';
 if(balance>0.005){
 
 amountClass='owedto';
+
 label='is owed';
 
 }else if(balance<-0.005){
 
 amountClass='owed';
+
 label='owes';
 
 }
@@ -5331,7 +5539,14 @@ ${formatMoney(Math.abs(balance))}
 
 }).join('');
 
-renderSettlements(balances);
+
+/*
+   Settlement links are calculated separately from
+   the overall balance cards so each individual
+   debtor/creditor relationship is preserved.
+*/
+
+renderSettlements();
 
 }
 
@@ -5340,92 +5555,87 @@ renderSettlements(balances);
    VENMO SETTLEMENTS
 ========================================== */
 
-function renderSettlements(balances){
+function renderSettlements(){
 
-const creditors=[];
-const debtors=[];
+const settlements=
+calculatePairwiseSettlements();
 
-Object.entries(balances).forEach(
-([person,balance])=>{
+const entries=
+Object.entries(settlements)
+.map(([key,amount])=>{
 
-if(balance>0.005){
+const parts=
+key.split('||');
 
-creditors.push({
-person,
-amount:balance
-});
+return {
+debtor:parts[0],
+creditor:parts[1],
+amount:Number(amount)
+};
 
-}
-
-if(balance<-0.005){
-
-debtors.push({
-person,
-amount:-balance
-});
-
-}
-
-});
-
-
-creditors.sort(
+})
+.filter(settlement=>
+settlement.amount>0.005
+)
+.sort(
 (a,b)=>b.amount-a.amount
 );
 
-debtors.sort(
-(a,b)=>b.amount-a.amount
+
+const list=
+document.getElementById(
+'settlementList'
 );
 
-const settlements=[];
+if(!entries.length){
 
-let creditorIndex=0;
-let debtorIndex=0;
+list.innerHTML=
+'<div style="font-size:14px;color:#647b8f">'+
+'Everyone is even. 🍻'+
+'</div>';
 
-while(
-creditorIndex<creditors.length &&
-debtorIndex<debtors.length
-){
+return;
 
-const creditor=
-creditors[creditorIndex];
+}
 
-const debtor=
-debtors[debtorIndex];
 
-const amount=
-Math.min(
-creditor.amount,
-debtor.amount
-);
-
-if(amount>0.005){
+const settlementsHtml=
+entries.map(settlement=>{
 
 const debtorName=
-shortName(debtor.person);
+shortName(
+settlement.debtor
+);
 
 const creditorName=
-shortName(creditor.person);
+shortName(
+settlement.creditor
+);
 
 const usdAmount=
 formatUSD(
-amount*gbpToUsd
+settlement.amount*gbpToUsd
 );
 
 const gbpAmount=
-formatMoney(amount);
+formatMoney(
+settlement.amount
+);
 
 const venmoUsername=
-VENMO[creditor.person];
+VENMO[
+settlement.creditor
+];
+
 
 if(venmoUsername){
 
-settlements.push(`
+return `
 
 <a
 class="settlement-link"
 href="https://venmo.com/${encodeURIComponent(venmoUsername)}"
-onclick="openVenmoApp(event,'${escapeHtml(venmoUsername)}',${Number(amount*gbpToUsd).toFixed(2)})">
+onclick="openVenmoApp(event,'${escapeHtml(venmoUsername)}',${Number(settlement.amount*gbpToUsd).toFixed(2)})">
 
 <div class="settlement-main">
 ${escapeHtml(debtorName)}
@@ -5444,11 +5654,12 @@ ${gbpAmount} • Tap to open ${escapeHtml(creditorName)}’s Venmo
 
 </a>
 
-`);
+`;
 
-}else{
+}
 
-settlements.push(`
+
+return `
 
 <div class="settlement-plain">
 
@@ -5468,43 +5679,13 @@ ${gbpAmount} • ${escapeHtml(creditorName)} has no Venmo
 
 </div>
 
-`);
+`;
 
-}
+}).join('');
 
-}
-
-creditor.amount-=amount;
-debtor.amount-=amount;
-
-if(creditor.amount<=0.005){
-creditorIndex++;
-}
-
-if(debtor.amount<=0.005){
-debtorIndex++;
-}
-
-}
-
-const list=
-document.getElementById(
-'settlementList'
-);
-
-if(!settlements.length){
 
 list.innerHTML=
-'<div style="font-size:14px;color:#647b8f">'+
-'Everyone is even. 🍻'+
-'</div>';
-
-return;
-
-}
-
-list.innerHTML=
-settlements.join('');
+settlementsHtml;
 
 }
 
@@ -5522,6 +5703,7 @@ if(
 )return;
 
 renderPurchases();
+
 renderBalances();
 
 }
@@ -5723,6 +5905,7 @@ message.textContent=
 }finally{
 
 submitButton.disabled=false;
+
 submitButton.textContent=
 '💰 Log Purchase';
 
