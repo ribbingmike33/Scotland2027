@@ -11,10 +11,92 @@ body{margin:0;background:#f7fbff;color:#10253d;font-family:-apple-system,BlinkMa
 .app{max-width:900px;margin:auto;background:#fff;min-height:100vh}
 a{color:inherit}
 
-.hero{background:#07549a;color:#fff;padding:30px 22px 26px}
-.eyebrow{font-size:12px;font-weight:800;letter-spacing:.18em;opacity:.8}
-h1{font:700 44px Georgia,serif;margin:8px 0 4px}
-.hero p{margin:0;opacity:.82}
+/* ==========================================
+   HEADER
+========================================== */
+
+.hero{
+background:#fff;
+color:#07549a;
+padding:30px 22px 27px;
+text-align:center;
+border:2px solid #07549a;
+border-radius:18px;
+margin:12px;
+position:relative;
+overflow:hidden
+}
+
+.hero:before,
+.hero:after{
+content:"";
+position:absolute;
+width:18px;
+height:18px;
+border-color:#07549a;
+border-style:solid;
+opacity:.9
+}
+
+.hero:before{
+top:-2px;
+left:-2px;
+border-width:3px 0 0 3px
+}
+
+.hero:after{
+bottom:-2px;
+right:-2px;
+border-width:0 3px 3px 0
+}
+
+.eyebrow{
+font-size:12px;
+font-weight:900;
+letter-spacing:.22em;
+color:#07549a;
+opacity:1;
+margin-bottom:7px
+}
+
+h1{
+font:700 44px Georgia,serif;
+line-height:1.05;
+margin:0 auto;
+color:#07549a;
+max-width:760px
+}
+
+.hero-divider{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:18px;
+margin:17px auto 10px;
+max-width:430px
+}
+
+.hero-divider-line{
+height:2px;
+background:#07549a;
+flex:1;
+opacity:.75
+}
+
+.hero-divider-icon{
+font-size:25px;
+line-height:1;
+color:#07549a
+}
+
+.hero p{
+margin:0;
+font-size:15px;
+font-weight:900;
+letter-spacing:.18em;
+color:#07549a;
+opacity:1
+}
 
 .tabs{background:#fff;border-bottom:1px solid #d7e5f1;padding:10px;display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
 .tab{border:1px solid #cbdceb;background:#fff;border-radius:12px;padding:11px 6px;font-weight:800;color:#31516d;cursor:pointer}
@@ -1086,7 +1168,25 @@ color:#7a8ea0
 
 @media(max-width:600px){
 
-h1{font-size:37px}
+.hero{
+padding:27px 16px 24px;
+margin:8px
+}
+
+h1{
+font-size:37px;
+line-height:1.04
+}
+
+.hero-divider{
+gap:12px;
+margin-top:15px
+}
+
+.hero p{
+font-size:12px;
+letter-spacing:.14em
+}
 
 .tabs{grid-template-columns:repeat(2,1fr)}
 
@@ -1185,9 +1285,30 @@ height:220px
 <div class="app">
 
 <header class="hero">
-<div class="eyebrow">SCOTLAND • 2027</div>
-<h1>Zach’s Dirty 30 with the Lads</h1>
-<p>June 11–19 • Edinburgh base • 8 golfers • 6 golf rounds</p>
+
+<div class="eyebrow">
+SCOTLAND • 2027
+</div>
+
+<h1>
+Zach’s Dirty 30<br>
+with the Lads
+</h1>
+
+<div class="hero-divider">
+
+<div class="hero-divider-line"></div>
+
+<div class="hero-divider-icon">⛳</div>
+
+<div class="hero-divider-line"></div>
+
+</div>
+
+<p>
+JUNE 11–19
+</p>
+
 </header>
 
 <nav class="tabs">
