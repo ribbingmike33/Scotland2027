@@ -93,6 +93,14 @@ opacity:.8;
 margin-bottom:17px
 }
 
+.weather-selected-label{
+font-size:11px;
+font-weight:900;
+letter-spacing:.12em;
+opacity:.72;
+margin-bottom:5px
+}
+
 .weather-current{
 display:grid;
 grid-template-columns:1.2fr 1fr 1fr 1fr;
@@ -157,6 +165,50 @@ color:#647b8f;
 font-size:14px
 }
 
+
+/* ==========================================
+   RAIN CHART
+========================================== */
+
+.rain-chart-wrap{
+position:relative;
+width:100%;
+height:240px
+}
+
+#rainChart{
+display:block;
+width:100%;
+height:240px;
+touch-action:none
+}
+
+.rain-chart-tooltip{
+position:absolute;
+display:none;
+pointer-events:none;
+background:#10253d;
+color:#fff;
+border-radius:9px;
+padding:7px 9px;
+font-size:12px;
+font-weight:800;
+white-space:nowrap;
+box-shadow:0 4px 12px rgba(0,0,0,.16);
+transform:translate(-50%,-115%)
+}
+
+.rain-chart-subtitle{
+font-size:12px;
+color:#71869a;
+margin:-7px 0 10px
+}
+
+
+/* ==========================================
+   FORECAST
+========================================== */
+
 .forecast-list{
 display:flex;
 flex-direction:column;
@@ -171,12 +223,37 @@ gap:10px;
 border:1px solid #d4e2ee;
 border-radius:13px;
 padding:13px;
-background:#fff
+background:#fff;
+cursor:pointer;
+transition:.15s
+}
+
+.forecast-row:hover{
+background:#f7fbff;
+border-color:#b9d0e2
 }
 
 .forecast-row.today{
 background:#eef6fc;
 border-color:#b9d0e2
+}
+
+.forecast-row.selected{
+background:#07549a;
+border-color:#07549a;
+color:#fff
+}
+
+.forecast-row.selected .forecast-day,
+.forecast-row.selected .forecast-date,
+.forecast-row.selected .forecast-label,
+.forecast-row.selected .forecast-value{
+color:#fff
+}
+
+.forecast-row.selected .forecast-date,
+.forecast-row.selected .forecast-label{
+opacity:.75
 }
 
 .forecast-day{
@@ -206,6 +283,10 @@ color:#07549a
 
 .forecast-rain .forecast-value{
 color:#31516d
+}
+
+.forecast-row.selected .forecast-rain .forecast-value{
+color:#fff
 }
 
 .weather-source{
@@ -250,65 +331,6 @@ padding:13px;
 color:#a33b3b;
 font-size:13px;
 font-weight:700
-}
-
-
-/* ==========================================
-   HOURLY RAIN GRAPH
-========================================== */
-
-.hourly-rain-graph{
-position:relative;
-width:100%;
-height:230px;
-margin-top:4px
-}
-
-.hourly-rain-chart{
-display:block;
-width:100%;
-height:190px;
-cursor:crosshair
-}
-
-.hourly-rain-tooltip{
-position:absolute;
-display:none;
-pointer-events:none;
-background:#10253d;
-color:#fff;
-border-radius:9px;
-padding:7px 10px;
-font-size:12px;
-font-weight:800;
-white-space:nowrap;
-transform:translate(-50%,-115%);
-z-index:5;
-box-shadow:0 3px 12px rgba(16,37,61,.18)
-}
-
-.hourly-rain-axis{
-display:flex;
-justify-content:space-between;
-padding:0 2px;
-margin-top:2px;
-font-size:10px;
-font-weight:800;
-color:#71869a
-}
-
-.hourly-rain-axis span{
-white-space:nowrap
-}
-
-.hourly-rain-legend{
-font-size:11px;
-color:#71869a;
-margin-top:7px
-}
-
-.hourly-rain-legend b{
-color:#07549a
 }
 
 
@@ -1146,20 +1168,12 @@ font-size:14px
 font-size:9px
 }
 
-.hourly-rain-graph{
-height:215px
+.rain-chart-wrap{
+height:220px
 }
 
-.hourly-rain-chart{
-height:175px
-}
-
-.hourly-rain-axis{
-font-size:9px
-}
-
-.hourly-rain-legend{
-font-size:10px
+#rainChart{
+height:220px
 }
 
 }
@@ -2281,6 +2295,10 @@ Edinburgh, Scotland
 Loading today’s forecast…
 </div>
 
+<div class="weather-selected-label" id="weatherSelectedLabel">
+TODAY
+</div>
+
 <div class="weather-current">
 
 <div class="weather-current-main">
@@ -2289,7 +2307,7 @@ Loading today’s forecast…
 —°
 </div>
 
-<div class="weather-current-label">
+<div class="weather-current-label" id="weatherTemperatureLabel">
 CURRENT TEMPERATURE
 </div>
 
@@ -2336,37 +2354,27 @@ RAIN CHANCE
 </div>
 
 
-<!-- ==========================================
-     HOURLY RAIN GRAPH
-========================================== -->
-
 <div class="weather-card">
 
 <div class="weather-header-row">
 
-<h3>🌧️ Rain Chance Today</h3>
+<h3 id="rainChartTitle">
+🌧️ Today’s Rain Chance
+</h3>
 
 </div>
 
-<div class="hourly-rain-graph">
+<div class="rain-chart-subtitle" id="rainChartSubtitle">
+Hourly precipitation probability
+</div>
 
-<canvas
-id="hourlyRainChart"
-class="hourly-rain-chart">
-</canvas>
+<div class="rain-chart-wrap">
+
+<canvas id="rainChart" height="240"></canvas>
 
 <div
-id="hourlyRainTooltip"
-class="hourly-rain-tooltip">
-</div>
-
-<div
-id="hourlyRainAxis"
-class="hourly-rain-axis">
-</div>
-
-<div class="hourly-rain-legend">
-Hourly probability of precipitation • <b>Tap a point for exact chance</b>
+class="rain-chart-tooltip"
+id="rainChartTooltip">
 </div>
 
 </div>
@@ -2557,7 +2565,11 @@ let weatherInitialized=false;
 
 let weatherLoaded=false;
 
-let hourlyRainData=[];
+let weatherData=null;
+
+let selectedWeatherDayIndex=0;
+
+let rainChartPoints=[];
 
 
 function formatWeatherDay(dateString){
@@ -2665,23 +2677,733 @@ return Math.round(Number(value))+'%';
 }
 
 
-function formatHourlyTime(dateTimeString){
+function formatHourlyLabel(dateTimeString){
+
+const hour=
+Number(
+String(dateTimeString).slice(11,13)
+);
+
+if(!Number.isFinite(hour)){
+return '';
+}
+
+if(hour===0){
+return '12 AM';
+}
+
+if(hour===12){
+return '12 PM';
+}
+
+if(hour<12){
+return hour+' AM';
+}
+
+return (hour-12)+' PM';
+
+}
+
+
+function formatHourlyTooltipTime(dateTimeString){
+
+const hour=
+Number(
+String(dateTimeString).slice(11,13)
+);
+
+if(!Number.isFinite(hour)){
+return dateTimeString;
+}
+
+const minute=
+String(dateTimeString).slice(14,16);
+
+let displayHour;
+
+let suffix;
+
+if(hour===0){
+
+displayHour=12;
+suffix='AM';
+
+}else if(hour===12){
+
+displayHour=12;
+suffix='PM';
+
+}else if(hour<12){
+
+displayHour=hour;
+suffix='AM';
+
+}else{
+
+displayHour=hour-12;
+suffix='PM';
+
+}
+
+return displayHour+':'+minute+' '+suffix;
+
+}
+
+
+/* ==========================================
+   UPDATE WEATHER HERO
+========================================== */
+
+function updateWeatherHero(dayIndex){
+
+if(!weatherData)return;
 
 const date=
-new Date(
-dateTimeString
+weatherData.daily.time[dayIndex];
+
+const high=
+weatherData.daily.temperature_2m_max[dayIndex];
+
+const low=
+weatherData.daily.temperature_2m_min[dayIndex];
+
+const wind=
+weatherData.daily.wind_speed_10m_max[dayIndex];
+
+const rain=
+weatherData.daily.precipitation_probability_max[dayIndex];
+
+const isToday=
+dayIndex===0;
+
+
+document.getElementById(
+'weatherTodayDate'
+).textContent=
+formatWeatherDate(date);
+
+
+document.getElementById(
+'weatherSelectedLabel'
+).textContent=
+isToday
+?'TODAY'
+:formatWeatherDay(date).toUpperCase();
+
+
+document.getElementById(
+'weatherHighLow'
+).textContent=
+formatTemp(high)+
+' / '+
+formatTemp(low);
+
+
+document.getElementById(
+'weatherCurrentWind'
+).textContent=
+formatWind(wind);
+
+
+document.getElementById(
+'weatherCurrentRain'
+).textContent=
+formatRain(rain);
+
+
+if(isToday){
+
+document.getElementById(
+'weatherCurrentTemp'
+).textContent=
+formatTemp(
+weatherData.current.temperature_2m
 );
 
-return date.toLocaleTimeString(
-'en-US',
-{
-hour:'numeric',
-minute:'2-digit'
+document.getElementById(
+'weatherTemperatureLabel'
+).textContent=
+'CURRENT TEMPERATURE';
+
+}else{
+
+document.getElementById(
+'weatherCurrentTemp'
+).textContent=
+formatTemp(high);
+
+document.getElementById(
+'weatherTemperatureLabel'
+).textContent=
+'DAYTIME HIGH';
+
 }
+
+
+document.getElementById(
+'rainChartTitle'
+).textContent=
+'🌧️ '+
+(isToday?'Today’s':formatWeatherDay(date)+'’s')+
+' Rain Chance';
+
+
+document.getElementById(
+'rainChartSubtitle'
+).textContent=
+'Hourly precipitation probability';
+
+
+selectedWeatherDayIndex=dayIndex;
+
+renderForecastSelection();
+
+drawRainChartForDay(dayIndex);
+
+}
+
+
+/* ==========================================
+   RENDER FORECAST SELECTION
+========================================== */
+
+function renderForecastSelection(){
+
+document.querySelectorAll(
+'.forecast-row'
+).forEach(row=>{
+
+const index=
+Number(
+row.dataset.weatherDay
+);
+
+row.classList.toggle(
+'selected',
+index===selectedWeatherDayIndex
+);
+
+});
+
+}
+
+
+/* ==========================================
+   SELECT WEATHER DAY
+========================================== */
+
+function selectWeatherDay(dayIndex){
+
+if(
+!weatherData ||
+dayIndex<0 ||
+dayIndex>=weatherData.daily.time.length
+){
+
+return;
+
+}
+
+updateWeatherHero(dayIndex);
+
+}
+
+
+/* ==========================================
+   DRAW RAIN CHART
+========================================== */
+
+function drawRainChartForDay(dayIndex){
+
+const canvas=
+document.getElementById(
+'rainChart'
+);
+
+if(!canvas || !weatherData)return;
+
+const ctx=
+canvas.getContext('2d');
+
+const allTimes=
+weatherData.hourly.time||[];
+
+const allValues=
+weatherData.hourly.precipitation_probability||[];
+
+const targetDate=
+weatherData.daily.time[dayIndex];
+
+const points=[];
+
+allTimes.forEach((time,index)=>{
+
+if(
+String(time).slice(0,10)===targetDate &&
+Number.isFinite(
+Number(allValues[index])
+)
+){
+
+points.push({
+time,
+value:Number(allValues[index])
+});
+
+}
+
+});
+
+
+rainChartPoints=points;
+
+
+const wrap=
+canvas.parentElement;
+
+const width=
+Math.max(
+280,
+Math.floor(
+wrap.clientWidth
+)
+);
+
+const height=
+window.innerWidth<=600
+?220
+:240;
+
+const dpr=
+window.devicePixelRatio||1;
+
+canvas.width=
+width*dpr;
+
+canvas.height=
+height*dpr;
+
+canvas.style.width=
+width+'px';
+
+canvas.style.height=
+height+'px';
+
+ctx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
+
+ctx.clearRect(
+0,
+0,
+width,
+height
+);
+
+
+if(!points.length){
+
+ctx.fillStyle='#71869a';
+
+ctx.font='14px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif';
+
+ctx.textAlign='center';
+
+ctx.fillText(
+'Hourly precipitation data unavailable.',
+width/2,
+height/2
+);
+
+return;
+
+}
+
+
+/* ==========================================
+   CHART DIMENSIONS
+========================================== */
+
+const padding={
+left:38,
+right:12,
+top:14,
+bottom:35
+};
+
+const chartWidth=
+width-
+padding.left-
+padding.right;
+
+const chartHeight=
+height-
+padding.top-
+padding.bottom;
+
+
+/* ==========================================
+   GRID
+========================================== */
+
+ctx.strokeStyle='#e3ebf2';
+
+ctx.lineWidth=1;
+
+ctx.font=
+'10px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif';
+
+ctx.textAlign='right';
+
+ctx.fillStyle='#71869a';
+
+[0,25,50,75,100].forEach(value=>{
+
+const y=
+padding.top+
+chartHeight-
+(value/100)*chartHeight;
+
+ctx.beginPath();
+
+ctx.moveTo(
+padding.left,
+y
+);
+
+ctx.lineTo(
+width-padding.right,
+y
+);
+
+ctx.stroke();
+
+ctx.fillText(
+value+'%',
+padding.left-7,
+y+3
+);
+
+});
+
+
+/* ==========================================
+   X AXIS LABELS
+========================================== */
+
+ctx.textAlign='center';
+
+const labelEvery=
+points.length<=12
+?2
+:3;
+
+points.forEach((point,index)=>{
+
+if(
+index%labelEvery!==0 &&
+index!==points.length-1
+){
+
+return;
+
+}
+
+const x=
+padding.left+
+(index/(Math.max(points.length-1,1)))*
+chartWidth;
+
+ctx.fillStyle='#71869a';
+
+ctx.fillText(
+formatHourlyLabel(point.time),
+x,
+height-12
+);
+
+});
+
+
+/* ==========================================
+   POINT COORDINATES
+========================================== */
+
+const coordinates=
+points.map((point,index)=>{
+
+const x=
+padding.left+
+(index/(Math.max(points.length-1,1)))*
+chartWidth;
+
+const y=
+padding.top+
+chartHeight-
+(point.value/100)*chartHeight;
+
+return {
+x,
+y,
+point
+};
+
+});
+
+
+/* ==========================================
+   AREA
+========================================== */
+
+ctx.beginPath();
+
+coordinates.forEach((coordinate,index)=>{
+
+if(index===0){
+
+ctx.moveTo(
+coordinate.x,
+coordinate.y
+);
+
+}else{
+
+ctx.lineTo(
+coordinate.x,
+coordinate.y
 );
 
 }
 
+});
+
+ctx.lineTo(
+coordinates[coordinates.length-1].x,
+padding.top+chartHeight
+);
+
+ctx.lineTo(
+coordinates[0].x,
+padding.top+chartHeight
+);
+
+ctx.closePath();
+
+ctx.fillStyle=
+'rgba(7,84,154,.09)';
+
+ctx.fill();
+
+
+/* ==========================================
+   LINE
+========================================== */
+
+ctx.beginPath();
+
+coordinates.forEach((coordinate,index)=>{
+
+if(index===0){
+
+ctx.moveTo(
+coordinate.x,
+coordinate.y
+);
+
+}else{
+
+ctx.lineTo(
+coordinate.x,
+coordinate.y
+);
+
+}
+
+});
+
+ctx.strokeStyle='#07549a';
+
+ctx.lineWidth=2.5;
+
+ctx.lineJoin='round';
+
+ctx.lineCap='round';
+
+ctx.stroke();
+
+
+/* ==========================================
+   DOTS
+========================================== */
+
+coordinates.forEach(coordinate=>{
+
+ctx.beginPath();
+
+ctx.arc(
+coordinate.x,
+coordinate.y,
+3.2,
+0,
+Math.PI*2
+);
+
+ctx.fillStyle='#07549a';
+
+ctx.fill();
+
+ctx.beginPath();
+
+ctx.arc(
+coordinate.x,
+coordinate.y,
+1.4,
+0,
+Math.PI*2
+);
+
+ctx.fillStyle='#fff';
+
+ctx.fill();
+
+});
+
+}
+
+
+/* ==========================================
+   RAIN CHART INTERACTION
+========================================== */
+
+function handleRainChartPointer(event){
+
+const canvas=
+document.getElementById(
+'rainChart'
+);
+
+const tooltip=
+document.getElementById(
+'rainChartTooltip'
+);
+
+if(
+!canvas ||
+!tooltip ||
+!rainChartPoints.length
+){
+
+return;
+
+}
+
+const rect=
+canvas.getBoundingClientRect();
+
+const x=
+event.clientX-
+rect.left;
+
+const width=
+rect.width;
+
+const paddingLeft=38;
+
+const paddingRight=12;
+
+const chartWidth=
+width-
+paddingLeft-
+paddingRight;
+
+if(
+x<paddingLeft ||
+x>width-paddingRight
+){
+
+tooltip.style.display='none';
+
+return;
+
+}
+
+const rawIndex=
+((x-paddingLeft)/chartWidth)*
+(rainChartPoints.length-1);
+
+const index=
+Math.max(
+0,
+Math.min(
+rainChartPoints.length-1,
+Math.round(rawIndex)
+)
+);
+
+const point=
+rainChartPoints[index];
+
+if(!point)return;
+
+const pointX=
+paddingLeft+
+(index/(Math.max(rainChartPoints.length-1,1)))*
+chartWidth;
+
+tooltip.textContent=
+formatHourlyTooltipTime(point.time)+
+' • '+
+formatRain(point.value);
+
+tooltip.style.left=
+pointX+'px';
+
+tooltip.style.top=
+'80px';
+
+tooltip.style.display='block';
+
+}
+
+
+const rainCanvas=
+document.getElementById(
+'rainChart'
+);
+
+if(rainCanvas){
+
+rainCanvas.addEventListener(
+'pointermove',
+handleRainChartPointer
+);
+
+rainCanvas.addEventListener(
+'pointerdown',
+handleRainChartPointer
+);
+
+rainCanvas.addEventListener(
+'pointerleave',
+()=>{
+
+document.getElementById(
+'rainChartTooltip'
+).style.display='none';
+
+});
+
+}
+
+
+/* ==========================================
+   WEATHER INITIALIZE
+========================================== */
 
 function initializeWeather(){
 
@@ -2705,527 +3427,8 @@ loadWeather();
 
 
 /* ==========================================
-   DRAW HOURLY RAIN GRAPH
+   LOAD WEATHER
 ========================================== */
-
-function drawHourlyRainGraph(){
-
-const canvas=
-document.getElementById(
-'hourlyRainChart'
-);
-
-const tooltip=
-document.getElementById(
-'hourlyRainTooltip'
-);
-
-const axis=
-document.getElementById(
-'hourlyRainAxis'
-);
-
-if(!canvas || !hourlyRainData.length){
-return;
-}
-
-const rect=
-canvas.getBoundingClientRect();
-
-const dpr=
-window.devicePixelRatio||1;
-
-const width=
-rect.width;
-
-const height=
-rect.height;
-
-canvas.width=
-Math.round(width*dpr);
-
-canvas.height=
-Math.round(height*dpr);
-
-const ctx=
-canvas.getContext('2d');
-
-ctx.setTransform(
-dpr,
-0,
-0,
-dpr,
-0,
-0
-);
-
-ctx.clearRect(
-0,
-0,
-width,
-height
-);
-
-
-/* ==========================================
-   GRAPH DIMENSIONS
-========================================== */
-
-const left=34;
-const right=10;
-const top=12;
-const bottom=20;
-
-const graphWidth=
-width-left-right;
-
-const graphHeight=
-height-top-bottom;
-
-
-/* ==========================================
-   GRID + Y AXIS
-========================================== */
-
-ctx.font='10px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif';
-ctx.textAlign='right';
-ctx.textBaseline='middle';
-
-[100,75,50,25,0].forEach(value=>{
-
-const y=
-top+
-graphHeight-
-(value/100)*graphHeight;
-
-ctx.strokeStyle='#e5edf4';
-ctx.lineWidth=1;
-
-ctx.beginPath();
-ctx.moveTo(left,y);
-ctx.lineTo(width-right,y);
-ctx.stroke();
-
-ctx.fillStyle='#71869a';
-
-ctx.fillText(
-value+'%',
-left-7,
-y
-);
-
-});
-
-
-/* ==========================================
-   GRAPH POINTS
-========================================== */
-
-const points=
-hourlyRainData.map((entry,index)=>{
-
-const x=
-hourlyRainData.length===1
-?left
-:left+
-(index/(hourlyRainData.length-1))*
-graphWidth;
-
-const value=
-Math.max(
-0,
-Math.min(
-100,
-Number(entry.value)||0
-)
-);
-
-const y=
-top+
-graphHeight-
-(value/100)*graphHeight;
-
-return{
-x,
-y,
-value,
-time:entry.time
-};
-
-});
-
-
-/* ==========================================
-   LINE
-========================================== */
-
-ctx.strokeStyle='#07549a';
-ctx.lineWidth=3;
-ctx.lineJoin='round';
-ctx.lineCap='round';
-
-ctx.beginPath();
-
-points.forEach((point,index)=>{
-
-if(index===0){
-
-ctx.moveTo(
-point.x,
-point.y
-);
-
-}else{
-
-ctx.lineTo(
-point.x,
-point.y
-);
-
-}
-
-});
-
-ctx.stroke();
-
-
-/* ==========================================
-   POINTS
-========================================== */
-
-points.forEach(point=>{
-
-ctx.fillStyle='#fff';
-
-ctx.beginPath();
-
-ctx.arc(
-point.x,
-point.y,
-4.5,
-0,
-Math.PI*2
-);
-
-ctx.fill();
-
-ctx.strokeStyle='#07549a';
-ctx.lineWidth=2.5;
-
-ctx.stroke();
-
-});
-
-
-/* ==========================================
-   CURRENT HOUR
-========================================== */
-
-const currentTime=
-new Date();
-
-const currentHour=
-currentTime.getHours();
-
-const currentMinute=
-currentTime.getMinutes();
-
-let closestPoint=null;
-let closestDifference=Infinity;
-
-points.forEach(point=>{
-
-const pointDate=
-new Date(
-point.time
-);
-
-const difference=
-Math.abs(
-(
-pointDate.getHours()*60+
-pointDate.getMinutes()
-)-
-(
-currentHour*60+
-currentMinute
-)
-);
-
-if(difference<closestDifference){
-
-closestDifference=difference;
-closestPoint=point;
-
-}
-
-});
-
-if(closestPoint){
-
-ctx.fillStyle='#07549a';
-
-ctx.beginPath();
-
-ctx.arc(
-closestPoint.x,
-closestPoint.y,
-6,
-0,
-Math.PI*2
-);
-
-ctx.fill();
-
-ctx.fillStyle='#fff';
-
-ctx.beginPath();
-
-ctx.arc(
-closestPoint.x,
-closestPoint.y,
-2.5,
-0,
-Math.PI*2
-);
-
-ctx.fill();
-
-}
-
-
-/* ==========================================
-   X AXIS LABELS
-========================================== */
-
-axis.innerHTML='';
-
-const labelCount=
-window.innerWidth<=600
-?5
-:7;
-
-const labelIndices=[];
-
-for(
-let i=0;
-i<Math.min(labelCount,points.length);
-i++
-){
-
-const index=
-Math.round(
-i*
-(points.length-1)/
-(Math.min(labelCount,points.length)-1)
-);
-
-labelIndices.push(index);
-
-}
-
-[...new Set(labelIndices)].forEach(index=>{
-
-const span=
-document.createElement('span');
-
-span.textContent=
-formatHourlyTime(
-hourlyRainData[index].time
-);
-
-axis.appendChild(span);
-
-});
-
-}
-
-
-/* ==========================================
-   HOURLY GRAPH INTERACTION
-========================================== */
-
-function setupHourlyRainGraph(){
-
-const canvas=
-document.getElementById(
-'hourlyRainChart'
-);
-
-const tooltip=
-document.getElementById(
-'hourlyRainTooltip'
-);
-
-if(!canvas || !tooltip){
-return;
-}
-
-if(canvas.dataset.bound==='true'){
-
-drawHourlyRainGraph();
-
-return;
-
-}
-
-canvas.dataset.bound='true';
-
-
-const showPoint=(clientX)=>{
-
-if(!hourlyRainData.length){
-return;
-}
-
-const rect=
-canvas.getBoundingClientRect();
-
-const left=34;
-const right=10;
-
-const usableWidth=
-rect.width-left-right;
-
-let x=
-clientX-rect.left;
-
-x=
-Math.max(
-left,
-Math.min(
-rect.width-right,
-x
-)
-);
-
-const ratio=
-usableWidth>0
-?(x-left)/usableWidth
-:0;
-
-const index=
-Math.round(
-ratio*
-(hourlyRainData.length-1)
-);
-
-const entry=
-hourlyRainData[index];
-
-if(!entry){
-return;
-}
-
-const pointX=
-left+
-(index/(hourlyRainData.length-1))*
-usableWidth;
-
-tooltip.textContent=
-formatHourlyTime(entry.time)+
-' • '+
-formatRain(entry.value);
-
-tooltip.style.left=
-pointX+'px';
-
-tooltip.style.top=
-'30px';
-
-tooltip.style.display=
-'block';
-
-};
-
-
-canvas.addEventListener(
-'mousemove',
-event=>{
-
-showPoint(event.clientX);
-
-});
-
-
-canvas.addEventListener(
-'mouseleave',
-()=>{
-
-tooltip.style.display='none';
-
-});
-
-
-canvas.addEventListener(
-'touchstart',
-event=>{
-
-if(event.touches.length){
-
-showPoint(
-event.touches[0].clientX
-);
-
-}
-
-},
-{
-passive:true
-});
-
-
-canvas.addEventListener(
-'touchmove',
-event=>{
-
-if(event.touches.length){
-
-showPoint(
-event.touches[0].clientX
-);
-
-}
-
-},
-{
-passive:true
-});
-
-
-canvas.addEventListener(
-'touchend',
-()=>{
-
-setTimeout(()=>{
-
-tooltip.style.display='none';
-
-},1800);
-
-});
-
-
-window.addEventListener(
-'resize',
-()=>{
-
-if(
-document.getElementById(
-'weather'
-).style.display!=='none'
-){
-
-drawHourlyRainGraph();
-
-}
-
-});
-
-drawHourlyRainGraph();
-
-}
-
 
 async function loadWeather(){
 
@@ -3287,118 +3490,13 @@ throw new Error(
 
 weatherLoaded=true;
 
+weatherData=data;
 
-/* ==========================================
-   CURRENT WEATHER
-========================================== */
-
-const today=
-data.daily.time[0];
-
-const currentTemp=
-data.current.temperature_2m;
-
-const currentWind=
-data.current.wind_speed_10m;
-
-const high=
-data.daily.temperature_2m_max[0];
-
-const low=
-data.daily.temperature_2m_min[0];
-
-const rain=
-data.daily.precipitation_probability_max[0];
-
-
-document.getElementById(
-'weatherCurrentTemp'
-).textContent=
-formatTemp(currentTemp);
-
-
-document.getElementById(
-'weatherTodayDate'
-).textContent=
-formatWeatherDate(today);
-
-
-document.getElementById(
-'weatherHighLow'
-).textContent=
-formatTemp(high)+
-' / '+
-formatTemp(low);
-
-
-document.getElementById(
-'weatherCurrentWind'
-).textContent=
-formatWind(currentWind);
-
-
-document.getElementById(
-'weatherCurrentRain'
-).textContent=
-formatRain(rain);
+selectedWeatherDayIndex=0;
 
 
 /* ==========================================
-   HOURLY RAIN GRAPH
-========================================== */
-
-const todayHourlyIndices=[];
-
-data.hourly.time.forEach(
-(time,index)=>{
-
-if(
-String(time).slice(0,10)===
-today
-){
-
-todayHourlyIndices.push(index);
-
-}
-
-});
-
-
-hourlyRainData=
-todayHourlyIndices.map(index=>({
-
-time:data.hourly.time[index],
-
-value:data.hourly.precipitation_probability[index]
-
-}));
-
-
-if(!hourlyRainData.length){
-
-const graph=
-document.querySelector(
-'.hourly-rain-graph'
-);
-
-if(graph){
-
-graph.innerHTML=
-'<div class="weather-error">'+
-'Unable to load today’s hourly rain forecast.'+
-'</div>';
-
-}
-
-}else{
-
-setupHourlyRainGraph();
-
-}
-
-
-/* ==========================================
-   FORECAST
+   FORECAST LIST
 ========================================== */
 
 forecast.innerHTML=
@@ -3430,7 +3528,12 @@ data.daily.precipitation_probability_max[index];
 
 return `
 
-<div class="forecast-row ${index===0?'today':''}">
+<div
+class="forecast-row ${index===0?'today selected':''}"
+data-weather-day="${index}"
+role="button"
+tabindex="0"
+aria-label="View weather for ${escapeHtml(formatWeatherDate(date))}">
 
 <div>
 
@@ -3487,7 +3590,52 @@ ${formatRain(precipitation)}
 }).join('');
 
 
-}catch(error){
+document.querySelectorAll(
+'[data-weather-day]'
+).forEach(row=>{
+
+row.addEventListener(
+'click',
+()=>{
+
+selectWeatherDay(
+Number(row.dataset.weatherDay)
+);
+
+});
+
+row.addEventListener(
+'keydown',
+event=>{
+
+if(
+event.key==='Enter' ||
+event.key===' '
+){
+
+event.preventDefault();
+
+selectWeatherDay(
+Number(row.dataset.weatherDay)
+);
+
+}
+
+});
+
+});
+
+
+/* ==========================================
+   SHOW TODAY
+========================================== */
+
+updateWeatherHero(0);
+
+}
+
+
+catch(error){
 
 console.error(
 'Weather error:',
@@ -3496,24 +3644,30 @@ error
 
 weatherLoaded=false;
 
+weatherData=null;
+
 forecast.innerHTML=
 '<div class="weather-error">'+
 'Unable to load the Edinburgh forecast right now. '+
 'Tap Refresh to try again.'+
 '</div>';
 
-const graph=
-document.querySelector(
-'.hourly-rain-graph'
+const canvas=
+document.getElementById(
+'rainChart'
 );
 
-if(graph){
+if(canvas){
 
-graph.innerHTML=
-'<div class="weather-error">'+
-'Unable to load today’s hourly rain forecast right now. '+
-'Tap Refresh to try again.'+
-'</div>';
+const ctx=
+canvas.getContext('2d');
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
 }
 
@@ -3538,12 +3692,36 @@ document.getElementById(
 );
 
 button.disabled=true;
+
 button.textContent='Loading…';
 
 await loadWeather();
 
 button.disabled=false;
+
 button.textContent='↻ Refresh';
+
+});
+
+
+/* ==========================================
+   REDRAW CHART ON RESIZE
+========================================== */
+
+window.addEventListener(
+'resize',
+()=>{
+
+if(
+weatherLoaded &&
+weatherData
+){
+
+drawRainChartForDay(
+selectedWeatherDayIndex
+);
+
+}
 
 });
 
