@@ -63,8 +63,6 @@ main{padding:16px}
 .score-head h2{font:700 28px Georgia,serif;margin:4px 0}
 .score-body{padding:16px}
 
-.biglink{display:block;background:#07549a;color:#fff;text-decoration:none;text-align:center;border-radius:13px;padding:15px;font-weight:900}
-
 .people{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .person{border:1px solid #d4e2ee;border-radius:16px;padding:15px;background:#fff}
 .person h3{font:700 21px Georgia,serif;margin:0 0 3px}
@@ -323,12 +321,12 @@ padding-top:12px
 }
 
 .guinness-history-row{
-display:flex;
-justify-content:space-between;
+display:grid;
+grid-template-columns:1fr auto;
+align-items:center;
 gap:12px;
-padding:9px 0;
-border-bottom:1px solid #edf2f6;
-font-size:13px
+padding:11px 0;
+border-bottom:1px solid #edf2f6
 }
 
 .guinness-history-row:last-child{
@@ -342,7 +340,35 @@ color:#243f58
 
 .guinness-history-people{
 color:#647b8f;
-text-align:right
+text-align:right;
+font-size:13px
+}
+
+.guinness-history-actions{
+margin-top:6px;
+grid-column:1 / -1;
+display:flex;
+justify-content:flex-end
+}
+
+.guinness-delete{
+border:1px solid #e2c2c2;
+background:#fff;
+color:#a33b3b;
+border-radius:9px;
+padding:7px 9px;
+font-size:12px;
+font-weight:800;
+cursor:pointer
+}
+
+.guinness-delete:hover{
+background:#fff7f7
+}
+
+.guinness-delete:disabled{
+opacity:.6;
+cursor:wait
 }
 
 
@@ -784,8 +810,14 @@ text-align:center
 display:flex;
 justify-content:space-between;
 align-items:center;
-gap:10px;
-margin-bottom:14px
+gap:10px
+}
+
+.footer{
+padding:24px 16px;
+text-align:center;
+font-size:12px;
+color:#7a8ea0
 }
 
 @media(max-width:600px){
@@ -839,12 +871,11 @@ grid-template-columns:1fr 1fr
 }
 
 .guinness-history-row{
-display:block
+grid-template-columns:1fr auto
 }
 
 .guinness-history-people{
-text-align:left;
-margin-top:3px
+text-align:right
 }
 
 }
@@ -899,8 +930,6 @@ margin-top:3px
 <b>Flight</b>
 <span>Fly to Edinburgh</span>
 </div>
-
-<div class="links"></div>
 
 </div>
 </article>
@@ -1374,8 +1403,6 @@ margin-top:3px
 <span>Fly home</span>
 </div>
 
-<div class="links"></div>
-
 </div>
 </article>
 
@@ -1700,7 +1727,6 @@ Enter Dues
 
 <div id="duesContent" style="display:none">
 
-
 <div class="dues-intro">
 
 <h2>💰 Trip Dues</h2>
@@ -1962,7 +1988,6 @@ Zach’s Dirty 30 with the Lads • Built for the crew
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
 
 /* ==========================================
    SITE NAVIGATION
@@ -2387,6 +2412,8 @@ return `
 
 <div class="guinness-history-row">
 
+<div>
+
 <div class="guinness-history-date">
 ${escapeHtml(
 formatGuinnessDate(
@@ -2405,9 +2432,153 @@ shortName(person)
 
 </div>
 
+<div class="guinness-history-actions">
+
+<button
+class="guinness-delete"
+type="button"
+data-guinness-delete-id="${escapeHtml(log.id)}">
+🗑️ Delete
+</button>
+
+</div>
+
+</div>
+
 `;
 
 }).join('');
+
+
+document.querySelectorAll(
+'[data-guinness-delete-id]'
+).forEach(button=>{
+
+button.addEventListener(
+'click',
+()=>deleteGuinness(
+button.dataset.guinnessDeleteId,
+button
+)
+);
+
+});
+
+}
+
+
+/* ==========================================
+   DELETE INDIVIDUAL GUINNESS
+========================================== */
+
+async function deleteGuinness(
+guinnessId,
+button
+){
+
+const log=
+guinnessLogs.find(
+item=>String(item.id)===String(guinnessId)
+);
+
+if(!log)return;
+
+const people=
+Array.isArray(log.people)
+?log.people
+:[];
+
+const names=
+people.map(person=>shortName(person))
+.join(', ');
+
+const confirmed=
+window.confirm(
+'Delete this Guinness log for '+
+names+
+' on '+
+formatGuinnessDate(log.drink_date)+
+'?'
+);
+
+if(!confirmed)return;
+
+const pin=
+window.prompt(
+'Enter the Dues PIN to delete this Guinness log:'
+);
+
+if(pin===null)return;
+
+if(pin!==DUES_PIN){
+
+window.alert(
+'Incorrect PIN. Nothing was deleted.'
+);
+
+return;
+
+}
+
+button.disabled=true;
+button.textContent='Deleting…';
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'delete_guinness',
+{
+p_pin:DUES_PIN,
+p_id:guinnessId
+}
+);
+
+if(error){
+
+console.error(
+'Guinness delete error:',
+error
+);
+
+window.alert(
+'Unable to delete Guinness: '+
+(error.message||'Unknown error')
+);
+
+return;
+
+}
+
+if(!data){
+
+window.alert(
+'Guinness log could not be deleted.'
+);
+
+return;
+
+}
+
+await loadGuinness();
+
+}catch(error){
+
+console.error(
+'Guinness deletion connection error:',
+error
+);
+
+window.alert(
+'Unable to connect to the Guinness database.'
+);
+
+}finally{
+
+button.disabled=false;
+button.textContent='🗑️ Delete';
+
+}
 
 }
 
@@ -2697,10 +2868,6 @@ return '£'+Number(value).toFixed(2);
 
 function formatUSD(value){
 return '$'+Number(value).toFixed(2);
-}
-
-function shortName(person){
-return SHORT_NAMES[person]||person;
 }
 
 
@@ -3372,9 +3539,7 @@ renderSettlements(balances);
 function renderSettlements(balances){
 
 const creditors=[];
-
 const debtors=[];
-
 
 Object.entries(balances).forEach(
 ([person,balance])=>{
@@ -3408,13 +3573,10 @@ debtors.sort(
 (a,b)=>b.amount-a.amount
 );
 
-
 const settlements=[];
 
 let creditorIndex=0;
-
 let debtorIndex=0;
-
 
 while(
 creditorIndex<creditors.length &&
@@ -3432,7 +3594,6 @@ Math.min(
 creditor.amount,
 debtor.amount
 );
-
 
 if(amount>0.005){
 
@@ -3452,7 +3613,6 @@ formatMoney(amount);
 
 const venmoUsername=
 VENMO[creditor.person];
-
 
 if(venmoUsername){
 
@@ -3510,10 +3670,8 @@ ${gbpAmount} • ${escapeHtml(creditorName)} has no Venmo
 
 }
 
-
 creditor.amount-=amount;
 debtor.amount-=amount;
-
 
 if(creditor.amount<=0.005){
 creditorIndex++;
@@ -3525,12 +3683,10 @@ debtorIndex++;
 
 }
 
-
 const list=
 document.getElementById(
 'settlementList'
 );
-
 
 if(!settlements.length){
 
@@ -3542,7 +3698,6 @@ list.innerHTML=
 return;
 
 }
-
 
 list.innerHTML=
 settlements.join('');
@@ -3563,7 +3718,6 @@ if(
 )return;
 
 renderPurchases();
-
 renderBalances();
 
 }
@@ -3581,12 +3735,10 @@ async event=>{
 
 event.preventDefault();
 
-
 const description=
 document.getElementById(
 'purchaseDescription'
 ).value.trim();
-
 
 const amount=
 Number(
@@ -3595,18 +3747,15 @@ document.getElementById(
 ).value
 );
 
-
 const payer=
 document.getElementById(
 'purchasePayer'
 ).value;
 
-
 const date=
 document.getElementById(
 'purchaseDate'
 ).value;
-
 
 const selectedPeople=
 Array.from(
@@ -3617,7 +3766,6 @@ document.querySelectorAll(
 input=>input.value
 );
 
-
 const message=
 document.getElementById(
 'formMessage'
@@ -3625,7 +3773,6 @@ document.getElementById(
 
 message.textContent='';
 message.className='form-message';
-
 
 if(!description){
 
@@ -3635,7 +3782,6 @@ message.textContent=
 return;
 
 }
-
 
 if(
 !Number.isFinite(amount) ||
@@ -3649,7 +3795,6 @@ return;
 
 }
 
-
 if(!payer){
 
 message.textContent=
@@ -3658,7 +3803,6 @@ message.textContent=
 return;
 
 }
-
 
 if(selectedPeople.length===0){
 
@@ -3669,7 +3813,6 @@ return;
 
 }
 
-
 if(!selectedPeople.includes(payer)){
 
 message.textContent=
@@ -3679,16 +3822,13 @@ return;
 
 }
 
-
 const submitButton=
 document.querySelector(
 '#purchaseForm .primary-btn'
 );
 
 submitButton.disabled=true;
-
 submitButton.textContent='Saving…';
-
 
 try{
 
@@ -3705,7 +3845,6 @@ p_people:selectedPeople
 }
 );
 
-
 if(error){
 
 console.error(
@@ -3721,7 +3860,6 @@ return;
 
 }
 
-
 if(!data){
 
 message.textContent=
@@ -3731,14 +3869,11 @@ return;
 
 }
 
-
 document.getElementById(
 'purchaseForm'
 ).reset();
 
-
 updateSelectedCount();
-
 
 message.textContent=
 'Purchase logged successfully.';
@@ -3746,16 +3881,13 @@ message.textContent=
 message.className=
 'form-message success';
 
-
 await loadPurchases();
-
 
 setTimeout(()=>{
 
 message.textContent='';
 
 },2500);
-
 
 }catch(error){
 
@@ -3770,7 +3902,6 @@ message.textContent=
 }finally{
 
 submitButton.disabled=false;
-
 submitButton.textContent=
 '💰 Log Purchase';
 
@@ -3828,15 +3959,12 @@ document.getElementById(
 );
 
 button.disabled=true;
-
 button.textContent='Loading…';
 
 await loadPurchases();
-
 await loadFxRate();
 
 button.disabled=false;
-
 button.textContent='↻ Refresh';
 
 });
@@ -3858,13 +3986,11 @@ document.getElementById(
 );
 
 button.disabled=true;
-
 button.textContent='Loading…';
 
 await loadFxRate();
 
 button.disabled=false;
-
 button.textContent='↻ Refresh';
 
 });
@@ -3880,31 +4006,23 @@ document.getElementById(
 'click',
 async()=>{
 
-
 if(!purchases.length){
-
 return;
-
 }
-
 
 const confirmed=
 window.confirm(
 'Are you sure you want to delete every purchase from the Dues ledger?'
 );
 
-
 if(!confirmed)return;
-
 
 const pin=
 window.prompt(
 'Enter the Dues PIN to clear the ledger:'
 );
 
-
 if(pin===null)return;
-
 
 if(pin!==DUES_PIN){
 
@@ -3916,16 +4034,13 @@ return;
 
 }
 
-
 const button=
 document.getElementById(
 'clearPurchases'
 );
 
 button.disabled=true;
-
 button.textContent='Clearing…';
-
 
 try{
 
@@ -3936,7 +4051,6 @@ await supabaseClient.rpc(
 p_pin:DUES_PIN
 }
 );
-
 
 if(error){
 
@@ -3954,9 +4068,7 @@ return;
 
 }
 
-
 await loadPurchases();
-
 
 }catch(error){
 
@@ -3969,7 +4081,6 @@ window.alert(
 }finally{
 
 button.disabled=false;
-
 button.textContent='Clear All';
 
 }
@@ -3981,7 +4092,7 @@ button.textContent='Clear All';
    VENMO APP + FALLBACK
 ========================================== */
 
-function openVenmoApp(event, username, amount){
+function openVenmoApp(event,username,amount){
 
 if(event){
 event.preventDefault();
@@ -4075,7 +4186,6 @@ if(duesInitialized){
 if(isAuthenticated()){
 
 loadPurchases();
-
 loadFxRate();
 
 }
@@ -4084,28 +4194,22 @@ return;
 
 }
 
-
 duesInitialized=true;
-
 
 const today=
 todayString();
-
 
 document.getElementById(
 'purchaseDate'
 ).value=today;
 
-
 updateSelectedCount();
-
 
 if(isAuthenticated()){
 
 showDuesContent();
 
 loadPurchases();
-
 loadFxRate();
 
 }else{
