@@ -16,7 +16,8 @@ a{color:inherit}
 h1{font:700 44px Georgia,serif;margin:8px 0 4px}
 .hero p{margin:0;opacity:.82}
 
-.tabs{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #d7e5f1;padding:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+/* Tabs intentionally NOT sticky */
+.tabs{background:#fff;border-bottom:1px solid #d7e5f1;padding:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
 .tab{border:1px solid #cbdceb;background:#fff;border-radius:12px;padding:11px 6px;font-weight:800;color:#31516d;cursor:pointer}
 .tab.active{background:#07549a;color:#fff;border-color:#07549a}
 
@@ -102,8 +103,11 @@ main{padding:16px}
 
 .primary-btn{width:100%;border:0;border-radius:12px;background:#07549a;color:#fff;padding:14px;font-size:15px;font-weight:900;cursor:pointer}
 .primary-btn:hover{background:#064781}
+.primary-btn:disabled{opacity:.65;cursor:wait}
 
-.secondary-btn{border:1px solid #b9d0e2;background:#fff;color:#07549a;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer}
+.refresh-btn{border:1px solid #b9d0e2;background:#fff;color:#07549a;border-radius:10px;padding:9px 11px;font-weight:800;cursor:pointer}
+.refresh-btn:disabled{opacity:.6}
+
 .danger-btn{border:1px solid #e2c2c2;background:#fff;color:#a33b3b;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer}
 
 .form-message{margin-top:10px;font-size:13px;font-weight:700;color:#a33b3b}
@@ -141,9 +145,6 @@ main{padding:16px}
 .auth-error{color:#a33b3b;font-size:13px;font-weight:800;margin-top:10px;text-align:center}
 
 .dues-header-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-.dues-header-row h3{margin:0}
-
-.refresh-btn{border:1px solid #b9d0e2;background:#fff;color:#07549a;border-radius:10px;padding:9px 11px;font-weight:800;cursor:pointer}
 
 @media(max-width:600px){
 h1{font-size:37px}
@@ -635,7 +636,9 @@ Use Omio for the North Berwick / Edinburgh train.
 </main>
 
 <main id="cup" style="display:none">
+
 <div class="score">
+
 <div class="score-head">
 <div class="eyebrow">LIVE COMPETITION</div>
 <h2>Scotland Cup</h2>
@@ -643,9 +646,17 @@ Use Omio for the North Berwick / Edinburgh train.
 </div>
 
 <div class="score-body">
-<iframe src="https://app.squabbitgolf.com/w/tournament/TvY7fGicz?embed=leaderboard" width="100%" height="700" style="border:none;border-radius:12px;" title="Scotland Cup Live Leaderboard"></iframe>
+<iframe
+src="https://app.squabbitgolf.com/w/tournament/TvY7fGicz?embed=leaderboard"
+width="100%"
+height="700"
+style="border:none;border-radius:12px;"
+title="Scotland Cup Live Leaderboard">
+</iframe>
 </div>
+
 </div>
+
 </main>
 
 <main id="participants" style="display:none">
@@ -706,9 +717,11 @@ Handicaps, Venmo handles and the official scouting reports.
 </div>
 
 </div>
+
 </main>
 
 <!-- DUES -->
+
 <main id="dues" style="display:none">
 
 <div id="duesAuth">
@@ -748,6 +761,7 @@ Enter Dues
 </form>
 
 </div>
+
 </div>
 
 <div id="duesContent" style="display:none">
@@ -798,6 +812,7 @@ required
 <div class="form-row">
 
 <div class="form-group">
+
 <label for="purchasePayer">Who paid?</label>
 
 <select id="purchasePayer" required>
@@ -894,7 +909,7 @@ required
 
 <div class="balance-grid" id="balanceGrid"></div>
 
-<div class="settlement" id="settlementBox">
+<div class="settlement">
 <h4>Suggested Settlements</h4>
 <div id="settlementList"></div>
 </div>
@@ -929,8 +944,7 @@ required
 class="biglink"
 href="https://www.icloud.com/sharedalbum/#D1xv3dGuO_IN2ynUsMZ-02jds6wCAEQARogfPZtOWo4u45c4euVGsdFeB2b1EHD6vOLbyYe9Vkqlwk"
 target="_blank"
-rel="noopener"
->
+rel="noopener">
 Open Shared iCloud Album ↗
 </a>
 
@@ -949,7 +963,7 @@ Zach’s Dirty 30 with the Lads • Built for the crew
 <script>
 
 /* ==========================================
-   BASIC SITE NAVIGATION
+   SITE NAVIGATION
 ========================================== */
 
 document.querySelectorAll('.day-head').forEach(button=>{
@@ -990,15 +1004,19 @@ initializeDues();
    SUPABASE
 ========================================== */
 
-const SUPABASE_URL='https://rxkzcetitmuyztiqnkes.supabase.co';
+const SUPABASE_URL=
+'https://rxkzcetitmuyztiqnkes.supabase.co';
 
-const SUPABASE_ANON_KEY='sb_publishable_ohoPFPa1a5pi7sYeKyUuww_KSj08KUG';
+const SUPABASE_ANON_KEY=
+'sb_publishable_ohoPFPa1a5pi7sYeKyUuww_KSj08KUG';
 
 const DUES_PIN='1234';
 
-const DUES_AUTH_KEY='scotland2027_dues_authenticated';
+const DUES_AUTH_KEY=
+'scotland2027_dues_authenticated';
 
-const supabaseClient=window.supabase.createClient(
+const supabaseClient=
+window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_ANON_KEY
 );
@@ -1067,6 +1085,7 @@ document.getElementById('selectedCount').textContent=
 selected===1
 ?'1 person selected'
 :selected+' people selected';
+
 }
 
 
@@ -1075,34 +1094,30 @@ selected===1
 ========================================== */
 
 function isAuthenticated(){
-
 return localStorage.getItem(DUES_AUTH_KEY)==='true';
-
 }
 
 function showDuesContent(){
-
 document.getElementById('duesAuth').style.display='none';
-
 document.getElementById('duesContent').style.display='block';
-
 }
 
 function showDuesAuth(){
-
 document.getElementById('duesAuth').style.display='block';
-
 document.getElementById('duesContent').style.display='none';
-
 }
 
-document.getElementById('authForm').addEventListener('submit',event=>{
+document.getElementById('authForm')
+.addEventListener('submit',event=>{
 
 event.preventDefault();
 
-const pin=document.getElementById('duesPin').value.trim();
+const pin=
+document.getElementById('duesPin')
+.value.trim();
 
-const error=document.getElementById('authError');
+const error=
+document.getElementById('authError');
 
 if(pin!==DUES_PIN){
 
@@ -1114,7 +1129,10 @@ return;
 
 }
 
-localStorage.setItem(DUES_AUTH_KEY,'true');
+localStorage.setItem(
+DUES_AUTH_KEY,
+'true'
+);
 
 error.textContent='';
 
@@ -1128,44 +1146,59 @@ loadPurchases();
 
 
 /* ==========================================
-   LOAD PURCHASES
+   LOAD SHARED PURCHASES
 ========================================== */
 
 async function loadPurchases(){
 
-const history=document.getElementById('purchaseHistory');
+const history=
+document.getElementById('purchaseHistory');
 
 history.innerHTML=
 '<div class="empty-state">Loading purchases...</div>';
 
 try{
 
-const {data,error}=await supabaseClient
-.rpc('get_purchases',{
+const {data,error}=
+await supabaseClient.rpc(
+'get_purchases',
+{
 p_pin:DUES_PIN
-});
+}
+);
 
 if(error){
 
-console.error(error);
+console.error('Supabase get_purchases error:',error);
 
 history.innerHTML=
-'<div class="empty-state">Unable to load the shared ledger. Check the Supabase setup.</div>';
+'<div class="empty-state">'+
+'Unable to load the shared ledger.<br>'+
+'Please refresh and try again.'+
+'</div>';
 
 return;
 
 }
 
-purchases=Array.isArray(data)?data:[];
+purchases=
+Array.isArray(data)
+?data
+:[];
 
 renderDues();
 
 }catch(error){
 
-console.error(error);
+console.error(
+'Supabase connection error:',
+error
+);
 
 history.innerHTML=
-'<div class="empty-state">Unable to connect to the Dues database.</div>';
+'<div class="empty-state">'+
+'Unable to connect to the Dues database.'+
+'</div>';
 
 }
 
@@ -1173,51 +1206,61 @@ history.innerHTML=
 
 
 /* ==========================================
-   RENDER PURCHASE HISTORY
+   RENDER PURCHASES
 ========================================== */
 
 function renderPurchases(){
 
-const history=document.getElementById('purchaseHistory');
+const history=
+document.getElementById('purchaseHistory');
 
 if(!purchases.length){
 
 history.innerHTML=
-'<div class="empty-state">No purchases logged yet.</div>';
+'<div class="empty-state">'+
+'No purchases logged yet.'+
+'</div>';
 
 return;
 
 }
 
-const sorted=[...purchases].sort((a,b)=>{
+const sorted=
+[...purchases].sort((a,b)=>{
 
-return String(b.purchase_date).localeCompare(
-String(a.purchase_date)
-) ||
-String(b.created_at).localeCompare(
-String(a.created_at)
-);
+return String(b.purchase_date)
+.localeCompare(String(a.purchase_date))
+||
+String(b.created_at)
+.localeCompare(String(a.created_at));
 
 });
 
-history.innerHTML=sorted.map(purchase=>{
+history.innerHTML=
+sorted.map(purchase=>{
 
-const people=Array.isArray(purchase.people)
+const people=
+Array.isArray(purchase.people)
 ?purchase.people
 :[];
 
-const share=people.length
+const share=
+people.length
 ?Number(purchase.amount)/people.length
 :0;
 
-const dateDisplay=purchase.purchase_date
+const dateDisplay=
+purchase.purchase_date
 ?new Date(
 purchase.purchase_date+'T12:00:00'
-).toLocaleDateString('en-US',{
+).toLocaleDateString(
+'en-US',
+{
 month:'short',
 day:'numeric',
 year:'numeric'
-})
+}
+)
 :'Date not specified';
 
 return `
@@ -1234,8 +1277,10 @@ ${escapeHtml(purchase.description)}
 <div class="purchase-meta">
 ${escapeHtml(dateDisplay)}
 •
-Paid by ${escapeHtml(
-SHORT_NAMES[purchase.payer]||purchase.payer
+Paid by
+${escapeHtml(
+SHORT_NAMES[purchase.payer]
+||purchase.payer
 )}
 </div>
 
@@ -1250,7 +1295,9 @@ ${formatMoney(purchase.amount)}
 <div class="purchase-details">
 <b>Included:</b>
 ${people.map(person=>
-escapeHtml(SHORT_NAMES[person]||person)
+escapeHtml(
+SHORT_NAMES[person]||person
+)
 ).join(', ')}
 </div>
 
@@ -1267,7 +1314,7 @@ ${formatMoney(share)} per person
 
 
 /* ==========================================
-   CALCULATE BALANCES
+   BALANCES
 ========================================== */
 
 function calculateBalances(){
@@ -1280,15 +1327,18 @@ balances[person]=0;
 
 purchases.forEach(purchase=>{
 
-const people=Array.isArray(purchase.people)
+const people=
+Array.isArray(purchase.people)
 ?purchase.people
 :[];
 
 if(!people.length)return;
 
-const amount=Number(purchase.amount)||0;
+const amount=
+Number(purchase.amount)||0;
 
-const share=amount/people.length;
+const share=
+amount/people.length;
 
 if(
 Object.prototype.hasOwnProperty.call(
@@ -1329,13 +1379,16 @@ return balances;
 
 function renderBalances(){
 
-const balances=calculateBalances();
+const balances=
+calculateBalances();
 
-const grid=document.getElementById('balanceGrid');
+document.getElementById(
+'balanceGrid'
+).innerHTML=
+PEOPLE.map(person=>{
 
-grid.innerHTML=PEOPLE.map(person=>{
-
-const balance=balances[person];
+const balance=
+balances[person];
 
 let amountClass='even';
 
@@ -1381,7 +1434,7 @@ renderSettlements(balances);
 
 
 /* ==========================================
-   SIMPLIFY SETTLEMENTS
+   SETTLEMENTS
 ========================================== */
 
 function renderSettlements(balances){
@@ -1390,7 +1443,8 @@ const creditors=[];
 
 const debtors=[];
 
-Object.entries(balances).forEach(([person,balance])=>{
+Object.entries(balances).forEach(
+([person,balance])=>{
 
 if(balance>0.005){
 
@@ -1412,9 +1466,13 @@ amount:-balance
 
 });
 
-creditors.sort((a,b)=>b.amount-a.amount);
+creditors.sort(
+(a,b)=>b.amount-a.amount
+);
 
-debtors.sort((a,b)=>b.amount-a.amount);
+debtors.sort(
+(a,b)=>b.amount-a.amount
+);
 
 const settlements=[];
 
@@ -1427,11 +1485,14 @@ creditorIndex<creditors.length &&
 debtorIndex<debtors.length
 ){
 
-const creditor=creditors[creditorIndex];
+const creditor=
+creditors[creditorIndex];
 
-const debtor=debtors[debtorIndex];
+const debtor=
+debtors[debtorIndex];
 
-const amount=Math.min(
+const amount=
+Math.min(
 creditor.amount,
 debtor.amount
 );
@@ -1451,7 +1512,9 @@ SHORT_NAMES[creditor.person]
 )}</b>
 </span>
 
-<strong>${formatMoney(amount)}</strong>
+<strong>
+${formatMoney(amount)}
+</strong>
 
 </div>
 `);
@@ -1472,24 +1535,30 @@ debtorIndex++;
 
 }
 
-const list=document.getElementById('settlementList');
+const list=
+document.getElementById(
+'settlementList'
+);
 
 if(!settlements.length){
 
 list.innerHTML=
-'<div style="font-size:14px;color:#647b8f">Everyone is even. 🍻</div>';
+'<div style="font-size:14px;color:#647b8f">'+
+'Everyone is even. 🍻'+
+'</div>';
 
 return;
 
 }
 
-list.innerHTML=settlements.join('');
+list.innerHTML=
+settlements.join('');
 
 }
 
 
 /* ==========================================
-   RENDER EVERYTHING
+   RENDER DUES
 ========================================== */
 
 function renderDues(){
@@ -1505,24 +1574,35 @@ renderBalances();
    LOG PURCHASE
 ========================================== */
 
-document.getElementById('purchaseForm')
-.addEventListener('submit',async event=>{
+document.getElementById(
+'purchaseForm'
+).addEventListener(
+'submit',
+async event=>{
 
 event.preventDefault();
 
 const description=
-document.getElementById('purchaseDescription')
-.value.trim();
+document.getElementById(
+'purchaseDescription'
+).value.trim();
 
-const amount=Number(
-document.getElementById('purchaseAmount').value
+const amount=
+Number(
+document.getElementById(
+'purchaseAmount'
+).value
 );
 
 const payer=
-document.getElementById('purchasePayer').value;
+document.getElementById(
+'purchasePayer'
+).value;
 
 const date=
-document.getElementById('purchaseDate').value;
+document.getElementById(
+'purchaseDate'
+).value;
 
 const selectedPeople=
 Array.from(
@@ -1532,11 +1612,14 @@ document.querySelectorAll(
 ).map(input=>input.value);
 
 const message=
-document.getElementById('formMessage');
+document.getElementById(
+'formMessage'
+);
 
 message.textContent='';
 
-message.className='form-message';
+message.className=
+'form-message';
 
 if(!description){
 
@@ -1547,7 +1630,10 @@ return;
 
 }
 
-if(!Number.isFinite(amount)||amount<=0){
+if(
+!Number.isFinite(amount) ||
+amount<=0
+){
 
 message.textContent=
 'Enter a valid purchase amount.';
@@ -1590,32 +1676,51 @@ document.querySelector(
 
 submitButton.disabled=true;
 
-submitButton.textContent='Saving...';
+submitButton.textContent=
+'Saving...';
 
 try{
 
-const {error}=await supabaseClient
-.rpc('log_purchase',{
+const {data,error}=
+await supabaseClient.rpc(
+'log_purchase',
+{
 p_pin:DUES_PIN,
 p_description:description,
 p_amount:Math.round(amount*100)/100,
 p_payer:payer,
 p_purchase_date:date||null,
 p_people:selectedPeople
-});
+}
+);
 
 if(error){
 
-console.error(error);
+console.error(
+'Supabase log_purchase error:',
+error
+);
 
 message.textContent=
-'Could not save the purchase. Please try again.';
+'Could not save: '+
+(error.message||'Unknown database error');
 
 return;
 
 }
 
-document.getElementById('purchaseForm').reset();
+if(!data){
+
+message.textContent=
+'Purchase was not returned by the database.';
+
+return;
+
+}
+
+document.getElementById(
+'purchaseForm'
+).reset();
 
 updateSelectedCount();
 
@@ -1635,7 +1740,10 @@ message.textContent='';
 
 }catch(error){
 
-console.error(error);
+console.error(
+'Purchase connection error:',
+error
+);
 
 message.textContent=
 'Could not connect to the Dues database.';
@@ -1644,7 +1752,8 @@ message.textContent=
 
 submitButton.disabled=false;
 
-submitButton.textContent='💰 Log Purchase';
+submitButton.textContent=
+'💰 Log Purchase';
 
 }
 
@@ -1655,10 +1764,26 @@ submitButton.textContent='💰 Log Purchase';
    REFRESH
 ========================================== */
 
-document.getElementById('refreshDues')
-.addEventListener('click',async()=>{
+document.getElementById(
+'refreshDues'
+).addEventListener(
+'click',
+async()=>{
+
+const button=
+document.getElementById(
+'refreshDues'
+);
+
+button.disabled=true;
+
+button.textContent='Loading...';
 
 await loadPurchases();
+
+button.disabled=false;
+
+button.textContent='↻ Refresh';
 
 });
 
@@ -1667,8 +1792,11 @@ await loadPurchases();
    CLEAR ALL
 ========================================== */
 
-document.getElementById('clearPurchases')
-.addEventListener('click',async()=>{
+document.getElementById(
+'clearPurchases'
+).addEventListener(
+'click',
+async()=>{
 
 if(!purchases.length){
 
@@ -1676,13 +1804,15 @@ return;
 
 }
 
-const confirmed=window.confirm(
+const confirmed=
+window.confirm(
 'Are you sure you want to delete every purchase from the Dues ledger?'
 );
 
 if(!confirmed)return;
 
-const pin=window.prompt(
+const pin=
+window.prompt(
 'Enter the Dues PIN to clear the ledger:'
 );
 
@@ -1690,14 +1820,18 @@ if(pin===null)return;
 
 if(pin!==DUES_PIN){
 
-window.alert('Incorrect PIN. Nothing was deleted.');
+window.alert(
+'Incorrect PIN. Nothing was deleted.'
+);
 
 return;
 
 }
 
 const button=
-document.getElementById('clearPurchases');
+document.getElementById(
+'clearPurchases'
+);
 
 button.disabled=true;
 
@@ -1705,17 +1839,24 @@ button.textContent='Clearing...';
 
 try{
 
-const {error}=await supabaseClient
-.rpc('clear_purchases',{
+const {error}=
+await supabaseClient.rpc(
+'clear_purchases',
+{
 p_pin:DUES_PIN
-});
+}
+);
 
 if(error){
 
-console.error(error);
+console.error(
+'Supabase clear error:',
+error
+);
 
 window.alert(
-'Unable to clear the ledger. Please try again.'
+'Unable to clear the ledger: '+
+(error.message||'Unknown error')
 );
 
 return;
@@ -1749,15 +1890,26 @@ button.textContent='Clear All';
 
 function initializeDues(){
 
-if(duesInitialized)return;
+if(duesInitialized){
+
+if(isAuthenticated()){
+loadPurchases();
+}
+
+return;
+
+}
 
 duesInitialized=true;
 
-const today=new Date()
+const today=
+new Date()
 .toISOString()
 .slice(0,10);
 
-document.getElementById('purchaseDate').value=today;
+document.getElementById(
+'purchaseDate'
+).value=today;
 
 document.querySelectorAll(
 '.person-check input'
