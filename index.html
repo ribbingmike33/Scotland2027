@@ -1,2420 +1,4298 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#173f35">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Zach’s Dirty 30 with the Lads</title>
 
 <style>
-  :root{
-    --green:#173f35;
-    --green2:#24594a;
-    --cream:#f6f1e7;
-    --gold:#c7a85a;
-    --text:#1f2925;
-    --muted:#6f7772;
-    --white:#fff;
-    --border:#ded8cc;
-    --red:#9d3d35;
-  }
-
-  *{box-sizing:border-box}
-
-  body{
-    margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    background:var(--cream);
-    color:var(--text);
-    line-height:1.5;
-  }
-
-  header{
-    background:linear-gradient(135deg,var(--green),#0e2c25);
-    color:white;
-    padding:38px 20px 32px;
-    text-align:center;
-  }
-
-  header h1{
-    margin:0;
-    font-size:32px;
-    letter-spacing:-.5px;
-  }
-
-  header p{
-    margin:8px 0 0;
-    opacity:.82;
-    font-size:15px;
-  }
-
-  .trip-meta{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:20px;
-  }
-
-  .pill{
-    border:1px solid rgba(255,255,255,.22);
-    background:rgba(255,255,255,.08);
-    padding:7px 11px;
-    border-radius:999px;
-    font-size:13px;
-  }
-
-  nav{
-    background:white;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-  }
-
-  nav button{
-    flex:0 0 auto;
-    border:0;
-    background:none;
-    padding:15px 17px;
-    font-size:14px;
-    font-weight:700;
-    color:var(--muted);
-    cursor:pointer;
-  }
-
-  nav button.active{
-    color:var(--green);
-    box-shadow:inset 0 -3px 0 var(--gold);
-  }
-
-  main{
-    max-width:1000px;
-    margin:0 auto;
-    padding:22px 16px 50px;
-  }
-
-  .tab{
-    display:none;
-  }
-
-  .tab.active{
-    display:block;
-  }
-
-  .section-title{
-    margin:0 0 5px;
-    color:var(--green);
-    font-size:25px;
-  }
-
-  .section-subtitle{
-    margin:0 0 20px;
-    color:var(--muted);
-    font-size:14px;
-  }
-
-  .card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:18px;
-    margin-bottom:15px;
-    box-shadow:0 2px 8px rgba(0,0,0,.035);
-  }
-
-  .day-card{
-    padding:0;
-    overflow:hidden;
-  }
-
-  .day-head{
-    background:var(--green);
-    color:white;
-    padding:15px 17px;
-  }
-
-  .day-head strong{
-    font-size:17px;
-  }
-
-  .day-body{
-    padding:17px;
-  }
-
-  .event{
-    padding:0 0 17px;
-    margin:0 0 17px;
-    border-bottom:1px solid #eee9df;
-  }
-
-  .event:last-child{
-    margin-bottom:0;
-    padding-bottom:0;
-    border-bottom:0;
-  }
-
-  .time{
-    font-size:12px;
-    color:var(--gold);
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:.5px;
-  }
-
-  .event h3{
-    margin:3px 0 5px;
-    font-size:17px;
-  }
-
-  .event p{
-    margin:3px 0;
-    font-size:14px;
-  }
-
-  .muted{
-    color:var(--muted);
-  }
-
-  .link-row{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:9px;
-  }
-
-  .link-pair{
-    display:flex;
-    flex-wrap:nowrap;
-    gap:6px;
-    align-items:center;
-    margin-top:8px;
-  }
-
-  .link{
-    display:inline-block;
-    background:#eef3f0;
-    color:var(--green);
-    text-decoration:none;
-    padding:8px 11px;
-    border-radius:9px;
-    font-size:13px;
-    font-weight:700;
-  }
-
-  .link:hover{
-    background:#e2ebe6;
-  }
-
-  .btn{
-    border:0;
-    border-radius:10px;
-    padding:10px 14px;
-    font-size:14px;
-    font-weight:800;
-    cursor:pointer;
-  }
-
-  .btn-primary{
-    background:var(--green);
-    color:white;
-  }
-
-  .btn-secondary{
-    background:#eef3f0;
-    color:var(--green);
-  }
-
-  .btn-danger{
-    background:#f8e9e7;
-    color:var(--red);
-  }
-
-  .btn:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-  }
-
-  .flight{
-    display:grid;
-    grid-template-columns:1fr auto;
-    gap:8px;
-    padding:10px 0;
-    border-bottom:1px solid #eee9df;
-  }
-
-  .flight:last-child{
-    border-bottom:0;
-  }
-
-  .flight-name{
-    font-weight:700;
-  }
-
-  .small{
-    font-size:12px;
-    color:var(--muted);
-  }
-
-  .people-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:9px;
-  }
-
-  .person-check{
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:10px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background:#faf9f6;
-  }
-
-  .person-check input{
-    width:18px;
-    height:18px;
-  }
-
-  .form-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
-  }
-
-  .field{
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-  }
-
-  .field.full{
-    grid-column:1/-1;
-  }
-
-  label{
-    font-size:12px;
-    font-weight:800;
-    color:var(--green);
-    text-transform:uppercase;
-    letter-spacing:.35px;
-  }
-
-  input,select{
-    width:100%;
-    border:1px solid var(--border);
-    border-radius:9px;
-    padding:10px;
-    font:inherit;
-    background:white;
-  }
-
-  .notice{
-    border-left:4px solid var(--gold);
-    background:#fbf7ec;
-    padding:12px 14px;
-    border-radius:8px;
-    margin-top:12px;
-    font-size:14px;
-  }
-
-  .center{
-    text-align:center;
-  }
-
-  .scotland-frame{
-    width:100%;
-    min-height:700px;
-    border:0;
-    border-radius:12px;
-  }
-
-  .participant-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
-  }
-
-  .participant{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:13px;
-    padding:15px;
-  }
-
-  .participant h3{
-    margin:0 0 4px;
-    color:var(--green);
-  }
-
-  .participant p{
-    margin:2px 0;
-    font-size:13px;
-  }
-
-  /* Guinness */
-  .guinness-hero{
-    background:linear-gradient(135deg,#173f35,#0e2c25);
-    color:white;
-    border-radius:16px;
-    padding:24px 20px;
-    margin-bottom:16px;
-    text-align:center;
-  }
-
-  .guinness-hero .eyebrow{
-    text-transform:uppercase;
-    font-size:11px;
-    letter-spacing:1.2px;
-    opacity:.7;
-    font-weight:800;
-  }
-
-  .guinness-total{
-    font-size:48px;
-    line-height:1;
-    font-weight:900;
-    margin:8px 0 3px;
-  }
-
-  .guinness-total-label{
-    opacity:.8;
-    font-size:13px;
-  }
-
-  .leaderboard{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-  }
-
-  .leader-row{
-    display:grid;
-    grid-template-columns:32px 1fr auto;
-    align-items:center;
-    gap:10px;
-    padding:11px 12px;
-    border:1px solid var(--border);
-    border-radius:11px;
-    background:#faf9f6;
-  }
-
-  .leader-rank{
-    width:28px;
-    height:28px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:50%;
-    background:#e9eee9;
-    color:var(--green);
-    font-size:12px;
-    font-weight:900;
-  }
-
-  .leader-name{
-    font-weight:800;
-  }
-
-  .leader-count{
-    color:var(--green);
-    font-size:19px;
-    font-weight:900;
-  }
-
-  .guinness-log{
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    align-items:center;
-    padding:12px 0;
-    border-bottom:1px solid #eee9df;
-  }
-
-  .guinness-log:last-child{
-    border-bottom:0;
-  }
-
-  .guinness-log-people{
-    font-weight:700;
-  }
-
-  .empty-state{
-    padding:20px;
-    text-align:center;
-    color:var(--muted);
-    background:#faf9f6;
-    border-radius:10px;
-  }
-
-  .error-state{
-    padding:15px;
-    border-radius:10px;
-    background:#fbeceb;
-    color:#7f302a;
-    border:1px solid #e8c7c4;
-    font-size:13px;
-    overflow-wrap:anywhere;
-  }
-
-  /* Dues */
-  .balance-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:10px;
-  }
-
-  .balance{
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:13px;
-    background:#faf9f6;
-  }
-
-  .balance-name{
-    font-weight:800;
-  }
-
-  .balance-number{
-    font-size:20px;
-    font-weight:900;
-    color:var(--green);
-    margin-top:3px;
-  }
-
-  .purchase{
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:13px;
-    margin-bottom:10px;
-  }
-
-  .purchase-top{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-  }
-
-  .purchase-title{
-    font-weight:900;
-  }
-
-  .purchase-amount{
-    color:var(--green);
-    font-weight:900;
-  }
-
-  .purchase-meta{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:3px;
-  }
-
-  .purchase-people{
-    margin-top:8px;
-    font-size:13px;
-  }
-
-  .purchase-actions{
-    margin-top:10px;
-  }
-
-  .settlement{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    padding:10px 0;
-    border-bottom:1px solid #eee9df;
-  }
-
-  .settlement:last-child{
-    border-bottom:0;
-  }
-
-  footer{
-    text-align:center;
-    padding:30px 15px 45px;
-    color:var(--muted);
-    font-size:12px;
-  }
-
-  @media(max-width:650px){
-    header h1{
-      font-size:26px;
-    }
-
-    .form-grid,
-    .participant-grid,
-    .balance-grid{
-      grid-template-columns:1fr;
-    }
-
-    .people-grid{
-      grid-template-columns:1fr 1fr;
-    }
-
-    .scotland-frame{
-      min-height:600px;
-    }
-  }
-
-  @media(max-width:430px){
-    .people-grid{
-      grid-template-columns:1fr;
-    }
-
-    nav button{
-      padding:14px 13px;
-      font-size:13px;
-    }
-  }
+*{box-sizing:border-box}
+body{margin:0;background:#f7fbff;color:#10253d;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.app{max-width:900px;margin:auto;background:#fff;min-height:100vh}
+a{color:inherit}
+
+.hero{background:#07549a;color:#fff;padding:30px 22px 26px}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.18em;opacity:.8}
+h1{font:700 44px Georgia,serif;margin:8px 0 4px}
+.hero p{margin:0;opacity:.82}
+
+.tabs{background:#fff;border-bottom:1px solid #d7e5f1;padding:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.tab{border:1px solid #cbdceb;background:#fff;border-radius:12px;padding:11px 6px;font-weight:800;color:#31516d;cursor:pointer}
+.tab.active{background:#07549a;color:#fff;border-color:#07549a}
+
+main{padding:16px}
+
+.base,.notice{background:#eef6fc;border:1px solid #d4e4f1;border-radius:16px;padding:15px;margin-bottom:12px}
+.base b,.notice b{color:#07549a}
+
+.day{border:1px solid #d4e2ee;border-radius:16px;margin:10px 0;overflow:hidden;background:#fff}
+.day-head{width:100%;border:0;background:#fff;text-align:left;padding:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.day.open .day-head{background:#f2f8fd}
+.tag{font-size:10px;font-weight:900;letter-spacing:.12em;color:#07549a}
+.day h2{font:700 23px Georgia,serif;margin:4px 0 2px}
+.date{font-size:13px;color:#6d8194}
+.arrow{font-size:24px;color:#07549a;transition:.2s}
+.day.open .arrow{transform:rotate(180deg)}
+.day-body{display:none;border-top:1px solid #dbe7f0;padding:15px}
+.day.open .day-body{display:block}
+
+.info{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf2f6;font-size:14px}
+.info span{text-align:right;color:#51677c}
+
+.arrival-list{margin:12px 0}
+.arrival-person{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf2f6}
+.arrival-person:last-child{border-bottom:0}
+.arrival-name{font-weight:800;color:#243f58}
+.arrival-details{text-align:right;font-size:13px;color:#51677c;line-height:1.6}
+.arrival-details b{color:#07549a}
+
+.teegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
+.tee{background:#eef6fc;border:1px solid #d5e5f2;border-radius:14px;padding:13px}
+.tee-time{font-size:18px;font-weight:900;color:#07549a;margin-bottom:7px}
+.players{font-size:14px;line-height:1.7;color:#243f58}
+
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.link-pair{display:flex;gap:8px;flex-wrap:nowrap;align-items:stretch}
+.link{display:inline-block;text-decoration:none;border:1px solid #b9d0e2;background:#fff;border-radius:11px;padding:11px 13px;color:#07549a;font-weight:800;font-size:13px;white-space:nowrap}
+.link:hover{background:#eef6fc}
+.directions{border-color:#07549a;background:#07549a;color:#fff}
+.directions:hover{background:#064781}
+
+.score{border:1px solid #d4e2ee;border-radius:18px;overflow:hidden}
+.score-head{background:#07549a;color:#fff;padding:18px}
+.score-head h2{font:700 28px Georgia,serif;margin:4px 0}
+.score-body{padding:16px}
+
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.person{border:1px solid #d4e2ee;border-radius:16px;padding:15px;background:#fff}
+.person h3{font:700 21px Georgia,serif;margin:0 0 3px}
+.meta{font-size:13px;color:#647b8f}
+.person p{font-size:14px;line-height:1.55;margin:12px 0 0;color:#263f56}
+
+
+/* ==========================================
+   GUINNESS TRACKER
+========================================== */
+
+.guinness-hero{
+background:#2f2118;
+color:#fff;
+border-radius:18px;
+padding:22px;
+margin-bottom:14px;
+text-align:center
+}
+
+.guinness-icon{
+font-size:46px;
+line-height:1
+}
+
+.guinness-label{
+font-size:11px;
+font-weight:900;
+letter-spacing:.16em;
+opacity:.75;
+margin-top:10px
+}
+
+.guinness-total{
+font:700 54px Georgia,serif;
+margin:2px 0
+}
+
+.guinness-total-label{
+font-size:14px;
+opacity:.8
+}
+
+.guinness-log-btn{
+width:100%;
+border:0;
+border-radius:13px;
+background:#07549a;
+color:#fff;
+padding:15px;
+font-size:16px;
+font-weight:900;
+cursor:pointer;
+margin-bottom:14px
+}
+
+.guinness-log-btn:hover{
+background:#064781
+}
+
+.guinness-card{
+border:1px solid #d4e2ee;
+border-radius:16px;
+background:#fff;
+padding:17px;
+margin-bottom:14px
+}
+
+.guinness-card h3{
+font:700 23px Georgia,serif;
+margin:0 0 14px;
+color:#10253d
+}
+
+.guinness-form{
+background:#f7fbff;
+border:1px solid #d4e4f1;
+border-radius:14px;
+padding:15px;
+margin-bottom:14px
+}
+
+.guinness-form label{
+display:block;
+font-size:12px;
+font-weight:900;
+color:#31516d;
+margin-bottom:6px
+}
+
+.guinness-form input[type="date"]{
+width:100%;
+min-height:46px;
+border:1px solid #cbdceb;
+border-radius:11px;
+background:#fff;
+padding:10px 12px;
+font-size:16px;
+color:#10253d;
+margin-bottom:14px
+}
+
+.guinness-form input[type="date"]:focus{
+outline:3px solid #d9ebfa;
+border-color:#07549a
+}
+
+.guinness-people{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+margin-top:7px
+}
+
+.guinness-check{
+position:relative
+}
+
+.guinness-check input{
+position:absolute;
+opacity:0;
+width:1px;
+height:1px
+}
+
+.guinness-check label{
+display:block;
+border:1px solid #cbdceb;
+border-radius:11px;
+padding:12px 10px;
+font-size:14px;
+font-weight:800;
+color:#31516d;
+background:#fff;
+cursor:pointer;
+text-align:center
+}
+
+.guinness-check input:checked+label{
+background:#2f2118;
+border-color:#2f2118;
+color:#fff
+}
+
+.guinness-check input:focus+label{
+outline:3px solid #d9ebfa
+}
+
+.guinness-selected{
+font-size:12px;
+color:#647b8f;
+margin:8px 0 13px
+}
+
+.guinness-submit{
+width:100%;
+border:0;
+border-radius:12px;
+background:#07549a;
+color:#fff;
+padding:14px;
+font-size:15px;
+font-weight:900;
+cursor:pointer
+}
+
+.guinness-submit:disabled{
+opacity:.65;
+cursor:wait
+}
+
+.guinness-message{
+margin-top:10px;
+font-size:13px;
+font-weight:700;
+color:#a33b3b
+}
+
+.guinness-message.success{
+color:#277044
+}
+
+.leaderboard{
+display:flex;
+flex-direction:column;
+gap:8px
+}
+
+.leader-row{
+display:grid;
+grid-template-columns:40px 1fr auto;
+align-items:center;
+gap:10px;
+border:1px solid #d4e2ee;
+border-radius:13px;
+padding:12px 13px;
+background:#fff
+}
+
+.leader-rank{
+font-size:20px;
+font-weight:900;
+color:#647b8f;
+text-align:center
+}
+
+.leader-row:first-child .leader-rank{
+color:#c28b25
+}
+
+.leader-name{
+font-weight:900;
+color:#243f58
+}
+
+.leader-count{
+font-size:21px;
+font-weight:900;
+color:#07549a;
+text-align:right
+}
+
+.leader-count-label{
+font-size:11px;
+color:#71869a;
+font-weight:700;
+margin-left:3px
+}
+
+.guinness-refresh{
+border:1px solid #b9d0e2;
+background:#fff;
+color:#07549a;
+border-radius:10px;
+padding:9px 11px;
+font-weight:800;
+cursor:pointer
+}
+
+.guinness-refresh:disabled{
+opacity:.6
+}
+
+.guinness-header-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:14px
+}
+
+.guinness-history{
+border-top:1px solid #edf2f6;
+margin-top:14px;
+padding-top:12px
+}
+
+.guinness-history-row{
+display:grid;
+grid-template-columns:1fr auto;
+align-items:center;
+gap:12px;
+padding:11px 0;
+border-bottom:1px solid #edf2f6
+}
+
+.guinness-history-row:last-child{
+border-bottom:0
+}
+
+.guinness-history-date{
+font-weight:800;
+color:#243f58
+}
+
+.guinness-history-people{
+color:#647b8f;
+text-align:right;
+font-size:13px
+}
+
+.guinness-history-actions{
+margin-top:6px;
+grid-column:1 / -1;
+display:flex;
+justify-content:flex-end
+}
+
+.guinness-delete{
+border:1px solid #e2c2c2;
+background:#fff;
+color:#a33b3b;
+border-radius:9px;
+padding:7px 9px;
+font-size:12px;
+font-weight:800;
+cursor:pointer
+}
+
+.guinness-delete:hover{
+background:#fff7f7
+}
+
+.guinness-delete:disabled{
+opacity:.6;
+cursor:wait
+}
+
+
+/* ==========================================
+   DUES
+========================================== */
+
+.dues-intro{
+background:#eef6fc;
+border:1px solid #d4e4f1;
+border-radius:16px;
+padding:16px;
+margin-bottom:14px
+}
+
+.dues-intro h2{
+font:700 27px Georgia,serif;
+margin:0 0 5px;
+color:#10253d
+}
+
+.dues-intro p{
+margin:0;
+color:#51677c;
+font-size:14px;
+line-height:1.5
+}
+
+.fx-card{
+background:#07549a;
+color:#fff;
+border-radius:16px;
+padding:17px;
+margin-bottom:14px
+}
+
+.fx-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px
+}
+
+.fx-title{
+font-size:12px;
+font-weight:900;
+letter-spacing:.12em;
+opacity:.8
+}
+
+.fx-rate{
+font:700 29px Georgia,serif;
+margin-top:4px
+}
+
+.fx-sub{
+font-size:12px;
+opacity:.8;
+margin-top:4px
+}
+
+.fx-refresh{
+border:1px solid rgba(255,255,255,.45);
+background:rgba(255,255,255,.12);
+color:#fff;
+border-radius:10px;
+padding:9px 11px;
+font-weight:800;
+cursor:pointer;
+white-space:nowrap
+}
+
+.fx-example{
+margin-top:13px;
+background:rgba(255,255,255,.12);
+border-radius:11px;
+padding:10px 12px;
+font-size:13px
+}
+
+.dues-card{
+border:1px solid #d4e2ee;
+border-radius:16px;
+background:#fff;
+padding:17px;
+margin-bottom:14px
+}
+
+.dues-card h3{
+font:700 22px Georgia,serif;
+margin:0 0 14px;
+color:#10253d
+}
+
+.form-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px
+}
+
+.form-group{margin-bottom:13px}
+
+.form-group label{
+display:block;
+font-size:12px;
+font-weight:900;
+color:#31516d;
+margin-bottom:6px
+}
+
+.form-group input,.form-group select{
+width:100%;
+min-height:46px;
+border:1px solid #cbdceb;
+border-radius:11px;
+background:#fff;
+padding:10px 12px;
+font-size:16px;
+color:#10253d
+}
+
+.form-group input:focus,.form-group select:focus{
+outline:3px solid #d9ebfa;
+border-color:#07549a
+}
+
+.people-select{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+margin-top:7px
+}
+
+.person-check{position:relative}
+
+.person-check input{
+position:absolute;
+opacity:0;
+width:1px;
+height:1px
+}
+
+.person-check label{
+display:block;
+border:1px solid #cbdceb;
+border-radius:11px;
+padding:11px 10px;
+font-size:14px;
+font-weight:800;
+color:#31516d;
+background:#fff;
+cursor:pointer;
+text-align:center
+}
+
+.person-check input:checked+label{
+background:#07549a;
+border-color:#07549a;
+color:#fff
+}
+
+.person-check input:focus+label{
+outline:3px solid #d9ebfa
+}
+
+.selected-count{
+font-size:12px;
+color:#647b8f;
+margin:8px 0 13px
+}
+
+.primary-btn{
+width:100%;
+border:0;
+border-radius:12px;
+background:#07549a;
+color:#fff;
+padding:14px;
+font-size:15px;
+font-weight:900;
+cursor:pointer
+}
+
+.primary-btn:hover{background:#064781}
+.primary-btn:disabled{opacity:.65;cursor:wait}
+
+.refresh-btn{
+border:1px solid #b9d0e2;
+background:#fff;
+color:#07549a;
+border-radius:10px;
+padding:9px 11px;
+font-weight:800;
+cursor:pointer
+}
+
+.refresh-btn:disabled{opacity:.6}
+
+.danger-btn{
+border:1px solid #e2c2c2;
+background:#fff;
+color:#a33b3b;
+border-radius:10px;
+padding:10px 12px;
+font-weight:800;
+cursor:pointer
+}
+
+.delete-btn{
+border:1px solid #e2c2c2;
+background:#fff;
+color:#a33b3b;
+border-radius:9px;
+padding:7px 9px;
+font-size:12px;
+font-weight:800;
+cursor:pointer;
+white-space:nowrap
+}
+
+.delete-btn:disabled{
+opacity:.6;
+cursor:wait
+}
+
+.form-message{
+margin-top:10px;
+font-size:13px;
+font-weight:700;
+color:#a33b3b
+}
+
+.form-message.success{color:#277044}
+
+.balance-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
+}
+
+.balance{
+border:1px solid #d4e2ee;
+border-radius:14px;
+padding:13px;
+background:#fff
+}
+
+.balance-name{
+font-weight:900;
+color:#243f58
+}
+
+.balance-amount{
+font-size:20px;
+font-weight:900;
+margin-top:4px
+}
+
+.balance-amount.owed{color:#a33b3b}
+.balance-amount.owedto{color:#277044}
+.balance-amount.even{color:#647b8f}
+
+.balance-gbp{
+font-size:12px;
+color:#71869a;
+margin-top:3px
+}
+
+.settlement{
+background:#eef6fc;
+border:1px solid #d4e4f1;
+border-radius:14px;
+padding:14px;
+margin-top:12px
+}
+
+.settlement h4{
+margin:0 0 8px;
+color:#07549a;
+font-size:15px
+}
+
+.settlement-link{
+display:block;
+text-decoration:none;
+background:#fff;
+border:1px solid #cbdceb;
+border-radius:11px;
+padding:12px;
+margin-bottom:8px;
+color:#07549a;
+font-weight:900
+}
+
+.settlement-link:hover{
+background:#f4faff;
+border-color:#07549a
+}
+
+.settlement-main{
+font-size:15px
+}
+
+.settlement-usd{
+font-size:19px;
+margin-top:2px
+}
+
+.settlement-gbp{
+font-size:12px;
+color:#71869a;
+margin-top:2px
+}
+
+.settlement-plain{
+background:#fff;
+border:1px solid #d4e2ee;
+border-radius:11px;
+padding:12px;
+margin-bottom:8px
+}
+
+.purchase{
+border:1px solid #d4e2ee;
+border-radius:14px;
+padding:14px;
+margin-bottom:10px;
+background:#fff
+}
+
+.purchase:last-child{margin-bottom:0}
+
+.purchase-top{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:10px
+}
+
+.purchase-name{
+font-weight:900;
+color:#243f58;
+font-size:16px
+}
+
+.purchase-total{
+font-size:19px;
+font-weight:900;
+color:#07549a;
+white-space:nowrap
+}
+
+.purchase-meta{
+font-size:12px;
+color:#71869a;
+margin-top:3px
+}
+
+.purchase-details{
+margin-top:9px;
+font-size:13px;
+color:#51677c;
+line-height:1.55
+}
+
+.purchase-share{
+margin-top:7px;
+font-size:13px;
+font-weight:800;
+color:#31516d
+}
+
+.purchase-usd{
+font-size:13px;
+font-weight:800;
+color:#277044;
+margin-top:3px
+}
+
+.purchase-actions{
+display:flex;
+justify-content:flex-end;
+margin-top:10px
+}
+
+.empty-state{
+text-align:center;
+color:#71869a;
+padding:18px 10px;
+font-size:14px
+}
+
+.auth-card{
+max-width:430px;
+margin:20px auto;
+border:1px solid #d4e2ee;
+border-radius:18px;
+padding:22px;
+background:#fff
+}
+
+.auth-card h2{
+font:700 28px Georgia,serif;
+margin:0 0 7px
+}
+
+.auth-card p{
+color:#647b8f;
+font-size:14px;
+line-height:1.5;
+margin:0 0 17px
+}
+
+.auth-card input{
+width:100%;
+min-height:50px;
+border:1px solid #cbdceb;
+border-radius:11px;
+padding:10px 14px;
+font-size:20px;
+text-align:center;
+letter-spacing:.2em
+}
+
+.auth-card input:focus{
+outline:3px solid #d9ebfa;
+border-color:#07549a
+}
+
+.auth-error{
+color:#a33b3b;
+font-size:13px;
+font-weight:800;
+margin-top:10px;
+text-align:center
+}
+
+.dues-header-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px
+}
+
+.footer{
+padding:24px 16px;
+text-align:center;
+font-size:12px;
+color:#7a8ea0
+}
+
+@media(max-width:600px){
+
+h1{font-size:37px}
+
+.tabs{grid-template-columns:repeat(2,1fr)}
+
+.teegrid,.people{grid-template-columns:1fr}
+
+.info{display:block}
+
+.info span{
+display:block;
+text-align:left;
+margin-top:3px
+}
+
+.arrival-person{align-items:flex-start}
+
+.arrival-details{text-align:right}
+
+.link-pair{width:100%}
+
+.link-pair .link:first-child{flex:1}
+
+.link-pair .directions{flex:0 0 auto}
+
+.form-row{grid-template-columns:1fr}
+
+.people-select{grid-template-columns:1fr 1fr}
+
+.balance-grid{grid-template-columns:1fr}
+
+.purchase-top{align-items:flex-start}
+
+.purchase-total{font-size:17px}
+
+.dues-header-row{align-items:flex-start}
+
+.fx-top{align-items:flex-start}
+
+.fx-rate{font-size:25px}
+
+.guinness-total{
+font-size:48px
+}
+
+.guinness-people{
+grid-template-columns:1fr 1fr
+}
+
+.guinness-history-row{
+grid-template-columns:1fr auto
+}
+
+.guinness-history-people{
+text-align:right
+}
+
+}
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Zach’s Dirty 30 with the Lads</h1>
-  <p>Scotland Golf Trip • June 11–19, 2027</p>
+<div class="app">
 
-  <div class="trip-meta">
-    <span class="pill">📍 Edinburgh Base</span>
-    <span class="pill">👥 8 Golfers</span>
-    <span class="pill">⛳ 6 Rounds</span>
-  </div>
+<header class="hero">
+<div class="eyebrow">SCOTLAND • 2027</div>
+<h1>Zach’s Dirty 30 with the Lads</h1>
+<p>June 11–19 • Edinburgh base • 8 golfers • 6 golf rounds</p>
 </header>
 
-<nav id="tabs">
-  <button class="active" data-tab="itinerary">Itinerary</button>
-  <button data-tab="cup">Scotland Cup</button>
-  <button data-tab="participants">Participants</button>
-  <button data-tab="guinness">Guinness</button>
-  <button data-tab="dues">Dues</button>
+<nav class="tabs">
+<button class="tab active" data-tab="itinerary">📅 Itinerary</button>
+<button class="tab" data-tab="cup">🏆 Scotland Cup</button>
+<button class="tab" data-tab="participants">👥 Participants</button>
+<button class="tab" data-tab="guinness">🍺 Guinness</button>
+<button class="tab" data-tab="dues">💰 Dues</button>
 </nav>
 
-<main>
-
-<!-- ITINERARY -->
-<section id="itinerary" class="tab active">
-
-  <h2 class="section-title">Itinerary</h2>
-  <p class="section-subtitle">
-    Edinburgh base: 26 Dublin Street Lane South, Edinburgh EH1 3PX
-  </p>
-
-  <div class="card day-card">
-    <div class="day-head">
-      <strong>Friday, June 11 — Arrival in Edinburgh</strong>
-    </div>
-
-    <div class="day-body">
-
-      <div class="event">
-        <div class="time">Arrival</div>
-        <h3>Get settled in Edinburgh</h3>
-        <p>Check into the house and get ready for the week.</p>
-      </div>
-
-      <div class="event">
-        <div class="time">Evening</div>
-        <h3>Drinks & Dinner</h3>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=The+Ox+Edinburgh" target="_blank" rel="noopener">
-            🍽️ The Ox
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=The+Ox+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=Kays+Bar+Edinburgh" target="_blank" rel="noopener">
-            🍺 Kay’s Bar
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=Kays+Bar+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-  <div class="card day-card">
-    <div class="day-head">
-      <strong>Saturday, June 12 — Edinburgh</strong>
-    </div>
-
-    <div class="day-body">
-
-      <div class="event">
-        <div class="time">Arrivals</div>
-        <h3>Flight Information</h3>
-
-        <div class="flight">
-          <div>
-            <div class="flight-name">Mike Ribbing</div>
-            <div class="small">Flight: TBD</div>
-          </div>
-          <div class="small">Arrival: TBD</div>
-        </div>
-
-        <div class="flight">
-          <div>
-            <div class="flight-name">Tom Chung</div>
-            <div class="small">Flight: TBD</div>
-          </div>
-          <div class="small">Arrival: TBD</div>
-        </div>
-
-        <div class="flight">
-          <div>
-            <div class="flight-name">Eric Hopton</div>
-            <div class="small">Flight: TBD</div>
-          </div>
-          <div class="small">Arrival: TBD</div>
-        </div>
-
-        <div class="flight">
-          <div>
-            <div class="flight-name">Zach Gordon</div>
-            <div class="small">Flight: TBD</div>
-          </div>
-          <div class="small">Arrival: TBD</div>
-        </div>
-
-        <div class="flight">
-          <div>
-            <div class="flight-name">Brian Gordon</div>
-            <div class="small">Flight: TBD</div>
-          </div>
-          <div class="small">Arrival: TBD</div>
-        </div>
-
-        <div class="flight">
-          <div>
-            <div class="flight-name">Clem Diglio</div>
-            <div class="small">Flight: TBD</div>
-          </div>
-          <div class="small">Arrival: TBD</div>
-        </div>
-
-        <div class="flight">
-          <div>
-            <div class="flight-name">Veer Singh</div>
-            <div class="small">Flight: TBD</div>
-          </div>
-          <div class="small">Arrival: TBD</div>
-        </div>
-
-        <div class="flight">
-          <div>
-            <div class="flight-name">Yeags</div>
-            <div class="small">Flight: TBD</div>
-          </div>
-          <div class="small">Arrival: TBD</div>
-        </div>
-      </div>
-
-      <div class="event">
-        <div class="time">Evening</div>
-        <h3>Edinburgh Pub Night</h3>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=The+Queens+Arms+Edinburgh" target="_blank" rel="noopener">
-            🍺 The Queens Arms
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=The+Queens+Arms+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=The+Ship+Inn+Edinburgh" target="_blank" rel="noopener">
-            🍺 The Ship Inn
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=The+Ship+Inn+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=The+Auld+Hundred+Edinburgh" target="_blank" rel="noopener">
-            🍺 The Auld Hundred
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=The+Auld+Hundred+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-  <div class="card day-card">
-    <div class="day-head">
-      <strong>Sunday, June 13 — Kilspindie</strong>
-    </div>
-
-    <div class="day-body">
-
-      <div class="event">
-        <div class="time">Golf</div>
-        <h3>Kilspindie Golf Club</h3>
-        <p>First proper round of the trip.</p>
-
-        <div class="link-row">
-          <a class="link" href="https://www.kilspindiegolfclub.co.uk/" target="_blank" rel="noopener">
-            ⛳ Kilspindie ↗
-          </a>
-        </div>
-      </div>
-
-      <div class="event">
-        <div class="time">Evening</div>
-        <h3>Edinburgh</h3>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=Biddy+Mulligans+Edinburgh" target="_blank" rel="noopener">
-            🍺 Biddy Mulligans
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=Biddy+Mulligans+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=Dishoom+Edinburgh" target="_blank" rel="noopener">
-            🍛 Dishoom Edinburgh
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=Dishoom+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-  <div class="card day-card">
-    <div class="day-head">
-      <strong>Monday, June 14 — North Berwick</strong>
-    </div>
-
-    <div class="day-body">
-
-      <div class="event">
-        <div class="time">Golf</div>
-        <h3>North Berwick Golf Club</h3>
-        <p>Classic links golf.</p>
-
-        <div class="link-row">
-          <a class="link" href="https://www.northberwickgolfclub.com/" target="_blank" rel="noopener">
-            ⛳ North Berwick ↗
-          </a>
-        </div>
-      </div>
-
-      <div class="event">
-        <div class="time">Train</div>
-        <h3>Edinburgh ↔ North Berwick</h3>
-
-        <div class="link-row">
-          <a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">
-            🚆 Omio App ↗
-          </a>
-        </div>
-      </div>
-
-      <div class="event">
-        <div class="time">Evening</div>
-        <h3>North Berwick / Edinburgh</h3>
-      </div>
-
-    </div>
-  </div>
-
-
-  <div class="card day-card">
-    <div class="day-head">
-      <strong>Tuesday, June 15 — Gullane</strong>
-    </div>
-
-    <div class="day-body">
-
-      <div class="event">
-        <div class="time">Golf</div>
-        <h3>Gullane Golf Club</h3>
-
-        <div class="link-row">
-          <a class="link" href="https://www.gullanegolfclub.co.uk/" target="_blank" rel="noopener">
-            ⛳ Gullane Golf Club ↗
-          </a>
-        </div>
-      </div>
-
-      <div class="event">
-        <div class="time">Evening</div>
-        <h3>Edinburgh</h3>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=The+Guildford+Arms+Edinburgh" target="_blank" rel="noopener">
-            🍺 The Guildford Arms
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=The+Guildford+Arms+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=Makars+Mash+Bar+Edinburgh" target="_blank" rel="noopener">
-            🥔 Makars Mash Bar
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=Makars+Mash+Bar+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-
-  <div class="card day-card">
-    <div class="day-head">
-      <strong>Wednesday, June 16 — Dunbar</strong>
-    </div>
-
-    <div class="day-body">
-
-      <div class="event">
-        <div class="time">Golf</div>
-        <h3>Dunbar Golf Club</h3>
-
-        <div class="link-row">
-          <a class="link" href="https://www.dunbargolfclub.com/" target="_blank" rel="noopener">
-            ⛳ Dunbar ↗
-          </a>
-        </div>
-      </div>
-
-      <div class="event">
-        <div class="time">Evening</div>
-        <h3>Edinburgh</h3>
-
-        <div class="link-pair">
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=Scotsmans+Lounge+Edinburgh" target="_blank" rel="noopener">
-            🍺 Scotsman’s Lounge
-          </a>
-          <a class="link" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=Scotsmans+Lounge+Edinburgh" target="_blank" rel="noopener">
-            Directions ↗
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-  <div class="card day-card">
-    <div class="day-head">
-      <strong>Thursday, June 17 — Gullane</strong>
-    </div>
-
-    <div class="day-body">
-
-      <div class="event">
-        <div class="time">Golf</div>
-        <h3>Gullane Golf Club</h3>
-
-        <div class="link-row">
-          <a class="link" href="https://www.gullanegolfclub.co.uk/" target="_blank" rel="noopener">
-            ⛳ Gullane Golf Club ↗
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-  <div class="card day-card">
-    <div class="day-head">
-      <strong>Friday, June 18 — Scotland Cup</strong>
-    </div>
-
-    <div class="day-body">
-
-      <div class="event">
-        <div class="time">Competition</div>
-        <h3>Scotland Cup</h3>
-        <p>Final competitive day.</p>
-      </div>
-
-      <div class="event">
-        <div class="time">Evening</div>
-        <h3>Final Edinburgh Night</h3>
-      </div>
-
-    </div>
-  </div>
-
-
-  <div class="card day-card">
-    <div class="day-head">
-      <strong>Saturday, June 19 — Departure</strong>
-    </div>
-
-    <div class="day-body">
-
-      <div class="event">
-        <div class="time">Morning</div>
-        <h3>Pack Up & Head Home</h3>
-        <p>End of the trip.</p>
-
-        <div class="notice">
-          🚆 Need trains? Use the Omio app.
-          <div class="link-row">
-            <a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">
-              🚆 Omio App ↗
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</section>
-
-
-<!-- SCOTLAND CUP -->
-<section id="cup" class="tab">
-
-  <h2 class="section-title">Scotland Cup</h2>
-  <p class="section-subtitle">
-    Live tournament leaderboard
-  </p>
-
-  <div class="card">
-    <iframe
-      id="3auqzi"
-      src="https://app.squabbitgolf.com/w/tournament/TvY7fGicz?embed=leaderboard"
-      width="100%"
-      height="700"
-      style="border:none;border-radius:12px;"
-      title="Scotland Cup Live Leaderboard">
-    </iframe>
-  </div>
-
-</section>
-
-
-<!-- PARTICIPANTS -->
-<section id="participants" class="tab">
-
-  <h2 class="section-title">Participants</h2>
-  <p class="section-subtitle">The lads heading to Scotland.</p>
-
-  <div class="participant-grid">
-
-    <div class="participant">
-      <h3>Mike Ribbing</h3>
-      <p>Venmo: @mike_ribbing</p>
-    </div>
-
-    <div class="participant">
-      <h3>Tom Chung</h3>
-      <p>Venmo: @tomchung11</p>
-    </div>
-
-    <div class="participant">
-      <h3>Eric Hopton</h3>
-      <p>Venmo: @ehop57</p>
-    </div>
-
-    <div class="participant">
-      <h3>Zach Gordon</h3>
-      <p>Venmo: @zach-Gordon-15</p>
-    </div>
-
-    <div class="participant">
-      <h3>Brian Gordon</h3>
-      <p>Venmo: @brain-gordon-115</p>
-    </div>
-
-    <div class="participant">
-      <h3>Clem Diglio</h3>
-      <p>No Venmo</p>
-    </div>
-
-    <div class="participant">
-      <h3>Veer Singh</h3>
-      <p>Venmo: @veersingh24</p>
-    </div>
-
-    <div class="participant">
-      <h3>Yeags</h3>
-      <p>Venmo: @papa-yeags</p>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- GUINNESS -->
-<section id="guinness" class="tab">
-
-  <h2 class="section-title">Guinness Tracker</h2>
-  <p class="section-subtitle">
-    Every pint counts.
-  </p>
-
-  <div class="guinness-hero">
-    <div class="eyebrow">Trip Total</div>
-    <div id="guinnessTotal" class="guinness-total">0</div>
-    <div class="guinness-total-label">Guinnesses consumed</div>
-  </div>
 
-  <div class="card">
+<!-- ==========================================
+     ITINERARY
+========================================== -->
 
-    <h3 style="margin-top:0;color:var(--green);">🍺 Log Guinness</h3>
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label for="guinnessDate">Date</label>
-        <input type="date" id="guinnessDate">
-      </div>
+<main id="itinerary">
+
+<div class="base">
+<b>TRIP BASE</b><br>
+26 Dublin Street Lane South, Edinburgh EH1 3PX
+</div>
 
-      <div class="field">
-        <label>Who drank it?</label>
-        <div class="small">
-          Select everyone who had a Guinness in this log.
-        </div>
-      </div>
-
-      <div class="field full">
-        <div id="guinnessPeople" class="people-grid"></div>
-      </div>
-
-    </div>
-
-    <div class="link-row">
-      <button class="btn btn-primary" id="logGuinnessBtn">
-        🍺 Log Guinness
-      </button>
-    </div>
-
-    <div id="guinnessFormMessage"></div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h3 style="margin-top:0;color:var(--green);">Leaderboard</h3>
-
-    <div id="guinnessLeaderboard" class="leaderboard">
-      <div class="empty-state">Loading Guinness tracker…</div>
-    </div>
-
-  </div>
-
 
-  <div class="card">
+<article class="day">
 
-    <h3 style="margin-top:0;color:var(--green);">History</h3>
+<button class="day-head" aria-expanded="false">
+<div>
+<div class="tag">TRAVEL</div>
+<h2>Arrival / Travel</h2>
+<div class="date">Fri • Jun 11</div>
+</div>
+<div class="arrow">⌄</div>
+</button>
 
-    <div id="guinnessHistory">
-      <div class="empty-state">Loading Guinness history…</div>
-    </div>
+<div class="day-body">
 
-  </div>
+<div class="info">
+<b>Flight</b>
+<span>Fly to Edinburgh</span>
+</div>
 
-</section>
+</div>
+</article>
 
 
-<!-- DUES -->
-<section id="dues" class="tab">
+<article class="day">
 
-  <h2 class="section-title">Dues</h2>
-  <p class="section-subtitle">
-    Track shared trip expenses and who owes what.
-  </p>
+<button class="day-head" aria-expanded="false">
+<div>
+<div class="tag">ARRIVAL</div>
+<h2>Arrive in Edinburgh</h2>
+<div class="date">Sat • Jun 12</div>
+</div>
+<div class="arrow">⌄</div>
+</button>
 
-  <div id="duesLogin" class="card">
+<div class="day-body">
 
-    <h3 style="margin-top:0;color:var(--green);">Dues Access</h3>
+<div class="info">
+<b>Base</b>
+<span>26 Dublin Street Lane South, Edinburgh</span>
+</div>
 
-    <p class="muted">
-      Enter the Dues PIN to access expenses.
-    </p>
+<div class="info">
+<b>Everyone’s Arrival</b>
+<span>Flight information below</span>
+</div>
 
-    <div class="form-grid">
+<div class="arrival-list">
 
-      <div class="field">
-        <label for="duesPin">PIN</label>
-        <input type="password" id="duesPin" inputmode="numeric">
-      </div>
+<div class="arrival-person">
+<div class="arrival-name">Mike Ribbing</div>
+<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+</div>
+
+<div class="arrival-person">
+<div class="arrival-name">Tom Chung</div>
+<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+</div>
+
+<div class="arrival-person">
+<div class="arrival-name">Eric Hopton</div>
+<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+</div>
 
-    </div>
+<div class="arrival-person">
+<div class="arrival-name">Zach Gordon</div>
+<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+</div>
 
-    <div class="link-row">
-      <button class="btn btn-primary" id="duesLoginBtn">
-        Unlock Dues
-      </button>
-    </div>
+<div class="arrival-person">
+<div class="arrival-name">Brian Gordon</div>
+<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+</div>
 
-    <div id="duesLoginMessage"></div>
+<div class="arrival-person">
+<div class="arrival-name">Clem Diglio</div>
+<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+</div>
 
-  </div>
+<div class="arrival-person">
+<div class="arrival-name">Veer Singh</div>
+<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+</div>
 
+<div class="arrival-person">
+<div class="arrival-name">Yeags</div>
+<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+</div>
 
-  <div id="duesContent" style="display:none;">
+</div>
 
-    <div class="card">
+<div class="info">
+<b>Plan</b>
+<span>Check in • Dinner • Drinks</span>
+</div>
 
-      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;">
-        <div>
-          <h3 style="margin:0;color:var(--green);">Add Purchase</h3>
-          <div class="small">Amounts are entered in GBP.</div>
-        </div>
-      </div>
+<div class="links">
 
-      <div class="form-grid" style="margin-top:14px;">
+<a class="link" href="https://www.airbnb.com/rooms/3496863?adults=8&amp;check_in=2027-06-12&amp;check_out=2027-06-18&amp;location=Edinburgh%2C%20United%20Kingdom" target="_blank" rel="noopener">🏠 Airbnb ↗</a>
 
-        <div class="field">
-          <label for="purchaseDescription">Description</label>
-          <input type="text" id="purchaseDescription" placeholder="Dinner">
-        </div>
+<div class="link-pair">
+<a class="link" href="https://www.theoxedinburgh.com/" target="_blank" rel="noopener">🍽️ The Ox ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Ox+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+</div>
 
-        <div class="field">
-          <label for="purchaseAmount">Total Price (£)</label>
-          <input type="number" id="purchaseAmount" step="0.01" min="0" placeholder="120.00">
-        </div>
+<div class="link-pair">
+<a class="link" href="https://www.kaysbar.uk/" target="_blank" rel="noopener">🍺 Kay&#x27;s Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Kay%27s+Bar+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+</div>
 
-        <div class="field">
-          <label for="purchasePayer">Paid By</label>
-          <select id="purchasePayer"></select>
-        </div>
+</div>
+
+</div>
+</article>
+
+
+<article class="day">
+
+<button class="day-head" aria-expanded="false">
+<div>
+<div class="tag">GOLF • DAY 1</div>
+<h2>Kilspindie</h2>
+<div class="date">Sun • Jun 13</div>
+</div>
+<div class="arrow">⌄</div>
+</button>
 
-        <div class="field">
-          <label for="purchaseDate">Date</label>
-          <input type="date" id="purchaseDate">
-        </div>
+<div class="day-body">
 
-        <div class="field full">
-          <label>Who should split this?</label>
-          <div id="purchasePeople" class="people-grid"></div>
-        </div>
+<div class="info">
+<b>Pickup</b>
+<span>11:00 AM</span>
+</div>
 
-      </div>
+<div class="teegrid">
 
-      <div class="link-row">
-        <button class="btn btn-primary" id="addPurchaseBtn">
-          Add Purchase
-        </button>
-      </div>
+<div class="tee">
+<div class="tee-time">1:04 PM</div>
+<div class="players">
+<div>• Mike</div>
+<div>• Eric</div>
+<div>• Clem</div>
+<div>• Brian</div>
+</div>
+</div>
 
-      <div id="purchaseMessage"></div>
+<div class="tee">
+<div class="tee-time">1:14 PM</div>
+<div class="players">
+<div>• Tom</div>
+<div>• Veer</div>
+<div>• Zach</div>
+<div>• Yeags</div>
+</div>
+</div>
 
-    </div>
+</div>
 
+<div class="links">
 
-    <div class="card">
+<a class="link" href="https://www.kilspindiegolfclub.co.uk/" target="_blank" rel="noopener">⛳ Kilspindie ↗</a>
 
-      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;">
-        <div>
-          <h3 style="margin:0;color:var(--green);">Balances</h3>
-          <div class="small">USD values use the current exchange rate.</div>
-        </div>
+<div class="link-pair">
+<a class="link" href="https://queensarmsedinburgh.com/" target="_blank" rel="noopener">🍽️ The Queens Arms ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Queens+Arms+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+</div>
+
+</div>
 
-        <button class="btn btn-secondary" id="refreshRatesBtn">
-          Refresh Rates
-        </button>
-      </div>
-
-      <div id="balanceGrid" class="balance-grid" style="margin-top:14px;"></div>
-
-      <div class="small" style="margin-top:10px;">
-        Rates by
-        <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">
-          ExchangeRate-API
-        </a>
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h3 style="margin-top:0;color:var(--green);">Settlements</h3>
-
-      <div id="settlements"></div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;">
-        <div>
-          <h3 style="margin:0;color:var(--green);">Purchase History</h3>
-        </div>
-
-        <button class="btn btn-danger" id="clearPurchasesBtn">
-          Clear All
-        </button>
-      </div>
-
-      <div id="purchaseHistory" style="margin-top:14px;"></div>
-
-    </div>
-
-  </div>
-
-</section>
+</div>
+</article>
+
+
+<article class="day">
+
+<button class="day-head" aria-expanded="false">
+<div>
+<div class="tag">GOLF • DAY 2</div>
+<h2>North Berwick</h2>
+<div class="date">Mon • Jun 14</div>
+</div>
+<div class="arrow">⌄</div>
+</button>
+
+<div class="day-body">
+
+<div class="info">
+<b>Train to North Berwick</b>
+<span>9:39 AM or 10:40 AM</span>
+</div>
+
+<div class="info">
+<b>Train home</b>
+<span>9:27 PM or 10:24 PM</span>
+</div>
+
+<div class="teegrid">
+
+<div class="tee">
+<div class="tee-time">2:00 PM</div>
+<div class="players">
+<div>• Mike</div>
+<div>• Zach</div>
+<div>• Yeags</div>
+<div>• Eric</div>
+</div>
+</div>
+
+<div class="tee">
+<div class="tee-time">2:10 PM</div>
+<div class="players">
+<div>• Tom</div>
+<div>• Veer</div>
+<div>• Brian</div>
+<div>• Clem</div>
+</div>
+</div>
+
+</div>
+
+<div class="links">
+
+<a class="link" href="https://www.northberwickgolfclub.com/" target="_blank" rel="noopener">⛳ North Berwick ↗</a>
+
+<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">🚆 Omio App ↗</a>
+
+<div class="link-pair">
+<a class="link" href="https://www.theshipinnnorthberwick.com/" target="_blank" rel="noopener">🍺 The Ship Inn ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Ship+Inn+North+Berwick" target="_blank" rel="noopener">📍 Directions</a>
+</div>
+
+</div>
+
+</div>
+</article>
+
+
+<article class="day">
+
+<button class="day-head" aria-expanded="false">
+<div>
+<div class="tag">GOLF • DAY 3</div>
+<h2>Gullane No. 2 + No. 3</h2>
+<div class="date">Tue • Jun 15</div>
+</div>
+<div class="arrow">⌄</div>
+</button>
+
+<div class="day-body">
+
+<div class="info">
+<b>Pickup</b>
+<span>7:45 AM</span>
+</div>
+
+<div class="teegrid">
+
+<div class="tee">
+<div class="tee-time">9:04 AM</div>
+<div class="players">
+<div>• Zach</div>
+<div>• Brian</div>
+<div>• Clem</div>
+<div>• Eric</div>
+</div>
+</div>
+
+<div class="tee">
+<div class="tee-time">9:14 AM</div>
+<div class="players">
+<div>• Tom</div>
+<div>• Veer</div>
+<div>• Yeags</div>
+<div>• Mike</div>
+</div>
+</div>
+
+<div class="tee">
+<div class="tee-time">2:56 PM</div>
+<div class="players">
+<div>• Zach</div>
+<div>• Clem</div>
+<div>• Tom</div>
+<div>• Mike</div>
+</div>
+</div>
+
+<div class="tee">
+<div class="tee-time">3:06 PM</div>
+<div class="players">
+<div>• Yeags</div>
+<div>• Veer</div>
+<div>• Brian</div>
+<div>• Eric</div>
+</div>
+</div>
+
+</div>
+
+<div class="links">
+
+<a class="link" href="https://gullanegolfclub.com/" target="_blank" rel="noopener">⛳ Gullane Golf Club ↗</a>
+
+<div class="link-pair">
+<a class="link" href="https://auldhundrededinburgh.com/" target="_blank" rel="noopener">🍺 The Auld Hundred ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Auld+Hundred+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+</div>
+
+</div>
+
+</div>
+</article>
+
+
+<article class="day">
+
+<button class="day-head" aria-expanded="false">
+<div>
+<div class="tag">OPEN DAY</div>
+<h2>Edinburgh — TBD</h2>
+<div class="date">Wed • Jun 16</div>
+</div>
+<div class="arrow">⌄</div>
+</button>
+
+<div class="day-body">
+
+<div class="info">
+<b>Plans</b>
+<span>TBD</span>
+</div>
+
+<div class="info">
+<b>Optional</b>
+<span>Biddy Mulligans</span>
+</div>
+
+<div class="links">
+
+<div class="link-pair">
+<a class="link" href="https://www.biddymulligans.co.uk/" target="_blank" rel="noopener">🍺 Biddy Mulligans ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Biddy+Mulligans+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+</div>
+
+</div>
+
+</div>
+</article>
+
+
+<article class="day">
+
+<button class="day-head" aria-expanded="false">
+<div>
+<div class="tag">GOLF • DAY 5</div>
+<h2>Gullane No. 1</h2>
+<div class="date">Thu • Jun 17</div>
+</div>
+<div class="arrow">⌄</div>
+</button>
+
+<div class="day-body">
+
+<div class="info">
+<b>Pickup</b>
+<span>10:00 AM</span>
+</div>
+
+<div class="teegrid">
+
+<div class="tee">
+<div class="tee-time">11:44 AM</div>
+<div class="players">
+<div>• Zach</div>
+<div>• Veer</div>
+<div>• Tom</div>
+<div>• Clem</div>
+</div>
+</div>
+
+<div class="tee">
+<div class="tee-time">11:54 AM</div>
+<div class="players">
+<div>• Brian</div>
+<div>• Yeags</div>
+<div>• Mike</div>
+<div>• Eric</div>
+</div>
+</div>
+
+</div>
+
+<div class="links">
+
+<a class="link" href="https://gullanegolfclub.com/" target="_blank" rel="noopener">⛳ Gullane Golf Club ↗</a>
+
+<div class="link-pair">
+<a class="link" href="https://www.dishoom.com/edinburgh/" target="_blank" rel="noopener">🍽️ Dishoom Edinburgh ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Dishoom+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+</div>
+
+<div class="link-pair">
+<a class="link" href="https://guildfordarms.com/" target="_blank" rel="noopener">🍺 The Guildford Arms ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Guildford+Arms+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+</div>
+
+</div>
+
+</div>
+</article>
+
+
+<article class="day">
+
+<button class="day-head" aria-expanded="false">
+<div>
+<div class="tag">GOLF • DAY 6</div>
+<h2>Dunbar</h2>
+<div class="date">Fri • Jun 18</div>
+</div>
+<div class="arrow">⌄</div>
+</button>
+
+<div class="day-body">
+
+<div class="info">
+<b>Pickup</b>
+<span>9:00 AM</span>
+</div>
+
+<div class="teegrid">
+
+<div class="tee">
+<div class="tee-time">10:54 AM</div>
+<div class="players">
+<div>• Zach</div>
+<div>• Mike</div>
+<div>• Brian</div>
+<div>• Yeags</div>
+</div>
+</div>
+
+<div class="tee">
+<div class="tee-time">11:04 AM</div>
+<div class="players">
+<div>• Tom</div>
+<div>• Veer</div>
+<div>• Eric</div>
+<div>• Clem</div>
+</div>
+</div>
+
+</div>
+
+<div class="links">
+
+<a class="link" href="https://www.dunbargolfclub.com/" target="_blank" rel="noopener">⛳ Dunbar ↗</a>
+
+<div class="link-pair">
+<a class="link" href="https://makarsmash.com/" target="_blank" rel="noopener">🍽️ Makars Mash Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Makars+Mash+Bar+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+</div>
+
+<div class="link-pair">
+<a class="link" href="https://scotsmans-lounge.co.uk/" target="_blank" rel="noopener">🍺 Scotsman&#x27;s Lounge ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Scotsman%27s+Lounge+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+</div>
+
+</div>
+
+</div>
+</article>
+
+
+<article class="day">
+
+<button class="day-head" aria-expanded="false">
+<div>
+<div class="tag">DEPARTURE</div>
+<h2>Fly Home</h2>
+<div class="date">Sat • Jun 19</div>
+</div>
+<div class="arrow">⌄</div>
+</button>
+
+<div class="day-body">
+
+<div class="info">
+<b>Flight</b>
+<span>Fly home</span>
+</div>
+
+</div>
+</article>
+
+
+<div class="notice">
+<b>🚆 Train tickets</b><br>
+Use the Omio app for the North Berwick / Edinburgh train.
+<div class="links">
+<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">🚆 Open Omio App ↗</a>
+</div>
+</div>
 
 </main>
 
-<footer>
-  Zach’s Dirty 30 with the Lads • Scotland 2027
-</footer>
+
+<!-- ==========================================
+     SCOTLAND CUP
+========================================== -->
+
+<main id="cup" style="display:none">
+
+<div class="score">
+
+<div class="score-head">
+<div class="eyebrow">LIVE COMPETITION</div>
+<h2>Scotland Cup</h2>
+<div>Live leaderboard powered by Squabbit</div>
+</div>
+
+<div class="score-body">
+
+<iframe
+src="https://app.squabbitgolf.com/w/tournament/TvY7fGicz?embed=leaderboard"
+width="100%"
+height="700"
+style="border:none;border-radius:12px;"
+title="Scotland Cup Live Leaderboard">
+</iframe>
+
+</div>
+
+</div>
+
+</main>
+
+
+<!-- ==========================================
+     PARTICIPANTS
+========================================== -->
+
+<main id="participants" style="display:none">
+
+<div class="notice">
+<b>THE CREW</b><br>
+Handicaps, Venmo handles and the official scouting reports.
+</div>
+
+<div class="people">
+
+<div class="person">
+<h3>Mike Ribbing</h3>
+<div class="meta">3.9 handicap • @mike_ribbing</div>
+<p>Had his second kid, so if the game falls off, he has the perfect excuse ready to go.</p>
+</div>
+
+<div class="person">
+<h3>Tom Chung</h3>
+<div class="meta">16.9 handicap • @tomchung11</div>
+<p>Somehow runs a physical therapy practice and teaches at the same time, yet still hasn&#x27;t managed to rehabilitate his own golf game.</p>
+</div>
+
+<div class="person">
+<h3>Eric Hopton</h3>
+<div class="meta">12.5 handicap • @ehop57</div>
+<p>A “professor” at Georgia Tech, although the group remains convinced he actually works with aliens. Will also sacrifice at least 10 balls to the Firth of Forth.</p>
+</div>
+
+<div class="person">
+<h3>Zach Gordon</h3>
+<div class="meta">9.2 handicap • @zach-Gordon-15</div>
+<p>The reason this trip exists, allegedly, because he is turning 30. As if eight guys needed an excuse to go to Scotland and drink for a week.</p>
+</div>
+
+<div class="person">
+<h3>Brian Gordon</h3>
+<div class="meta">8.3 handicap • @brain-gordon-115</div>
+<p>Already holed out for birdie at the Old Course last trip. Unfortunately, he has also already told us the story roughly 400 times.</p>
+</div>
+
+<div class="person">
+<h3>Clem Diglio</h3>
+<div class="meta">17.1 handicap • No Venmo — wife paid</div>
+<p>Always has a smile and is ready to have fun. His golf game is a complete wildcard. Bonus points: his wife was Eric&#x27;s high school principal.</p>
+</div>
+
+<div class="person">
+<h3>Veer Singh</h3>
+<div class="meta">17.7 handicap • @veersingh24</div>
+<p>Lives in New York now, so the golf game may be rusty. ChatGPT has already pegged him as the weak link when it comes to Guinness.</p>
+</div>
+
+<div class="person">
+<h3>Yeags</h3>
+<div class="meta">8.5 handicap • @papa-yeags</div>
+<p>The only lefty. Hits it a mile when he finds the club face. The bigger question is whether he is going to play golf or personally eliminate Scotland&#x27;s Guinness supply.</p>
+</div>
+
+</div>
+
+</main>
+
+
+<!-- ==========================================
+     GUINNESS TRACKER
+========================================== -->
+
+<main id="guinness" style="display:none">
+
+<div class="guinness-hero">
+
+<div class="guinness-icon">🍺</div>
+
+<div class="guinness-label">
+GROUP TOTAL
+</div>
+
+<div class="guinness-total" id="guinnessTotal">
+0
+</div>
+
+<div class="guinness-total-label">
+Guinnesses consumed
+</div>
+
+</div>
+
+
+<button
+class="guinness-log-btn"
+id="showGuinnessForm"
+type="button">
+🍺 Log Guinness
+</button>
+
+
+<div
+class="guinness-form"
+id="guinnessForm"
+style="display:none">
+
+<label for="guinnessDate">
+Date
+</label>
+
+<input
+id="guinnessDate"
+type="date"
+>
+
+
+<label>
+Who drank it?
+</label>
+
+<div class="guinness-people">
+
+<div class="guinness-check">
+<input type="checkbox" id="g-mike" value="Mike Ribbing">
+<label for="g-mike">Mike</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-tom" value="Tom Chung">
+<label for="g-tom">Tom</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-eric" value="Eric Hopton">
+<label for="g-eric">Eric</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-zach" value="Zach Gordon">
+<label for="g-zach">Zach</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-brian" value="Brian Gordon">
+<label for="g-brian">Brian</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-clem" value="Clem Diglio">
+<label for="g-clem">Clem</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-veer" value="Veer Singh">
+<label for="g-veer">Veer</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-yeags" value="Yeags">
+<label for="g-yeags">Yeags</label>
+</div>
+
+</div>
+
+<div class="guinness-selected" id="guinnessSelected">
+0 people selected
+</div>
+
+<button
+class="guinness-submit"
+id="logGuinness"
+type="button">
+🍺 Log Guinness
+</button>
+
+<div
+class="guinness-message"
+id="guinnessMessage"
+aria-live="polite">
+</div>
+
+</div>
+
+
+<div class="guinness-card">
+
+<div class="guinness-header-row">
+
+<h3>🏆 Guinness Leaderboard</h3>
+
+<button
+class="guinness-refresh"
+id="refreshGuinness"
+type="button">
+↻ Refresh
+</button>
+
+</div>
+
+<div
+class="leaderboard"
+id="guinnessLeaderboard">
+
+<div class="empty-state">
+Loading Guinness Tracker…
+</div>
+
+</div>
+
+</div>
+
+
+<div class="guinness-card">
+
+<h3>🍺 Guinness Log</h3>
+
+<div
+class="guinness-history"
+id="guinnessHistory">
+
+<div class="empty-state">
+Loading Guinness history…
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+
+<!-- ==========================================
+     DUES
+========================================== -->
+
+<main id="dues" style="display:none">
+
+<div id="duesAuth">
+
+<div class="dues-intro">
+<h2>💰 Trip Dues</h2>
+<p>Track drinks, dinners, taxis, and anything else someone picks up for the group.</p>
+</div>
+
+<div class="auth-card">
+
+<h2>🔐 Dues Access</h2>
+
+<p>
+Enter the trip PIN once on this device. The site will remember your access so you don't have to enter it again.
+</p>
+
+<form id="authForm">
+
+<input
+id="duesPin"
+type="password"
+inputmode="numeric"
+autocomplete="off"
+maxlength="4"
+placeholder="••••"
+aria-label="Dues PIN"
+required
+>
+
+<button class="primary-btn" type="submit" style="margin-top:12px">
+Enter Dues
+</button>
+
+<div class="auth-error" id="authError" aria-live="polite"></div>
+
+</form>
+
+</div>
+
+</div>
+
+
+<div id="duesContent" style="display:none">
+
+<div class="dues-intro">
+
+<h2>💰 Trip Dues</h2>
+
+<p>
+Log drinks, dinners, taxis, or anything else someone picks up for the group.
+Purchases are entered in pounds and the page automatically shows the current USD equivalent.
+</p>
+
+</div>
+
+
+<div class="fx-card">
+
+<div class="fx-top">
+
+<div>
+
+<div class="fx-title">CURRENT GBP → USD RATE</div>
+
+<div class="fx-rate" id="fxRate">
+Loading…
+</div>
+
+<div class="fx-sub" id="fxUpdated">
+Getting current exchange rate…
+</div>
+
+</div>
+
+<button class="fx-refresh" id="refreshFx" type="button">
+↻ Refresh
+</button>
+
+</div>
+
+<div class="fx-example" id="fxExample">
+£100 = loading…
+</div>
+
+</div>
+
+
+<div class="dues-card">
+
+<h3>➕ Log a Purchase</h3>
+
+<form id="purchaseForm">
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label for="purchaseDescription">
+What was purchased?
+</label>
+
+<input
+id="purchaseDescription"
+type="text"
+placeholder="e.g. Drinks at Kay’s Bar"
+maxlength="80"
+required
+>
+
+</div>
+
+<div class="form-group">
+
+<label for="purchaseAmount">
+Total Price (£)
+</label>
+
+<input
+id="purchaseAmount"
+type="number"
+inputmode="decimal"
+min="0.01"
+max="100000"
+step="0.01"
+placeholder="100.00"
+required
+>
+
+</div>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label for="purchasePayer">
+Who paid?
+</label>
+
+<select id="purchasePayer" required>
+
+<option value="">Select payer</option>
+<option>Mike Ribbing</option>
+<option>Tom Chung</option>
+<option>Eric Hopton</option>
+<option>Zach Gordon</option>
+<option>Brian Gordon</option>
+<option>Clem Diglio</option>
+<option>Veer Singh</option>
+<option>Yeags</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="purchaseDate">
+Date
+</label>
+
+<input
+id="purchaseDate"
+type="date"
+>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Who was in on it?
+</label>
+
+<div class="people-select">
+
+<div class="person-check">
+<input type="checkbox" id="p-mike" value="Mike Ribbing">
+<label for="p-mike">Mike</label>
+</div>
+
+<div class="person-check">
+<input type="checkbox" id="p-tom" value="Tom Chung">
+<label for="p-tom">Tom</label>
+</div>
+
+<div class="person-check">
+<input type="checkbox" id="p-eric" value="Eric Hopton">
+<label for="p-eric">Eric</label>
+</div>
+
+<div class="person-check">
+<input type="checkbox" id="p-zach" value="Zach Gordon">
+<label for="p-zach">Zach</label>
+</div>
+
+<div class="person-check">
+<input type="checkbox" id="p-brian" value="Brian Gordon">
+<label for="p-brian">Brian</label>
+</div>
+
+<div class="person-check">
+<input type="checkbox" id="p-clem" value="Clem Diglio">
+<label for="p-clem">Clem</label>
+</div>
+
+<div class="person-check">
+<input type="checkbox" id="p-veer" value="Veer Singh">
+<label for="p-veer">Veer</label>
+</div>
+
+<div class="person-check">
+<input type="checkbox" id="p-yeags" value="Yeags">
+<label for="p-yeags">Yeags</label>
+</div>
+
+</div>
+
+<div class="selected-count" id="selectedCount">
+0 people selected
+</div>
+
+</div>
+
+
+<button class="primary-btn" type="submit">
+💰 Log Purchase
+</button>
+
+<div class="form-message" id="formMessage" aria-live="polite"></div>
+
+</form>
+
+</div>
+
+
+<div class="dues-card">
+
+<div class="dues-header-row">
+
+<h3>📊 Who Owes Who</h3>
+
+<button class="refresh-btn" id="refreshDues" type="button">
+↻ Refresh
+</button>
+
+</div>
+
+<div class="balance-grid" id="balanceGrid"></div>
+
+<div class="settlement">
+
+<h4>Tap a payment to open Venmo</h4>
+
+<div id="settlementList"></div>
+
+</div>
+
+</div>
+
+
+<div class="dues-card">
+
+<div class="dues-header-row">
+
+<h3>🧾 Purchase History</h3>
+
+<button class="danger-btn" id="clearPurchases" type="button">
+Clear All
+</button>
+
+</div>
+
+<div id="purchaseHistory">
+
+<div class="empty-state">
+Loading purchases...
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</main>
+
+
+<div class="footer">
+Zach’s Dirty 30 with the Lads • Built for the crew
+</div>
+
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-const SUPABASE_URL = 'https://rxkzcetitmuyztiqnkes.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_ohoPFPa1a5pi7sYeKyUuww_KSj08KUG';
+/* ==========================================
+   SITE NAVIGATION
+========================================== */
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+document.querySelectorAll('.day-head').forEach(button=>{
+
+button.addEventListener('click',()=>{
+
+const day=button.parentElement;
+
+const isOpen=
+day.classList.toggle('open');
+
+button.setAttribute(
+'aria-expanded',
+isOpen?'true':'false'
 );
 
-const PEOPLE = [
-  'Mike Ribbing',
-  'Tom Chung',
-  'Eric Hopton',
-  'Zach Gordon',
-  'Brian Gordon',
-  'Clem Diglio',
-  'Veer Singh',
-  'Yeags'
-];
+});
 
-const VENMO = {
-  'Mike Ribbing':'mike_ribbing',
-  'Tom Chung':'tomchung11',
-  'Eric Hopton':'ehop57',
-  'Zach Gordon':'zach-Gordon-15',
-  'Brian Gordon':'brain-gordon-115',
-  'Clem Diglio':null,
-  'Veer Singh':'veersingh24',
-  'Yeags':'papa-yeags'
-};
-
-
-/* =========================
-   TABS
-========================= */
-
-document.querySelectorAll('#tabs button').forEach(button=>{
-  button.addEventListener('click',()=>{
-    document.querySelectorAll('#tabs button').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-
-    button.classList.add('active');
-
-    const tabId=button.dataset.tab;
-    document.getElementById(tabId).classList.add('active');
-
-    if(tabId==='guinness'){
-      initializeGuinness();
-    }
-
-    if(tabId==='dues'){
-      initializeDues();
-    }
-  });
 });
 
 
-/* =========================
-   GENERAL HELPERS
-========================= */
+document.querySelectorAll('.tab').forEach(button=>{
 
-function escapeHtml(value){
-  return String(value ?? '')
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#039;');
+button.addEventListener('click',()=>{
+
+document.querySelectorAll('.tab').forEach(tab=>{
+tab.classList.remove('active');
+});
+
+button.classList.add('active');
+
+document.querySelectorAll('main').forEach(main=>{
+main.style.display='none';
+});
+
+document.getElementById(
+button.dataset.tab
+).style.display='block';
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+if(button.dataset.tab==='dues'){
+initializeDues();
 }
 
-function todayLocal(){
-  const d=new Date();
-  const offset=d.getTimezoneOffset();
-  const local=new Date(d.getTime()-offset*60000);
-  return local.toISOString().slice(0,10);
+if(button.dataset.tab==='guinness'){
+initializeGuinness();
 }
 
-function formatDate(dateString){
-  if(!dateString) return '';
-  const d=new Date(dateString+'T12:00:00');
-  return d.toLocaleDateString(undefined,{
-    month:'short',
-    day:'numeric',
-    year:'numeric'
-  });
-}
+});
 
-function showMessage(elementId,message,type='success'){
-  const el=document.getElementById(elementId);
+});
 
-  if(!el) return;
 
-  if(type==='error'){
-    el.innerHTML='<div class="error-state" style="margin-top:12px;">'+
-      escapeHtml(message)+
-      '</div>';
-  }else{
-    el.innerHTML='<div class="notice">'+
-      escapeHtml(message)+
-      '</div>';
-  }
-}
+/* ==========================================
+   SUPABASE
+========================================== */
 
+const SUPABASE_URL=
+'https://rxkzcetitmuyztiqnkes.supabase.co';
 
-/* =========================
-   VENMO
-========================= */
-
-function openVenmoApp(event,username,amount){
-
-  if(event){
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  const fallbackUrl='https://venmo.com/'+encodeURIComponent(username);
-
-  const safeAmount=Number(amount||0).toFixed(2);
-
-  const appUrl=
-    'venmo://paycharge?txn=paycharge&recipients='+
-    encodeURIComponent(username)+
-    '&amount='+
-    encodeURIComponent(safeAmount);
-
-  let fallbackTimer;
-
-  const cleanup=()=>{
-    if(fallbackTimer){
-      clearTimeout(fallbackTimer);
-      fallbackTimer=null;
-    }
-
-    document.removeEventListener('visibilitychange',handleVisibility);
-    window.removeEventListener('pagehide',handlePageHide);
-  };
-
-  const handleVisibility=()=>{
-    if(document.hidden){
-      cleanup();
-    }
-  };
-
-  const handlePageHide=()=>{
-    cleanup();
-  };
-
-  document.addEventListener('visibilitychange',handleVisibility);
-  window.addEventListener('pagehide',handlePageHide);
-
-  window.location.href=appUrl;
-
-  fallbackTimer=setTimeout(()=>{
-    if(!document.hidden){
-      cleanup();
-      window.location.href=fallbackUrl;
-    }
-  },1200);
-
-  return false;
-}
-
-
-/* =========================
-   GUINNESS
-========================= */
-
-let guinnessInitialized=false;
-let guinnessLogs=[];
-
-function initializeGuinness(){
-
-  if(!document.getElementById('guinnessPeople').innerHTML){
-    renderGuinnessPeople();
-  }
-
-  if(!document.getElementById('guinnessDate').value){
-    document.getElementById('guinnessDate').value=todayLocal();
-  }
-
-  if(!guinnessInitialized){
-    guinnessInitialized=true;
-    loadGuinness();
-  }
-}
-
-function renderGuinnessPeople(){
-
-  const container=document.getElementById('guinnessPeople');
-
-  container.innerHTML=PEOPLE.map((person,index)=>`
-    <label class="person-check">
-      <input
-        type="checkbox"
-        class="guinness-person"
-        value="${escapeHtml(person)}"
-        id="guinness-person-${index}"
-      >
-      <span>${escapeHtml(person)}</span>
-    </label>
-  `).join('');
-}
-
-async function loadGuinness(){
-
-  const leaderboard=document.getElementById('guinnessLeaderboard');
-  const history=document.getElementById('guinnessHistory');
-
-  leaderboard.innerHTML='<div class="empty-state">Loading Guinness tracker…</div>';
-  history.innerHTML='<div class="empty-state">Loading Guinness history…</div>';
-
-  const pin=localStorage.getItem('scotland2027_dues_pin') || '1234';
-
-  const {data,error}=await supabaseClient.rpc(
-    'get_guinness_logs',
-    {
-      p_pin:pin
-    }
-  );
-
-  if(error){
-
-    const detailedError=
-      'Guinness database error: '+
-      (error.message || 'Unknown Supabase error')+
-      (error.details ? ' | Details: '+error.details : '')+
-      (error.hint ? ' | Hint: '+error.hint : '');
-
-    leaderboard.innerHTML=
-      '<div class="error-state">'+
-      '<strong>Unable to load Guinness tracker.</strong><br><br>'+
-      escapeHtml(detailedError)+
-      '</div>';
-
-    history.innerHTML='';
-
-    document.getElementById('guinnessTotal').textContent='—';
-
-    console.error('Guinness RPC error:',error);
-
-    return;
-  }
-
-  guinnessLogs=Array.isArray(data) ? data : [];
-
-  renderGuinness();
-}
-
-function renderGuinness(){
-
-  const counts={};
-
-  PEOPLE.forEach(person=>{
-    counts[person]=0;
-  });
-
-  let total=0;
-
-  guinnessLogs.forEach(log=>{
-
-    const people=Array.isArray(log.people) ? log.people : [];
-
-    total += people.length;
-
-    people.forEach(person=>{
-      if(counts[person]===undefined){
-        counts[person]=0;
-      }
-
-      counts[person]++;
-    });
-
-  });
-
-  document.getElementById('guinnessTotal').textContent=total;
-
-  const sorted=PEOPLE
-    .map(person=>({
-      name:person,
-      count:counts[person] || 0
-    }))
-    .sort((a,b)=>{
-      if(b.count!==a.count) return b.count-a.count;
-      return a.name.localeCompare(b.name);
-    });
-
-  const leaderboard=document.getElementById('guinnessLeaderboard');
-
-  leaderboard.innerHTML=sorted.map((person,index)=>`
-
-    <div class="leader-row">
-
-      <div class="leader-rank">
-        ${index+1}
-      </div>
-
-      <div class="leader-name">
-        ${escapeHtml(person.name)}
-      </div>
-
-      <div class="leader-count">
-        ${person.count}
-      </div>
-
-    </div>
-
-  `).join('');
-
-  renderGuinnessHistory();
-}
-
-function renderGuinnessHistory(){
-
-  const container=document.getElementById('guinnessHistory');
-
-  if(!guinnessLogs.length){
-    container.innerHTML=
-      '<div class="empty-state">No Guinness logged yet. The first pint is on you.</div>';
-    return;
-  }
-
-  container.innerHTML=guinnessLogs.map(log=>{
-
-    const people=Array.isArray(log.people) ? log.people : [];
-
-    return `
-
-      <div class="guinness-log">
-
-        <div>
-
-          <div class="guinness-log-people">
-            🍺 ${escapeHtml(people.join(', '))}
-          </div>
-
-          <div class="small">
-            ${escapeHtml(formatDate(log.drink_date))}
-            • ${people.length} Guinness${people.length===1?'':'es'}
-          </div>
-
-        </div>
-
-        <button
-          class="btn btn-danger"
-          onclick="deleteGuinness('${escapeHtml(log.id)}')"
-        >
-          Delete
-        </button>
-
-      </div>
-
-    `;
-
-  }).join('');
-}
-
-async function logGuinness(){
-
-  const button=document.getElementById('logGuinnessBtn');
-
-  const drinkDate=document.getElementById('guinnessDate').value;
-
-  const selected=[...document.querySelectorAll('.guinness-person:checked')]
-    .map(input=>input.value);
-
-  if(!selected.length){
-    showMessage(
-      'guinnessFormMessage',
-      'Select at least one person.',
-      'error'
-    );
-    return;
-  }
-
-  button.disabled=true;
-  button.textContent='Saving…';
-
-  const pin=localStorage.getItem('scotland2027_dues_pin') || '1234';
-
-  const {data,error}=await supabaseClient.rpc(
-    'log_guinness',
-    {
-      p_pin:pin,
-      p_drink_date:drinkDate || todayLocal(),
-      p_people:selected
-    }
-  );
-
-  button.disabled=false;
-  button.textContent='🍺 Log Guinness';
-
-  if(error){
-
-    const detailedError=
-      'Unable to log Guinness: '+
-      (error.message || 'Unknown Supabase error')+
-      (error.details ? ' | Details: '+error.details : '')+
-      (error.hint ? ' | Hint: '+error.hint : '');
-
-    showMessage(
-      'guinnessFormMessage',
-      detailedError,
-      'error'
-    );
-
-    console.error('Log Guinness error:',error);
-
-    return;
-  }
-
-  document.querySelectorAll('.guinness-person')
-    .forEach(input=>input.checked=false);
-
-  showMessage(
-    'guinnessFormMessage',
-    'Guinness logged!'
-  );
-
-  await loadGuinness();
-}
-
-async function deleteGuinness(id){
-
-  if(!confirm('Delete this Guinness log?')){
-    return;
-  }
-
-  const pin=localStorage.getItem('scotland2027_dues_pin') || '1234';
-
-  const {data,error}=await supabaseClient.rpc(
-    'delete_guinness',
-    {
-      p_pin:pin,
-      p_id:id
-    }
-  );
-
-  if(error){
-
-    alert(
-      'Unable to delete Guinness log:\n\n'+
-      (error.message || 'Unknown Supabase error')
-    );
-
-    console.error('Delete Guinness error:',error);
-
-    return;
-  }
-
-  await loadGuinness();
-}
-
-document.getElementById('logGuinnessBtn')
-  .addEventListener('click',logGuinness);
-
-
-/* =========================
-   DUES
-========================= */
+const SUPABASE_ANON_KEY=
+'sb_publishable_ohoPFPa1a5pi7sYeKyUuww_KSj08KUG';
 
 const DUES_PIN='1234';
 
-let duesInitialized=false;
+const DUES_AUTH_KEY=
+'scotland2027_dues_authenticated';
+
+const supabaseClient=
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+
+/* ==========================================
+   PEOPLE
+========================================== */
+
+const PEOPLE=[
+'Mike Ribbing',
+'Tom Chung',
+'Eric Hopton',
+'Zach Gordon',
+'Brian Gordon',
+'Clem Diglio',
+'Veer Singh',
+'Yeags'
+];
+
+const SHORT_NAMES={
+'Mike Ribbing':'Mike',
+'Tom Chung':'Tom',
+'Eric Hopton':'Eric',
+'Zach Gordon':'Zach',
+'Brian Gordon':'Brian',
+'Clem Diglio':'Clem',
+'Veer Singh':'Veer',
+'Yeags':'Yeags'
+};
+
+
+/* ==========================================
+   VENMO
+========================================== */
+
+const VENMO={
+'Mike Ribbing':'mike_ribbing',
+'Tom Chung':'tomchung11',
+'Eric Hopton':'ehop57',
+'Zach Gordon':'zach-Gordon-15',
+'Brian Gordon':'brain-gordon-115',
+'Veer Singh':'veersingh24',
+'Yeags':'papa-yeags'
+};
+
+
+/* ==========================================
+   GUINNESS STATE
+========================================== */
+
+let guinnessLogs=[];
+
+let guinnessInitialized=false;
+
+
+/* ==========================================
+   GUINNESS HELPERS
+========================================== */
+
+function todayString(){
+
+return new Date()
+.toISOString()
+.slice(0,10);
+
+}
+
+
+function formatGuinnessDate(date){
+
+if(!date)return '';
+
+return new Date(
+date+'T12:00:00'
+).toLocaleDateString(
+'en-US',
+{
+weekday:'short',
+month:'short',
+day:'numeric',
+year:'numeric'
+}
+);
+
+}
+
+
+function formatSupabaseError(prefix,error){
+
+if(!error){
+return prefix;
+}
+
+const details=[
+error.message,
+error.details,
+error.hint,
+error.code
+].filter(Boolean);
+
+if(!details.length){
+return prefix;
+}
+
+return prefix+
+': '+
+details.join(' | ');
+
+}
+
+
+/* ==========================================
+   GUINNESS INITIALIZE
+========================================== */
+
+function initializeGuinness(){
+
+if(!guinnessInitialized){
+
+guinnessInitialized=true;
+
+document.getElementById(
+'guinnessDate'
+).value=todayString();
+
+updateGuinnessSelected();
+
+}
+
+loadGuinness();
+
+}
+
+
+/* ==========================================
+   LOAD GUINNESS
+========================================== */
+
+async function loadGuinness(){
+
+const leaderboard=
+document.getElementById(
+'guinnessLeaderboard'
+);
+
+leaderboard.innerHTML=
+'<div class="empty-state">Loading Guinness Tracker…</div>';
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'get_guinness_logs',
+{
+p_pin:DUES_PIN
+}
+);
+
+if(error){
+
+console.error(
+'Guinness load error:',
+error
+);
+
+leaderboard.innerHTML=
+'<div class="empty-state">'+
+escapeHtml(
+formatSupabaseError(
+'Unable to load Guinness Tracker',
+error
+)
+)+
+'</div>';
+
+return;
+
+}
+
+guinnessLogs=
+Array.isArray(data)
+?data
+:[];
+
+renderGuinness();
+
+}catch(error){
+
+console.error(
+'Guinness connection error:',
+error
+);
+
+leaderboard.innerHTML=
+'<div class="empty-state">'+
+escapeHtml(
+formatSupabaseError(
+'Unable to connect to the Guinness database',
+error
+)
+)+
+'</div>';
+
+}
+
+}
+
+
+/* ==========================================
+   CALCULATE GUINNESS TOTALS
+========================================== */
+
+function calculateGuinnessTotals(){
+
+const totals={};
+
+PEOPLE.forEach(person=>{
+totals[person]=0;
+});
+
+guinnessLogs.forEach(log=>{
+
+const people=
+Array.isArray(log.people)
+?log.people
+:[];
+
+people.forEach(person=>{
+
+if(
+Object.prototype.hasOwnProperty.call(
+totals,
+person
+)
+){
+
+totals[person]++;
+
+}
+
+});
+
+});
+
+return totals;
+
+}
+
+
+/* ==========================================
+   RENDER GUINNESS
+========================================== */
+
+function renderGuinness(){
+
+const totals=
+calculateGuinnessTotals();
+
+
+const groupTotal=
+Object.values(totals)
+.reduce(
+(sum,value)=>sum+value,
+0
+);
+
+
+document.getElementById(
+'guinnessTotal'
+).textContent=
+groupTotal;
+
+
+const ranked=
+PEOPLE
+.map(person=>({
+person,
+count:totals[person]
+}))
+.sort((a,b)=>{
+
+if(b.count!==a.count){
+return b.count-a.count;
+}
+
+return PEOPLE.indexOf(a.person)-
+PEOPLE.indexOf(b.person);
+
+});
+
+
+document.getElementById(
+'guinnessLeaderboard'
+).innerHTML=
+ranked.map((entry,index)=>{
+
+return `
+
+<div class="leader-row">
+
+<div class="leader-rank">
+${index+1}
+</div>
+
+<div class="leader-name">
+${escapeHtml(
+shortName(entry.person)
+)}
+</div>
+
+<div class="leader-count">
+${entry.count}
+<span class="leader-count-label">
+${entry.count===1?'Guinness':'Guinnesses'}
+</span>
+</div>
+
+</div>
+
+`;
+
+}).join('');
+
+
+renderGuinnessHistory();
+
+}
+
+
+/* ==========================================
+   RENDER GUINNESS HISTORY
+========================================== */
+
+function renderGuinnessHistory(){
+
+const history=
+document.getElementById(
+'guinnessHistory'
+);
+
+if(!guinnessLogs.length){
+
+history.innerHTML=
+'<div class="empty-state">'+
+'No Guinness logged yet. Time to get started. 🍺'+
+'</div>';
+
+return;
+
+}
+
+const sorted=
+[...guinnessLogs].sort((a,b)=>{
+
+return String(b.drink_date)
+.localeCompare(
+String(a.drink_date)
+)
+||
+String(b.created_at)
+.localeCompare(
+String(a.created_at)
+);
+
+});
+
+
+history.innerHTML=
+sorted.map(log=>{
+
+const people=
+Array.isArray(log.people)
+?log.people
+:[];
+
+return `
+
+<div class="guinness-history-row">
+
+<div>
+
+<div class="guinness-history-date">
+${escapeHtml(
+formatGuinnessDate(
+log.drink_date
+)
+)}
+</div>
+
+<div class="guinness-history-people">
+${people.map(person=>
+escapeHtml(
+shortName(person)
+)
+).join(', ')}
+</div>
+
+</div>
+
+<div class="guinness-history-actions">
+
+<button
+class="guinness-delete"
+type="button"
+data-guinness-delete-id="${escapeHtml(log.id)}">
+🗑️ Delete
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join('');
+
+
+document.querySelectorAll(
+'[data-guinness-delete-id]'
+).forEach(button=>{
+
+button.addEventListener(
+'click',
+()=>deleteGuinness(
+button.dataset.guinnessDeleteId,
+button
+)
+);
+
+});
+
+}
+
+
+/* ==========================================
+   DELETE INDIVIDUAL GUINNESS
+========================================== */
+
+async function deleteGuinness(
+guinnessId,
+button
+){
+
+const log=
+guinnessLogs.find(
+item=>String(item.id)===String(guinnessId)
+);
+
+if(!log)return;
+
+const people=
+Array.isArray(log.people)
+?log.people
+:[];
+
+const names=
+people.map(person=>shortName(person))
+.join(', ');
+
+const confirmed=
+window.confirm(
+'Delete this Guinness log for '+
+names+
+' on '+
+formatGuinnessDate(log.drink_date)+
+'?'
+);
+
+if(!confirmed)return;
+
+const pin=
+window.prompt(
+'Enter the Dues PIN to delete this Guinness log:'
+);
+
+if(pin===null)return;
+
+if(pin!==DUES_PIN){
+
+window.alert(
+'Incorrect PIN. Nothing was deleted.'
+);
+
+return;
+
+}
+
+button.disabled=true;
+button.textContent='Deleting…';
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'delete_guinness',
+{
+p_pin:DUES_PIN,
+p_id:guinnessId
+}
+);
+
+if(error){
+
+console.error(
+'Guinness delete error:',
+error
+);
+
+window.alert(
+formatSupabaseError(
+'Unable to delete Guinness',
+error
+)
+);
+
+return;
+
+}
+
+if(!data){
+
+window.alert(
+'Guinness log could not be deleted.'
+);
+
+return;
+
+}
+
+await loadGuinness();
+
+}catch(error){
+
+console.error(
+'Guinness deletion connection error:',
+error
+);
+
+window.alert(
+formatSupabaseError(
+'Unable to connect to the Guinness database',
+error
+)
+);
+
+}finally{
+
+button.disabled=false;
+button.textContent='🗑️ Delete';
+
+}
+
+}
+
+
+/* ==========================================
+   SHOW / HIDE GUINNESS FORM
+========================================== */
+
+document.getElementById(
+'showGuinnessForm'
+).addEventListener(
+'click',
+()=>{
+
+const form=
+document.getElementById(
+'guinnessForm'
+);
+
+const button=
+document.getElementById(
+'showGuinnessForm'
+);
+
+if(form.style.display==='none'){
+
+form.style.display='block';
+
+button.textContent=
+'✕ Cancel';
+
+}else{
+
+form.style.display='none';
+
+button.textContent=
+'🍺 Log Guinness';
+
+}
+
+});
+
+
+/* ==========================================
+   GUINNESS SELECTION
+========================================== */
+
+function updateGuinnessSelected(){
+
+const selected=
+document.querySelectorAll(
+'.guinness-check input:checked'
+).length;
+
+document.getElementById(
+'guinnessSelected'
+).textContent=
+selected===1
+?'1 person selected'
+:selected+' people selected';
+
+}
+
+
+document.querySelectorAll(
+'.guinness-check input'
+).forEach(input=>{
+
+input.addEventListener(
+'change',
+updateGuinnessSelected
+);
+
+});
+
+
+/* ==========================================
+   LOG GUINNESS
+========================================== */
+
+document.getElementById(
+'logGuinness'
+).addEventListener(
+'click',
+async()=>{
+
+const date=
+document.getElementById(
+'guinnessDate'
+).value ||
+todayString();
+
+
+const selectedPeople=
+Array.from(
+document.querySelectorAll(
+'.guinness-check input:checked'
+)
+).map(
+input=>input.value
+);
+
+
+const message=
+document.getElementById(
+'guinnessMessage'
+);
+
+
+message.textContent='';
+message.className=
+'guinness-message';
+
+
+if(!selectedPeople.length){
+
+message.textContent=
+'Select at least one person who drank it.';
+
+return;
+
+}
+
+
+const button=
+document.getElementById(
+'logGuinness'
+);
+
+button.disabled=true;
+
+button.textContent='Saving…';
+
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'log_guinness',
+{
+p_pin:DUES_PIN,
+p_drink_date:date,
+p_people:selectedPeople
+}
+);
+
+
+if(error){
+
+console.error(
+'Guinness log error:',
+error
+);
+
+message.textContent=
+formatSupabaseError(
+'Could not save',
+error
+);
+
+return;
+
+}
+
+
+if(!data){
+
+message.textContent=
+'Guinness was not returned by the database.';
+
+return;
+
+}
+
+
+document.querySelectorAll(
+'.guinness-check input'
+).forEach(input=>{
+input.checked=false;
+});
+
+
+updateGuinnessSelected();
+
+
+message.textContent=
+'🍺 Guinness logged!';
+
+message.className=
+'guinness-message success';
+
+
+await loadGuinness();
+
+
+setTimeout(()=>{
+
+message.textContent='';
+
+},2500);
+
+
+}catch(error){
+
+console.error(
+'Guinness connection error:',
+error
+);
+
+message.textContent=
+formatSupabaseError(
+'Could not connect to the Guinness database',
+error
+);
+
+}finally{
+
+button.disabled=false;
+
+button.textContent=
+'🍺 Log Guinness';
+
+}
+
+});
+
+
+/* ==========================================
+   REFRESH GUINNESS
+========================================== */
+
+document.getElementById(
+'refreshGuinness'
+).addEventListener(
+'click',
+async()=>{
+
+const button=
+document.getElementById(
+'refreshGuinness'
+);
+
+button.disabled=true;
+
+button.textContent='Loading…';
+
+await loadGuinness();
+
+button.disabled=false;
+
+button.textContent='↻ Refresh';
+
+});
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHtml(value){
+
+return String(value)
+.replace(/&/g,'&amp;')
+.replace(/</g,'&lt;')
+.replace(/>/g,'&gt;')
+.replace(/"/g,'&quot;')
+.replace(/'/g,'&#039;');
+
+}
+
+
+/* ==========================================
+   SHORT NAME
+========================================== */
+
+function shortName(person){
+
+return SHORT_NAMES[person]||person;
+
+}
+
+
+/* ==========================================
+   DUES STATE
+========================================== */
+
 let purchases=[];
-let gbpToUsd=null;
 
-function initializeDues(){
+let duesInitialized=false;
 
-  if(!document.getElementById('purchasePayer').innerHTML){
-    populateDuesPeople();
-  }
+let gbpToUsd=1.35111;
 
-  if(!document.getElementById('purchaseDate').value){
-    document.getElementById('purchaseDate').value=todayLocal();
-  }
+let fxUpdatedText='Current rate';
 
-  const authenticated=
-    localStorage.getItem('scotland2027_dues_authenticated')==='true';
 
-  if(authenticated){
+/* ==========================================
+   DUES HELPERS
+========================================== */
 
-    document.getElementById('duesLogin').style.display='none';
-    document.getElementById('duesContent').style.display='block';
-
-    if(!duesInitialized){
-      duesInitialized=true;
-      loadDues();
-    }
-
-  }else{
-
-    document.getElementById('duesLogin').style.display='block';
-    document.getElementById('duesContent').style.display='none';
-
-  }
+function formatMoney(value){
+return '£'+Number(value).toFixed(2);
 }
 
-function populateDuesPeople(){
+function formatUSD(value){
+return '$'+Number(value).toFixed(2);
+}
 
-  const payer=document.getElementById('purchasePayer');
 
-  payer.innerHTML=PEOPLE.map(person=>`
-    <option value="${escapeHtml(person)}">
-      ${escapeHtml(person)}
-    </option>
-  `).join('');
+/* ==========================================
+   FX RATE
+========================================== */
 
-  const people=document.getElementById('purchasePeople');
+async function loadFxRate(){
 
-  people.innerHTML=PEOPLE.map((person,index)=>`
-    <label class="person-check">
-      <input
-        type="checkbox"
-        class="purchase-person"
-        value="${escapeHtml(person)}"
-        id="purchase-person-${index}"
-      >
-      <span>${escapeHtml(person)}</span>
-    </label>
-  `).join('');
+const rateDisplay=
+document.getElementById('fxRate');
+
+const updatedDisplay=
+document.getElementById('fxUpdated');
+
+const exampleDisplay=
+document.getElementById('fxExample');
+
+if(rateDisplay){
+rateDisplay.textContent='Loading…';
+}
+
+try{
+
+const response=
+await fetch(
+'https://open.er-api.com/v6/latest/USD',
+{
+cache:'no-store'
+}
+);
+
+if(!response.ok){
+throw new Error('FX request failed');
+}
+
+const data=
+await response.json();
+
+if(
+!data.rates ||
+!data.rates.GBP
+){
+throw new Error('GBP rate unavailable');
+}
+
+gbpToUsd=
+1/Number(data.rates.GBP);
+
+fxUpdatedText=
+data.time_last_update_utc
+?'Rate updated '+data.time_last_update_utc
+:'Current exchange rate';
+
+if(rateDisplay){
+
+rateDisplay.textContent=
+'£1 = '+formatUSD(gbpToUsd);
 
 }
 
-async function duesLogin(){
-
-  const pin=document.getElementById('duesPin').value.trim();
-
-  if(!pin){
-    showMessage(
-      'duesLoginMessage',
-      'Enter the Dues PIN.',
-      'error'
-    );
-    return;
-  }
-
-  const {error}=await supabaseClient.rpc(
-    'get_purchases',
-    {
-      p_pin:pin
-    }
-  );
-
-  if(error){
-
-    showMessage(
-      'duesLoginMessage',
-      'Incorrect PIN or database error: '+(error.message || ''),
-      'error'
-    );
-
-    return;
-  }
-
-  localStorage.setItem('scotland2027_dues_authenticated','true');
-  localStorage.setItem('scotland2027_dues_pin',pin);
-
-  document.getElementById('duesLogin').style.display='none';
-  document.getElementById('duesContent').style.display='block';
-
-  duesInitialized=true;
-
-  await loadDues();
+if(updatedDisplay){
+updatedDisplay.textContent=
+fxUpdatedText;
 }
 
-async function loadDues(){
+if(exampleDisplay){
 
-  const pin=localStorage.getItem('scotland2027_dues_pin') || DUES_PIN;
-
-  const {data,error}=await supabaseClient.rpc(
-    'get_purchases',
-    {
-      p_pin:pin
-    }
-  );
-
-  if(error){
-
-    document.getElementById('purchaseHistory').innerHTML=
-      '<div class="error-state">'+
-      escapeHtml(error.message || 'Unable to load purchases.')+
-      '</div>';
-
-    return;
-  }
-
-  purchases=Array.isArray(data) ? data : [];
-
-  renderDues();
-
-  await refreshExchangeRate();
-}
-
-async function refreshExchangeRate(){
-
-  try{
-
-    const response=await fetch(
-      'https://open.er-api.com/v6/latest/USD'
-    );
-
-    const data=await response.json();
-
-    if(
-      data &&
-      data.rates &&
-      Number(data.rates.GBP)>0
-    ){
-      gbpToUsd=1/Number(data.rates.GBP);
-      renderDues();
-    }
-
-  }catch(error){
-
-    console.error('Exchange rate error:',error);
-
-  }
-}
-
-function renderDues(){
-
-  renderBalances();
-  renderSettlements();
-  renderPurchaseHistory();
+exampleDisplay.textContent=
+'£100 = '+formatUSD(100*gbpToUsd);
 
 }
+
+renderDues();
+
+}catch(error){
+
+console.error(
+'FX rate error:',
+error
+);
+
+if(rateDisplay){
+
+rateDisplay.textContent=
+'£1 = '+formatUSD(gbpToUsd);
+
+}
+
+if(updatedDisplay){
+
+updatedDisplay.textContent=
+'Using last available rate';
+
+}
+
+if(exampleDisplay){
+
+exampleDisplay.textContent=
+'£100 = '+formatUSD(100*gbpToUsd);
+
+}
+
+}
+
+}
+
+
+/* ==========================================
+   DUES AUTH
+========================================== */
+
+function isAuthenticated(){
+
+return localStorage.getItem(
+DUES_AUTH_KEY
+)==='true';
+
+}
+
+
+function showDuesContent(){
+
+document.getElementById(
+'duesAuth'
+).style.display='none';
+
+document.getElementById(
+'duesContent'
+).style.display='block';
+
+}
+
+
+function showDuesAuth(){
+
+document.getElementById(
+'duesAuth'
+).style.display='block';
+
+document.getElementById(
+'duesContent'
+).style.display='none';
+
+}
+
+
+document.getElementById(
+'authForm'
+).addEventListener(
+'submit',
+event=>{
+
+event.preventDefault();
+
+const pin=
+document.getElementById(
+'duesPin'
+).value.trim();
+
+const error=
+document.getElementById(
+'authError'
+);
+
+if(pin!==DUES_PIN){
+
+error.textContent=
+'Incorrect PIN. Try again.';
+
+document.getElementById(
+'duesPin'
+).select();
+
+return;
+
+}
+
+localStorage.setItem(
+DUES_AUTH_KEY,
+'true'
+);
+
+error.textContent='';
+
+document.getElementById(
+'duesPin'
+).value='';
+
+showDuesContent();
+
+loadPurchases();
+
+loadFxRate();
+
+});
+
+
+/* ==========================================
+   LOAD PURCHASES
+========================================== */
+
+async function loadPurchases(){
+
+const history=
+document.getElementById(
+'purchaseHistory'
+);
+
+history.innerHTML=
+'<div class="empty-state">Loading purchases...</div>';
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'get_purchases',
+{
+p_pin:DUES_PIN
+}
+);
+
+if(error){
+
+console.error(
+'Supabase get_purchases error:',
+error
+);
+
+history.innerHTML=
+'<div class="empty-state">'+
+'Unable to load the shared ledger.<br>'+
+'Please refresh and try again.'+
+'</div>';
+
+return;
+
+}
+
+purchases=
+Array.isArray(data)
+?data
+:[];
+
+renderDues();
+
+}catch(error){
+
+console.error(
+'Supabase connection error:',
+error
+);
+
+history.innerHTML=
+'<div class="empty-state">'+
+'Unable to connect to the Dues database.'+
+'</div>';
+
+}
+
+}
+
+
+/* ==========================================
+   RENDER PURCHASE HISTORY
+========================================== */
+
+function renderPurchases(){
+
+const history=
+document.getElementById(
+'purchaseHistory'
+);
+
+if(!purchases.length){
+
+history.innerHTML=
+'<div class="empty-state">'+
+'No purchases logged yet.'+
+'</div>';
+
+return;
+
+}
+
+const sorted=
+[...purchases].sort((a,b)=>{
+
+return String(b.purchase_date)
+.localeCompare(
+String(a.purchase_date)
+)
+||
+String(b.created_at)
+.localeCompare(
+String(a.created_at)
+);
+
+});
+
+
+history.innerHTML=
+sorted.map(purchase=>{
+
+const people=
+Array.isArray(purchase.people)
+?purchase.people
+:[];
+
+const share=
+people.length
+?Number(purchase.amount)/people.length
+:0;
+
+const amountUSD=
+Number(purchase.amount)*gbpToUsd;
+
+const shareUSD=
+share*gbpToUsd;
+
+const dateDisplay=
+purchase.purchase_date
+?new Date(
+purchase.purchase_date+'T12:00:00'
+).toLocaleDateString(
+'en-US',
+{
+month:'short',
+day:'numeric',
+year:'numeric'
+}
+)
+:'Date not specified';
+
+
+return `
+
+<div class="purchase">
+
+<div class="purchase-top">
+
+<div>
+
+<div class="purchase-name">
+${escapeHtml(
+purchase.description
+)}
+</div>
+
+<div class="purchase-meta">
+${escapeHtml(dateDisplay)}
+•
+Paid by
+${escapeHtml(
+shortName(purchase.payer)
+)}
+</div>
+
+</div>
+
+<div class="purchase-total">
+${formatMoney(purchase.amount)}
+</div>
+
+</div>
+
+
+<div class="purchase-details">
+
+<b>Included:</b>
+
+${people.map(person=>
+escapeHtml(
+shortName(person)
+)
+).join(', ')}
+
+</div>
+
+
+<div class="purchase-share">
+
+${formatMoney(share)}
+per person
+
+</div>
+
+
+<div class="purchase-usd">
+
+Current USD equivalent:
+${formatUSD(shareUSD)}
+per person
+•
+Total ${formatUSD(amountUSD)}
+
+</div>
+
+
+<div class="purchase-actions">
+
+<button
+class="delete-btn"
+type="button"
+data-delete-id="${escapeHtml(purchase.id)}">
+Delete Purchase
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join('');
+
+
+document.querySelectorAll(
+'[data-delete-id]'
+).forEach(button=>{
+
+button.addEventListener(
+'click',
+()=>deletePurchase(
+button.dataset.deleteId,
+button
+)
+);
+
+});
+
+}
+
+
+/* ==========================================
+   DELETE INDIVIDUAL PURCHASE
+========================================== */
+
+async function deletePurchase(
+purchaseId,
+button
+){
+
+const purchase=
+purchases.find(
+item=>String(item.id)===String(purchaseId)
+);
+
+if(!purchase)return;
+
+const confirmed=
+window.confirm(
+'Delete "'+
+purchase.description+
+'" for '+
+formatMoney(purchase.amount)+
+'?'
+);
+
+if(!confirmed)return;
+
+const pin=
+window.prompt(
+'Enter the Dues PIN to delete this purchase:'
+);
+
+if(pin===null)return;
+
+if(pin!==DUES_PIN){
+
+window.alert(
+'Incorrect PIN. Nothing was deleted.'
+);
+
+return;
+
+}
+
+button.disabled=true;
+button.textContent='Deleting…';
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'delete_purchase',
+{
+p_pin:DUES_PIN,
+p_id:purchaseId
+}
+);
+
+if(error){
+
+console.error(
+'Supabase delete error:',
+error
+);
+
+window.alert(
+'Unable to delete purchase: '+
+(error.message||'Unknown error')
+);
+
+return;
+
+}
+
+if(!data){
+
+window.alert(
+'Purchase could not be deleted.'
+);
+
+return;
+
+}
+
+await loadPurchases();
+
+}catch(error){
+
+console.error(error);
+
+window.alert(
+'Unable to connect to the Dues database.'
+);
+
+}finally{
+
+button.disabled=false;
+button.textContent='Delete Purchase';
+
+}
+
+}
+
+
+/* ==========================================
+   BALANCES
+========================================== */
+
+function calculateBalances(){
+
+const balances={};
+
+PEOPLE.forEach(person=>{
+balances[person]=0;
+});
+
+purchases.forEach(purchase=>{
+
+const people=
+Array.isArray(purchase.people)
+?purchase.people
+:[];
+
+if(!people.length)return;
+
+const amount=
+Number(purchase.amount)||0;
+
+const share=
+amount/people.length;
+
+if(
+Object.prototype.hasOwnProperty.call(
+balances,
+purchase.payer
+)
+){
+
+balances[purchase.payer]+=amount;
+
+}
+
+people.forEach(person=>{
+
+if(
+Object.prototype.hasOwnProperty.call(
+balances,
+person
+)
+){
+
+balances[person]-=share;
+
+}
+
+});
+
+});
+
+return balances;
+
+}
+
+
+/* ==========================================
+   RENDER BALANCES
+========================================== */
 
 function renderBalances(){
 
-  const balances={};
+const balances=
+calculateBalances();
 
-  PEOPLE.forEach(person=>{
-    balances[person]=0;
-  });
+document.getElementById(
+'balanceGrid'
+).innerHTML=
+PEOPLE.map(person=>{
 
-  purchases.forEach(purchase=>{
+const balance=
+balances[person];
 
-    const amount=Number(purchase.amount)||0;
+let amountClass='even';
 
-    const people=Array.isArray(purchase.people)
-      ? purchase.people
-      : [];
+let label='Even';
 
-    if(!people.length) return;
+if(balance>0.005){
 
-    const share=amount/people.length;
+amountClass='owedto';
+label='is owed';
 
-    people.forEach(person=>{
-      if(balances[person]===undefined){
-        balances[person]=0;
-      }
+}else if(balance<-0.005){
 
-      balances[person]-=share;
-    });
+amountClass='owed';
+label='owes';
 
-    if(balances[purchase.payer]===undefined){
-      balances[purchase.payer]=0;
-    }
-
-    balances[purchase.payer]+=amount;
-
-  });
-
-  const grid=document.getElementById('balanceGrid');
-
-  const sorted=PEOPLE.map(person=>({
-    name:person,
-    balance:balances[person]||0
-  }));
-
-  grid.innerHTML=sorted.map(item=>{
-
-    const gbp=item.balance;
-
-    const usd=gbpToUsd!==null
-      ? gbp*gbpToUsd
-      : null;
-
-    return `
-      <div class="balance">
-
-        <div class="balance-name">
-          ${escapeHtml(item.name)}
-        </div>
-
-        <div class="balance-number">
-          ${gbp>=0?'+':''}£${gbp.toFixed(2)}
-        </div>
-
-        ${
-          usd!==null
-          ? `<div class="small">
-              ${usd>=0?'+':''}$${usd.toFixed(2)}
-             </div>`
-          : `<div class="small">USD rate unavailable</div>`
-        }
-
-      </div>
-    `;
-
-  }).join('');
 }
 
-function renderSettlements(){
+return `
 
-  const balances={};
+<div class="balance">
 
-  PEOPLE.forEach(person=>{
-    balances[person]=0;
-  });
+<div class="balance-name">
+${escapeHtml(
+shortName(person)
+)}
+</div>
 
-  purchases.forEach(purchase=>{
+<div class="balance-amount ${amountClass}">
+${formatUSD(Math.abs(balance)*gbpToUsd)}
+</div>
 
-    const amount=Number(purchase.amount)||0;
+<div style="font-size:12px;color:#71869a;margin-top:2px">
+${label}
+</div>
 
-    const people=Array.isArray(purchase.people)
-      ? purchase.people
-      : [];
+<div class="balance-gbp">
+${formatMoney(Math.abs(balance))}
+</div>
 
-    if(!people.length) return;
+</div>
 
-    const share=amount/people.length;
+`;
 
-    people.forEach(person=>{
-      balances[person]-=share;
-    });
+}).join('');
 
-    balances[purchase.payer]+=amount;
+renderSettlements(balances);
 
-  });
-
-  const creditors=PEOPLE
-    .map(person=>({
-      name:person,
-      amount:Math.max(0,balances[person])
-    }))
-    .filter(x=>x.amount>0.005)
-    .sort((a,b)=>b.amount-a.amount);
-
-  const debtors=PEOPLE
-    .map(person=>({
-      name:person,
-      amount:Math.max(0,-balances[person])
-    }))
-    .filter(x=>x.amount>0.005)
-    .sort((a,b)=>b.amount-a.amount);
-
-  const settlements=[];
-
-  let i=0;
-  let j=0;
-
-  while(i<debtors.length && j<creditors.length){
-
-    const amount=Math.min(
-      debtors[i].amount,
-      creditors[j].amount
-    );
-
-    settlements.push({
-      from:debtors[i].name,
-      to:creditors[j].name,
-      amount
-    });
-
-    debtors[i].amount-=amount;
-    creditors[j].amount-=amount;
-
-    if(debtors[i].amount<0.005) i++;
-    if(creditors[j].amount<0.005) j++;
-  }
-
-  const container=document.getElementById('settlements');
-
-  if(!settlements.length){
-    container.innerHTML=
-      '<div class="empty-state">Everyone is settled up.</div>';
-    return;
-  }
-
-  container.innerHTML=settlements.map(settlement=>{
-
-    const recipient=settlement.to;
-    const username=VENMO[recipient];
-
-    let action='';
-
-    if(username){
-
-      action=`
-        <button
-          class="btn btn-primary"
-          onclick="openVenmoApp(event,'${escapeHtml(username)}',${settlement.amount.toFixed(2)})"
-        >
-          Pay with Venmo
-        </button>
-      `;
-
-    }else{
-
-      action=
-        '<span class="small">Clem has no Venmo</span>';
-
-    }
-
-    return `
-
-      <div class="settlement">
-
-        <div>
-          <strong>${escapeHtml(settlement.from)}</strong>
-          owes
-          <strong>${escapeHtml(settlement.to)}</strong>
-
-          <div class="small">
-            £${settlement.amount.toFixed(2)}
-            ${
-              gbpToUsd!==null
-              ? ' • $'+(settlement.amount*gbpToUsd).toFixed(2)
-              : ''
-            }
-          </div>
-
-        </div>
-
-        <div>
-          ${action}
-        </div>
-
-      </div>
-
-    `;
-
-  }).join('');
 }
 
-function renderPurchaseHistory(){
 
-  const container=document.getElementById('purchaseHistory');
+/* ==========================================
+   VENMO SETTLEMENTS
+========================================== */
 
-  if(!purchases.length){
+function renderSettlements(balances){
 
-    container.innerHTML=
-      '<div class="empty-state">No purchases yet.</div>';
+const creditors=[];
+const debtors=[];
 
-    return;
-  }
+Object.entries(balances).forEach(
+([person,balance])=>{
 
-  container.innerHTML=purchases.map(purchase=>{
+if(balance>0.005){
 
-    const amount=Number(purchase.amount)||0;
+creditors.push({
+person,
+amount:balance
+});
 
-    const people=Array.isArray(purchase.people)
-      ? purchase.people
-      : [];
-
-    const perPerson=
-      people.length
-      ? amount/people.length
-      : 0;
-
-    const usd=
-      gbpToUsd!==null
-      ? amount*gbpToUsd
-      : null;
-
-    return `
-
-      <div class="purchase">
-
-        <div class="purchase-top">
-
-          <div>
-            <div class="purchase-title">
-              ${escapeHtml(purchase.description)}
-            </div>
-
-            <div class="purchase-meta">
-              ${escapeHtml(formatDate(purchase.purchase_date))}
-              • Paid by ${escapeHtml(purchase.payer)}
-            </div>
-          </div>
-
-          <div class="purchase-amount">
-            £${amount.toFixed(2)}
-          </div>
-
-        </div>
-
-        <div class="purchase-people">
-          <strong>Split:</strong>
-          ${escapeHtml(people.join(', '))}
-          ${
-            people.length
-            ? ` • £${perPerson.toFixed(2)} each`
-            : ''
-          }
-        </div>
-
-        ${
-          usd!==null
-          ? `<div class="small" style="margin-top:4px;">
-              Current USD equivalent: $${usd.toFixed(2)}
-             </div>`
-          : ''
-        }
-
-        <div class="purchase-actions">
-
-          <button
-            class="btn btn-danger"
-            onclick="deletePurchase('${escapeHtml(purchase.id)}')"
-          >
-            Delete
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }).join('');
 }
 
-async function addPurchase(){
+if(balance<-0.005){
 
-  const description=
-    document.getElementById('purchaseDescription').value.trim();
+debtors.push({
+person,
+amount:-balance
+});
 
-  const amount=
-    Number(document.getElementById('purchaseAmount').value);
-
-  const payer=
-    document.getElementById('purchasePayer').value;
-
-  const purchaseDate=
-    document.getElementById('purchaseDate').value || todayLocal();
-
-  const people=[
-    ...document.querySelectorAll('.purchase-person:checked')
-  ].map(input=>input.value);
-
-  if(!description){
-    showMessage(
-      'purchaseMessage',
-      'Enter a description.',
-      'error'
-    );
-    return;
-  }
-
-  if(!amount || amount<=0){
-    showMessage(
-      'purchaseMessage',
-      'Enter a valid amount.',
-      'error'
-    );
-    return;
-  }
-
-  if(!people.length){
-    showMessage(
-      'purchaseMessage',
-      'Select at least one person.',
-      'error'
-    );
-    return;
-  }
-
-  if(!people.includes(payer)){
-    showMessage(
-      'purchaseMessage',
-      'The payer must be included in the split.',
-      'error'
-    );
-    return;
-  }
-
-  const button=document.getElementById('addPurchaseBtn');
-
-  button.disabled=true;
-  button.textContent='Saving…';
-
-  const pin=localStorage.getItem('scotland2027_dues_pin') || DUES_PIN;
-
-  const {data,error}=await supabaseClient.rpc(
-    'log_purchase',
-    {
-      p_pin:pin,
-      p_description:description,
-      p_amount:amount,
-      p_payer:payer,
-      p_purchase_date:purchaseDate,
-      p_people:people
-    }
-  );
-
-  button.disabled=false;
-  button.textContent='Add Purchase';
-
-  if(error){
-
-    showMessage(
-      'purchaseMessage',
-      error.message || 'Unable to add purchase.',
-      'error'
-    );
-
-    return;
-  }
-
-  document.getElementById('purchaseDescription').value='';
-  document.getElementById('purchaseAmount').value='';
-
-  document.querySelectorAll('.purchase-person')
-    .forEach(input=>input.checked=false);
-
-  showMessage(
-    'purchaseMessage',
-    'Purchase added.'
-  );
-
-  await loadDues();
 }
 
-async function deletePurchase(id){
+});
 
-  if(!confirm('Delete this purchase?')){
-    return;
-  }
 
-  const pin=localStorage.getItem('scotland2027_dues_pin') || DUES_PIN;
-
-  const {data,error}=await supabaseClient.rpc(
-    'delete_purchase',
-    {
-      p_pin:pin,
-      p_id:id
-    }
-  );
-
-  if(error){
-
-    alert(
-      'Unable to delete purchase:\n\n'+
-      (error.message || 'Unknown error')
-    );
-
-    return;
-  }
-
-  await loadDues();
-}
-
-async function clearPurchases(){
-
-  if(!confirm(
-    'Are you sure you want to delete ALL purchases? This cannot be undone.'
-  )){
-    return;
-  }
-
-  const pin=prompt('Enter the Dues PIN to confirm:');
-
-  if(pin===null){
-    return;
-  }
-
-  const {data,error}=await supabaseClient.rpc(
-    'clear_purchases',
-    {
-      p_pin:pin.trim()
-    }
-  );
-
-  if(error){
-
-    alert(
-      'Unable to clear purchases:\n\n'+
-      (error.message || 'Unknown error')
-    );
-
-    return;
-  }
-
-  await loadDues();
-
-  alert('All purchases cleared.');
-}
-
-document.getElementById('duesLoginBtn')
-  .addEventListener('click',duesLogin);
-
-document.getElementById('addPurchaseBtn')
-  .addEventListener('click',addPurchase);
-
-document.getElementById('deletePurchaseBtn')?.addEventListener(
-  'click',
-  deletePurchase
+creditors.sort(
+(a,b)=>b.amount-a.amount
 );
 
-document.getElementById('clearPurchasesBtn')
-  .addEventListener('click',clearPurchases);
+debtors.sort(
+(a,b)=>b.amount-a.amount
+);
 
-document.getElementById('refreshRatesBtn')
-  .addEventListener('click',async()=>{
-    await refreshExchangeRate();
-    alert('Exchange rate refreshed.');
-  });
+const settlements=[];
+
+let creditorIndex=0;
+let debtorIndex=0;
+
+while(
+creditorIndex<creditors.length &&
+debtorIndex<debtors.length
+){
+
+const creditor=
+creditors[creditorIndex];
+
+const debtor=
+debtors[debtorIndex];
+
+const amount=
+Math.min(
+creditor.amount,
+debtor.amount
+);
+
+if(amount>0.005){
+
+const debtorName=
+shortName(debtor.person);
+
+const creditorName=
+shortName(creditor.person);
+
+const usdAmount=
+formatUSD(
+amount*gbpToUsd
+);
+
+const gbpAmount=
+formatMoney(amount);
+
+const venmoUsername=
+VENMO[creditor.person];
+
+if(venmoUsername){
+
+settlements.push(`
+
+<a
+class="settlement-link"
+href="https://venmo.com/${encodeURIComponent(venmoUsername)}"
+onclick="openVenmoApp(event,'${escapeHtml(venmoUsername)}',${Number(amount*gbpToUsd).toFixed(2)})">
+
+<div class="settlement-main">
+${escapeHtml(debtorName)}
+owes
+${escapeHtml(creditorName)}
+</div>
+
+<div class="settlement-usd">
+${usdAmount}
+↗
+</div>
+
+<div class="settlement-gbp">
+${gbpAmount} • Tap to open ${escapeHtml(creditorName)}’s Venmo
+</div>
+
+</a>
+
+`);
+
+}else{
+
+settlements.push(`
+
+<div class="settlement-plain">
+
+<div class="settlement-main">
+${escapeHtml(debtorName)}
+owes
+${escapeHtml(creditorName)}
+</div>
+
+<div class="settlement-usd">
+${usdAmount}
+</div>
+
+<div class="settlement-gbp">
+${gbpAmount} • ${escapeHtml(creditorName)} has no Venmo
+</div>
+
+</div>
+
+`);
+
+}
+
+}
+
+creditor.amount-=amount;
+debtor.amount-=amount;
+
+if(creditor.amount<=0.005){
+creditorIndex++;
+}
+
+if(debtor.amount<=0.005){
+debtorIndex++;
+}
+
+}
+
+const list=
+document.getElementById(
+'settlementList'
+);
+
+if(!settlements.length){
+
+list.innerHTML=
+'<div style="font-size:14px;color:#647b8f">'+
+'Everyone is even. 🍻'+
+'</div>';
+
+return;
+
+}
+
+list.innerHTML=
+settlements.join('');
+
+}
 
 
-/* =========================
-   INITIALIZE
-========================= */
+/* ==========================================
+   RENDER DUES
+========================================== */
 
-document.getElementById('guinnessDate').value=todayLocal();
-document.getElementById('purchaseDate').value=todayLocal();
+function renderDues(){
 
-renderGuinnessPeople();
-populateDuesPeople();
+if(
+!document.getElementById(
+'duesContent'
+)
+)return;
+
+renderPurchases();
+renderBalances();
+
+}
+
+
+/* ==========================================
+   LOG PURCHASE
+========================================== */
+
+document.getElementById(
+'purchaseForm'
+).addEventListener(
+'submit',
+async event=>{
+
+event.preventDefault();
+
+const description=
+document.getElementById(
+'purchaseDescription'
+).value.trim();
+
+const amount=
+Number(
+document.getElementById(
+'purchaseAmount'
+).value
+);
+
+const payer=
+document.getElementById(
+'purchasePayer'
+).value;
+
+const date=
+document.getElementById(
+'purchaseDate'
+).value;
+
+const selectedPeople=
+Array.from(
+document.querySelectorAll(
+'.person-check input:checked'
+)
+).map(
+input=>input.value
+);
+
+const message=
+document.getElementById(
+'formMessage'
+);
+
+message.textContent='';
+message.className='form-message';
+
+if(!description){
+
+message.textContent=
+'Enter what the purchase was for.';
+
+return;
+
+}
+
+if(
+!Number.isFinite(amount) ||
+amount<=0
+){
+
+message.textContent=
+'Enter a valid purchase amount.';
+
+return;
+
+}
+
+if(!payer){
+
+message.textContent=
+'Select who paid.';
+
+return;
+
+}
+
+if(selectedPeople.length===0){
+
+message.textContent=
+'Select at least one person who was in on the purchase.';
+
+return;
+
+}
+
+if(!selectedPeople.includes(payer)){
+
+message.textContent=
+'The person who paid must be included.';
+
+return;
+
+}
+
+const submitButton=
+document.querySelector(
+'#purchaseForm .primary-btn'
+);
+
+submitButton.disabled=true;
+submitButton.textContent='Saving…';
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'log_purchase',
+{
+p_pin:DUES_PIN,
+p_description:description,
+p_amount:Math.round(amount*100)/100,
+p_payer:payer,
+p_purchase_date:date||null,
+p_people:selectedPeople
+}
+);
+
+if(error){
+
+console.error(
+'Supabase log_purchase error:',
+error
+);
+
+message.textContent=
+'Could not save: '+
+(error.message||'Unknown database error');
+
+return;
+
+}
+
+if(!data){
+
+message.textContent=
+'Purchase was not returned by the database.';
+
+return;
+
+}
+
+document.getElementById(
+'purchaseForm'
+).reset();
+
+updateSelectedCount();
+
+message.textContent=
+'Purchase logged successfully.';
+
+message.className=
+'form-message success';
+
+await loadPurchases();
+
+setTimeout(()=>{
+
+message.textContent='';
+
+},2500);
+
+}catch(error){
+
+console.error(
+'Purchase connection error:',
+error
+);
+
+message.textContent=
+'Could not connect to the Dues database.';
+
+}finally{
+
+submitButton.disabled=false;
+submitButton.textContent=
+'💰 Log Purchase';
+
+}
+
+});
+
+
+/* ==========================================
+   SELECTED PEOPLE
+========================================== */
+
+function updateSelectedCount(){
+
+const selected=
+document.querySelectorAll(
+'.person-check input:checked'
+).length;
+
+document.getElementById(
+'selectedCount'
+).textContent=
+selected===1
+?'1 person selected'
+:selected+' people selected';
+
+}
+
+
+document.querySelectorAll(
+'.person-check input'
+).forEach(input=>{
+
+input.addEventListener(
+'change',
+updateSelectedCount
+);
+
+});
+
+
+/* ==========================================
+   REFRESH DUES
+========================================== */
+
+document.getElementById(
+'refreshDues'
+).addEventListener(
+'click',
+async()=>{
+
+const button=
+document.getElementById(
+'refreshDues'
+);
+
+button.disabled=true;
+button.textContent='Loading…';
+
+await loadPurchases();
+await loadFxRate();
+
+button.disabled=false;
+button.textContent='↻ Refresh';
+
+});
+
+
+/* ==========================================
+   REFRESH FX
+========================================== */
+
+document.getElementById(
+'refreshFx'
+).addEventListener(
+'click',
+async()=>{
+
+const button=
+document.getElementById(
+'refreshFx'
+);
+
+button.disabled=true;
+button.textContent='Loading…';
+
+await loadFxRate();
+
+button.disabled=false;
+button.textContent='↻ Refresh';
+
+});
+
+
+/* ==========================================
+   CLEAR ALL
+========================================== */
+
+document.getElementById(
+'clearPurchases'
+).addEventListener(
+'click',
+async()=>{
+
+if(!purchases.length){
+return;
+}
+
+const confirmed=
+window.confirm(
+'Are you sure you want to delete every purchase from the Dues ledger?'
+);
+
+if(!confirmed)return;
+
+const pin=
+window.prompt(
+'Enter the Dues PIN to clear the ledger:'
+);
+
+if(pin===null)return;
+
+if(pin!==DUES_PIN){
+
+window.alert(
+'Incorrect PIN. Nothing was deleted.'
+);
+
+return;
+
+}
+
+const button=
+document.getElementById(
+'clearPurchases'
+);
+
+button.disabled=true;
+button.textContent='Clearing…';
+
+try{
+
+const {error}=
+await supabaseClient.rpc(
+'clear_purchases',
+{
+p_pin:DUES_PIN
+}
+);
+
+if(error){
+
+console.error(
+'Supabase clear error:',
+error
+);
+
+window.alert(
+'Unable to clear the ledger: '+
+(error.message||'Unknown error')
+);
+
+return;
+
+}
+
+await loadPurchases();
+
+}catch(error){
+
+console.error(error);
+
+window.alert(
+'Unable to connect to the Dues database.'
+);
+
+}finally{
+
+button.disabled=false;
+button.textContent='Clear All';
+
+}
+
+});
+
+
+/* ==========================================
+   VENMO APP + FALLBACK
+========================================== */
+
+function openVenmoApp(event,username,amount){
+
+if(event){
+event.preventDefault();
+event.stopPropagation();
+}
+
+const fallbackUrl=
+'https://venmo.com/'+
+encodeURIComponent(username);
+
+const safeAmount=
+Number(amount||0).toFixed(2);
+
+const appUrl=
+'venmo://paycharge?txn=pay&recipients='+
+encodeURIComponent(username)+
+'&amount='+
+encodeURIComponent(safeAmount);
+
+let fallbackTimer;
+
+const cleanup=()=>{
+
+if(fallbackTimer){
+clearTimeout(fallbackTimer);
+}
+
+document.removeEventListener(
+'visibilitychange',
+handleVisibility
+);
+
+window.removeEventListener(
+'pagehide',
+handlePageHide
+);
+
+};
+
+const handleVisibility=()=>{
+
+if(document.hidden){
+cleanup();
+}
+
+};
+
+const handlePageHide=()=>{
+
+cleanup();
+
+};
+
+document.addEventListener(
+'visibilitychange',
+handleVisibility
+);
+
+window.addEventListener(
+'pagehide',
+handlePageHide
+);
+
+window.location.href=appUrl;
+
+fallbackTimer=setTimeout(()=>{
+
+if(!document.hidden){
+
+cleanup();
+
+window.location.href=fallbackUrl;
+
+}
+
+},1200);
+
+return false;
+
+}
+
+
+/* ==========================================
+   INITIALIZE DUES
+========================================== */
+
+function initializeDues(){
+
+if(duesInitialized){
+
+if(isAuthenticated()){
+
+loadPurchases();
+loadFxRate();
+
+}
+
+return;
+
+}
+
+duesInitialized=true;
+
+const today=
+todayString();
+
+document.getElementById(
+'purchaseDate'
+).value=today;
+
+updateSelectedCount();
+
+if(isAuthenticated()){
+
+showDuesContent();
+
+loadPurchases();
+loadFxRate();
+
+}else{
+
+showDuesAuth();
+
+}
+
+}
+
+
+/* ==========================================
+   AUTO-REFRESH CURRENT FX RATE
+========================================== */
+
+setInterval(()=>{
+
+if(
+isAuthenticated() &&
+document.getElementById(
+'dues'
+).style.display!=='none'
+){
+
+loadFxRate();
+
+}
+
+},1800000);
 
 </script>
 
