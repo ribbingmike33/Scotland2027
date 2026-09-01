@@ -997,6 +997,52 @@ color:#71869a;
 margin-top:3px
 }
 
+
+/* ==========================================
+   PLAYER DEBT TABS
+========================================== */
+
+.debt-player-tabs{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:7px;
+margin:14px 0 10px
+}
+
+.debt-player-tab{
+border:1px solid #cbdceb;
+background:#fff;
+border-radius:11px;
+padding:11px 6px;
+font-size:13px;
+font-weight:900;
+color:#31516d;
+cursor:pointer
+}
+
+.debt-player-tab.active{
+background:#07549a;
+border-color:#07549a;
+color:#fff
+}
+
+.debt-player-tab:hover{
+background:#eef6fc
+}
+
+.debt-player-tab.active:hover{
+background:#07549a
+}
+
+.debt-player-label{
+font-size:12px;
+font-weight:900;
+color:#71869a;
+letter-spacing:.06em;
+margin-top:14px;
+margin-bottom:8px
+}
+
 .settlement{
 background:#eef6fc;
 border:1px solid #d4e4f1;
@@ -1288,6 +1334,18 @@ height:220px
 
 #rainChart{
 height:220px
+}
+
+/* PLAYER DEBT TABS */
+
+.debt-player-tabs{
+grid-template-columns:repeat(2,1fr);
+gap:7px
+}
+
+.debt-player-tab{
+padding:12px 6px;
+font-size:14px
 }
 
 }
@@ -2371,11 +2429,83 @@ Who was in on it?
 
 </div>
 
+
+<!-- ==========================================
+     PLAYER DEBT TABS
+========================================== -->
+
+<div class="debt-player-label">
+SELECT A PLAYER TO SEE WHO THEY OWE
+</div>
+
+<div class="debt-player-tabs" id="debtPlayerTabs">
+
+<button
+class="debt-player-tab active"
+type="button"
+data-debt-player="Mike Ribbing">
+Mike
+</button>
+
+<button
+class="debt-player-tab"
+type="button"
+data-debt-player="Tom Chung">
+Tom
+</button>
+
+<button
+class="debt-player-tab"
+type="button"
+data-debt-player="Eric Hopton">
+Eric
+</button>
+
+<button
+class="debt-player-tab"
+type="button"
+data-debt-player="Zach Gordon">
+Zach
+</button>
+
+<button
+class="debt-player-tab"
+type="button"
+data-debt-player="Brian Gordon">
+Brian
+</button>
+
+<button
+class="debt-player-tab"
+type="button"
+data-debt-player="Clem Diglio">
+Clem
+</button>
+
+<button
+class="debt-player-tab"
+type="button"
+data-debt-player="Veer Singh">
+Veer
+</button>
+
+<button
+class="debt-player-tab"
+type="button"
+data-debt-player="Yeags">
+Yeags
+</button>
+
+</div>
+
+
 <div class="balance-grid" id="balanceGrid"></div>
 
 <div class="settlement">
 
-<h4>Tap a payment to open Venmo</h4>
+<h4 id="settlementTitle">
+Mike owes
+</h4>
 
 <div id="settlementList"></div>
 
@@ -4531,7 +4661,6 @@ return;
 
 }
 
-
 if(!data){
 
 message.textContent=
@@ -4660,6 +4789,13 @@ let duesInitialized=false;
 let gbpToUsd=1.35111;
 
 let fxUpdatedText='Current rate';
+
+/*
+   This is the player whose "owes" list is
+   currently being displayed.
+*/
+
+let selectedDebtPlayer='Mike Ribbing';
 
 
 /* ==========================================
@@ -5252,9 +5388,6 @@ purchase.payer;
    Every person included in the purchase,
    including the payer, gets charged their
    equal share.
-
-   This keeps the overall balances consistent
-   with the purchase-level debt ledger below.
 */
 
 if(
@@ -5293,30 +5426,6 @@ return balances;
 /* ==========================================
    CALCULATE PURCHASE-LEVEL DEBTS
 ========================================== */
-
-/*
-   Every purchase creates individual debts.
-
-   Example:
-
-   Mike pays £80 for:
-   Mike, Eric, Brian, Veer
-
-   Each person's share is £20.
-
-   The ledger creates:
-
-   Eric  -> Mike   £20
-   Brian -> Mike   £20
-   Veer  -> Mike   £20
-
-   Mike's own £20 share creates no debt.
-
-   These debts are then accumulated across ALL
-   purchases, preserving the actual person-to-person
-   relationship instead of collapsing everything
-   into one global settlement.
-*/
 
 function calculatePurchaseDebts(){
 
@@ -5361,19 +5470,6 @@ return;
 
 }
 
-
-/*
-   Key format:
-
-   debtor||creditor
-
-   Example:
-
-   Eric||Mike
-
-   means Eric owes Mike.
-*/
-
 const key=
 person+'||'+payer;
 
@@ -5392,26 +5488,6 @@ return debts;
 /* ==========================================
    CALCULATE PAIRWISE SETTLEMENTS
 ========================================== */
-
-/*
-   Take the purchase-level debts and combine them
-   for every debtor/creditor relationship.
-
-   If:
-
-   Mike owes Eric £20
-   Eric owes Mike £7
-
-   those two obligations offset to:
-
-   Mike owes Eric £13
-
-   Importantly, this DOES NOT globally collapse
-   everyone into one creditor and one debtor.
-
-   Mike can therefore owe Eric, Brian, Veer,
-   Zach, Tom, Clem, and/or Yeags simultaneously.
-*/
 
 function calculatePairwiseSettlements(){
 
@@ -5469,7 +5545,6 @@ processed.add(key);
 processed.add(reverseKey);
 
 });
-
 
 return settlements;
 
@@ -5539,12 +5614,43 @@ ${formatMoney(Math.abs(balance))}
 
 }).join('');
 
+}
 
-/*
-   Settlement links are calculated separately from
-   the overall balance cards so each individual
-   debtor/creditor relationship is preserved.
-*/
+
+/* ==========================================
+   RENDER PLAYER DEBT TABS
+========================================== */
+
+function renderDebtPlayerTabs(){
+
+document.querySelectorAll(
+'[data-debt-player]'
+).forEach(button=>{
+
+button.classList.toggle(
+'active',
+button.dataset.debtPlayer===
+selectedDebtPlayer
+);
+
+});
+
+}
+
+
+/* ==========================================
+   SELECT PLAYER
+========================================== */
+
+function selectDebtPlayer(player){
+
+if(!PEOPLE.includes(player)){
+return;
+}
+
+selectedDebtPlayer=player;
+
+renderDebtPlayerTabs();
 
 renderSettlements();
 
@@ -5552,13 +5658,33 @@ renderSettlements();
 
 
 /* ==========================================
-   VENMO SETTLEMENTS
+   RENDER SETTLEMENTS FOR SELECTED PLAYER
 ========================================== */
 
 function renderSettlements(){
 
 const settlements=
 calculatePairwiseSettlements();
+
+const selectedPlayer=
+selectedDebtPlayer;
+
+
+/*
+   Only show obligations where the selected
+   player is the debtor.
+
+   Example:
+
+   Mike owes Eric £50
+   Mike owes Zach £20
+   Eric owes Mike £10
+
+   Mike's tab shows only:
+
+   Mike owes Eric £40
+   Mike owes Zach £20
+*/
 
 const entries=
 Object.entries(settlements)
@@ -5575,6 +5701,7 @@ amount:Number(amount)
 
 })
 .filter(settlement=>
+settlement.debtor===selectedPlayer &&
 settlement.amount>0.005
 )
 .sort(
@@ -5587,11 +5714,28 @@ document.getElementById(
 'settlementList'
 );
 
+const title=
+document.getElementById(
+'settlementTitle'
+);
+
+if(title){
+
+title.textContent=
+shortName(selectedPlayer)+
+' owes';
+
+}
+
+
 if(!entries.length){
 
 list.innerHTML=
-'<div style="font-size:14px;color:#647b8f">'+
-'Everyone is even. 🍻'+
+'<div class="empty-state">'+
+escapeHtml(
+shortName(selectedPlayer)
+)+
+' is currently even. 🍻'+
 '</div>';
 
 return;
@@ -5705,6 +5849,10 @@ if(
 renderPurchases();
 
 renderBalances();
+
+renderDebtPlayerTabs();
+
+renderSettlements();
 
 }
 
@@ -5978,6 +6126,27 @@ input.addEventListener(
 'change',
 updateSelectedCount
 );
+
+});
+
+
+/* ==========================================
+   PLAYER DEBT TAB CLICK HANDLERS
+========================================== */
+
+document.querySelectorAll(
+'[data-debt-player]'
+).forEach(button=>{
+
+button.addEventListener(
+'click',
+()=>{
+
+selectDebtPlayer(
+button.dataset.debtPlayer
+);
+
+});
 
 });
 
