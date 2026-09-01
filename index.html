@@ -16,7 +16,6 @@ a{color:inherit}
 h1{font:700 44px Georgia,serif;margin:8px 0 4px}
 .hero p{margin:0;opacity:.82}
 
-/* Tabs intentionally NOT sticky */
 .tabs{background:#fff;border-bottom:1px solid #d7e5f1;padding:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
 .tab{border:1px solid #cbdceb;background:#fff;border-radius:12px;padding:11px 6px;font-weight:800;color:#31516d;cursor:pointer}
 .tab.active{background:#07549a;color:#fff;border-color:#07549a}
@@ -79,95 +78,493 @@ main{padding:16px}
 .footer{padding:20px 16px 35px;color:#7b8fa1;font-size:12px;text-align:center}
 
 /* DUES */
-.dues-intro{background:#eef6fc;border:1px solid #d4e4f1;border-radius:16px;padding:16px;margin-bottom:14px}
-.dues-intro h2{font:700 27px Georgia,serif;margin:0 0 5px;color:#10253d}
-.dues-intro p{margin:0;color:#51677c;font-size:14px;line-height:1.5}
 
-.dues-card{border:1px solid #d4e2ee;border-radius:16px;background:#fff;padding:17px;margin-bottom:14px}
-.dues-card h3{font:700 22px Georgia,serif;margin:0 0 14px;color:#10253d}
+.dues-intro{
+background:#eef6fc;
+border:1px solid #d4e4f1;
+border-radius:16px;
+padding:16px;
+margin-bottom:14px
+}
 
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dues-intro h2{
+font:700 27px Georgia,serif;
+margin:0 0 5px;
+color:#10253d
+}
+
+.dues-intro p{
+margin:0;
+color:#51677c;
+font-size:14px;
+line-height:1.5
+}
+
+.fx-card{
+background:#07549a;
+color:#fff;
+border-radius:16px;
+padding:17px;
+margin-bottom:14px
+}
+
+.fx-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px
+}
+
+.fx-title{
+font-size:12px;
+font-weight:900;
+letter-spacing:.12em;
+opacity:.8
+}
+
+.fx-rate{
+font:700 29px Georgia,serif;
+margin-top:4px
+}
+
+.fx-sub{
+font-size:12px;
+opacity:.8;
+margin-top:4px
+}
+
+.fx-refresh{
+border:1px solid rgba(255,255,255,.45);
+background:rgba(255,255,255,.12);
+color:#fff;
+border-radius:10px;
+padding:9px 11px;
+font-weight:800;
+cursor:pointer;
+white-space:nowrap
+}
+
+.fx-example{
+margin-top:13px;
+background:rgba(255,255,255,.12);
+border-radius:11px;
+padding:10px 12px;
+font-size:13px
+}
+
+.dues-card{
+border:1px solid #d4e2ee;
+border-radius:16px;
+background:#fff;
+padding:17px;
+margin-bottom:14px
+}
+
+.dues-card h3{
+font:700 22px Georgia,serif;
+margin:0 0 14px;
+color:#10253d
+}
+
+.form-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px
+}
+
 .form-group{margin-bottom:13px}
-.form-group label{display:block;font-size:12px;font-weight:900;color:#31516d;margin-bottom:6px}
-.form-group input,.form-group select{width:100%;min-height:46px;border:1px solid #cbdceb;border-radius:11px;background:#fff;padding:10px 12px;font-size:16px;color:#10253d}
-.form-group input:focus,.form-group select:focus{outline:3px solid #d9ebfa;border-color:#07549a}
 
-.people-select{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:7px}
+.form-group label{
+display:block;
+font-size:12px;
+font-weight:900;
+color:#31516d;
+margin-bottom:6px
+}
+
+.form-group input,.form-group select{
+width:100%;
+min-height:46px;
+border:1px solid #cbdceb;
+border-radius:11px;
+background:#fff;
+padding:10px 12px;
+font-size:16px;
+color:#10253d
+}
+
+.form-group input:focus,.form-group select:focus{
+outline:3px solid #d9ebfa;
+border-color:#07549a
+}
+
+.people-select{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+margin-top:7px
+}
+
 .person-check{position:relative}
-.person-check input{position:absolute;opacity:0;width:1px;height:1px}
-.person-check label{display:block;border:1px solid #cbdceb;border-radius:11px;padding:11px 10px;font-size:14px;font-weight:800;color:#31516d;background:#fff;cursor:pointer;text-align:center}
-.person-check input:checked+label{background:#07549a;border-color:#07549a;color:#fff}
-.person-check input:focus+label{outline:3px solid #d9ebfa}
 
-.selected-count{font-size:12px;color:#647b8f;margin:8px 0 13px}
+.person-check input{
+position:absolute;
+opacity:0;
+width:1px;
+height:1px
+}
 
-.primary-btn{width:100%;border:0;border-radius:12px;background:#07549a;color:#fff;padding:14px;font-size:15px;font-weight:900;cursor:pointer}
+.person-check label{
+display:block;
+border:1px solid #cbdceb;
+border-radius:11px;
+padding:11px 10px;
+font-size:14px;
+font-weight:800;
+color:#31516d;
+background:#fff;
+cursor:pointer;
+text-align:center
+}
+
+.person-check input:checked+label{
+background:#07549a;
+border-color:#07549a;
+color:#fff
+}
+
+.person-check input:focus+label{
+outline:3px solid #d9ebfa
+}
+
+.selected-count{
+font-size:12px;
+color:#647b8f;
+margin:8px 0 13px
+}
+
+.primary-btn{
+width:100%;
+border:0;
+border-radius:12px;
+background:#07549a;
+color:#fff;
+padding:14px;
+font-size:15px;
+font-weight:900;
+cursor:pointer
+}
+
 .primary-btn:hover{background:#064781}
 .primary-btn:disabled{opacity:.65;cursor:wait}
 
-.refresh-btn{border:1px solid #b9d0e2;background:#fff;color:#07549a;border-radius:10px;padding:9px 11px;font-weight:800;cursor:pointer}
+.refresh-btn{
+border:1px solid #b9d0e2;
+background:#fff;
+color:#07549a;
+border-radius:10px;
+padding:9px 11px;
+font-weight:800;
+cursor:pointer
+}
+
 .refresh-btn:disabled{opacity:.6}
 
-.danger-btn{border:1px solid #e2c2c2;background:#fff;color:#a33b3b;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer}
+.danger-btn{
+border:1px solid #e2c2c2;
+background:#fff;
+color:#a33b3b;
+border-radius:10px;
+padding:10px 12px;
+font-weight:800;
+cursor:pointer
+}
 
-.form-message{margin-top:10px;font-size:13px;font-weight:700;color:#a33b3b}
+.delete-btn{
+border:1px solid #e2c2c2;
+background:#fff;
+color:#a33b3b;
+border-radius:9px;
+padding:7px 9px;
+font-size:12px;
+font-weight:800;
+cursor:pointer;
+white-space:nowrap
+}
+
+.delete-btn:disabled{
+opacity:.6;
+cursor:wait
+}
+
+.form-message{
+margin-top:10px;
+font-size:13px;
+font-weight:700;
+color:#a33b3b
+}
+
 .form-message.success{color:#277044}
 
-.balance-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.balance{border:1px solid #d4e2ee;border-radius:14px;padding:13px;background:#fff}
-.balance-name{font-weight:900;color:#243f58}
-.balance-amount{font-size:20px;font-weight:900;margin-top:4px}
+.balance-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
+}
+
+.balance{
+border:1px solid #d4e2ee;
+border-radius:14px;
+padding:13px;
+background:#fff
+}
+
+.balance-name{
+font-weight:900;
+color:#243f58
+}
+
+.balance-amount{
+font-size:20px;
+font-weight:900;
+margin-top:4px
+}
+
 .balance-amount.owed{color:#a33b3b}
 .balance-amount.owedto{color:#277044}
 .balance-amount.even{color:#647b8f}
 
-.settlement{background:#eef6fc;border:1px solid #d4e4f1;border-radius:14px;padding:14px;margin-top:12px}
-.settlement h4{margin:0 0 8px;color:#07549a;font-size:15px}
-.settlement-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #d9e7f1;font-size:14px}
-.settlement-row:last-child{border-bottom:0}
+.balance-gbp{
+font-size:12px;
+color:#71869a;
+margin-top:3px
+}
 
-.purchase{border:1px solid #d4e2ee;border-radius:14px;padding:14px;margin-bottom:10px;background:#fff}
+.settlement{
+background:#eef6fc;
+border:1px solid #d4e4f1;
+border-radius:14px;
+padding:14px;
+margin-top:12px
+}
+
+.settlement h4{
+margin:0 0 8px;
+color:#07549a;
+font-size:15px
+}
+
+.settlement-link{
+display:block;
+text-decoration:none;
+background:#fff;
+border:1px solid #cbdceb;
+border-radius:11px;
+padding:12px;
+margin-bottom:8px;
+color:#07549a;
+font-weight:900
+}
+
+.settlement-link:hover{
+background:#f4faff;
+border-color:#07549a
+}
+
+.settlement-main{
+font-size:15px
+}
+
+.settlement-usd{
+font-size:19px;
+margin-top:2px
+}
+
+.settlement-gbp{
+font-size:12px;
+color:#71869a;
+margin-top:2px
+}
+
+.settlement-plain{
+background:#fff;
+border:1px solid #d4e2ee;
+border-radius:11px;
+padding:12px;
+margin-bottom:8px
+}
+
+.purchase{
+border:1px solid #d4e2ee;
+border-radius:14px;
+padding:14px;
+margin-bottom:10px;
+background:#fff
+}
+
 .purchase:last-child{margin-bottom:0}
-.purchase-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.purchase-name{font-weight:900;color:#243f58;font-size:16px}
-.purchase-total{font-size:19px;font-weight:900;color:#07549a;white-space:nowrap}
-.purchase-meta{font-size:12px;color:#71869a;margin-top:3px}
-.purchase-details{margin-top:9px;font-size:13px;color:#51677c;line-height:1.55}
-.purchase-share{margin-top:7px;font-size:13px;font-weight:800;color:#31516d}
 
-.empty-state{text-align:center;color:#71869a;padding:18px 10px;font-size:14px}
+.purchase-top{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:10px
+}
 
-.auth-card{max-width:430px;margin:20px auto;border:1px solid #d4e2ee;border-radius:18px;padding:22px;background:#fff}
-.auth-card h2{font:700 28px Georgia,serif;margin:0 0 7px}
-.auth-card p{color:#647b8f;font-size:14px;line-height:1.5;margin:0 0 17px}
-.auth-card input{width:100%;min-height:50px;border:1px solid #cbdceb;border-radius:11px;padding:10px 14px;font-size:20px;text-align:center;letter-spacing:.2em}
-.auth-card input:focus{outline:3px solid #d9ebfa;border-color:#07549a}
-.auth-error{color:#a33b3b;font-size:13px;font-weight:800;margin-top:10px;text-align:center}
+.purchase-name{
+font-weight:900;
+color:#243f58;
+font-size:16px
+}
 
-.dues-header-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.purchase-total{
+font-size:19px;
+font-weight:900;
+color:#07549a;
+white-space:nowrap
+}
+
+.purchase-meta{
+font-size:12px;
+color:#71869a;
+margin-top:3px
+}
+
+.purchase-details{
+margin-top:9px;
+font-size:13px;
+color:#51677c;
+line-height:1.55
+}
+
+.purchase-share{
+margin-top:7px;
+font-size:13px;
+font-weight:800;
+color:#31516d
+}
+
+.purchase-usd{
+font-size:13px;
+font-weight:800;
+color:#277044;
+margin-top:3px
+}
+
+.purchase-actions{
+display:flex;
+justify-content:flex-end;
+margin-top:10px
+}
+
+.empty-state{
+text-align:center;
+color:#71869a;
+padding:18px 10px;
+font-size:14px
+}
+
+.auth-card{
+max-width:430px;
+margin:20px auto;
+border:1px solid #d4e2ee;
+border-radius:18px;
+padding:22px;
+background:#fff
+}
+
+.auth-card h2{
+font:700 28px Georgia,serif;
+margin:0 0 7px
+}
+
+.auth-card p{
+color:#647b8f;
+font-size:14px;
+line-height:1.5;
+margin:0 0 17px
+}
+
+.auth-card input{
+width:100%;
+min-height:50px;
+border:1px solid #cbdceb;
+border-radius:11px;
+padding:10px 14px;
+font-size:20px;
+text-align:center;
+letter-spacing:.2em
+}
+
+.auth-card input:focus{
+outline:3px solid #d9ebfa;
+border-color:#07549a
+}
+
+.auth-error{
+color:#a33b3b;
+font-size:13px;
+font-weight:800;
+margin-top:10px;
+text-align:center
+}
+
+.dues-header-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:14px
+}
 
 @media(max-width:600px){
+
 h1{font-size:37px}
+
 .tabs{grid-template-columns:repeat(2,1fr)}
+
 .teegrid,.people{grid-template-columns:1fr}
+
 .info{display:block}
-.info span{display:block;text-align:left;margin-top:3px}
+
+.info span{
+display:block;
+text-align:left;
+margin-top:3px
+}
+
 .arrival-person{align-items:flex-start}
+
 .arrival-details{text-align:right}
+
 .link-pair{width:100%}
+
 .link-pair .link:first-child{flex:1}
+
 .link-pair .directions{flex:0 0 auto}
+
 .form-row{grid-template-columns:1fr}
+
 .people-select{grid-template-columns:1fr 1fr}
+
 .balance-grid{grid-template-columns:1fr}
+
 .purchase-top{align-items:flex-start}
+
 .purchase-total{font-size:17px}
+
 .dues-header-row{align-items:flex-start}
+
+.fx-top{align-items:flex-start}
+
+.fx-rate{font-size:25px}
+
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
 <header class="hero">
@@ -184,6 +581,11 @@ h1{font-size:37px}
 <button class="tab" data-tab="photos">📸 Photos</button>
 </nav>
 
+
+<!-- ==========================================
+     ITINERARY
+========================================== -->
+
 <main id="itinerary">
 
 <div class="base">
@@ -191,7 +593,9 @@ h1{font-size:37px}
 26 Dublin Street Lane South, Edinburgh EH1 3PX
 </div>
 
+
 <article class="day">
+
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">TRAVEL</div>
@@ -200,13 +604,22 @@ h1{font-size:37px}
 </div>
 <div class="arrow">⌄</div>
 </button>
+
 <div class="day-body">
-<div class="info"><b>Flight</b><span>Fly to Edinburgh</span></div>
+
+<div class="info">
+<b>Flight</b>
+<span>Fly to Edinburgh</span>
+</div>
+
 <div class="links"></div>
+
 </div>
 </article>
 
+
 <article class="day">
+
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">ARRIVAL</div>
@@ -292,10 +705,13 @@ h1{font-size:37px}
 </div>
 
 </div>
+
 </div>
 </article>
 
+
 <article class="day">
+
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 1</div>
@@ -307,7 +723,10 @@ h1{font-size:37px}
 
 <div class="day-body">
 
-<div class="info"><b>Pickup</b><span>11:00 AM</span></div>
+<div class="info">
+<b>Pickup</b>
+<span>11:00 AM</span>
+</div>
 
 <div class="teegrid">
 
@@ -343,10 +762,13 @@ h1{font-size:37px}
 </div>
 
 </div>
+
 </div>
 </article>
 
+
 <article class="day">
+
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 2</div>
@@ -358,8 +780,15 @@ h1{font-size:37px}
 
 <div class="day-body">
 
-<div class="info"><b>Train to North Berwick</b><span>9:39 AM or 10:40 AM</span></div>
-<div class="info"><b>Train home</b><span>9:27 PM or 10:24 PM</span></div>
+<div class="info">
+<b>Train to North Berwick</b>
+<span>9:39 AM or 10:40 AM</span>
+</div>
+
+<div class="info">
+<b>Train home</b>
+<span>9:27 PM or 10:24 PM</span>
+</div>
 
 <div class="teegrid">
 
@@ -397,10 +826,13 @@ h1{font-size:37px}
 </div>
 
 </div>
+
 </div>
 </article>
 
+
 <article class="day">
+
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 3</div>
@@ -412,7 +844,10 @@ h1{font-size:37px}
 
 <div class="day-body">
 
-<div class="info"><b>Pickup</b><span>7:45 AM</span></div>
+<div class="info">
+<b>Pickup</b>
+<span>7:45 AM</span>
+</div>
 
 <div class="teegrid">
 
@@ -468,10 +903,13 @@ h1{font-size:37px}
 </div>
 
 </div>
+
 </div>
 </article>
 
+
 <article class="day">
+
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">OPEN DAY</div>
@@ -483,8 +921,15 @@ h1{font-size:37px}
 
 <div class="day-body">
 
-<div class="info"><b>Plans</b><span>TBD</span></div>
-<div class="info"><b>Optional</b><span>Biddy Mulligans</span></div>
+<div class="info">
+<b>Plans</b>
+<span>TBD</span>
+</div>
+
+<div class="info">
+<b>Optional</b>
+<span>Biddy Mulligans</span>
+</div>
 
 <div class="links">
 
@@ -494,10 +939,13 @@ h1{font-size:37px}
 </div>
 
 </div>
+
 </div>
 </article>
 
+
 <article class="day">
+
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 5</div>
@@ -509,7 +957,10 @@ h1{font-size:37px}
 
 <div class="day-body">
 
-<div class="info"><b>Pickup</b><span>10:00 AM</span></div>
+<div class="info">
+<b>Pickup</b>
+<span>10:00 AM</span>
+</div>
 
 <div class="teegrid">
 
@@ -550,10 +1001,13 @@ h1{font-size:37px}
 </div>
 
 </div>
+
 </div>
 </article>
 
+
 <article class="day">
+
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 6</div>
@@ -565,7 +1019,10 @@ h1{font-size:37px}
 
 <div class="day-body">
 
-<div class="info"><b>Pickup</b><span>9:00 AM</span></div>
+<div class="info">
+<b>Pickup</b>
+<span>9:00 AM</span>
+</div>
 
 <div class="teegrid">
 
@@ -606,10 +1063,13 @@ h1{font-size:37px}
 </div>
 
 </div>
+
 </div>
 </article>
 
+
 <article class="day">
+
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">DEPARTURE</div>
@@ -620,10 +1080,17 @@ h1{font-size:37px}
 </button>
 
 <div class="day-body">
-<div class="info"><b>Flight</b><span>Fly home</span></div>
+
+<div class="info">
+<b>Flight</b>
+<span>Fly home</span>
+</div>
+
 <div class="links"></div>
+
 </div>
 </article>
+
 
 <div class="notice">
 <b>🚆 Train tickets</b><br>
@@ -634,6 +1101,11 @@ Use Omio for the North Berwick / Edinburgh train.
 </div>
 
 </main>
+
+
+<!-- ==========================================
+     SCOTLAND CUP
+========================================== -->
 
 <main id="cup" style="display:none">
 
@@ -646,6 +1118,7 @@ Use Omio for the North Berwick / Edinburgh train.
 </div>
 
 <div class="score-body">
+
 <iframe
 src="https://app.squabbitgolf.com/w/tournament/TvY7fGicz?embed=leaderboard"
 width="100%"
@@ -653,11 +1126,17 @@ height="700"
 style="border:none;border-radius:12px;"
 title="Scotland Cup Live Leaderboard">
 </iframe>
+
 </div>
 
 </div>
 
 </main>
+
+
+<!-- ==========================================
+     PARTICIPANTS
+========================================== -->
 
 <main id="participants" style="display:none">
 
@@ -720,7 +1199,10 @@ Handicaps, Venmo handles and the official scouting reports.
 
 </main>
 
-<!-- DUES -->
+
+<!-- ==========================================
+     DUES
+========================================== -->
 
 <main id="dues" style="display:none">
 
@@ -764,15 +1246,56 @@ Enter Dues
 
 </div>
 
+
 <div id="duesContent" style="display:none">
 
+
 <div class="dues-intro">
+
 <h2>💰 Trip Dues</h2>
+
 <p>
 Log drinks, dinners, taxis, or anything else someone picks up for the group.
-The ledger is shared across everyone's phones and automatically calculates who owes who.
+Purchases are entered in pounds and the page automatically shows the current USD equivalent.
 </p>
+
 </div>
+
+
+<!-- CURRENT FX RATE -->
+
+<div class="fx-card">
+
+<div class="fx-top">
+
+<div>
+
+<div class="fx-title">CURRENT GBP → USD RATE</div>
+
+<div class="fx-rate" id="fxRate">
+Loading…
+</div>
+
+<div class="fx-sub" id="fxUpdated">
+Getting current exchange rate…
+</div>
+
+</div>
+
+<button class="fx-refresh" id="refreshFx" type="button">
+↻ Refresh
+</button>
+
+</div>
+
+<div class="fx-example" id="fxExample">
+£100 = loading…
+</div>
+
+</div>
+
+
+<!-- LOG PURCHASE -->
 
 <div class="dues-card">
 
@@ -783,7 +1306,11 @@ The ledger is shared across everyone's phones and automatically calculates who o
 <div class="form-row">
 
 <div class="form-group">
-<label for="purchaseDescription">What was purchased?</label>
+
+<label for="purchaseDescription">
+What was purchased?
+</label>
+
 <input
 id="purchaseDescription"
 type="text"
@@ -791,10 +1318,15 @@ placeholder="e.g. Drinks at Kay’s Bar"
 maxlength="80"
 required
 >
+
 </div>
 
 <div class="form-group">
-<label for="purchaseAmount">Total Price (£)</label>
+
+<label for="purchaseAmount">
+Total Price (£)
+</label>
+
 <input
 id="purchaseAmount"
 type="number"
@@ -805,17 +1337,22 @@ step="0.01"
 placeholder="100.00"
 required
 >
+
 </div>
 
 </div>
+
 
 <div class="form-row">
 
 <div class="form-group">
 
-<label for="purchasePayer">Who paid?</label>
+<label for="purchasePayer">
+Who paid?
+</label>
 
 <select id="purchasePayer" required>
+
 <option value="">Select payer</option>
 <option>Mike Ribbing</option>
 <option>Tom Chung</option>
@@ -825,20 +1362,33 @@ required
 <option>Clem Diglio</option>
 <option>Veer Singh</option>
 <option>Yeags</option>
+
 </select>
 
 </div>
 
+
 <div class="form-group">
-<label for="purchaseDate">Date</label>
-<input id="purchaseDate" type="date">
+
+<label for="purchaseDate">
+Date
+</label>
+
+<input
+id="purchaseDate"
+type="date"
+>
+
 </div>
 
 </div>
 
+
 <div class="form-group">
 
-<label>Who was in on it?</label>
+<label>
+Who was in on it?
+</label>
 
 <div class="people-select">
 
@@ -890,6 +1440,7 @@ required
 
 </div>
 
+
 <button class="primary-btn" type="submit">
 💰 Log Purchase
 </button>
@@ -900,45 +1451,79 @@ required
 
 </div>
 
+
+<!-- WHO OWES WHO -->
+
 <div class="dues-card">
 
 <div class="dues-header-row">
+
 <h3>📊 Who Owes Who</h3>
-<button class="refresh-btn" id="refreshDues" type="button">↻ Refresh</button>
+
+<button class="refresh-btn" id="refreshDues" type="button">
+↻ Refresh
+</button>
+
 </div>
 
 <div class="balance-grid" id="balanceGrid"></div>
 
 <div class="settlement">
-<h4>Suggested Settlements</h4>
+
+<h4>Tap a payment to open Venmo</h4>
+
 <div id="settlementList"></div>
+
 </div>
 
 </div>
+
+
+<!-- PURCHASE HISTORY -->
 
 <div class="dues-card">
 
 <div class="dues-header-row">
+
 <h3>🧾 Purchase History</h3>
-<button class="danger-btn" id="clearPurchases" type="button">Clear All</button>
+
+<button class="danger-btn" id="clearPurchases" type="button">
+Clear All
+</button>
+
 </div>
 
 <div id="purchaseHistory">
-<div class="empty-state">Loading purchases...</div>
+
+<div class="empty-state">
+Loading purchases...
 </div>
 
 </div>
+
+</div>
+
 
 </div>
 
 </main>
 
+
+<!-- ==========================================
+     PHOTOS
+========================================== -->
+
 <main id="photos" style="display:none">
 
 <div class="photo">
+
 <div class="emoji">📸</div>
+
 <h2>Scotland Trip Photos</h2>
-<p>Everyone’s photos in one shared iCloud album.</p>
+
+<p>
+Everyone’s photos in one shared iCloud album.
+</p>
 
 <a
 class="biglink"
@@ -952,11 +1537,13 @@ Open Shared iCloud Album ↗
 
 </main>
 
+
 <div class="footer">
 Zach’s Dirty 30 with the Lads • Built for the crew
 </div>
 
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -967,15 +1554,28 @@ Zach’s Dirty 30 with the Lads • Built for the crew
 ========================================== */
 
 document.querySelectorAll('.day-head').forEach(button=>{
+
 button.addEventListener('click',()=>{
+
 const day=button.parentElement;
-const isOpen=day.classList.toggle('open');
-button.setAttribute('aria-expanded',isOpen?'true':'false');
-});
+
+const isOpen=
+day.classList.toggle('open');
+
+button.setAttribute(
+'aria-expanded',
+isOpen?'true':'false'
+);
+
 });
 
+});
+
+
 document.querySelectorAll('.tab').forEach(button=>{
+
 button.addEventListener('click',()=>{
+
 document.querySelectorAll('.tab').forEach(tab=>{
 tab.classList.remove('active');
 });
@@ -986,7 +1586,9 @@ document.querySelectorAll('main').forEach(main=>{
 main.style.display='none';
 });
 
-document.getElementById(button.dataset.tab).style.display='block';
+document.getElementById(
+button.dataset.tab
+).style.display='block';
 
 window.scrollTo({
 top:0,
@@ -996,7 +1598,9 @@ behavior:'smooth'
 if(button.dataset.tab==='dues'){
 initializeDues();
 }
+
 });
+
 });
 
 
@@ -1050,12 +1654,31 @@ const SHORT_NAMES={
 
 
 /* ==========================================
+   VENMO
+========================================== */
+
+const VENMO={
+'Mike Ribbing':'https://venmo.com/mike_ribbing',
+'Tom Chung':'https://venmo.com/tomchung11',
+'Eric Hopton':'https://venmo.com/ehop57',
+'Zach Gordon':'https://venmo.com/zach-Gordon-15',
+'Brian Gordon':'https://venmo.com/brain-gordon-115',
+'Veer Singh':'https://venmo.com/veersingh24',
+'Yeags':'https://venmo.com/papa-yeags'
+};
+
+
+/* ==========================================
    DUES STATE
 ========================================== */
 
 let purchases=[];
 
 let duesInitialized=false;
+
+let gbpToUsd=1.35111;
+
+let fxUpdatedText='Current rate';
 
 
 /* ==========================================
@@ -1066,25 +1689,133 @@ function formatMoney(value){
 return '£'+Number(value).toFixed(2);
 }
 
+function formatUSD(value){
+return '$'+Number(value).toFixed(2);
+}
+
+function shortName(person){
+return SHORT_NAMES[person]||person;
+}
+
 function escapeHtml(value){
+
 return String(value)
 .replace(/&/g,'&amp;')
 .replace(/</g,'&lt;')
 .replace(/>/g,'&gt;')
 .replace(/"/g,'&quot;')
 .replace(/'/g,'&#039;');
+
 }
 
-function updateSelectedCount(){
 
-const selected=document.querySelectorAll(
-'.person-check input:checked'
-).length;
+/* ==========================================
+   FX RATE
+========================================== */
 
-document.getElementById('selectedCount').textContent=
-selected===1
-?'1 person selected'
-:selected+' people selected';
+async function loadFxRate(){
+
+const rateDisplay=
+document.getElementById('fxRate');
+
+const updatedDisplay=
+document.getElementById('fxUpdated');
+
+const exampleDisplay=
+document.getElementById('fxExample');
+
+if(rateDisplay){
+rateDisplay.textContent='Loading…';
+}
+
+try{
+
+/*
+  Public no-key exchange rate source.
+  USD is the base currency, so GBP/USD is:
+  1 ÷ USD→GBP
+*/
+
+const response=
+await fetch(
+'https://open.er-api.com/v6/latest/USD',
+{
+cache:'no-store'
+}
+);
+
+if(!response.ok){
+throw new Error('FX request failed');
+}
+
+const data=
+await response.json();
+
+if(
+!data.rates ||
+!data.rates.GBP
+){
+throw new Error('GBP rate unavailable');
+}
+
+gbpToUsd=
+1/Number(data.rates.GBP);
+
+fxUpdatedText=
+data.time_last_update_utc
+?'Rate updated '+data.time_last_update_utc
+:'Current exchange rate';
+
+if(rateDisplay){
+
+rateDisplay.textContent=
+'£1 = '+formatUSD(gbpToUsd);
+
+}
+
+if(updatedDisplay){
+updatedDisplay.textContent=
+fxUpdatedText;
+}
+
+if(exampleDisplay){
+
+exampleDisplay.textContent=
+'£100 = '+formatUSD(100*gbpToUsd);
+
+}
+
+renderDues();
+
+}catch(error){
+
+console.error(
+'FX rate error:',
+error
+);
+
+if(rateDisplay){
+
+rateDisplay.textContent=
+'£1 = '+formatUSD(gbpToUsd);
+
+}
+
+if(updatedDisplay){
+
+updatedDisplay.textContent=
+'Using last available rate';
+
+}
+
+if(exampleDisplay){
+
+exampleDisplay.textContent=
+'£100 = '+formatUSD(100*gbpToUsd);
+
+}
+
+}
 
 }
 
@@ -1094,36 +1825,66 @@ selected===1
 ========================================== */
 
 function isAuthenticated(){
-return localStorage.getItem(DUES_AUTH_KEY)==='true';
+
+return localStorage.getItem(
+DUES_AUTH_KEY
+)==='true';
+
 }
+
 
 function showDuesContent(){
-document.getElementById('duesAuth').style.display='none';
-document.getElementById('duesContent').style.display='block';
+
+document.getElementById(
+'duesAuth'
+).style.display='none';
+
+document.getElementById(
+'duesContent'
+).style.display='block';
+
 }
+
 
 function showDuesAuth(){
-document.getElementById('duesAuth').style.display='block';
-document.getElementById('duesContent').style.display='none';
+
+document.getElementById(
+'duesAuth'
+).style.display='block';
+
+document.getElementById(
+'duesContent'
+).style.display='none';
+
 }
 
-document.getElementById('authForm')
-.addEventListener('submit',event=>{
+
+document.getElementById(
+'authForm'
+).addEventListener(
+'submit',
+event=>{
 
 event.preventDefault();
 
 const pin=
-document.getElementById('duesPin')
-.value.trim();
+document.getElementById(
+'duesPin'
+).value.trim();
 
 const error=
-document.getElementById('authError');
+document.getElementById(
+'authError'
+);
 
 if(pin!==DUES_PIN){
 
-error.textContent='Incorrect PIN. Try again.';
+error.textContent=
+'Incorrect PIN. Try again.';
 
-document.getElementById('duesPin').select();
+document.getElementById(
+'duesPin'
+).select();
 
 return;
 
@@ -1136,23 +1897,29 @@ DUES_AUTH_KEY,
 
 error.textContent='';
 
-document.getElementById('duesPin').value='';
+document.getElementById(
+'duesPin'
+).value='';
 
 showDuesContent();
 
 loadPurchases();
 
+loadFxRate();
+
 });
 
 
 /* ==========================================
-   LOAD SHARED PURCHASES
+   LOAD PURCHASES
 ========================================== */
 
 async function loadPurchases(){
 
 const history=
-document.getElementById('purchaseHistory');
+document.getElementById(
+'purchaseHistory'
+);
 
 history.innerHTML=
 '<div class="empty-state">Loading purchases...</div>';
@@ -1169,7 +1936,10 @@ p_pin:DUES_PIN
 
 if(error){
 
-console.error('Supabase get_purchases error:',error);
+console.error(
+'Supabase get_purchases error:',
+error
+);
 
 history.innerHTML=
 '<div class="empty-state">'+
@@ -1206,13 +1976,15 @@ history.innerHTML=
 
 
 /* ==========================================
-   RENDER PURCHASES
+   RENDER PURCHASE HISTORY
 ========================================== */
 
 function renderPurchases(){
 
 const history=
-document.getElementById('purchaseHistory');
+document.getElementById(
+'purchaseHistory'
+);
 
 if(!purchases.length){
 
@@ -1229,12 +2001,17 @@ const sorted=
 [...purchases].sort((a,b)=>{
 
 return String(b.purchase_date)
-.localeCompare(String(a.purchase_date))
+.localeCompare(
+String(a.purchase_date)
+)
 ||
 String(b.created_at)
-.localeCompare(String(a.created_at));
+.localeCompare(
+String(a.created_at)
+);
 
 });
+
 
 history.innerHTML=
 sorted.map(purchase=>{
@@ -1248,6 +2025,12 @@ const share=
 people.length
 ?Number(purchase.amount)/people.length
 :0;
+
+const amountUSD=
+Number(purchase.amount)*gbpToUsd;
+
+const shareUSD=
+share*gbpToUsd;
 
 const dateDisplay=
 purchase.purchase_date
@@ -1263,7 +2046,9 @@ year:'numeric'
 )
 :'Date not specified';
 
+
 return `
+
 <div class="purchase">
 
 <div class="purchase-top">
@@ -1271,7 +2056,9 @@ return `
 <div>
 
 <div class="purchase-name">
-${escapeHtml(purchase.description)}
+${escapeHtml(
+purchase.description
+)}
 </div>
 
 <div class="purchase-meta">
@@ -1279,8 +2066,7 @@ ${escapeHtml(dateDisplay)}
 •
 Paid by
 ${escapeHtml(
-SHORT_NAMES[purchase.payer]
-||purchase.payer
+shortName(purchase.payer)
 )}
 </div>
 
@@ -1292,23 +2078,174 @@ ${formatMoney(purchase.amount)}
 
 </div>
 
+
 <div class="purchase-details">
+
 <b>Included:</b>
+
 ${people.map(person=>
 escapeHtml(
-SHORT_NAMES[person]||person
+shortName(person)
 )
 ).join(', ')}
+
 </div>
+
 
 <div class="purchase-share">
-${formatMoney(share)} per person
+
+${formatMoney(share)}
+per person
+
+</div>
+
+
+<div class="purchase-usd">
+
+Current USD equivalent:
+${formatUSD(shareUSD)}
+per person
+•
+Total ${formatUSD(amountUSD)}
+
+</div>
+
+
+<div class="purchase-actions">
+
+<button
+class="delete-btn"
+type="button"
+data-delete-id="${escapeHtml(purchase.id)}">
+Delete Purchase
+</button>
+
 </div>
 
 </div>
+
 `;
 
 }).join('');
+
+
+document.querySelectorAll(
+'[data-delete-id]'
+).forEach(button=>{
+
+button.addEventListener(
+'click',
+()=>deletePurchase(
+button.dataset.deleteId,
+button
+)
+);
+
+});
+
+}
+
+
+/* ==========================================
+   DELETE INDIVIDUAL PURCHASE
+========================================== */
+
+async function deletePurchase(
+purchaseId,
+button
+){
+
+const purchase=
+purchases.find(
+item=>String(item.id)===String(purchaseId)
+);
+
+if(!purchase)return;
+
+const confirmed=
+window.confirm(
+'Delete "'+
+purchase.description+
+'" for '+
+formatMoney(purchase.amount)+
+'?'
+);
+
+if(!confirmed)return;
+
+const pin=
+window.prompt(
+'Enter the Dues PIN to delete this purchase:'
+);
+
+if(pin===null)return;
+
+if(pin!==DUES_PIN){
+
+window.alert(
+'Incorrect PIN. Nothing was deleted.'
+);
+
+return;
+
+}
+
+button.disabled=true;
+button.textContent='Deleting…';
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'delete_purchase',
+{
+p_pin:DUES_PIN,
+p_id:purchaseId
+}
+);
+
+if(error){
+
+console.error(
+'Supabase delete error:',
+error
+);
+
+window.alert(
+'Unable to delete purchase: '+
+(error.message||'Unknown error')
+);
+
+return;
+
+}
+
+if(!data){
+
+window.alert(
+'Purchase could not be deleted.'
+);
+
+return;
+
+}
+
+await loadPurchases();
+
+}catch(error){
+
+console.error(error);
+
+window.alert(
+'Unable to connect to the Dues database.'
+);
+
+}finally{
+
+button.disabled=false;
+button.textContent='Delete Purchase';
+
+}
 
 }
 
@@ -1397,33 +2334,39 @@ let label='Even';
 if(balance>0.005){
 
 amountClass='owedto';
-
 label='is owed';
 
 }else if(balance<-0.005){
 
 amountClass='owed';
-
 label='owes';
 
 }
 
 return `
+
 <div class="balance">
 
 <div class="balance-name">
-${escapeHtml(SHORT_NAMES[person])}
+${escapeHtml(
+shortName(person)
+)}
 </div>
 
 <div class="balance-amount ${amountClass}">
-${formatMoney(Math.abs(balance))}
+${formatUSD(Math.abs(balance)*gbpToUsd)}
 </div>
 
 <div style="font-size:12px;color:#71869a;margin-top:2px">
 ${label}
 </div>
 
+<div class="balance-gbp">
+${formatMoney(Math.abs(balance))}
 </div>
+
+</div>
+
 `;
 
 }).join('');
@@ -1434,7 +2377,7 @@ renderSettlements(balances);
 
 
 /* ==========================================
-   SETTLEMENTS
+   VENMO SETTLEMENTS
 ========================================== */
 
 function renderSettlements(balances){
@@ -1442,6 +2385,7 @@ function renderSettlements(balances){
 const creditors=[];
 
 const debtors=[];
+
 
 Object.entries(balances).forEach(
 ([person,balance])=>{
@@ -1466,6 +2410,7 @@ amount:-balance
 
 });
 
+
 creditors.sort(
 (a,b)=>b.amount-a.amount
 );
@@ -1474,11 +2419,13 @@ debtors.sort(
 (a,b)=>b.amount-a.amount
 );
 
+
 const settlements=[];
 
 let creditorIndex=0;
 
 let debtorIndex=0;
+
 
 while(
 creditorIndex<creditors.length &&
@@ -1497,33 +2444,88 @@ creditor.amount,
 debtor.amount
 );
 
+
 if(amount>0.005){
 
+const debtorName=
+shortName(debtor.person);
+
+const creditorName=
+shortName(creditor.person);
+
+const usdAmount=
+formatUSD(
+amount*gbpToUsd
+);
+
+const gbpAmount=
+formatMoney(amount);
+
+const venmoUrl=
+VENMO[creditor.person];
+
+
+if(venmoUrl){
+
 settlements.push(`
-<div class="settlement-row">
 
-<span>
-<b>${escapeHtml(
-SHORT_NAMES[debtor.person]
-)}</b>
-→
-<b>${escapeHtml(
-SHORT_NAMES[creditor.person]
-)}</b>
-</span>
+<a
+class="settlement-link"
+href="${venmoUrl}"
+target="_blank"
+rel="noopener">
 
-<strong>
-${formatMoney(amount)}
-</strong>
+<div class="settlement-main">
+${escapeHtml(debtorName)}
+owes
+${escapeHtml(creditorName)}
+</div>
+
+<div class="settlement-usd">
+${usdAmount}
+↗
+</div>
+
+<div class="settlement-gbp">
+${gbpAmount} • Tap to open ${escapeHtml(creditorName)}’s Venmo
+</div>
+
+</a>
+
+`);
+
+}else{
+
+settlements.push(`
+
+<div class="settlement-plain">
+
+<div class="settlement-main">
+${escapeHtml(debtorName)}
+owes
+${escapeHtml(creditorName)}
+</div>
+
+<div class="settlement-usd">
+${usdAmount}
+</div>
+
+<div class="settlement-gbp">
+${gbpAmount} • ${escapeHtml(creditorName)} has no Venmo
+</div>
 
 </div>
+
 `);
 
 }
 
-creditor.amount-=amount;
+}
 
+
+creditor.amount-=amount;
 debtor.amount-=amount;
+
 
 if(creditor.amount<=0.005){
 creditorIndex++;
@@ -1535,10 +2537,12 @@ debtorIndex++;
 
 }
 
+
 const list=
 document.getElementById(
 'settlementList'
 );
+
 
 if(!settlements.length){
 
@@ -1551,6 +2555,7 @@ return;
 
 }
 
+
 list.innerHTML=
 settlements.join('');
 
@@ -1558,10 +2563,16 @@ settlements.join('');
 
 
 /* ==========================================
-   RENDER DUES
+   RENDER EVERYTHING
 ========================================== */
 
 function renderDues(){
+
+if(
+!document.getElementById(
+'duesContent'
+)
+)return;
 
 renderPurchases();
 
@@ -1582,10 +2593,12 @@ async event=>{
 
 event.preventDefault();
 
+
 const description=
 document.getElementById(
 'purchaseDescription'
 ).value.trim();
+
 
 const amount=
 Number(
@@ -1594,22 +2607,28 @@ document.getElementById(
 ).value
 );
 
+
 const payer=
 document.getElementById(
 'purchasePayer'
 ).value;
+
 
 const date=
 document.getElementById(
 'purchaseDate'
 ).value;
 
+
 const selectedPeople=
 Array.from(
 document.querySelectorAll(
 '.person-check input:checked'
 )
-).map(input=>input.value);
+).map(
+input=>input.value
+);
+
 
 const message=
 document.getElementById(
@@ -1617,9 +2636,8 @@ document.getElementById(
 );
 
 message.textContent='';
+message.className='form-message';
 
-message.className=
-'form-message';
 
 if(!description){
 
@@ -1629,6 +2647,7 @@ message.textContent=
 return;
 
 }
+
 
 if(
 !Number.isFinite(amount) ||
@@ -1642,6 +2661,7 @@ return;
 
 }
 
+
 if(!payer){
 
 message.textContent=
@@ -1650,6 +2670,7 @@ message.textContent=
 return;
 
 }
+
 
 if(selectedPeople.length===0){
 
@@ -1660,6 +2681,7 @@ return;
 
 }
 
+
 if(!selectedPeople.includes(payer)){
 
 message.textContent=
@@ -1669,6 +2691,7 @@ return;
 
 }
 
+
 const submitButton=
 document.querySelector(
 '#purchaseForm .primary-btn'
@@ -1676,8 +2699,8 @@ document.querySelector(
 
 submitButton.disabled=true;
 
-submitButton.textContent=
-'Saving...';
+submitButton.textContent='Saving…';
+
 
 try{
 
@@ -1694,6 +2717,7 @@ p_people:selectedPeople
 }
 );
 
+
 if(error){
 
 console.error(
@@ -1709,6 +2733,7 @@ return;
 
 }
 
+
 if(!data){
 
 message.textContent=
@@ -1718,11 +2743,14 @@ return;
 
 }
 
+
 document.getElementById(
 'purchaseForm'
 ).reset();
 
+
 updateSelectedCount();
+
 
 message.textContent=
 'Purchase logged successfully.';
@@ -1730,13 +2758,16 @@ message.textContent=
 message.className=
 'form-message success';
 
+
 await loadPurchases();
+
 
 setTimeout(()=>{
 
 message.textContent='';
 
 },2500);
+
 
 }catch(error){
 
@@ -1761,7 +2792,40 @@ submitButton.textContent=
 
 
 /* ==========================================
-   REFRESH
+   SELECTED PEOPLE
+========================================== */
+
+function updateSelectedCount(){
+
+const selected=
+document.querySelectorAll(
+'.person-check input:checked'
+).length;
+
+document.getElementById(
+'selectedCount'
+).textContent=
+selected===1
+?'1 person selected'
+:selected+' people selected';
+
+}
+
+
+document.querySelectorAll(
+'.person-check input'
+).forEach(input=>{
+
+input.addEventListener(
+'change',
+updateSelectedCount
+);
+
+});
+
+
+/* ==========================================
+   REFRESH DUES
 ========================================== */
 
 document.getElementById(
@@ -1777,9 +2841,39 @@ document.getElementById(
 
 button.disabled=true;
 
-button.textContent='Loading...';
+button.textContent='Loading…';
 
 await loadPurchases();
+
+await loadFxRate();
+
+button.disabled=false;
+
+button.textContent='↻ Refresh';
+
+});
+
+
+/* ==========================================
+   REFRESH FX
+========================================== */
+
+document.getElementById(
+'refreshFx'
+).addEventListener(
+'click',
+async()=>{
+
+const button=
+document.getElementById(
+'refreshFx'
+);
+
+button.disabled=true;
+
+button.textContent='Loading…';
+
+await loadFxRate();
 
 button.disabled=false;
 
@@ -1798,25 +2892,31 @@ document.getElementById(
 'click',
 async()=>{
 
+
 if(!purchases.length){
 
 return;
 
 }
 
+
 const confirmed=
 window.confirm(
 'Are you sure you want to delete every purchase from the Dues ledger?'
 );
 
+
 if(!confirmed)return;
+
 
 const pin=
 window.prompt(
 'Enter the Dues PIN to clear the ledger:'
 );
 
+
 if(pin===null)return;
+
 
 if(pin!==DUES_PIN){
 
@@ -1828,6 +2928,7 @@ return;
 
 }
 
+
 const button=
 document.getElementById(
 'clearPurchases'
@@ -1835,7 +2936,8 @@ document.getElementById(
 
 button.disabled=true;
 
-button.textContent='Clearing...';
+button.textContent='Clearing…';
+
 
 try{
 
@@ -1846,6 +2948,7 @@ await supabaseClient.rpc(
 p_pin:DUES_PIN
 }
 );
+
 
 if(error){
 
@@ -1863,7 +2966,9 @@ return;
 
 }
 
+
 await loadPurchases();
+
 
 }catch(error){
 
@@ -1893,42 +2998,42 @@ function initializeDues(){
 if(duesInitialized){
 
 if(isAuthenticated()){
+
 loadPurchases();
+
+loadFxRate();
+
 }
 
 return;
 
 }
 
+
 duesInitialized=true;
+
 
 const today=
 new Date()
 .toISOString()
 .slice(0,10);
 
+
 document.getElementById(
 'purchaseDate'
 ).value=today;
 
-document.querySelectorAll(
-'.person-check input'
-).forEach(input=>{
-
-input.addEventListener(
-'change',
-updateSelectedCount
-);
-
-});
 
 updateSelectedCount();
+
 
 if(isAuthenticated()){
 
 showDuesContent();
 
 loadPurchases();
+
+loadFxRate();
 
 }else{
 
@@ -1937,6 +3042,32 @@ showDuesAuth();
 }
 
 }
+
+
+/* ==========================================
+   AUTO-REFRESH CURRENT FX RATE
+========================================== */
+
+/*
+  The free FX source updates periodically.
+  Refreshing every 30 minutes keeps the displayed
+  rate current without hammering the public API.
+*/
+
+setInterval(()=>{
+
+if(
+isAuthenticated() &&
+document.getElementById(
+'dues'
+).style.display!=='none'
+){
+
+loadFxRate();
+
+}
+
+},1800000);
 
 </script>
 
