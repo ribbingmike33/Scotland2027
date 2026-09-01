@@ -254,54 +254,61 @@ font-weight:700
 
 
 /* ==========================================
-   HOURLY RAIN
+   HOURLY RAIN GRAPH
 ========================================== */
 
-.hourly-rain-list{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:8px
+.hourly-rain-graph{
+position:relative;
+width:100%;
+height:230px;
+margin-top:4px
 }
 
-.hourly-rain{
-border:1px solid #d4e2ee;
-border-radius:13px;
-padding:12px 9px;
-background:#fff;
-text-align:center
+.hourly-rain-chart{
+display:block;
+width:100%;
+height:190px;
+cursor:crosshair
 }
 
-.hourly-rain.current{
-background:#eef6fc;
-border-color:#b9d0e2
+.hourly-rain-tooltip{
+position:absolute;
+display:none;
+pointer-events:none;
+background:#10253d;
+color:#fff;
+border-radius:9px;
+padding:7px 10px;
+font-size:12px;
+font-weight:800;
+white-space:nowrap;
+transform:translate(-50%,-115%);
+z-index:5;
+box-shadow:0 3px 12px rgba(16,37,61,.18)
 }
 
-.hourly-rain-time{
-font-size:13px;
-font-weight:900;
-color:#243f58;
-margin-bottom:7px
+.hourly-rain-axis{
+display:flex;
+justify-content:space-between;
+padding:0 2px;
+margin-top:2px;
+font-size:10px;
+font-weight:800;
+color:#71869a
 }
 
-.hourly-rain-label{
-font-size:9px;
-font-weight:900;
-letter-spacing:.06em;
+.hourly-rain-axis span{
+white-space:nowrap
+}
+
+.hourly-rain-legend{
+font-size:11px;
 color:#71869a;
-margin-bottom:3px
+margin-top:7px
 }
 
-.hourly-rain-value{
-font-size:20px;
-font-weight:900;
+.hourly-rain-legend b{
 color:#07549a
-}
-
-.hourly-rain-loading{
-text-align:center;
-padding:22px 10px;
-color:#647b8f;
-font-size:14px
 }
 
 
@@ -1139,21 +1146,20 @@ font-size:14px
 font-size:9px
 }
 
-.hourly-rain-list{
-grid-template-columns:repeat(3,1fr);
-gap:7px
+.hourly-rain-graph{
+height:215px
 }
 
-.hourly-rain{
-padding:11px 7px
+.hourly-rain-chart{
+height:175px
 }
 
-.hourly-rain-time{
-font-size:12px
+.hourly-rain-axis{
+font-size:9px
 }
 
-.hourly-rain-value{
-font-size:18px
+.hourly-rain-legend{
+font-size:10px
 }
 
 }
@@ -2331,23 +2337,36 @@ RAIN CHANCE
 
 
 <!-- ==========================================
-     HOURLY RAIN
+     HOURLY RAIN GRAPH
 ========================================== -->
 
 <div class="weather-card">
 
 <div class="weather-header-row">
 
-<h3>🌧️ Today by Hour</h3>
+<h3>🌧️ Rain Chance Today</h3>
 
 </div>
 
-<div
-class="hourly-rain-list"
-id="hourlyRain">
+<div class="hourly-rain-graph">
 
-<div class="hourly-rain-loading">
-Loading hourly rain chances…
+<canvas
+id="hourlyRainChart"
+class="hourly-rain-chart">
+</canvas>
+
+<div
+id="hourlyRainTooltip"
+class="hourly-rain-tooltip">
+</div>
+
+<div
+id="hourlyRainAxis"
+class="hourly-rain-axis">
+</div>
+
+<div class="hourly-rain-legend">
+Hourly probability of precipitation • <b>Tap a point for exact chance</b>
 </div>
 
 </div>
@@ -2538,6 +2557,8 @@ let weatherInitialized=false;
 
 let weatherLoaded=false;
 
+let hourlyRainData=[];
+
 
 function formatWeatherDay(dateString){
 
@@ -2683,6 +2704,529 @@ loadWeather();
 }
 
 
+/* ==========================================
+   DRAW HOURLY RAIN GRAPH
+========================================== */
+
+function drawHourlyRainGraph(){
+
+const canvas=
+document.getElementById(
+'hourlyRainChart'
+);
+
+const tooltip=
+document.getElementById(
+'hourlyRainTooltip'
+);
+
+const axis=
+document.getElementById(
+'hourlyRainAxis'
+);
+
+if(!canvas || !hourlyRainData.length){
+return;
+}
+
+const rect=
+canvas.getBoundingClientRect();
+
+const dpr=
+window.devicePixelRatio||1;
+
+const width=
+rect.width;
+
+const height=
+rect.height;
+
+canvas.width=
+Math.round(width*dpr);
+
+canvas.height=
+Math.round(height*dpr);
+
+const ctx=
+canvas.getContext('2d');
+
+ctx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
+
+ctx.clearRect(
+0,
+0,
+width,
+height
+);
+
+
+/* ==========================================
+   GRAPH DIMENSIONS
+========================================== */
+
+const left=34;
+const right=10;
+const top=12;
+const bottom=20;
+
+const graphWidth=
+width-left-right;
+
+const graphHeight=
+height-top-bottom;
+
+
+/* ==========================================
+   GRID + Y AXIS
+========================================== */
+
+ctx.font='10px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif';
+ctx.textAlign='right';
+ctx.textBaseline='middle';
+
+[100,75,50,25,0].forEach(value=>{
+
+const y=
+top+
+graphHeight-
+(value/100)*graphHeight;
+
+ctx.strokeStyle='#e5edf4';
+ctx.lineWidth=1;
+
+ctx.beginPath();
+ctx.moveTo(left,y);
+ctx.lineTo(width-right,y);
+ctx.stroke();
+
+ctx.fillStyle='#71869a';
+
+ctx.fillText(
+value+'%',
+left-7,
+y
+);
+
+});
+
+
+/* ==========================================
+   GRAPH POINTS
+========================================== */
+
+const points=
+hourlyRainData.map((entry,index)=>{
+
+const x=
+hourlyRainData.length===1
+?left
+:left+
+(index/(hourlyRainData.length-1))*
+graphWidth;
+
+const value=
+Math.max(
+0,
+Math.min(
+100,
+Number(entry.value)||0
+)
+);
+
+const y=
+top+
+graphHeight-
+(value/100)*graphHeight;
+
+return{
+x,
+y,
+value,
+time:entry.time
+};
+
+});
+
+
+/* ==========================================
+   LINE
+========================================== */
+
+ctx.strokeStyle='#07549a';
+ctx.lineWidth=3;
+ctx.lineJoin='round';
+ctx.lineCap='round';
+
+ctx.beginPath();
+
+points.forEach((point,index)=>{
+
+if(index===0){
+
+ctx.moveTo(
+point.x,
+point.y
+);
+
+}else{
+
+ctx.lineTo(
+point.x,
+point.y
+);
+
+}
+
+});
+
+ctx.stroke();
+
+
+/* ==========================================
+   POINTS
+========================================== */
+
+points.forEach(point=>{
+
+ctx.fillStyle='#fff';
+
+ctx.beginPath();
+
+ctx.arc(
+point.x,
+point.y,
+4.5,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+ctx.strokeStyle='#07549a';
+ctx.lineWidth=2.5;
+
+ctx.stroke();
+
+});
+
+
+/* ==========================================
+   CURRENT HOUR
+========================================== */
+
+const currentTime=
+new Date();
+
+const currentHour=
+currentTime.getHours();
+
+const currentMinute=
+currentTime.getMinutes();
+
+let closestPoint=null;
+let closestDifference=Infinity;
+
+points.forEach(point=>{
+
+const pointDate=
+new Date(
+point.time
+);
+
+const difference=
+Math.abs(
+(
+pointDate.getHours()*60+
+pointDate.getMinutes()
+)-
+(
+currentHour*60+
+currentMinute
+)
+);
+
+if(difference<closestDifference){
+
+closestDifference=difference;
+closestPoint=point;
+
+}
+
+});
+
+if(closestPoint){
+
+ctx.fillStyle='#07549a';
+
+ctx.beginPath();
+
+ctx.arc(
+closestPoint.x,
+closestPoint.y,
+6,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+ctx.fillStyle='#fff';
+
+ctx.beginPath();
+
+ctx.arc(
+closestPoint.x,
+closestPoint.y,
+2.5,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+}
+
+
+/* ==========================================
+   X AXIS LABELS
+========================================== */
+
+axis.innerHTML='';
+
+const labelCount=
+window.innerWidth<=600
+?5
+:7;
+
+const labelIndices=[];
+
+for(
+let i=0;
+i<Math.min(labelCount,points.length);
+i++
+){
+
+const index=
+Math.round(
+i*
+(points.length-1)/
+(Math.min(labelCount,points.length)-1)
+);
+
+labelIndices.push(index);
+
+}
+
+[...new Set(labelIndices)].forEach(index=>{
+
+const span=
+document.createElement('span');
+
+span.textContent=
+formatHourlyTime(
+hourlyRainData[index].time
+);
+
+axis.appendChild(span);
+
+});
+
+}
+
+
+/* ==========================================
+   HOURLY GRAPH INTERACTION
+========================================== */
+
+function setupHourlyRainGraph(){
+
+const canvas=
+document.getElementById(
+'hourlyRainChart'
+);
+
+const tooltip=
+document.getElementById(
+'hourlyRainTooltip'
+);
+
+if(!canvas || !tooltip){
+return;
+}
+
+if(canvas.dataset.bound==='true'){
+
+drawHourlyRainGraph();
+
+return;
+
+}
+
+canvas.dataset.bound='true';
+
+
+const showPoint=(clientX)=>{
+
+if(!hourlyRainData.length){
+return;
+}
+
+const rect=
+canvas.getBoundingClientRect();
+
+const left=34;
+const right=10;
+
+const usableWidth=
+rect.width-left-right;
+
+let x=
+clientX-rect.left;
+
+x=
+Math.max(
+left,
+Math.min(
+rect.width-right,
+x
+)
+);
+
+const ratio=
+usableWidth>0
+?(x-left)/usableWidth
+:0;
+
+const index=
+Math.round(
+ratio*
+(hourlyRainData.length-1)
+);
+
+const entry=
+hourlyRainData[index];
+
+if(!entry){
+return;
+}
+
+const pointX=
+left+
+(index/(hourlyRainData.length-1))*
+usableWidth;
+
+tooltip.textContent=
+formatHourlyTime(entry.time)+
+' • '+
+formatRain(entry.value);
+
+tooltip.style.left=
+pointX+'px';
+
+tooltip.style.top=
+'30px';
+
+tooltip.style.display=
+'block';
+
+};
+
+
+canvas.addEventListener(
+'mousemove',
+event=>{
+
+showPoint(event.clientX);
+
+});
+
+
+canvas.addEventListener(
+'mouseleave',
+()=>{
+
+tooltip.style.display='none';
+
+});
+
+
+canvas.addEventListener(
+'touchstart',
+event=>{
+
+if(event.touches.length){
+
+showPoint(
+event.touches[0].clientX
+);
+
+}
+
+},
+{
+passive:true
+});
+
+
+canvas.addEventListener(
+'touchmove',
+event=>{
+
+if(event.touches.length){
+
+showPoint(
+event.touches[0].clientX
+);
+
+}
+
+},
+{
+passive:true
+});
+
+
+canvas.addEventListener(
+'touchend',
+()=>{
+
+setTimeout(()=>{
+
+tooltip.style.display='none';
+
+},1800);
+
+});
+
+
+window.addEventListener(
+'resize',
+()=>{
+
+if(
+document.getElementById(
+'weather'
+).style.display!=='none'
+){
+
+drawHourlyRainGraph();
+
+}
+
+});
+
+drawHourlyRainGraph();
+
+}
+
+
 async function loadWeather(){
 
 const forecast=
@@ -2690,16 +3234,8 @@ document.getElementById(
 'weatherForecast'
 );
 
-const hourlyRain=
-document.getElementById(
-'hourlyRain'
-);
-
 forecast.innerHTML=
 '<div class="weather-loading">Loading Edinburgh weather…</div>';
-
-hourlyRain.innerHTML=
-'<div class="hourly-rain-loading">Loading hourly rain chances…</div>';
 
 try{
 
@@ -2808,7 +3344,7 @@ formatRain(rain);
 
 
 /* ==========================================
-   HOURLY RAIN
+   HOURLY RAIN GRAPH
 ========================================== */
 
 const todayHourlyIndices=[];
@@ -2828,53 +3364,35 @@ todayHourlyIndices.push(index);
 });
 
 
-if(!todayHourlyIndices.length){
+hourlyRainData=
+todayHourlyIndices.map(index=>({
 
-hourlyRain.innerHTML=
+time:data.hourly.time[index],
+
+value:data.hourly.precipitation_probability[index]
+
+}));
+
+
+if(!hourlyRainData.length){
+
+const graph=
+document.querySelector(
+'.hourly-rain-graph'
+);
+
+if(graph){
+
+graph.innerHTML=
 '<div class="weather-error">'+
-'Unable to load today’s hourly rain forecast. '+
+'Unable to load today’s hourly rain forecast.'+
 '</div>';
+
+}
 
 }else{
 
-hourlyRain.innerHTML=
-todayHourlyIndices
-.map(index=>{
-
-const time=
-data.hourly.time[index];
-
-const precipitation=
-data.hourly.precipitation_probability[index];
-
-const currentTime=
-data.current.time;
-
-const isCurrentHour=
-String(time).slice(0,13)===
-String(currentTime).slice(0,13);
-
-return `
-
-<div class="hourly-rain ${isCurrentHour?'current':''}">
-
-<div class="hourly-rain-time">
-${formatHourlyTime(time)}
-</div>
-
-<div class="hourly-rain-label">
-RAIN CHANCE
-</div>
-
-<div class="hourly-rain-value">
-${formatRain(precipitation)}
-</div>
-
-</div>
-
-`;
-
-}).join('');
+setupHourlyRainGraph();
 
 }
 
@@ -2984,11 +3502,20 @@ forecast.innerHTML=
 'Tap Refresh to try again.'+
 '</div>';
 
-hourlyRain.innerHTML=
+const graph=
+document.querySelector(
+'.hourly-rain-graph'
+);
+
+if(graph){
+
+graph.innerHTML=
 '<div class="weather-error">'+
 'Unable to load today’s hourly rain forecast right now. '+
 'Tap Refresh to try again.'+
 '</div>';
+
+}
 
 }
 
