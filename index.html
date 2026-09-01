@@ -71,13 +71,284 @@ main{padding:16px}
 .meta{font-size:13px;color:#647b8f}
 .person p{font-size:14px;line-height:1.55;margin:12px 0 0;color:#263f56}
 
-.photo{border:1px solid #d4e2ee;border-radius:20px;background:#eef6fc;padding:30px 18px;text-align:center}
-.photo .emoji{font-size:54px}
-.photo h2{font:700 30px Georgia,serif;margin:10px 0 5px}
 
-.footer{padding:20px 16px 35px;color:#7b8fa1;font-size:12px;text-align:center}
+/* ==========================================
+   GUINNESS TRACKER
+========================================== */
 
-/* DUES */
+.guinness-hero{
+background:#2f2118;
+color:#fff;
+border-radius:18px;
+padding:22px;
+margin-bottom:14px;
+text-align:center
+}
+
+.guinness-icon{
+font-size:46px;
+line-height:1
+}
+
+.guinness-label{
+font-size:11px;
+font-weight:900;
+letter-spacing:.16em;
+opacity:.75;
+margin-top:10px
+}
+
+.guinness-total{
+font:700 54px Georgia,serif;
+margin:2px 0
+}
+
+.guinness-total-label{
+font-size:14px;
+opacity:.8
+}
+
+.guinness-log-btn{
+width:100%;
+border:0;
+border-radius:13px;
+background:#07549a;
+color:#fff;
+padding:15px;
+font-size:16px;
+font-weight:900;
+cursor:pointer;
+margin-bottom:14px
+}
+
+.guinness-log-btn:hover{
+background:#064781
+}
+
+.guinness-card{
+border:1px solid #d4e2ee;
+border-radius:16px;
+background:#fff;
+padding:17px;
+margin-bottom:14px
+}
+
+.guinness-card h3{
+font:700 23px Georgia,serif;
+margin:0 0 14px;
+color:#10253d
+}
+
+.guinness-form{
+background:#f7fbff;
+border:1px solid #d4e4f1;
+border-radius:14px;
+padding:15px;
+margin-bottom:14px
+}
+
+.guinness-form label{
+display:block;
+font-size:12px;
+font-weight:900;
+color:#31516d;
+margin-bottom:6px
+}
+
+.guinness-form input[type="date"]{
+width:100%;
+min-height:46px;
+border:1px solid #cbdceb;
+border-radius:11px;
+background:#fff;
+padding:10px 12px;
+font-size:16px;
+color:#10253d;
+margin-bottom:14px
+}
+
+.guinness-form input[type="date"]:focus{
+outline:3px solid #d9ebfa;
+border-color:#07549a
+}
+
+.guinness-people{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+margin-top:7px
+}
+
+.guinness-check{
+position:relative
+}
+
+.guinness-check input{
+position:absolute;
+opacity:0;
+width:1px;
+height:1px
+}
+
+.guinness-check label{
+display:block;
+border:1px solid #cbdceb;
+border-radius:11px;
+padding:12px 10px;
+font-size:14px;
+font-weight:800;
+color:#31516d;
+background:#fff;
+cursor:pointer;
+text-align:center
+}
+
+.guinness-check input:checked+label{
+background:#2f2118;
+border-color:#2f2118;
+color:#fff
+}
+
+.guinness-check input:focus+label{
+outline:3px solid #d9ebfa
+}
+
+.guinness-selected{
+font-size:12px;
+color:#647b8f;
+margin:8px 0 13px
+}
+
+.guinness-submit{
+width:100%;
+border:0;
+border-radius:12px;
+background:#07549a;
+color:#fff;
+padding:14px;
+font-size:15px;
+font-weight:900;
+cursor:pointer
+}
+
+.guinness-submit:disabled{
+opacity:.65;
+cursor:wait
+}
+
+.guinness-message{
+margin-top:10px;
+font-size:13px;
+font-weight:700;
+color:#a33b3b
+}
+
+.guinness-message.success{
+color:#277044
+}
+
+.leaderboard{
+display:flex;
+flex-direction:column;
+gap:8px
+}
+
+.leader-row{
+display:grid;
+grid-template-columns:40px 1fr auto;
+align-items:center;
+gap:10px;
+border:1px solid #d4e2ee;
+border-radius:13px;
+padding:12px 13px;
+background:#fff
+}
+
+.leader-rank{
+font-size:20px;
+font-weight:900;
+color:#647b8f;
+text-align:center
+}
+
+.leader-row:first-child .leader-rank{
+color:#c28b25
+}
+
+.leader-name{
+font-weight:900;
+color:#243f58
+}
+
+.leader-count{
+font-size:21px;
+font-weight:900;
+color:#07549a;
+text-align:right
+}
+
+.leader-count-label{
+font-size:11px;
+color:#71869a;
+font-weight:700;
+margin-left:3px
+}
+
+.guinness-refresh{
+border:1px solid #b9d0e2;
+background:#fff;
+color:#07549a;
+border-radius:10px;
+padding:9px 11px;
+font-weight:800;
+cursor:pointer
+}
+
+.guinness-refresh:disabled{
+opacity:.6
+}
+
+.guinness-header-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:14px
+}
+
+.guinness-history{
+border-top:1px solid #edf2f6;
+margin-top:14px;
+padding-top:12px
+}
+
+.guinness-history-row{
+display:flex;
+justify-content:space-between;
+gap:12px;
+padding:9px 0;
+border-bottom:1px solid #edf2f6;
+font-size:13px
+}
+
+.guinness-history-row:last-child{
+border-bottom:0
+}
+
+.guinness-history-date{
+font-weight:800;
+color:#243f58
+}
+
+.guinness-history-people{
+color:#647b8f;
+text-align:right
+}
+
+
+/* ==========================================
+   DUES
+========================================== */
 
 .dues-intro{
 background:#eef6fc;
@@ -559,6 +830,23 @@ margin-top:3px
 
 .fx-rate{font-size:25px}
 
+.guinness-total{
+font-size:48px
+}
+
+.guinness-people{
+grid-template-columns:1fr 1fr
+}
+
+.guinness-history-row{
+display:block
+}
+
+.guinness-history-people{
+text-align:left;
+margin-top:3px
+}
+
 }
 </style>
 </head>
@@ -577,8 +865,8 @@ margin-top:3px
 <button class="tab active" data-tab="itinerary">📅 Itinerary</button>
 <button class="tab" data-tab="cup">🏆 Scotland Cup</button>
 <button class="tab" data-tab="participants">👥 Participants</button>
+<button class="tab" data-tab="guinness">🍺 Guinness</button>
 <button class="tab" data-tab="dues">💰 Dues</button>
-<button class="tab" data-tab="photos">📸 Photos</button>
 </nav>
 
 
@@ -818,7 +1106,7 @@ margin-top:3px
 
 <a class="link" href="https://www.northberwickgolfclub.com/" target="_blank" rel="noopener">⛳ North Berwick ↗</a>
 
-<a class="link" href="javascript:void(0)" onclick="openOmioApp(event)">🚆 Buy Train Tickets ↗</a>
+<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">🚆 Omio App ↗</a>
 
 <div class="link-pair">
 <a class="link" href="https://www.theshipinnnorthberwick.com/" target="_blank" rel="noopener">🍺 The Ship Inn ↗</a>
@@ -1094,9 +1382,9 @@ margin-top:3px
 
 <div class="notice">
 <b>🚆 Train tickets</b><br>
-Use Omio for the North Berwick / Edinburgh train.
+Use the Omio app for the North Berwick / Edinburgh train.
 <div class="links">
-<a class="link" href="javascript:void(0)" onclick="openOmioApp(event)">🚆 Buy Train Tickets ↗</a>
+<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">🚆 Open Omio App ↗</a>
 </div>
 </div>
 
@@ -1201,6 +1489,169 @@ Handicaps, Venmo handles and the official scouting reports.
 
 
 <!-- ==========================================
+     GUINNESS TRACKER
+========================================== -->
+
+<main id="guinness" style="display:none">
+
+<div class="guinness-hero">
+
+<div class="guinness-icon">🍺</div>
+
+<div class="guinness-label">
+GROUP TOTAL
+</div>
+
+<div class="guinness-total" id="guinnessTotal">
+0
+</div>
+
+<div class="guinness-total-label">
+Guinnesses consumed
+</div>
+
+</div>
+
+
+<button
+class="guinness-log-btn"
+id="showGuinnessForm"
+type="button">
+🍺 Log Guinness
+</button>
+
+
+<div
+class="guinness-form"
+id="guinnessForm"
+style="display:none">
+
+<label for="guinnessDate">
+Date
+</label>
+
+<input
+id="guinnessDate"
+type="date"
+>
+
+
+<label>
+Who drank it?
+</label>
+
+<div class="guinness-people">
+
+<div class="guinness-check">
+<input type="checkbox" id="g-mike" value="Mike Ribbing">
+<label for="g-mike">Mike</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-tom" value="Tom Chung">
+<label for="g-tom">Tom</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-eric" value="Eric Hopton">
+<label for="g-eric">Eric</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-zach" value="Zach Gordon">
+<label for="g-zach">Zach</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-brian" value="Brian Gordon">
+<label for="g-brian">Brian</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-clem" value="Clem Diglio">
+<label for="g-clem">Clem</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-veer" value="Veer Singh">
+<label for="g-veer">Veer</label>
+</div>
+
+<div class="guinness-check">
+<input type="checkbox" id="g-yeags" value="Yeags">
+<label for="g-yeags">Yeags</label>
+</div>
+
+</div>
+
+<div class="guinness-selected" id="guinnessSelected">
+0 people selected
+</div>
+
+<button
+class="guinness-submit"
+id="logGuinness"
+type="button">
+🍺 Log Guinness
+</button>
+
+<div
+class="guinness-message"
+id="guinnessMessage"
+aria-live="polite">
+</div>
+
+</div>
+
+
+<div class="guinness-card">
+
+<div class="guinness-header-row">
+
+<h3>🏆 Guinness Leaderboard</h3>
+
+<button
+class="guinness-refresh"
+id="refreshGuinness"
+type="button">
+↻ Refresh
+</button>
+
+</div>
+
+<div
+class="leaderboard"
+id="guinnessLeaderboard">
+
+<div class="empty-state">
+Loading Guinness Tracker…
+</div>
+
+</div>
+
+</div>
+
+
+<div class="guinness-card">
+
+<h3>🍺 Guinness Log</h3>
+
+<div
+class="guinness-history"
+id="guinnessHistory">
+
+<div class="empty-state">
+Loading Guinness history…
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+
+<!-- ==========================================
      DUES
 ========================================== -->
 
@@ -1262,8 +1713,6 @@ Purchases are entered in pounds and the page automatically shows the current USD
 </div>
 
 
-<!-- CURRENT FX RATE -->
-
 <div class="fx-card">
 
 <div class="fx-top">
@@ -1294,8 +1743,6 @@ Getting current exchange rate…
 
 </div>
 
-
-<!-- LOG PURCHASE -->
 
 <div class="dues-card">
 
@@ -1452,8 +1899,6 @@ Who was in on it?
 </div>
 
 
-<!-- WHO OWES WHO -->
-
 <div class="dues-card">
 
 <div class="dues-header-row">
@@ -1478,8 +1923,6 @@ Who was in on it?
 
 </div>
 
-
-<!-- PURCHASE HISTORY -->
 
 <div class="dues-card">
 
@@ -1509,35 +1952,6 @@ Loading purchases...
 </main>
 
 
-<!-- ==========================================
-     PHOTOS
-========================================== -->
-
-<main id="photos" style="display:none">
-
-<div class="photo">
-
-<div class="emoji">📸</div>
-
-<h2>Scotland Trip Photos</h2>
-
-<p>
-Everyone’s photos in one shared iCloud album.
-</p>
-
-<a
-class="biglink"
-href="https://www.icloud.com/sharedalbum/#D1xv3dGuO_IN2ynUsMZ-02jds6wCAEQARogfPZtOWo4u45c4euVGsdFeB2b1EHD6vOLbyYe9Vkqlwk"
-target="_blank"
-rel="noopener">
-Open Shared iCloud Album ↗
-</a>
-
-</div>
-
-</main>
-
-
 <div class="footer">
 Zach’s Dirty 30 with the Lads • Built for the crew
 </div>
@@ -1548,6 +1962,7 @@ Zach’s Dirty 30 with the Lads • Built for the crew
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
 
 /* ==========================================
    SITE NAVIGATION
@@ -1599,192 +2014,13 @@ if(button.dataset.tab==='dues'){
 initializeDues();
 }
 
+if(button.dataset.tab==='guinness'){
+initializeGuinness();
+}
+
 });
 
 });
-
-
-/* ==========================================
-   APP LINKS WITH FALLBACKS
-========================================== */
-
-/*
-  iPhone behavior:
-  1. Attempt to open the native app.
-  2. Give iOS a moment to switch to the app.
-  3. If the app does not handle the deep link,
-     return to/open the normal website.
-
-  The fallback is especially useful when someone
-  does not have the app installed.
-*/
-
-function openVenmoApp(event, username, amount){
-
-if(event){
-event.preventDefault();
-event.stopPropagation();
-}
-
-const fallbackUrl=
-'https://venmo.com/'+
-encodeURIComponent(username);
-
-const safeAmount=
-Number(amount||0).toFixed(2);
-
-/*
-  Venmo's native URL scheme opens the payment flow
-  for the specified recipient and amount.
-*/
-const appUrl=
-'venmo://paycharge?txn=pay&recipients='+
-encodeURIComponent(username)+
-'&amount='+
-encodeURIComponent(safeAmount);
-
-let fallbackTimer;
-
-const cleanup=()=>{
-
-if(fallbackTimer){
-clearTimeout(fallbackTimer);
-}
-
-document.removeEventListener(
-'visibilitychange',
-handleVisibility
-);
-
-window.removeEventListener(
-'pagehide',
-handlePageHide
-);
-
-};
-
-const handleVisibility=()=>{
-
-if(document.hidden){
-cleanup();
-}
-
-};
-
-const handlePageHide=()=>{
-
-cleanup();
-
-};
-
-document.addEventListener(
-'visibilitychange',
-handleVisibility
-);
-
-window.addEventListener(
-'pagehide',
-handlePageHide
-);
-
-/*
-  If Venmo is installed, iOS should leave Safari.
-  If nothing happens, the fallback opens the web profile.
-*/
-window.location.href=appUrl;
-
-fallbackTimer=setTimeout(()=>{
-
-if(!document.hidden){
-
-cleanup();
-
-window.location.href=fallbackUrl;
-
-}
-
-},1200);
-
-}
-
-
-function openOmioApp(event){
-
-if(event){
-event.preventDefault();
-event.stopPropagation();
-}
-
-const fallbackUrl=
-'https://www.omio.com/apps';
-
-/*
-  Omio's native app URL.
-  If the installed iOS app handles the scheme,
-  iOS will switch to Omio.
-*/
-const appUrl=
-'omio://';
-
-let fallbackTimer;
-
-const cleanup=()=>{
-
-if(fallbackTimer){
-clearTimeout(fallbackTimer);
-}
-
-document.removeEventListener(
-'visibilitychange',
-handleVisibility
-);
-
-window.removeEventListener(
-'pagehide',
-handlePageHide
-);
-
-};
-
-const handleVisibility=()=>{
-
-if(document.hidden){
-cleanup();
-}
-
-};
-
-const handlePageHide=()=>{
-
-cleanup();
-
-};
-
-document.addEventListener(
-'visibilitychange',
-handleVisibility
-);
-
-window.addEventListener(
-'pagehide',
-handlePageHide
-);
-
-window.location.href=appUrl;
-
-fallbackTimer=setTimeout(()=>{
-
-if(!document.hidden){
-
-cleanup();
-
-window.location.href=fallbackUrl;
-
-}
-
-},1200);
-
-}
 
 
 /* ==========================================
@@ -1852,6 +2088,593 @@ const VENMO={
 
 
 /* ==========================================
+   GUINNESS STATE
+========================================== */
+
+let guinnessLogs=[];
+
+let guinnessInitialized=false;
+
+
+/* ==========================================
+   GUINNESS HELPERS
+========================================== */
+
+function todayString(){
+
+return new Date()
+.toISOString()
+.slice(0,10);
+
+}
+
+
+function formatGuinnessDate(date){
+
+if(!date)return '';
+
+return new Date(
+date+'T12:00:00'
+).toLocaleDateString(
+'en-US',
+{
+weekday:'short',
+month:'short',
+day:'numeric',
+year:'numeric'
+}
+);
+
+}
+
+
+/* ==========================================
+   GUINNESS INITIALIZE
+========================================== */
+
+function initializeGuinness(){
+
+if(!guinnessInitialized){
+
+guinnessInitialized=true;
+
+document.getElementById(
+'guinnessDate'
+).value=todayString();
+
+updateGuinnessSelected();
+
+}
+
+loadGuinness();
+
+}
+
+
+/* ==========================================
+   LOAD GUINNESS
+========================================== */
+
+async function loadGuinness(){
+
+const leaderboard=
+document.getElementById(
+'guinnessLeaderboard'
+);
+
+leaderboard.innerHTML=
+'<div class="empty-state">Loading Guinness Tracker…</div>';
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'get_guinness_logs',
+{
+p_pin:DUES_PIN
+}
+);
+
+if(error){
+
+console.error(
+'Guinness load error:',
+error
+);
+
+leaderboard.innerHTML=
+'<div class="empty-state">'+
+'Unable to load Guinness Tracker.<br>'+
+'Please make sure the Guinness database setup has been run.'+
+'</div>';
+
+return;
+
+}
+
+guinnessLogs=
+Array.isArray(data)
+?data
+:[];
+
+renderGuinness();
+
+}catch(error){
+
+console.error(
+'Guinness connection error:',
+error
+);
+
+leaderboard.innerHTML=
+'<div class="empty-state">'+
+'Unable to connect to the Guinness database.'+
+'</div>';
+
+}
+
+}
+
+
+/* ==========================================
+   CALCULATE GUINNESS TOTALS
+========================================== */
+
+function calculateGuinnessTotals(){
+
+const totals={};
+
+PEOPLE.forEach(person=>{
+totals[person]=0;
+});
+
+guinnessLogs.forEach(log=>{
+
+const people=
+Array.isArray(log.people)
+?log.people
+:[];
+
+people.forEach(person=>{
+
+if(
+Object.prototype.hasOwnProperty.call(
+totals,
+person
+)
+){
+
+totals[person]++;
+
+}
+
+});
+
+});
+
+return totals;
+
+}
+
+
+/* ==========================================
+   RENDER GUINNESS
+========================================== */
+
+function renderGuinness(){
+
+const totals=
+calculateGuinnessTotals();
+
+
+const groupTotal=
+Object.values(totals)
+.reduce(
+(sum,value)=>sum+value,
+0
+);
+
+
+document.getElementById(
+'guinnessTotal'
+).textContent=
+groupTotal;
+
+
+const ranked=
+PEOPLE
+.map(person=>({
+person,
+count:totals[person]
+}))
+.sort((a,b)=>{
+
+if(b.count!==a.count){
+return b.count-a.count;
+}
+
+return PEOPLE.indexOf(a.person)-
+PEOPLE.indexOf(b.person);
+
+});
+
+
+document.getElementById(
+'guinnessLeaderboard'
+).innerHTML=
+ranked.map((entry,index)=>{
+
+return `
+
+<div class="leader-row">
+
+<div class="leader-rank">
+${index+1}
+</div>
+
+<div class="leader-name">
+${escapeHtml(
+shortName(entry.person)
+)}
+</div>
+
+<div class="leader-count">
+${entry.count}
+<span class="leader-count-label">
+${entry.count===1?'Guinness':'Guinnesses'}
+</span>
+</div>
+
+</div>
+
+`;
+
+}).join('');
+
+
+renderGuinnessHistory();
+
+}
+
+
+/* ==========================================
+   RENDER GUINNESS HISTORY
+========================================== */
+
+function renderGuinnessHistory(){
+
+const history=
+document.getElementById(
+'guinnessHistory'
+);
+
+if(!guinnessLogs.length){
+
+history.innerHTML=
+'<div class="empty-state">'+
+'No Guinness logged yet. Time to get started. 🍺'+
+'</div>';
+
+return;
+
+}
+
+const sorted=
+[...guinnessLogs].sort((a,b)=>{
+
+return String(b.drink_date)
+.localeCompare(
+String(a.drink_date)
+)
+||
+String(b.created_at)
+.localeCompare(
+String(a.created_at)
+);
+
+});
+
+
+history.innerHTML=
+sorted.map(log=>{
+
+const people=
+Array.isArray(log.people)
+?log.people
+:[];
+
+return `
+
+<div class="guinness-history-row">
+
+<div class="guinness-history-date">
+${escapeHtml(
+formatGuinnessDate(
+log.drink_date
+)
+)}
+</div>
+
+<div class="guinness-history-people">
+${people.map(person=>
+escapeHtml(
+shortName(person)
+)
+).join(', ')}
+</div>
+
+</div>
+
+`;
+
+}).join('');
+
+}
+
+
+/* ==========================================
+   SHOW / HIDE GUINNESS FORM
+========================================== */
+
+document.getElementById(
+'showGuinnessForm'
+).addEventListener(
+'click',
+()=>{
+
+const form=
+document.getElementById(
+'guinnessForm'
+);
+
+const button=
+document.getElementById(
+'showGuinnessForm'
+);
+
+if(form.style.display==='none'){
+
+form.style.display='block';
+
+button.textContent=
+'✕ Cancel';
+
+}else{
+
+form.style.display='none';
+
+button.textContent=
+'🍺 Log Guinness';
+
+}
+
+});
+
+
+/* ==========================================
+   GUINNESS SELECTION
+========================================== */
+
+function updateGuinnessSelected(){
+
+const selected=
+document.querySelectorAll(
+'.guinness-check input:checked'
+).length;
+
+document.getElementById(
+'guinnessSelected'
+).textContent=
+selected===1
+?'1 person selected'
+:selected+' people selected';
+
+}
+
+
+document.querySelectorAll(
+'.guinness-check input'
+).forEach(input=>{
+
+input.addEventListener(
+'change',
+updateGuinnessSelected
+);
+
+});
+
+
+/* ==========================================
+   LOG GUINNESS
+========================================== */
+
+document.getElementById(
+'logGuinness'
+).addEventListener(
+'click',
+async()=>{
+
+const date=
+document.getElementById(
+'guinnessDate'
+).value ||
+todayString();
+
+
+const selectedPeople=
+Array.from(
+document.querySelectorAll(
+'.guinness-check input:checked'
+)
+).map(
+input=>input.value
+);
+
+
+const message=
+document.getElementById(
+'guinnessMessage'
+);
+
+
+message.textContent='';
+message.className=
+'guinness-message';
+
+
+if(!selectedPeople.length){
+
+message.textContent=
+'Select at least one person who drank it.';
+
+return;
+
+}
+
+
+const button=
+document.getElementById(
+'logGuinness'
+);
+
+button.disabled=true;
+
+button.textContent='Saving…';
+
+
+try{
+
+const {data,error}=
+await supabaseClient.rpc(
+'log_guinness',
+{
+p_pin:DUES_PIN,
+p_drink_date:date,
+p_people:selectedPeople
+}
+);
+
+
+if(error){
+
+console.error(
+'Guinness log error:',
+error
+);
+
+message.textContent=
+'Could not save: '+
+(error.message||'Unknown database error');
+
+return;
+
+}
+
+
+if(!data){
+
+message.textContent=
+'Guinness was not returned by the database.';
+
+return;
+
+}
+
+
+document.querySelectorAll(
+'.guinness-check input'
+).forEach(input=>{
+input.checked=false;
+});
+
+
+updateGuinnessSelected();
+
+
+message.textContent=
+'🍺 Guinness logged!';
+
+message.className=
+'guinness-message success';
+
+
+await loadGuinness();
+
+
+setTimeout(()=>{
+
+message.textContent='';
+
+},2500);
+
+
+}catch(error){
+
+console.error(
+'Guinness connection error:',
+error
+);
+
+message.textContent=
+'Could not connect to the Guinness database.';
+
+}finally{
+
+button.disabled=false;
+
+button.textContent=
+'🍺 Log Guinness';
+
+}
+
+});
+
+
+/* ==========================================
+   REFRESH GUINNESS
+========================================== */
+
+document.getElementById(
+'refreshGuinness'
+).addEventListener(
+'click',
+async()=>{
+
+const button=
+document.getElementById(
+'refreshGuinness'
+);
+
+button.disabled=true;
+
+button.textContent='Loading…';
+
+await loadGuinness();
+
+button.disabled=false;
+
+button.textContent='↻ Refresh';
+
+});
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHtml(value){
+
+return String(value)
+.replace(/&/g,'&amp;')
+.replace(/</g,'&lt;')
+.replace(/>/g,'&gt;')
+.replace(/"/g,'&quot;')
+.replace(/'/g,'&#039;');
+
+}
+
+
+/* ==========================================
    DUES STATE
 ========================================== */
 
@@ -1865,7 +2688,7 @@ let fxUpdatedText='Current rate';
 
 
 /* ==========================================
-   HELPERS
+   DUES HELPERS
 ========================================== */
 
 function formatMoney(value){
@@ -1878,17 +2701,6 @@ return '$'+Number(value).toFixed(2);
 
 function shortName(person){
 return SHORT_NAMES[person]||person;
-}
-
-function escapeHtml(value){
-
-return String(value)
-.replace(/&/g,'&amp;')
-.replace(/</g,'&lt;')
-.replace(/>/g,'&gt;')
-.replace(/"/g,'&quot;')
-.replace(/'/g,'&#039;');
-
 }
 
 
@@ -1998,7 +2810,7 @@ exampleDisplay.textContent=
 
 
 /* ==========================================
-   AUTH
+   DUES AUTH
 ========================================== */
 
 function isAuthenticated(){
@@ -2739,7 +3551,7 @@ settlements.join('');
 
 
 /* ==========================================
-   RENDER EVERYTHING
+   RENDER DUES
 ========================================== */
 
 function renderDues(){
@@ -3166,6 +3978,93 @@ button.textContent='Clear All';
 
 
 /* ==========================================
+   VENMO APP + FALLBACK
+========================================== */
+
+function openVenmoApp(event, username, amount){
+
+if(event){
+event.preventDefault();
+event.stopPropagation();
+}
+
+const fallbackUrl=
+'https://venmo.com/'+
+encodeURIComponent(username);
+
+const safeAmount=
+Number(amount||0).toFixed(2);
+
+const appUrl=
+'venmo://paycharge?txn=pay&recipients='+
+encodeURIComponent(username)+
+'&amount='+
+encodeURIComponent(safeAmount);
+
+let fallbackTimer;
+
+const cleanup=()=>{
+
+if(fallbackTimer){
+clearTimeout(fallbackTimer);
+}
+
+document.removeEventListener(
+'visibilitychange',
+handleVisibility
+);
+
+window.removeEventListener(
+'pagehide',
+handlePageHide
+);
+
+};
+
+const handleVisibility=()=>{
+
+if(document.hidden){
+cleanup();
+}
+
+};
+
+const handlePageHide=()=>{
+
+cleanup();
+
+};
+
+document.addEventListener(
+'visibilitychange',
+handleVisibility
+);
+
+window.addEventListener(
+'pagehide',
+handlePageHide
+);
+
+window.location.href=appUrl;
+
+fallbackTimer=setTimeout(()=>{
+
+if(!document.hidden){
+
+cleanup();
+
+window.location.href=fallbackUrl;
+
+}
+
+},1200);
+
+return false;
+
+}
+
+
+/* ==========================================
    INITIALIZE DUES
 ========================================== */
 
@@ -3190,9 +4089,7 @@ duesInitialized=true;
 
 
 const today=
-new Date()
-.toISOString()
-.slice(0,10);
+todayString();
 
 
 document.getElementById(
