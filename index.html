@@ -818,7 +818,7 @@ margin-top:3px
 
 <a class="link" href="https://www.northberwickgolfclub.com/" target="_blank" rel="noopener">⛳ North Berwick ↗</a>
 
-<a class="link" href="https://www.omio.com/apps" target="_blank" rel="noopener">🚆 Buy Train Tickets ↗</a>
+<a class="link" href="javascript:void(0)" onclick="openOmioApp(event)">🚆 Buy Train Tickets ↗</a>
 
 <div class="link-pair">
 <a class="link" href="https://www.theshipinnnorthberwick.com/" target="_blank" rel="noopener">🍺 The Ship Inn ↗</a>
@@ -1096,7 +1096,7 @@ margin-top:3px
 <b>🚆 Train tickets</b><br>
 Use Omio for the North Berwick / Edinburgh train.
 <div class="links">
-<a class="link" href="https://www.omio.com/apps" target="_blank" rel="noopener">🚆 Buy Train Tickets ↗</a>
+<a class="link" href="javascript:void(0)" onclick="openOmioApp(event)">🚆 Buy Train Tickets ↗</a>
 </div>
 </div>
 
@@ -1605,6 +1605,189 @@ initializeDues();
 
 
 /* ==========================================
+   APP LINKS WITH FALLBACKS
+========================================== */
+
+/*
+  iPhone behavior:
+  1. Attempt to open the native app.
+  2. Give iOS a moment to switch to the app.
+  3. If the app does not handle the deep link,
+     return to/open the normal website.
+
+  The fallback is especially useful when someone
+  does not have the app installed.
+*/
+
+function openVenmoApp(event, username, amount){
+
+if(event){
+event.preventDefault();
+event.stopPropagation();
+}
+
+const fallbackUrl=
+'https://venmo.com/'+
+encodeURIComponent(username);
+
+const safeAmount=
+Number(amount||0).toFixed(2);
+
+/*
+  Venmo's native URL scheme opens the payment flow
+  for the specified recipient and amount.
+*/
+const appUrl=
+'venmo://paycharge?txn=pay&recipients='+
+encodeURIComponent(username)+
+'&amount='+
+encodeURIComponent(safeAmount);
+
+let fallbackTimer;
+
+const cleanup=()=>{
+
+if(fallbackTimer){
+clearTimeout(fallbackTimer);
+}
+
+document.removeEventListener(
+'visibilitychange',
+handleVisibility
+);
+
+window.removeEventListener(
+'pagehide',
+handlePageHide
+);
+
+};
+
+const handleVisibility=()=>{
+
+if(document.hidden){
+cleanup();
+}
+
+};
+
+const handlePageHide=()=>{
+
+cleanup();
+
+};
+
+document.addEventListener(
+'visibilitychange',
+handleVisibility
+);
+
+window.addEventListener(
+'pagehide',
+handlePageHide
+);
+
+/*
+  If Venmo is installed, iOS should leave Safari.
+  If nothing happens, the fallback opens the web profile.
+*/
+window.location.href=appUrl;
+
+fallbackTimer=setTimeout(()=>{
+
+if(!document.hidden){
+
+cleanup();
+
+window.location.href=fallbackUrl;
+
+}
+
+},1200);
+
+}
+
+
+function openOmioApp(event){
+
+if(event){
+event.preventDefault();
+event.stopPropagation();
+}
+
+const fallbackUrl=
+'https://www.omio.com/apps';
+
+/*
+  Omio's native app URL.
+  If the installed iOS app handles the scheme,
+  iOS will switch to Omio.
+*/
+const appUrl=
+'omio://';
+
+let fallbackTimer;
+
+const cleanup=()=>{
+
+if(fallbackTimer){
+clearTimeout(fallbackTimer);
+}
+
+document.removeEventListener(
+'visibilitychange',
+handleVisibility
+);
+
+window.removeEventListener(
+'pagehide',
+handlePageHide
+);
+
+};
+
+const handleVisibility=()=>{
+
+if(document.hidden){
+cleanup();
+}
+
+};
+
+const handlePageHide=()=>{
+
+cleanup();
+
+};
+
+document.addEventListener(
+'visibilitychange',
+handleVisibility
+);
+
+window.addEventListener(
+'pagehide',
+handlePageHide
+);
+
+window.location.href=appUrl;
+
+fallbackTimer=setTimeout(()=>{
+
+if(!document.hidden){
+
+cleanup();
+
+window.location.href=fallbackUrl;
+
+}
+
+},1200);
+
+}
+
+
+/* ==========================================
    SUPABASE
 ========================================== */
 
@@ -1658,13 +1841,13 @@ const SHORT_NAMES={
 ========================================== */
 
 const VENMO={
-'Mike Ribbing':'https://venmo.com/mike_ribbing',
-'Tom Chung':'https://venmo.com/tomchung11',
-'Eric Hopton':'https://venmo.com/ehop57',
-'Zach Gordon':'https://venmo.com/zach-Gordon-15',
-'Brian Gordon':'https://venmo.com/brain-gordon-115',
-'Veer Singh':'https://venmo.com/veersingh24',
-'Yeags':'https://venmo.com/papa-yeags'
+'Mike Ribbing':'mike_ribbing',
+'Tom Chung':'tomchung11',
+'Eric Hopton':'ehop57',
+'Zach Gordon':'zach-Gordon-15',
+'Brian Gordon':'brain-gordon-115',
+'Veer Singh':'veersingh24',
+'Yeags':'papa-yeags'
 };
 
 
@@ -1729,12 +1912,6 @@ rateDisplay.textContent='Loading…';
 }
 
 try{
-
-/*
-  Public no-key exchange rate source.
-  USD is the base currency, so GBP/USD is:
-  1 ÷ USD→GBP
-*/
 
 const response=
 await fetch(
@@ -2461,19 +2638,18 @@ amount*gbpToUsd
 const gbpAmount=
 formatMoney(amount);
 
-const venmoUrl=
+const venmoUsername=
 VENMO[creditor.person];
 
 
-if(venmoUrl){
+if(venmoUsername){
 
 settlements.push(`
 
 <a
 class="settlement-link"
-href="${venmoUrl}"
-target="_blank"
-rel="noopener">
+href="https://venmo.com/${encodeURIComponent(venmoUsername)}"
+onclick="openVenmoApp(event,'${escapeHtml(venmoUsername)}',${Number(amount*gbpToUsd).toFixed(2)})">
 
 <div class="settlement-main">
 ${escapeHtml(debtorName)}
@@ -3047,12 +3223,6 @@ showDuesAuth();
 /* ==========================================
    AUTO-REFRESH CURRENT FX RATE
 ========================================== */
-
-/*
-  The free FX source updates periodically.
-  Refreshing every 30 minutes keeps the displayed
-  rate current without hammering the public API.
-*/
 
 setInterval(()=>{
 
