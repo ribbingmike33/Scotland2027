@@ -254,6 +254,58 @@ font-weight:700
 
 
 /* ==========================================
+   HOURLY RAIN
+========================================== */
+
+.hourly-rain-list{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px
+}
+
+.hourly-rain{
+border:1px solid #d4e2ee;
+border-radius:13px;
+padding:12px 9px;
+background:#fff;
+text-align:center
+}
+
+.hourly-rain.current{
+background:#eef6fc;
+border-color:#b9d0e2
+}
+
+.hourly-rain-time{
+font-size:13px;
+font-weight:900;
+color:#243f58;
+margin-bottom:7px
+}
+
+.hourly-rain-label{
+font-size:9px;
+font-weight:900;
+letter-spacing:.06em;
+color:#71869a;
+margin-bottom:3px
+}
+
+.hourly-rain-value{
+font-size:20px;
+font-weight:900;
+color:#07549a
+}
+
+.hourly-rain-loading{
+text-align:center;
+padding:22px 10px;
+color:#647b8f;
+font-size:14px
+}
+
+
+/* ==========================================
    GUINNESS TRACKER
 ========================================== */
 
@@ -1085,6 +1137,23 @@ font-size:14px
 
 .forecast-label{
 font-size:9px
+}
+
+.hourly-rain-list{
+grid-template-columns:repeat(3,1fr);
+gap:7px
+}
+
+.hourly-rain{
+padding:11px 7px
+}
+
+.hourly-rain-time{
+font-size:12px
+}
+
+.hourly-rain-value{
+font-size:18px
 }
 
 }
@@ -2261,6 +2330,31 @@ RAIN CHANCE
 </div>
 
 
+<!-- ==========================================
+     HOURLY RAIN
+========================================== -->
+
+<div class="weather-card">
+
+<div class="weather-header-row">
+
+<h3>🌧️ Today by Hour</h3>
+
+</div>
+
+<div
+class="hourly-rain-list"
+id="hourlyRain">
+
+<div class="hourly-rain-loading">
+Loading hourly rain chances…
+</div>
+
+</div>
+
+</div>
+
+
 <div class="weather-card">
 
 <div class="weather-header-row">
@@ -2550,6 +2644,24 @@ return Math.round(Number(value))+'%';
 }
 
 
+function formatHourlyTime(dateTimeString){
+
+const date=
+new Date(
+dateTimeString
+);
+
+return date.toLocaleTimeString(
+'en-US',
+{
+hour:'numeric',
+minute:'2-digit'
+}
+);
+
+}
+
+
 function initializeWeather(){
 
 if(weatherInitialized){
@@ -2578,8 +2690,16 @@ document.getElementById(
 'weatherForecast'
 );
 
+const hourlyRain=
+document.getElementById(
+'hourlyRain'
+);
+
 forecast.innerHTML=
 '<div class="weather-loading">Loading Edinburgh weather…</div>';
+
+hourlyRain.innerHTML=
+'<div class="hourly-rain-loading">Loading hourly rain chances…</div>';
 
 try{
 
@@ -2588,6 +2708,7 @@ const url=
 '?latitude=55.9533'+
 '&longitude=-3.1883'+
 '&current=temperature_2m,wind_speed_10m'+
+'&hourly=precipitation_probability'+
 '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max'+
 '&temperature_unit=fahrenheit'+
 '&wind_speed_unit=mph'+
@@ -2616,7 +2737,10 @@ await response.json();
 if(
 !data.current ||
 !data.daily ||
-!Array.isArray(data.daily.time)
+!Array.isArray(data.daily.time) ||
+!data.hourly ||
+!Array.isArray(data.hourly.time) ||
+!Array.isArray(data.hourly.precipitation_probability)
 ){
 
 throw new Error(
@@ -2681,6 +2805,78 @@ document.getElementById(
 'weatherCurrentRain'
 ).textContent=
 formatRain(rain);
+
+
+/* ==========================================
+   HOURLY RAIN
+========================================== */
+
+const todayHourlyIndices=[];
+
+data.hourly.time.forEach(
+(time,index)=>{
+
+if(
+String(time).slice(0,10)===
+today
+){
+
+todayHourlyIndices.push(index);
+
+}
+
+});
+
+
+if(!todayHourlyIndices.length){
+
+hourlyRain.innerHTML=
+'<div class="weather-error">'+
+'Unable to load today’s hourly rain forecast. '+
+'</div>';
+
+}else{
+
+hourlyRain.innerHTML=
+todayHourlyIndices
+.map(index=>{
+
+const time=
+data.hourly.time[index];
+
+const precipitation=
+data.hourly.precipitation_probability[index];
+
+const currentTime=
+data.current.time;
+
+const isCurrentHour=
+String(time).slice(0,13)===
+String(currentTime).slice(0,13);
+
+return `
+
+<div class="hourly-rain ${isCurrentHour?'current':''}">
+
+<div class="hourly-rain-time">
+${formatHourlyTime(time)}
+</div>
+
+<div class="hourly-rain-label">
+RAIN CHANCE
+</div>
+
+<div class="hourly-rain-value">
+${formatRain(precipitation)}
+</div>
+
+</div>
+
+`;
+
+}).join('');
+
+}
 
 
 /* ==========================================
@@ -2785,6 +2981,12 @@ weatherLoaded=false;
 forecast.innerHTML=
 '<div class="weather-error">'+
 'Unable to load the Edinburgh forecast right now. '+
+'Tap Refresh to try again.'+
+'</div>';
+
+hourlyRain.innerHTML=
+'<div class="weather-error">'+
+'Unable to load today’s hourly rain forecast right now. '+
 'Tap Refresh to try again.'+
 '</div>';
 
