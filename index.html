@@ -5738,6 +5738,41 @@ selected===1
 }
 
 
+/* ==========================================
+   AUTO-SELECT PAYER IN INCLUDED PEOPLE
+========================================== */
+
+document.getElementById(
+'purchasePayer'
+).addEventListener(
+'change',
+event=>{
+
+const payer=
+event.target.value;
+
+if(!payer){
+return;
+}
+
+const payerCheckbox=
+document.querySelector(
+'.person-check input[value="'+
+CSS.escape(payer)+
+'"]'
+);
+
+if(payerCheckbox){
+
+payerCheckbox.checked=true;
+
+updateSelectedCount();
+
+}
+
+});
+
+
 document.querySelectorAll(
 '.person-check input'
 ).forEach(input=>{
