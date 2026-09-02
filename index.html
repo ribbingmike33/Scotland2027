@@ -1696,30 +1696,10 @@ background:#fff
 
 .home-distance{margin-top:6px;font-size:12px;font-weight:800;color:var(--blue-gray);letter-spacing:.01em}
 
-.bar-filters{
-display:flex;
-flex-wrap:wrap;
-gap:7px;
-margin:0 0 14px
-}
-.bar-filter{
-border:1px solid var(--line);
-background:#fff;
-color:var(--navy);
-border-radius:999px;
-padding:8px 13px;
-font-size:12px;
-font-weight:800;
-cursor:pointer
-}
-.bar-filter.active{
-background:var(--navy);
-color:#fff;
-border-color:var(--navy)
-}
-.bar-card.bar-filter-hidden{
-display:none
-}
+.bar-filters{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px}
+.bar-filter{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:8px 13px;font-size:12px;font-weight:800;cursor:pointer}
+.bar-filter.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.bar-card.bar-filter-hidden{display:none}
 </style>
 </head>
 <body>
@@ -2220,7 +2200,7 @@ onerror="this.style.display='none'"
 </div>
 <div class="arrival-person">
 <div class="arrival-name">Yeags</div>
-<div class="arrival-details"><b>Flight:<main id="bars" style="display:none">
+<div class="arrival-details"><b>Flight:</b> DL341<br><b>Dep<main id="bars" style="display:none">
 <div class="bars-intro">
 <h2>Bars / Restaurants</h2>
 <p>
@@ -2228,11 +2208,11 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </p>
 </div>
 <div class="bar-filters" id="barFilters" aria-label="Filter bars and restaurants">
-<button class="bar-filter active" type="button" data-bar-filter="all">All</button>
-<button class="bar-filter" type="button" data-bar-filter="restaurant">Restaurant</button>
-<button class="bar-filter" type="button" data-bar-filter="pub">Pub</button>
-<button class="bar-filter" type="button" data-bar-filter="indian">Indian</button>
-<button class="bar-filter" type="button" data-bar-filter="shawarma">Shawarma</button>
+<button type="button" class="bar-filter active" data-bar-filter="all">All</button>
+<button type="button" class="bar-filter" data-bar-filter="restaurant">Restaurant</button>
+<button type="button" class="bar-filter" data-bar-filter="pub">Pub</button>
+<button type="button" class="bar-filter" data-bar-filter="indian">Indian</button>
+<button type="button" class="bar-filter" data-bar-filter="shawarma">Shawarma</button>
 </div>
 <div class="bar-list">
 <div class="bar-card">
@@ -2716,8 +2696,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-</main>link-pair">
-<a class="link" href="https://palmyrapizza.netlify.app/" target="_blank" rel="noopener">Palmyra Pizza ↗</a>
+</main>="link" href="https://palmyrapizza.netlify.app/" target="_blank" rel="noopener">Palmyra Pizza ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Palmyra+Pizza%2C+22+Nicolson+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
@@ -5765,28 +5744,23 @@ loadWeather();
 }
 },1800000);
 </script>
-
 <script>
-(function(){
-const barCategories={"1":"pub","2":"pub","3":"pub","4":"pub","5":"pub","6":"pub","7":"pub","8":"pub","9":"pub","10":"pub","11":"restaurant","12":"pub","13":"pub","14":"pub","15":"pub","16":"pub","17":"pub","18":"pub","19":"pub","20":"restaurant","21":"pub","22":"restaurant","23":"pub","24":"pub","25":"pub","26":"pub","27":"pub","28":"restaurant indian","29":"restaurant indian","30":"shawarma"};
-const filterButtons=document.querySelectorAll('[data-bar-filter]');
-const barCards=document.querySelectorAll('#bars .bar-card');
-filterButtons.forEach(button=>{
-button.addEventListener('click',()=>{
-const filter=button.dataset.barFilter;
-filterButtons.forEach(item=>{
-item.classList.toggle('active',item===button);
-});
-barCards.forEach(card=>{
-const rankEl=card.querySelector('.bar-rank');
-const rank=rankEl?Number(rankEl.textContent.trim()):0;
-const categories=String(barCategories[rank]||'').split(/\s+/);
-const show=filter==='all'||categories.includes(filter);
+document.addEventListener('DOMContentLoaded',function(){
+const categories={"1":["pub"],"2":["pub"],"3":["pub"],"4":["pub"],"5":["pub"],"6":["pub"],"7":["pub"],"8":["pub"],"9":["pub"],"10":["pub"],"11":["restaurant"],"12":["pub"],"13":["pub"],"14":["pub"],"15":["pub"],"16":["pub"],"17":["pub"],"18":["pub"],"19":["pub"],"20":["restaurant"],"21":["pub"],"22":["restaurant"],"23":["pub"],"24":["pub"],"25":["pub"],"26":["pub"],"27":["pub"],"28":["restaurant","indian"],"29":["restaurant","indian"],"30":["shawarma"]};
+const buttons=document.querySelectorAll('#barFilters [data-bar-filter]');
+const cards=document.querySelectorAll('#bars .bar-card');
+buttons.forEach(function(button){
+button.addEventListener('click',function(){
+const filter=button.getAttribute('data-bar-filter');
+buttons.forEach(function(b){b.classList.toggle('active',b===button);});
+cards.forEach(function(card){
+const rank=parseInt(card.querySelector('.bar-rank').textContent,10);
+const show=filter==='all'||(categories[rank]||[]).includes(filter);
 card.classList.toggle('bar-filter-hidden',!show);
 });
 });
 });
-})();
+});
 </script>
 
 </body>
