@@ -1235,57 +1235,6 @@ color:#fff
 outline:3px solid #e1e9ef
 }
 
-.person-check input:disabled+label{
-background:#eef2f5;
-border-color:#d8e1e8;
-color:#a0adb7;
-cursor:not-allowed
-}
-
-.select-all-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-margin:7px 0 8px
-}
-
-.select-all-btn{
-border:1px solid #bccbd6;
-background:#fff;
-color:var(--navy);
-border-radius:7px;
-padding:7px 10px;
-font-size:12px;
-font-weight:900;
-cursor:pointer;
-white-space:nowrap
-}
-
-.select-all-btn:hover{
-background:var(--pale)
-}
-
-.select-all-btn:disabled{
-opacity:.6;
-cursor:wait
-}
-
-.payment-note{
-background:var(--pale);
-border:1px solid var(--line);
-border-radius:8px;
-padding:10px 11px;
-font-size:12px;
-line-height:1.45;
-color:var(--blue-gray);
-margin:2px 0 13px
-}
-
-.payment-note b{
-color:var(--navy)
-}
-
 .selected-count{
 font-size:12px;
 color:var(--muted);
@@ -1917,14 +1866,6 @@ flex-direction:column
 .mark-paid-btn,
 .undo-paid-btn{
 width:100%
-}
-
-.select-all-row{
-align-items:flex-start
-}
-
-.select-all-btn{
-padding:8px 10px
 }
 
 }
@@ -3420,21 +3361,6 @@ type="date"
 Who was in on it?
 </label>
 
-<div class="select-all-row">
-
-<div class="selected-count" id="selectedCount">
-0 people selected
-</div>
-
-<button
-class="select-all-btn"
-id="selectAllPurchasePeople"
-type="button">
-Select All
-</button>
-
-</div>
-
 <div class="people-select">
 
 <div class="person-check">
@@ -3479,6 +3405,10 @@ Select All
 
 </div>
 
+<div class="selected-count" id="selectedCount">
+0 people selected
+</div>
+
 </div>
 
 <button class="primary-btn" type="submit">
@@ -3486,141 +3416,6 @@ Log Purchase
 </button>
 
 <div class="form-message" id="formMessage" aria-live="polite"></div>
-
-</form>
-
-</div>
-
-<!-- LOG A PAYMENT -->
-
-<div class="dues-card">
-
-<h3>Log a Payment</h3>
-
-<form id="paymentForm">
-
-<div class="form-row">
-
-<div class="form-group">
-
-<label for="paymentDebtor">
-Who paid?
-</label>
-
-<select id="paymentDebtor" required>
-
-<option value="">Select payer</option>
-<option>Mike Ribbing</option>
-<option>Tom Chung</option>
-<option>Eric Hopton</option>
-<option>Zach Gordon</option>
-<option>Brian Gordon</option>
-<option>Clem Diglio</option>
-<option>Veer Singh</option>
-<option>Yeags</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-
-<label for="paymentAmount">
-Total Payment (£)
-</label>
-
-<input
-id="paymentAmount"
-type="number"
-inputmode="decimal"
-min="0.01"
-max="100000"
-step="0.01"
-placeholder="500.00"
-required
->
-
-</div>
-
-</div>
-
-<div class="form-group">
-
-<label>
-Who was paid?
-</label>
-
-<div class="select-all-row">
-
-<div class="selected-count" id="paymentSelectedCount">
-0 people selected
-</div>
-
-<button
-class="select-all-btn"
-id="selectAllPaymentPeople"
-type="button">
-Select All
-</button>
-
-</div>
-
-<div class="people-select" id="paymentPeopleSelect">
-
-<div class="person-check">
-<input type="checkbox" id="pay-mike" value="Mike Ribbing">
-<label for="pay-mike">Mike</label>
-</div>
-
-<div class="person-check">
-<input type="checkbox" id="pay-tom" value="Tom Chung">
-<label for="pay-tom">Tom</label>
-</div>
-
-<div class="person-check">
-<input type="checkbox" id="pay-eric" value="Eric Hopton">
-<label for="pay-eric">Eric</label>
-</div>
-
-<div class="person-check">
-<input type="checkbox" id="pay-zach" value="Zach Gordon">
-<label for="pay-zach">Zach</label>
-</div>
-
-<div class="person-check">
-<input type="checkbox" id="pay-brian" value="Brian Gordon">
-<label for="pay-brian">Brian</label>
-</div>
-
-<div class="person-check">
-<input type="checkbox" id="pay-clem" value="Clem Diglio">
-<label for="pay-clem">Clem</label>
-</div>
-
-<div class="person-check">
-<input type="checkbox" id="pay-veer" value="Veer Singh">
-<label for="pay-veer">Veer</label>
-</div>
-
-<div class="person-check">
-<input type="checkbox" id="pay-yeags" value="Yeags">
-<label for="pay-yeags">Yeags</label>
-</div>
-
-</div>
-
-</div>
-
-<div class="payment-note">
-<b>Total payment means total payment.</b>
-If multiple people are selected, the amount is distributed across their current outstanding balances. The payer is automatically excluded as a recipient.
-</div>
-
-<button class="primary-btn" type="submit">
-Log Payment
-</button>
-
-<div class="form-message" id="paymentMessage" aria-live="polite"></div>
 
 </form>
 
@@ -6315,8 +6110,7 @@ balances[person]-=share;
 
 });
 
-/*
-APPLY RECORDED SETTLEMENT PAYMENTS
+/* APPLY RECORDED SETTLEMENT PAYMENTS
 
 A payment means the debtor has actually paid the
 creditor, so remove that amount from the debtor's
@@ -6417,116 +6211,63 @@ return debts;
 
 }
 
-/*
-Generate the current pairwise settlement obligations
-from the CURRENT net balances.
-
-This is intentionally based on calculateBalances(),
-which already includes all recorded payments.
-
-That means:
-
-Original Mike → Zach = £1,000
-Mike pays Zach £500
-Current Mike → Zach = £500
-
-Another £300 payment:
-Current Mike → Zach = £200
-
-Once the cumulative payments satisfy the obligation,
-the current settlement disappears from the unpaid list.
-*/
-
 function calculatePairwiseSettlements(){
 
-const balances=
-calculateBalances();
-
-const debtors=
-PEOPLE
-.filter(person=>
-Number(balances[person])<-.005
-)
-.map(person=>({
-person,
-amount:Math.abs(Number(balances[person]))
-}))
-.sort((a,b)=>b.amount-a.amount);
-
-const creditors=
-PEOPLE
-.filter(person=>
-Number(balances[person])>.005
-)
-.map(person=>({
-person,
-amount:Number(balances[person])
-}))
-.sort((a,b)=>b.amount-a.amount);
+const debts=
+calculatePurchaseDebts();
 
 const settlements={};
 
-let debtorIndex=0;
-let creditorIndex=0;
+const processed=new Set();
 
-while(
-debtorIndex<debtors.length &&
-creditorIndex<creditors.length
-){
+Object.entries(debts).forEach(
+([key,amount])=>{
+
+if(processed.has(key)){
+return;
+}
+
+const parts=
+key.split('||');
 
 const debtor=
-debtors[debtorIndex];
+parts[0];
 
 const creditor=
-creditors[creditorIndex];
+parts[1];
 
-const amount=
-Math.min(
-debtor.amount,
-creditor.amount
-);
+const reverseKey=
+creditor+'||'+debtor;
 
-if(amount>.005){
+const reverseAmount=
+debts[reverseKey]||0;
 
-const key=
-debtor.person+'||'+creditor.person;
+const difference=
+amount-reverseAmount;
 
-settlements[key]=
-(settlements[key]||0)+amount;
-
-}
-
-debtor.amount-=amount;
-creditor.amount-=amount;
-
-if(debtor.amount<=.005){
-debtorIndex++;
-}
-
-if(creditor.amount<=.005){
-creditorIndex++;
-}
-
-}
-
-return settlements;
-
-}
-
-function calculateOutstandingSettlement(
-debtor,
-creditor
+if(
+Math.abs(difference)>0.005
 ){
 
-const settlements=
-calculatePairwiseSettlements();
+if(difference>0){
 
-const key=
-debtor+'||'+creditor;
+settlements[key]=difference;
 
-return Number(
-settlements[key]||0
-);
+}else{
+
+settlements[reverseKey]=
+Math.abs(difference);
+
+}
+
+}
+
+processed.add(key);
+processed.add(reverseKey);
+
+});
+
+return settlements;
 
 }
 
@@ -6619,47 +6360,41 @@ renderSettlements();
 
 }
 
-/*
-Return all recorded payment rows for one debtor →
-creditor pair.
-
-Unlike the old exact-amount lookup, this works with
-partial payments and multiple payments.
-*/
-
-function getPaymentsForPair(
+function findSettlementPayment(
 debtor,
-creditor
+creditor,
+amount
 ){
 
-return settlementPayments
-.filter(payment=>
+const target=
+Math.round(Number(amount)*100)/100;
+
+const matches=
+settlementPayments.filter(payment=>{
+
+const paymentAmount=
+Math.round(Number(payment.amount)*100)/100;
+
+return(
 payment.debtor===debtor &&
-payment.creditor===creditor
-)
-.sort((a,b)=>
-String(b.paid_at)
-.localeCompare(
-String(a.paid_at)
-)
+payment.creditor===creditor &&
+Math.abs(paymentAmount-target)<0.005
 );
 
+});
+
+if(!matches.length){
+return null;
 }
 
-function getTotalPaidForPair(
-debtor,
-creditor
-){
+return [...matches].sort((a,b)=>{
 
-return getPaymentsForPair(
-debtor,
-creditor
-)
-.reduce(
-(sum,payment)=>
-sum+(Number(payment.amount)||0),
-0
+return String(b.paid_at)
+.localeCompare(
+String(a.paid_at)
 );
+
+})[0];
 
 }
 
@@ -6687,15 +6422,9 @@ year:'numeric'
 
 }
 
-/*
-Render a current unpaid settlement.
-
-The amount shown here is the REMAINING amount after
-all recorded payments have been applied.
-*/
-
 function renderSettlementCard(
-settlement
+settlement,
+payment
 ){
 
 const debtorName=
@@ -6741,11 +6470,12 @@ ${escapeHtml(creditorName)}
 </div>
 
 <div class="settlement-usd">
-${usdAmount} ↗
+${usdAmount}
+${payment?'':'↗'}
 </div>
 
 <div class="settlement-gbp">
-${gbpAmount} • Tap to open ${escapeHtml(creditorName)}’s Venmo
+${gbpAmount} • ${payment?'Payment recorded':'Tap to open '+escapeHtml(creditorName)+'’s Venmo'}
 </div>
 
 </a>
@@ -6770,6 +6500,43 @@ ${usdAmount}
 
 <div class="settlement-gbp">
 ${gbpAmount} • ${escapeHtml(creditorName)} has no Venmo
+</div>
+
+</div>
+
+`;
+
+}
+
+if(payment){
+
+return `
+
+<div class="settlement-item paid">
+
+${paymentLink}
+
+<div class="settlement-actions">
+
+<div>
+
+<div class="settlement-paid-badge">
+✓ PAID
+</div>
+
+<div class="settlement-paid-date">
+Recorded ${escapeHtml(formatPaidDate(payment.paid_at))}
+</div>
+
+</div>
+
+<button
+class="undo-paid-btn"
+type="button"
+data-delete-payment-id="${escapeHtml(payment.id)}">
+Undo Paid
+</button>
+
 </div>
 
 </div>
@@ -6805,179 +6572,6 @@ Mark Paid
 
 }
 
-/*
-Payment history is rendered separately from the current
-unpaid settlements.
-
-This is important for partial payments:
-
-Mike owes Zach £500 remaining
-Mike previously paid Zach £300
-
-The current settlement remains visible at £500, while
-the £300 payment appears below as PAID and can be undone.
-
-If another £200 is paid, the current settlement
-disappears because the obligation is fully satisfied.
-*/
-
-function renderPaymentHistoryForPlayer(){
-
-const player=
-selectedDebtPlayer;
-
-const payments=
-settlementPayments
-.filter(payment=>
-payment.debtor===player
-)
-.sort((a,b)=>
-String(b.paid_at)
-.localeCompare(
-String(a.paid_at)
-)
-);
-
-if(!payments.length){
-return '';
-}
-
-let html=
-'<div class="paid-section-label">PAYMENT HISTORY</div>';
-
-html+=payments.map(payment=>{
-
-const creditor=
-payment.creditor;
-
-const amount=
-Number(payment.amount)||0;
-
-const totalPaid=
-getTotalPaidForPair(
-payment.debtor,
-payment.creditor
-);
-
-const remaining=
-calculateOutstandingSettlement(
-payment.debtor,
-payment.creditor
-);
-
-const venmoUsername=
-VENMO[creditor];
-
-let paymentLink='';
-
-if(venmoUsername){
-
-paymentLink=`
-
-<div class="settlement-link">
-
-<div class="settlement-main">
-${escapeHtml(shortName(payment.debtor))}
-paid
-${escapeHtml(shortName(creditor))}
-</div>
-
-<div class="settlement-usd">
-${formatUSD(amount*gbpToUsd)}
-</div>
-
-<div class="settlement-gbp">
-${formatMoney(amount)}
-paid
-•
-${formatMoney(totalPaid)}
-total paid
-</div>
-
-</div>
-
-`;
-
-}else{
-
-paymentLink=`
-
-<div class="settlement-link">
-
-<div class="settlement-main">
-${escapeHtml(shortName(payment.debtor))}
-paid
-${escapeHtml(shortName(creditor))}
-</div>
-
-<div class="settlement-usd">
-${formatUSD(amount*gbpToUsd)}
-</div>
-
-<div class="settlement-gbp">
-${formatMoney(amount)}
-paid
-•
-${formatMoney(totalPaid)}
-total paid
-</div>
-
-</div>
-
-`;
-
-}
-
-return `
-
-<div class="settlement-item paid">
-
-${paymentLink}
-
-<div class="settlement-actions">
-
-<div>
-
-<div class="settlement-paid-badge">
-✓ PAID
-</div>
-
-<div class="settlement-paid-date">
-
-Recorded
-${escapeHtml(
-formatPaidDate(payment.paid_at)
-)}
-
-${
-remaining>.005
-?' • '+escapeHtml(formatMoney(remaining))+' remaining'
-:' • Paid in full'
-}
-
-</div>
-
-</div>
-
-<button
-class="undo-paid-btn"
-type="button"
-data-delete-payment-id="${escapeHtml(payment.id)}">
-Undo Paid
-</button>
-
-</div>
-
-</div>
-
-`;
-
-}).join('');
-
-return html;
-
-}
-
 function renderSettlements(){
 
 const settlements=
@@ -7004,9 +6598,37 @@ amount:Number(amount)
 settlement.debtor===selectedPlayer &&
 settlement.amount>0.005
 )
+.map(settlement=>{
+
+return {
+...settlement,
+payment:findSettlementPayment(
+settlement.debtor,
+settlement.creditor,
+settlement.amount
+)
+};
+
+});
+
+const unpaidEntries=
+entries
+.filter(entry=>!entry.payment)
 .sort(
 (a,b)=>b.amount-a.amount
 );
+
+const paidEntries=
+entries
+.filter(entry=>!!entry.payment)
+.sort((a,b)=>{
+
+return String(b.payment.paid_at)
+.localeCompare(
+String(a.payment.paid_at)
+);
+
+});
 
 const list=
 document.getElementById(
@@ -7026,25 +6648,9 @@ shortName(selectedPlayer)+
 
 }
 
-let html='';
+if(!entries.length){
 
-if(entries.length){
-
-html+=
-entries
-.map(entry=>
-renderSettlementCard(entry)
-)
-.join('');
-
-}else{
-
-/*
-Even when there is no current unpaid settlement,
-payment history can still exist. Do not hide it.
-*/
-
-html+=
+list.innerHTML=
 '<div class="empty-state">'+
 escapeHtml(
 shortName(selectedPlayer)
@@ -7052,10 +6658,42 @@ shortName(selectedPlayer)
 ' is currently even.'+
 '</div>';
 
+return;
+
 }
 
+let html='';
+
+if(unpaidEntries.length){
+
 html+=
-renderPaymentHistoryForPlayer();
+unpaidEntries
+.map(entry=>
+renderSettlementCard(
+entry,
+null
+)
+)
+.join('');
+
+}
+
+if(paidEntries.length){
+
+html+=
+'<div class="paid-section-label">PAID</div>';
+
+html+=
+paidEntries
+.map(entry=>
+renderSettlementCard(
+entry,
+entry.payment
+)
+)
+.join('');
+
+}
 
 list.innerHTML=
 html;
@@ -7099,70 +6737,12 @@ amount,
 button
 ){
 
-const currentOutstanding=
-calculateOutstandingSettlement(
-debtor,
-creditor
-);
-
 if(
 !debtor ||
 !creditor ||
 !Number.isFinite(Number(amount)) ||
-Number(amount)<=0 ||
-currentOutstanding<=.005
+Number(amount)<=0
 ){
-
-return;
-
-}
-
-/*
-The button amount is the current remaining balance.
-The user can enter a smaller amount for a partial payment.
-*/
-
-const input=
-window.prompt(
-'How much did '+
-shortName(debtor)+
-' actually pay '+
-shortName(creditor)+
-'?\n\nCurrent remaining balance: '+
-formatMoney(currentOutstanding),
-Number(currentOutstanding).toFixed(2)
-);
-
-if(input===null){
-return;
-}
-
-const paymentAmount=
-Math.round(
-Number(input)*100
-)/100;
-
-if(
-!Number.isFinite(paymentAmount) ||
-paymentAmount<=0
-){
-
-window.alert(
-'Enter a valid payment amount greater than zero.'
-);
-
-return;
-
-}
-
-if(
-paymentAmount>currentOutstanding+.005
-){
-
-window.alert(
-'Payment cannot be greater than the current outstanding balance of '+
-formatMoney(currentOutstanding)+'.'
-);
 
 return;
 
@@ -7170,20 +6750,13 @@ return;
 
 const confirmed=
 window.confirm(
-'Record '+
+'Mark '+
 shortName(debtor)+
 ' → '+
 shortName(creditor)+
 ' for '+
-formatMoney(paymentAmount)+
-' as PAID?'+
-(
-paymentAmount<currentOutstanding-.005
-?'\n\nThis is a partial payment. '+
-formatMoney(currentOutstanding-paymentAmount)+
-' will remain outstanding.'
-:''
-)
+formatMoney(amount)+
+' as PAID?'
 );
 
 if(!confirmed){
@@ -7192,7 +6765,7 @@ return;
 
 const pin=
 window.prompt(
-'Enter the Dues PIN to record this payment:'
+'Enter the Dues PIN to mark this settlement as paid:'
 );
 
 if(pin===null){
@@ -7214,31 +6787,6 @@ button.textContent='Saving…';
 
 try{
 
-/*
-Re-check the balance immediately before writing.
-This prevents an old screen from allowing an
-overpayment after another payment was recorded.
-*/
-
-const latestOutstanding=
-calculateOutstandingSettlement(
-debtor,
-creditor
-);
-
-if(
-paymentAmount>latestOutstanding+.005
-){
-
-window.alert(
-'This settlement changed before the payment was saved. '+
-'Refresh the Dues page and try again.'
-);
-
-return;
-
-}
-
 const {data,error}=
 await supabaseClient.rpc(
 'mark_settlement_paid',
@@ -7246,7 +6794,7 @@ await supabaseClient.rpc(
 p_pin:DUES_PIN,
 p_debtor:debtor,
 p_creditor:creditor,
-p_amount:paymentAmount
+p_amount:Math.round(Number(amount)*100)/100
 }
 );
 
@@ -7259,7 +6807,7 @@ error
 
 window.alert(
 formatSupabaseError(
-'Unable to record payment',
+'Unable to mark settlement as paid',
 error
 )
 );
@@ -7434,8 +6982,6 @@ renderDebtPlayerTabs();
 
 renderSettlements();
 
-updatePaymentRecipientAvailability();
-
 }
 
 document.getElementById(
@@ -7474,8 +7020,6 @@ Array.from(
 document.querySelectorAll(
 '.person-check input:checked'
 )
-).filter(input=>
-input.id.startsWith('p-')
 ).map(
 input=>input.value
 );
@@ -7628,38 +7172,11 @@ submitButton.textContent=
 
 });
 
-function updatePurchaseSelectAllButton(){
-
-const boxes=
-Array.from(
-document.querySelectorAll(
-'#purchaseForm .person-check input'
-)
-);
-
-const button=
-document.getElementById(
-'selectAllPurchasePeople'
-);
-
-if(!button)return;
-
-const allSelected=
-boxes.length>0 &&
-boxes.every(input=>input.checked);
-
-button.textContent=
-allSelected
-?'Deselect All'
-:'Select All';
-
-}
-
 function updateSelectedCount(){
 
 const selected=
 document.querySelectorAll(
-'#purchaseForm .person-check input:checked'
+'.person-check input:checked'
 ).length;
 
 document.getElementById(
@@ -7669,40 +7186,7 @@ selected===1
 ?'1 person selected'
 :selected+' people selected';
 
-updatePurchaseSelectAllButton();
-
 }
-
-function toggleAllPurchasePeople(){
-
-const boxes=
-Array.from(
-document.querySelectorAll(
-'#purchaseForm .person-check input'
-)
-);
-
-if(!boxes.length){
-return;
-}
-
-const allSelected=
-boxes.every(input=>input.checked);
-
-boxes.forEach(input=>{
-input.checked=!allSelected;
-});
-
-updateSelectedCount();
-
-}
-
-document.getElementById(
-'selectAllPurchasePeople'
-).addEventListener(
-'click',
-toggleAllPurchasePeople
-);
 
 document.getElementById(
 'purchasePayer'
@@ -7719,7 +7203,7 @@ return;
 
 const payerCheckbox=
 document.querySelector(
-'#purchaseForm .person-check input[value="'+
+'.person-check input[value="'+
 CSS.escape(payer)+
 '"]'
 );
@@ -7735,618 +7219,13 @@ updateSelectedCount();
 });
 
 document.querySelectorAll(
-'#purchaseForm .person-check input'
+'.person-check input'
 ).forEach(input=>{
 
 input.addEventListener(
 'change',
 updateSelectedCount
 );
-
-});
-
-/*
-PAYMENT FORM
-
-The selected people are recipients.
-
-The total payment is NOT multiplied by the number
-of recipients.
-
-Example:
-
-Mike pays £500.
-Recipients selected:
-Zach
-Brian
-Clem
-
-The £500 total is distributed across those three
-people according to their current outstanding
-balances, with no recipient receiving more than
-they are currently owed.
-
-This means the amount entered is always the actual
-total payment leaving the payer's pocket.
-*/
-
-function updatePaymentSelectedCount(){
-
-const selected=
-document.querySelectorAll(
-'#paymentPeopleSelect input:checked'
-).length;
-
-document.getElementById(
-'paymentSelectedCount'
-).textContent=
-selected===1
-?'1 person selected'
-:selected+' people selected';
-
-updatePaymentSelectAllButton();
-
-}
-
-function updatePaymentSelectAllButton(){
-
-const boxes=
-Array.from(
-document.querySelectorAll(
-'#paymentPeopleSelect input:not(:disabled)'
-)
-);
-
-const button=
-document.getElementById(
-'selectAllPaymentPeople'
-);
-
-if(!button)return;
-
-const allSelected=
-boxes.length>0 &&
-boxes.every(input=>input.checked);
-
-button.textContent=
-allSelected
-?'Deselect All'
-:'Select All';
-
-}
-
-function updatePaymentRecipientAvailability(){
-
-const debtor=
-document.getElementById(
-'paymentDebtor'
-).value;
-
-const boxes=
-document.querySelectorAll(
-'#paymentPeopleSelect input'
-);
-
-boxes.forEach(input=>{
-
-const isDebtor=
-input.value===debtor;
-
-input.disabled=
-Boolean(debtor && isDebtor);
-
-if(isDebtor){
-input.checked=false;
-}
-
-});
-
-updatePaymentSelectedCount();
-
-}
-
-function toggleAllPaymentPeople(){
-
-const boxes=
-Array.from(
-document.querySelectorAll(
-'#paymentPeopleSelect input:not(:disabled)'
-)
-);
-
-if(!boxes.length){
-return;
-}
-
-const allSelected=
-boxes.every(input=>input.checked);
-
-boxes.forEach(input=>{
-input.checked=!allSelected;
-});
-
-updatePaymentSelectedCount();
-
-}
-
-document.getElementById(
-'paymentDebtor'
-).addEventListener(
-'change',
-updatePaymentRecipientAvailability
-);
-
-document.querySelectorAll(
-'#paymentPeopleSelect input'
-).forEach(input=>{
-
-input.addEventListener(
-'change',
-updatePaymentSelectedCount
-);
-
-});
-
-document.getElementById(
-'selectAllPaymentPeople'
-).addEventListener(
-'click',
-toggleAllPaymentPeople
-);
-
-function allocatePaymentTotal(
-total,
-debtor,
-creditors
-){
-
-const totalCents=
-Math.round(
-Number(total)*100
-);
-
-if(
-!Number.isFinite(totalCents) ||
-totalCents<=0
-){
-
-return {
-allocations:[],
-remainingCents:totalCents
-};
-
-}
-
-/*
-Get the CURRENT amount owed to each selected
-recipient by the selected debtor.
-
-This uses the current post-payment settlement
-calculation, so previous payments are already
-accounted for.
-*/
-
-let available=
-creditors
-.map(creditor=>{
-
-return {
-creditor,
-cents:Math.max(
-0,
-Math.round(
-calculateOutstandingSettlement(
-debtor,
-creditor
-)*100
-)
-)
-};
-
-})
-.filter(item=>item.cents>0);
-
-const totalAvailableCents=
-available.reduce(
-(sum,item)=>sum+item.cents,
-0
-);
-
-if(totalCents>totalAvailableCents){
-
-return {
-allocations:[],
-remainingCents:
-totalCents-totalAvailableCents
-};
-
-}
-
-/*
-Distribute the total as evenly as possible while
-capping any recipient at what they are actually
-owed. Any leftover amount is redistributed among
-the remaining recipients.
-*/
-
-let remainingCents=
-totalCents;
-
-const allocationMap={};
-
-while(
-remainingCents>0 &&
-available.length
-){
-
-const base=
-Math.floor(
-remainingCents/
-available.length
-);
-
-const remainder=
-remainingCents%
-available.length;
-
-let distributedThisRound=0;
-
-available.forEach((item,index)=>{
-
-const desired=
-base+
-(index<remainder?1:0);
-
-const allocation=
-Math.min(
-desired,
-item.cents
-);
-
-if(allocation>0){
-
-allocationMap[item.creditor]=
-(allocationMap[item.creditor]||0)+
-allocation;
-
-item.cents-=allocation;
-
-distributedThisRound+=allocation;
-
-}
-
-});
-
-remainingCents-=distributedThisRound;
-
-available=
-available.filter(
-item=>item.cents>0
-);
-
-if(distributedThisRound===0){
-break;
-}
-
-}
-
-const allocations=
-Object.entries(
-allocationMap
-)
-.map(([creditor,cents])=>({
-creditor,
-amount:cents/100
-}))
-.filter(item=>item.amount>0);
-
-return {
-allocations,
-remainingCents
-};
-
-}
-
-document.getElementById(
-'paymentForm'
-).addEventListener(
-'submit',
-async event=>{
-
-event.preventDefault();
-
-const debtor=
-document.getElementById(
-'paymentDebtor'
-).value;
-
-const total=
-Number(
-document.getElementById(
-'paymentAmount'
-).value
-);
-
-const selectedCreditors=
-Array.from(
-document.querySelectorAll(
-'#paymentPeopleSelect input:checked'
-)
-).map(
-input=>input.value
-);
-
-const message=
-document.getElementById(
-'paymentMessage'
-);
-
-message.textContent='';
-message.className='form-message';
-
-if(!debtor){
-
-message.textContent=
-'Select who paid.';
-
-return;
-
-}
-
-if(
-!Number.isFinite(total) ||
-total<=0
-){
-
-message.textContent=
-'Enter a valid total payment amount.';
-
-return;
-
-}
-
-if(!selectedCreditors.length){
-
-message.textContent=
-'Select at least one person who was paid.';
-
-return;
-
-}
-
-if(
-selectedCreditors.includes(debtor)
-){
-
-message.textContent=
-'You cannot record a payment to yourself.';
-
-return;
-
-}
-
-const allocation=
-allocatePaymentTotal(
-Math.round(total*100)/100,
-debtor,
-selectedCreditors
-);
-
-if(
-allocation.remainingCents>0 ||
-!allocation.allocations.length
-){
-
-const availableTotal=
-selectedCreditors
-.reduce(
-(sum,creditor)=>
-sum+
-calculateOutstandingSettlement(
-debtor,
-creditor
-),
-0
-);
-
-message.textContent=
-'The selected people are currently owed only '+
-formatMoney(availableTotal)+
-'. The total payment cannot exceed that amount.';
-
-return;
-
-}
-
-const allocationText=
-allocation.allocations
-.map(item=>
-shortName(item.creditor)+
-' '+formatMoney(item.amount)
-)
-.join('\n');
-
-const confirmed=
-window.confirm(
-'Record a total payment of '+
-formatMoney(total)+
-' from '+
-shortName(debtor)+
-'?\n\n'+
-'Allocation:\n'+
-allocationText
-);
-
-if(!confirmed){
-return;
-}
-
-const pin=
-window.prompt(
-'Enter the Dues PIN to record this payment:'
-);
-
-if(pin===null){
-return;
-}
-
-if(pin!==DUES_PIN){
-
-window.alert(
-'Incorrect PIN. Nothing was recorded.'
-);
-
-return;
-
-}
-
-const button=
-document.querySelector(
-'#paymentForm .primary-btn'
-);
-
-button.disabled=true;
-button.textContent='Saving…';
-
-try{
-
-/*
-Before writing anything, re-check that each selected
-recipient still has enough outstanding balance.
-
-This protects against an old screen being used after
-someone else recorded a payment.
-*/
-
-let latestAvailableTotal=0;
-
-selectedCreditors.forEach(creditor=>{
-
-latestAvailableTotal+=
-calculateOutstandingSettlement(
-debtor,
-creditor
-);
-
-});
-
-if(
-total>latestAvailableTotal+.005
-){
-
-message.textContent=
-'The outstanding balances changed before the payment could be saved. Refresh and try again.';
-
-return;
-
-}
-
-/*
-Recalculate the allocation immediately before writing.
-*/
-
-const latestAllocation=
-allocatePaymentTotal(
-Math.round(total*100)/100,
-debtor,
-selectedCreditors
-);
-
-if(
-latestAllocation.remainingCents>0 ||
-!latestAllocation.allocations.length
-){
-
-message.textContent=
-'The selected recipients no longer have enough outstanding balance for this payment. Refresh and try again.';
-
-return;
-
-}
-
-let savedCount=0;
-
-for(
-const item of latestAllocation.allocations
-){
-
-const {data,error}=
-await supabaseClient.rpc(
-'mark_settlement_paid',
-{
-p_pin:DUES_PIN,
-p_debtor:debtor,
-p_creditor:item.creditor,
-p_amount:Math.round(item.amount*100)/100
-}
-);
-
-if(error){
-
-console.error(
-'Supabase payment allocation error:',
-error
-);
-
-throw error;
-
-}
-
-if(!data){
-
-throw new Error(
-'Payment was not returned by the database.'
-);
-
-}
-
-savedCount++;
-
-}
-
-document.getElementById(
-'paymentForm'
-).reset();
-
-updatePaymentRecipientAvailability();
-
-message.textContent=
-'Payment logged successfully. '+
-formatMoney(total)+
-' was recorded across '+
-savedCount+
-(savedCount===1?' recipient.':' recipients.');
-
-message.className=
-'form-message success';
-
-await loadSettlementPayments();
-
-setTimeout(()=>{
-
-message.textContent='';
-
-},3000);
-
-}catch(error){
-
-console.error(
-'Payment form connection error:',
-error
-);
-
-message.textContent=
-formatSupabaseError(
-'Could not save payment',
-error
-);
-
-}finally{
-
-button.disabled=false;
-button.textContent='Log Payment';
-
-}
 
 });
 
@@ -8605,8 +7484,6 @@ document.getElementById(
 ).value=today;
 
 updateSelectedCount();
-
-updatePaymentRecipientAvailability();
 
 if(isAuthenticated()){
 
