@@ -1887,6 +1887,23 @@ width:100%;
 max-width:100%;
 min-width:0
 }
+
+/* Prevent native iOS date controls from forcing a grid column wider than its card */
+#dues .form-row{
+min-width:0
+}
+#dues .form-row > .form-group{
+min-width:0
+}
+#dues #purchaseDate{
+display:block;
+width:100% !important;
+max-width:100% !important;
+min-width:0 !important;
+box-sizing:border-box !important;
+font-family:inherit;
+overflow:hidden
+}
 </style>
 </head>
 <body>
