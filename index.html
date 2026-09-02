@@ -2000,6 +2000,64 @@ min-width:0 !important;
 box-sizing:border-box !important;
 -webkit-box-sizing:border-box !important;
 }
+
+/* Match the working Guinness date control on iOS */
+#dues #purchaseForm #purchaseDate{
+-webkit-appearance:none !important;
+appearance:none !important;
+display:block !important;
+box-sizing:border-box !important;
+-webkit-box-sizing:border-box !important;
+width:100% !important;
+max-width:100% !important;
+min-width:0 !important;
+inline-size:100% !important;
+max-inline-size:100% !important;
+}
+
+/* Definitive purchase-date layout: wrapper controls the visible box.
+   This avoids Chrome/iPhone native date-input sizing from changing the box. */
+#dues #purchaseForm .purchase-date-group{
+display:block;
+width:100%;
+max-width:100%;
+min-width:0;
+box-sizing:border-box
+}
+#dues #purchaseForm .purchase-date-box{
+display:block;
+width:100%;
+max-width:100%;
+min-width:0;
+height:46px;
+box-sizing:border-box;
+border:1px solid #c7d4de;
+border-radius:8px;
+background:#fff;
+overflow:hidden;
+padding:0
+}
+#dues #purchaseForm .purchase-date-box #purchaseDate{
+display:block !important;
+width:100% !important;
+max-width:100% !important;
+min-width:0 !important;
+height:44px !important;
+box-sizing:border-box !important;
+-webkit-box-sizing:border-box !important;
+border:0 !important;
+border-radius:0 !important;
+background:transparent !important;
+padding:10px 12px !important;
+margin:0 !important;
+font-family:inherit;
+font-size:16px;
+color:var(--navy-dark);
+outline:0
+}
+#dues #purchaseForm .purchase-date-box #purchaseDate:focus{
+outline:0 !important
+}
 </style>
 </head>
 <body>
@@ -3508,10 +3566,12 @@ Who paid?
 <label for="purchaseDate">
 Date
 </label>
+<div class="purchase-date-box">
 <input
 id="purchaseDate"
 type="date"
 >
+</div>
 </div>
 <div class="form-group">
 <label>
