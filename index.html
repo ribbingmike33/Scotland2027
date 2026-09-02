@@ -355,6 +355,31 @@ color:#fff
 background:var(--navy-dark)
 }
 
+/* COURSE LOGOS */
+
+.course-title{
+display:flex;
+align-items:center;
+gap:10px
+}
+
+.course-logo{
+width:38px;
+height:38px;
+object-fit:contain;
+flex:0 0 38px;
+background:#fff;
+border:1px solid var(--line);
+border-radius:7px;
+padding:4px
+}
+
+.course-logo-wide{
+width:46px;
+height:38px;
+flex:0 0 46px
+}
+
 /* BARS / RESTAURANTS */
 
 .bars-intro{
@@ -757,6 +782,15 @@ border-radius:10px;
 padding:22px;
 margin-bottom:14px;
 text-align:center
+}
+
+.guinness-logo{
+display:block;
+width:150px;
+height:55px;
+object-fit:contain;
+margin:0 auto 10px;
+filter:brightness(0) invert(1);
 }
 
 .guinness-icon{
@@ -1645,6 +1679,22 @@ font-size:19px
 font-size:13px
 }
 
+.course-title{
+gap:8px
+}
+
+.course-logo{
+width:34px;
+height:34px;
+flex-basis:34px
+}
+
+.course-logo-wide{
+width:42px;
+height:34px;
+flex-basis:42px
+}
+
 .form-row{
 grid-template-columns:1fr
 }
@@ -1675,6 +1725,11 @@ align-items:flex-start
 
 .fx-rate{
 font-size:25px
+}
+
+.guinness-logo{
+width:130px;
+height:48px
 }
 
 .guinness-total{
@@ -1906,8 +1961,21 @@ JUNE 11–19
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 1</div>
+
+<div class="course-title">
+<img
+class="course-logo"
+src="https://www.google.com/s2/favicons?domain=kilspindiegolfclub.co.uk&sz=128"
+alt="Kilspindie Golf Club logo"
+loading="lazy"
+onerror="this.style.display='none'"
+>
+<div>
 <h2>Kilspindie</h2>
 <div class="date">Sun • Jun 13</div>
+</div>
+</div>
+
 </div>
 <div class="arrow">⌄</div>
 </button>
@@ -1962,8 +2030,21 @@ JUNE 11–19
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 2</div>
+
+<div class="course-title">
+<img
+class="course-logo"
+src="https://www.google.com/s2/favicons?domain=northberwickgolfclub.com&sz=128"
+alt="North Berwick Golf Club logo"
+loading="lazy"
+onerror="this.style.display='none'"
+>
+<div>
 <h2>North Berwick</h2>
 <div class="date">Mon • Jun 14</div>
+</div>
+</div>
+
 </div>
 <div class="arrow">⌄</div>
 </button>
@@ -2025,8 +2106,21 @@ JUNE 11–19
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 3</div>
+
+<div class="course-title">
+<img
+class="course-logo"
+src="https://www.google.com/s2/favicons?domain=gullanegolfclub.com&sz=128"
+alt="Gullane Golf Club logo"
+loading="lazy"
+onerror="this.style.display='none'"
+>
+<div>
 <h2>Gullane No. 2 + No. 3</h2>
 <div class="date">Tue • Jun 15</div>
+</div>
+</div>
+
 </div>
 <div class="arrow">⌄</div>
 </button>
@@ -2136,8 +2230,21 @@ JUNE 11–19
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 5</div>
+
+<div class="course-title">
+<img
+class="course-logo"
+src="https://www.google.com/s2/favicons?domain=gullanegolfclub.com&sz=128"
+alt="Gullane Golf Club logo"
+loading="lazy"
+onerror="this.style.display='none'"
+>
+<div>
 <h2>Gullane No. 1</h2>
 <div class="date">Thu • Jun 17</div>
+</div>
+</div>
+
 </div>
 <div class="arrow">⌄</div>
 </button>
@@ -2197,8 +2304,21 @@ JUNE 11–19
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 6</div>
+
+<div class="course-title">
+<img
+class="course-logo"
+src="https://www.google.com/s2/favicons?domain=dunbargolfclub.com&sz=128"
+alt="Dunbar Golf Club logo"
+loading="lazy"
+onerror="this.style.display='none'"
+>
+<div>
 <h2>Dunbar</h2>
 <div class="date">Fri • Jun 18</div>
+</div>
+</div>
+
 </div>
 <div class="arrow">⌄</div>
 </button>
@@ -2844,7 +2964,13 @@ Handicaps, Venmo handles and the official scouting reports.
 
 <div class="guinness-hero">
 
-<div class="guinness-icon">🍺</div>
+<img
+class="guinness-logo"
+src="https://www.google.com/s2/favicons?domain=guinness.com&sz=128"
+alt="Guinness logo"
+loading="lazy"
+onerror="this.style.display='none'"
+>
 
 <div class="guinness-label">
 GROUP TOTAL
