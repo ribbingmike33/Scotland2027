@@ -1904,6 +1904,32 @@ box-sizing:border-box !important;
 font-family:inherit;
 overflow:hidden
 }
+
+/* Purchase date: match the working Guinness field on iPhone */
+#dues #purchaseDate{
+-webkit-box-sizing:border-box;
+box-sizing:border-box;
+display:block;
+inline-size:100%;
+max-inline-size:100%;
+width:100%;
+max-width:100%;
+margin:0;
+padding:10px 12px;
+font-size:16px;
+line-height:1.2;
+}
+@media(max-width:600px){
+#dues #purchaseDate{
+width:100%;
+max-width:100%;
+inline-size:100%;
+}
+#dues .form-row > .form-group{
+width:100%;
+max-width:100%;
+}
+}
 </style>
 </head>
 <body>
