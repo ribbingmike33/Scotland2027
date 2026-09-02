@@ -147,29 +147,6 @@ border-radius:10px;
 padding:15px;
 margin-bottom:12px
 }
-.base-address{
-display:block;
-margin-top:6px;
-line-height:1.35
-}
-.get-home-btn{
-display:flex;
-width:max-content;
-align-items:center;
-justify-content:center;
-margin-top:16px;
-padding:10px 15px;
-border-radius:8px;
-background:var(--navy);
-color:#fff;
-font-weight:800;
-font-size:14px;
-text-decoration:none;
-letter-spacing:.02em
-}
-.get-home-btn:hover{
-opacity:.9
-}
 .base b,.notice b{
 color:var(--navy);
 letter-spacing:.04em
@@ -676,92 +653,61 @@ font-weight:700
 }
 /* GUINNESS */
 .guinness-hero{
-background:
-linear-gradient(135deg,#1b100b 0%,#2b1a12 55%,#3b2519 100%);
-color:#f8f0df;
-border:1px solid #5d412d;
-border-radius:12px;
-padding:24px 20px 22px;
+background:var(--navy-dark);
+color:#fff;
+border-radius:10px;
+padding:22px;
 margin-bottom:14px;
-text-align:center;
-box-shadow:0 5px 16px rgba(50,31,18,.12);
-position:relative;
-overflow:hidden
+text-align:center
 }
-.guinness-hero:before{
-content:'';
-position:absolute;
-inset:8px;
-border:1px solid rgba(221,191,132,.28);
-border-radius:8px;
-pointer-events:none
-}
-.guinness-brand{
-position:relative;
-margin-bottom:15px
-}
-.guinness-brand-name{
-font:700 34px Georgia,serif;
-letter-spacing:.18em;
-color:#f7f0e2
+.guinness-icon{
+display:none
 }
 .guinness-label{
-position:relative;
 font-size:10px;
 font-weight:900;
-letter-spacing:.22em;
-color:#d7b66a;
+letter-spacing:.2em;
+opacity:.7;
 margin-top:2px
 }
 .guinness-total{
-position:relative;
-font:700 58px Georgia,serif;
-margin:3px 0 0;
-color:#fff
+font:700 54px Georgia,serif;
+margin:4px 0
 }
 .guinness-total-label{
-position:relative;
 font-size:13px;
-color:#e7dccb;
-margin-top:2px
+opacity:.72
 }
 .guinness-log-btn{
 width:100%;
-border:1px solid #5d412d;
+border:0;
 border-radius:8px;
-background:#4b2d1c;
-color:#fff8eb;
+background:var(--navy);
+color:#fff;
 padding:15px;
 font-size:15px;
 font-weight:900;
 cursor:pointer;
-margin-bottom:14px;
-box-shadow:0 2px 5px rgba(50,31,18,.08)
+margin-bottom:14px
 }
 .guinness-log-btn:hover{
-background:#5a3622
+background:var(--navy-dark)
 }
 .guinness-card{
-border:1px solid #d8c8b2;
+border:1px solid var(--line);
 border-radius:10px;
-background:#fffaf1;
+background:#fff;
 padding:17px;
-margin-bottom:14px;
-box-shadow:0 2px 8px rgba(70,45,25,.05)
+margin-bottom:14px
 }
 .guinness-card h3{
 font:700 23px Georgia,serif;
 margin:0 0 14px;
-color:#352116
-}
-.guinness-card h3:before{
-content:'•';
-color:#a47b38;
-margin-right:8px
+color:var(--navy-dark)
 }
 .guinness-form{
-background:#f4ecdf;
-border:1px solid #d8c8b2;
+background:var(--pale);
+border:1px solid var(--line);
 border-radius:9px;
 padding:15px;
 margin-bottom:14px
@@ -770,23 +716,23 @@ margin-bottom:14px
 display:block;
 font-size:11px;
 font-weight:900;
-color:#5b402d;
+color:var(--navy-mid);
 margin-bottom:6px
 }
 .guinness-form input[type="date"]{
 width:100%;
 min-height:46px;
-border:1px solid #cdbba3;
+border:1px solid #c7d4de;
 border-radius:8px;
-background:#fffdf8;
+background:#fff;
 padding:10px 12px;
 font-size:16px;
-color:#352116;
+color:var(--navy-dark);
 margin-bottom:14px
 }
 .guinness-form input[type="date"]:focus{
-outline:3px solid #eadfcf;
-border-color:#8b6333
+outline:3px solid #e1e9ef;
+border-color:var(--navy)
 }
 .guinness-people{
 display:grid;
@@ -805,35 +751,35 @@ height:1px
 }
 .guinness-check label{
 display:block;
-border:1px solid #cdbba3;
+border:1px solid #c7d4de;
 border-radius:8px;
 padding:12px 10px;
 font-size:14px;
 font-weight:800;
-color:#5b402d;
-background:#fffdf8;
+color:var(--navy-mid);
+background:#fff;
 cursor:pointer;
 text-align:center
 }
 .guinness-check input:checked+label{
-background:#4b2d1c;
-border-color:#4b2d1c;
-color:#fff8eb
+background:var(--navy);
+border-color:var(--navy);
+color:#fff
 }
 .guinness-check input:focus+label{
-outline:3px solid #eadfcf
+outline:3px solid #e1e9ef
 }
 .guinness-selected{
 font-size:12px;
-color:#806d59;
+color:var(--muted);
 margin:8px 0 13px
 }
 .guinness-submit{
 width:100%;
 border:0;
 border-radius:8px;
-background:#4b2d1c;
-color:#fff8eb;
+background:var(--navy);
+color:#fff;
 padding:14px;
 font-size:15px;
 font-weight:900;
@@ -850,63 +796,56 @@ font-weight:700;
 color:#a33b3b
 }
 .guinness-message.success{
-color:#4e7049
+color:#277044
 }
 .leaderboard{
 display:flex;
 flex-direction:column;
-gap:7px
+gap:8px
 }
 .leader-row{
 display:grid;
 grid-template-columns:40px 1fr auto;
 align-items:center;
 gap:10px;
-border:1px solid #dfd2c1;
+border:1px solid var(--line);
 border-radius:8px;
 padding:12px 13px;
-background:#fffdf8
-}
-.leader-row:first-child{
-background:#f3eadb;
-border-color:#d1b57a
+background:#fff
 }
 .leader-rank{
 font-size:18px;
 font-weight:900;
-color:#8b7761;
+color:var(--muted);
 text-align:center
 }
 .leader-row:first-child .leader-rank{
-color:#a47b38
+color:#9b762e
 }
 .leader-name{
 font-weight:900;
-color:#513724
+color:var(--navy-mid)
 }
 .leader-count{
 font-size:21px;
 font-weight:900;
-color:#4b2d1c;
+color:var(--navy);
 text-align:right
 }
 .leader-count-label{
 font-size:11px;
-color:#8b7761;
+color:var(--muted);
 font-weight:700;
 margin-left:3px
 }
 .guinness-refresh{
-border:1px solid #cdbba3;
-background:#fffdf8;
-color:#5b402d;
+border:1px solid #bccbd6;
+background:#fff;
+color:var(--navy);
 border-radius:8px;
 padding:9px 11px;
 font-weight:800;
 cursor:pointer
-}
-.guinness-refresh:hover{
-background:#f4ecdf
 }
 .guinness-refresh:disabled{
 opacity:.6
@@ -919,7 +858,7 @@ gap:10px;
 margin-bottom:14px
 }
 .guinness-history{
-border-top:1px solid #e6dccd;
+border-top:1px solid var(--line-light);
 margin-top:14px;
 padding-top:12px
 }
@@ -929,17 +868,17 @@ grid-template-columns:1fr auto;
 align-items:center;
 gap:12px;
 padding:11px 0;
-border-bottom:1px solid #e6dccd
+border-bottom:1px solid var(--line-light)
 }
 .guinness-history-row:last-child{
 border-bottom:0
 }
 .guinness-history-date{
 font-weight:800;
-color:#5b402d
+color:var(--navy-mid)
 }
 .guinness-history-people{
-color:#8b7761;
+color:var(--muted);
 text-align:right;
 font-size:13px
 }
@@ -950,8 +889,8 @@ display:flex;
 justify-content:flex-end
 }
 .guinness-delete{
-border:1px solid #d9bebe;
-background:#fffdf8;
+border:1px solid #e2c2c2;
+background:#fff;
 color:#a33b3b;
 border-radius:7px;
 padding:7px 9px;
@@ -960,7 +899,7 @@ font-weight:800;
 cursor:pointer
 }
 .guinness-delete:hover{
-background:#fff2f0
+background:#fff7f7
 }
 .guinness-delete:disabled{
 opacity:.6;
@@ -1630,69 +1569,6 @@ flex-direction:column
 width:100%
 }
 }
-
-/* Scotland Cup visual refresh */
-.score{
-background:#f5eddf;
-border:1px solid #cbb99b;
-border-radius:18px;
-padding:20px;
-box-shadow:0 14px 40px rgba(49,35,25,.14);
-overflow:hidden
-}
-.score-head{
-background:#183f32;
-color:#f7f0e2;
-padding:24px 20px 22px;
-margin:-20px -20px 20px;
-text-align:center;
-border-bottom:4px solid #c6a15b;
-position:relative
-}
-.score-head:before{
-content:"";
-display:block;
-width:58px;
-height:2px;
-background:#c6a15b;
-margin:0 auto 12px;
-opacity:.9
-}
-.score-head .eyebrow{
-font-size:10px;
-letter-spacing:.22em;
-font-weight:900;
-color:#dfc98e;
-margin-bottom:6px
-}
-.score-head h2{
-margin:0;
-font:700 31px Georgia,serif;
-letter-spacing:.08em;
-text-transform:uppercase
-}
-.score-head p,
-.score-head>div:last-child{
-margin:8px 0 0;
-font-size:11px;
-letter-spacing:.03em;
-color:#e8ddc9
-}
-.score-body{
-background:#fffdf8;
-border:1px solid #cbb99b;
-border-radius:12px;
-padding:6px;
-overflow:hidden
-}
-.score-body iframe{
-display:block;
-width:100%;
-border:none!important;
-border-radius:8px!important;
-background:#fff
-}
-
 </style>
 </head>
 <body>
@@ -1725,9 +1601,8 @@ JUNE 11–19
 </nav>
 <main id="itinerary">
 <div class="base">
-<b>TRIP BASE</b>
-<span class="base-address">26 Dublin Street Lane South, Edinburgh EH1 3PX</span>
-<a class="get-home-btn" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=26+Dublin+Street+Lane+South%2C+Edinburgh+EH1+3PX&amp;travelmode=driving" target="_blank" rel="noopener">📍 Get Home</a>
+<b>TRIP BASE</b><br>
+26 Dublin Street Lane South, Edinburgh EH1 3PX
 </div>
 <article class="day">
 <button class="day-head" aria-expanded="false">
@@ -2659,9 +2534,6 @@ Handicaps, Venmo handles and the official scouting reports.
 </main>
 <main id="guinness" style="display:none">
 <div class="guinness-hero">
-<div class="guinness-brand">
-<div class="guinness-brand-name">GUINNESS</div>
-</div>
 <div class="guinness-label">
 GROUP TOTAL
 </div>
@@ -4970,32 +4842,38 @@ selectedDebtPlayer=player;
 renderDebtPlayerTabs();
 renderSettlements();
 }
-function findSettlementPayment(
+function getSettlementPaymentsForPair(
 debtor,
-creditor,
-amount
+creditor
 ){
-const target=
-Math.round(Number(amount)*100)/100;
-const matches=
-settlementPayments.filter(payment=>{
-const paymentAmount=
-Math.round(Number(payment.amount)*100)/100;
+return settlementPayments
+.filter(payment=>{
 return(
 payment.debtor===debtor &&
 payment.creditor===creditor &&
-Math.abs(paymentAmount-target)<0.005
+Number(payment.amount)>0
 );
-});
-if(!matches.length){
-return null;
-}
-return [...matches].sort((a,b)=>{
+})
+.sort((a,b)=>{
 return String(b.paid_at)
-.localeCompare(
-String(a.paid_at)
+.localeCompare(String(a.paid_at));
+});
+}
+function getSettlementPaidAmount(
+debtor,
+creditor
+){
+return settlementPayments
+.filter(payment=>{
+return(
+payment.debtor===debtor &&
+payment.creditor===creditor
 );
-})[0];
+})
+.reduce((sum,payment)=>{
+const amount=Number(payment.amount)||0;
+return sum+Math.max(0,amount);
+},0);
 }
 function formatPaidDate(dateString){
 if(!dateString){
@@ -5017,28 +4895,14 @@ year:'numeric'
 }
 function renderSettlementCard(
 settlement,
-payment
+paymentInfo
 ){
-const debtorName=
-shortName(
-settlement.debtor
-);
-const creditorName=
-shortName(
-settlement.creditor
-);
-const usdAmount=
-formatUSD(
-settlement.amount*gbpToUsd
-);
-const gbpAmount=
-formatMoney(
-settlement.amount
-);
-const venmoUsername=
-VENMO[
-settlement.creditor
-];
+const debtorName=shortName(settlement.debtor);
+const creditorName=shortName(settlement.creditor);
+const displayAmount=paymentInfo?settlement.originalAmount:settlement.amount;
+const usdAmount=formatUSD(displayAmount*gbpToUsd);
+const gbpAmount=formatMoney(displayAmount);
+const venmoUsername=VENMO[settlement.creditor];
 let paymentLink='';
 if(venmoUsername){
 paymentLink=`
@@ -5053,10 +4917,10 @@ ${escapeHtml(creditorName)}
 </div>
 <div class="settlement-usd">
 ${usdAmount}
-${payment?'':'↗'}
+${paymentInfo?'':'↗'}
 </div>
 <div class="settlement-gbp">
-${gbpAmount} • ${payment?'Payment recorded':'Tap to open '+escapeHtml(creditorName)+'’s Venmo'}
+${gbpAmount} • ${paymentInfo?'Payment recorded':'Tap to open '+escapeHtml(creditorName)+'’s Venmo'}
 </div>
 </a>
 `;
@@ -5072,28 +4936,28 @@ ${escapeHtml(creditorName)}
 ${usdAmount}
 </div>
 <div class="settlement-gbp">
-${gbpAmount} • ${escapeHtml(creditorName)} has no Venmo
+${gbpAmount} • ${paymentInfo?'Payment recorded':escapeHtml(creditorName)+' has no Venmo'}
 </div>
 </div>
 `;
 }
-if(payment){
+if(paymentInfo){
 return `
 <div class="settlement-item paid">
 ${paymentLink}
 <div class="settlement-actions">
 <div>
 <div class="settlement-paid-badge">
-✓ PAID
+✓ ${paymentInfo.remainingAmount<=0.005?'PAID':'PARTIALLY PAID'}
 </div>
 <div class="settlement-paid-date">
-Recorded ${escapeHtml(formatPaidDate(payment.paid_at))}
+${paymentInfo.remainingAmount<=0.005?'Payment complete':formatMoney(paymentInfo.paidAmount)+' paid • '+formatMoney(paymentInfo.remainingAmount)+' remaining'}
 </div>
 </div>
 <button
 class="undo-paid-btn"
 type="button"
-data-delete-payment-id="${escapeHtml(payment.id)}">
+data-delete-payment-id="${escapeHtml(paymentInfo.latestPaymentId)}">
 Undo Paid
 </button>
 </div>
@@ -5118,123 +4982,67 @@ Mark Paid
 `;
 }
 function renderSettlements(){
-const settlements=
-calculatePairwiseSettlements();
-const selectedPlayer=
-selectedDebtPlayer;
-const entries=
-Object.entries(settlements)
+const settlements=calculatePairwiseSettlements();
+const selectedPlayer=selectedDebtPlayer;
+const entries=Object.entries(settlements)
 .map(([key,amount])=>{
-const parts=
-key.split('||');
+const parts=key.split('||');
+const debtor=parts[0];
+const creditor=parts[1];
+const originalAmount=Math.round(Number(amount)*100)/100;
+const paidAmount=Math.round(getSettlementPaidAmount(debtor,creditor)*100)/100;
+const remainingAmount=Math.round(Math.max(0,originalAmount-paidAmount)*100)/100;
+const payments=getSettlementPaymentsForPair(debtor,creditor);
 return {
-debtor:parts[0],
-creditor:parts[1],
-amount:Number(amount)
+debtor,
+creditor,
+originalAmount,
+amount:remainingAmount,
+paidAmount,
+paymentInfo:paidAmount>0?{
+paidAmount,
+remainingAmount,
+latestPaymentId:payments[0]?payments[0].id:null
+}:null
 };
 })
 .filter(settlement=>
 settlement.debtor===selectedPlayer &&
-settlement.amount>0.005
-)
-.map(settlement=>{
-return {
-...settlement,
-payment:findSettlementPayment(
-settlement.debtor,
-settlement.creditor,
-settlement.amount
-)
-};
-});
-const unpaidEntries=
-entries
-.filter(entry=>!entry.payment)
-.sort(
-(a,b)=>b.amount-a.amount
+(settlement.amount>0.005 || settlement.paidAmount>0)
 );
-const paidEntries=
-entries
-.filter(entry=>!!entry.payment)
-.sort((a,b)=>{
-return String(b.payment.paid_at)
-.localeCompare(
-String(a.payment.paid_at)
-);
-});
-const list=
-document.getElementById(
-'settlementList'
-);
-const title=
-document.getElementById(
-'settlementTitle'
-);
+const list=document.getElementById('settlementList');
+const title=document.getElementById('settlementTitle');
 if(title){
-title.textContent=
-shortName(selectedPlayer)+
-' owes';
+title.textContent=shortName(selectedPlayer)+' owes';
 }
 if(!entries.length){
-list.innerHTML=
-'<div class="empty-state">'+
-escapeHtml(
-shortName(selectedPlayer)
-)+
-' is currently even.'+
-'</div>';
+list.innerHTML='<div class="empty-state">'+escapeHtml(shortName(selectedPlayer))+' is currently even.</div>';
 return;
 }
+const unpaidEntries=entries.filter(entry=>entry.amount>0.005 && (!entry.paymentInfo || entry.paymentInfo.remainingAmount>0.005)).sort((a,b)=>b.amount-a.amount);
+const paidEntries=entries.filter(entry=>entry.paymentInfo && entry.paymentInfo.remainingAmount<=0.005).sort((a,b)=>b.amount-a.amount);
 let html='';
 if(unpaidEntries.length){
-html+=
-unpaidEntries
-.map(entry=>
-renderSettlementCard(
-entry,
-null
-)
-)
-.join('');
+html+=unpaidEntries.map(entry=>renderSettlementCard(entry,entry.paymentInfo)).join('');
 }
 if(paidEntries.length){
-html+=
-'<div class="paid-section-label">PAID</div>';
-html+=
-paidEntries
-.map(entry=>
-renderSettlementCard(
-entry,
-entry.payment
-)
-)
-.join('');
+html+='<div class="paid-section-label">PAID</div>';
+html+=paidEntries.map(entry=>renderSettlementCard(entry,entry.paymentInfo)).join('');
 }
-list.innerHTML=
-html;
-document.querySelectorAll(
-'[data-mark-paid-debtor]'
-).forEach(button=>{
-button.addEventListener(
-'click',
-()=>markSettlementPaid(
+list.innerHTML=html;
+document.querySelectorAll('[data-mark-paid-debtor]').forEach(button=>{
+button.addEventListener('click',()=>markSettlementPaid(
 button.dataset.markPaidDebtor,
 button.dataset.markPaidCreditor,
 Number(button.dataset.markPaidAmount),
 button
-)
-);
+));
 });
-document.querySelectorAll(
-'[data-delete-payment-id]'
-).forEach(button=>{
-button.addEventListener(
-'click',
-()=>undoSettlementPaid(
+document.querySelectorAll('[data-delete-payment-id]').forEach(button=>{
+button.addEventListener('click',()=>undoSettlementPaid(
 button.dataset.deletePaymentId,
 button
-)
-);
+));
 });
 }
 async function markSettlementPaid(
