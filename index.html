@@ -4,20 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Zach’s Dirty 30 with the Lads</title>
-
 <link
 rel="apple-touch-icon"
 rel="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%23152F4A'/%3E%3Cpath d='M0 0L180 180M180 0L0 180' stroke='white' stroke-width='32'/%3E%3C/svg%3E"
 >
-
 <meta
 name="apple-mobile-web-app-title"
 content="Scotland 2027"
 >
-
 <style>
 *{box-sizing:border-box}
-
 :root{
 --navy:#152f4a;
 --navy-dark:#0f2539;
@@ -30,14 +26,12 @@ content="Scotland 2027"
 --page:#f5f7f9;
 --white:#fff;
 }
-
 body{
 margin:0;
 background:var(--page);
 color:var(--navy-dark);
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
 }
-
 .app{
 max-width:900px;
 margin:auto;
@@ -45,11 +39,8 @@ background:#fff;
 min-height:100vh;
 box-shadow:0 0 35px rgba(15,37,57,.05)
 }
-
 a{color:inherit}
-
 /* BRANDING */
-
 .hero{
 background:var(--white);
 color:var(--navy);
@@ -59,7 +50,6 @@ border-bottom:1px solid var(--line);
 position:relative;
 overflow:hidden
 }
-
 .hero:before{
 content:"";
 display:block;
@@ -68,7 +58,6 @@ height:3px;
 background:var(--navy);
 margin:0 auto 20px
 }
-
 .eyebrow{
 font-size:11px;
 font-weight:900;
@@ -76,7 +65,6 @@ letter-spacing:.28em;
 color:var(--navy);
 margin-bottom:9px
 }
-
 h1{
 font:700 44px Georgia,serif;
 line-height:1.04;
@@ -85,7 +73,6 @@ color:var(--navy);
 max-width:760px;
 letter-spacing:-.02em
 }
-
 .hero-divider{
 display:flex;
 align-items:center;
@@ -94,21 +81,18 @@ gap:15px;
 margin:18px auto 11px;
 max-width:390px
 }
-
 .hero-divider-line{
 height:1px;
 background:var(--navy);
 flex:1;
 opacity:.35
 }
-
 .hero-divider-icon{
 font-size:13px;
 line-height:1;
 color:var(--navy);
 font-weight:700
 }
-
 .hero p{
 margin:0;
 font-size:11px;
@@ -116,9 +100,7 @@ font-weight:900;
 letter-spacing:.28em;
 color:var(--navy);
 }
-
 /* 7-TAB LAYOUT */
-
 .tabs{
 background:#fff;
 border-bottom:1px solid var(--line);
@@ -127,7 +109,6 @@ display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:6px
 }
-
 .tab{
 border:1px solid var(--line);
 background:#fff;
@@ -139,32 +120,26 @@ cursor:pointer;
 font-size:14px;
 transition:.15s
 }
-
 .tab:hover{
 background:var(--pale);
 border-color:#bdccd7
 }
-
 .tab.active{
 background:var(--navy);
 color:#fff;
 border-color:var(--navy)
 }
-
 .tab[data-tab="itinerary"]{
 grid-column:1 / -1;
 order:7
 }
-
 .tab[data-tab="cup"]{order:1}
 .tab[data-tab="participants"]{order:2}
 .tab[data-tab="guinness"]{order:3}
 .tab[data-tab="dues"]{order:4}
 .tab[data-tab="weather"]{order:5}
 .tab[data-tab="bars"]{order:6}
-
 main{padding:16px}
-
 .base,.notice{
 background:var(--pale);
 border:1px solid var(--line);
@@ -172,12 +147,10 @@ border-radius:10px;
 padding:15px;
 margin-bottom:12px
 }
-
 .base b,.notice b{
 color:var(--navy);
 letter-spacing:.04em
 }
-
 .day{
 border:1px solid var(--line);
 border-radius:10px;
@@ -185,7 +158,6 @@ margin:10px 0;
 overflow:hidden;
 background:#fff
 }
-
 .day-head{
 width:100%;
 border:0;
@@ -197,49 +169,40 @@ justify-content:space-between;
 align-items:center;
 cursor:pointer
 }
-
 .day.open .day-head{
 background:var(--pale)
 }
-
 .tag{
 font-size:10px;
 font-weight:900;
 letter-spacing:.16em;
 color:var(--navy)
 }
-
 .day h2{
 font:700 23px Georgia,serif;
 margin:4px 0 2px;
 color:var(--navy-dark)
 }
-
 .date{
 font-size:13px;
 color:var(--muted)
 }
-
 .arrow{
 font-size:22px;
 color:var(--navy);
 transition:.2s
 }
-
 .day.open .arrow{
 transform:rotate(180deg)
 }
-
 .day-body{
 display:none;
 border-top:1px solid var(--line-light);
 padding:15px
 }
-
 .day.open .day-body{
 display:block
 }
-
 .info{
 display:flex;
 justify-content:space-between;
@@ -248,16 +211,13 @@ padding:9px 0;
 border-bottom:1px solid var(--line-light);
 font-size:14px
 }
-
 .info span{
 text-align:right;
 color:var(--blue-gray)
 }
-
 .arrival-list{
 margin:12px 0
 }
-
 .arrival-person{
 display:flex;
 justify-content:space-between;
@@ -266,68 +226,57 @@ gap:12px;
 padding:12px 0;
 border-bottom:1px solid var(--line-light)
 }
-
 .arrival-person:last-child{
 border-bottom:0
 }
-
 .arrival-name{
 font-weight:800;
 color:var(--navy-mid)
 }
-
 .arrival-details{
 text-align:right;
 font-size:13px;
 color:var(--blue-gray);
 line-height:1.6
 }
-
 .arrival-details b{
 color:var(--navy)
 }
-
 .teegrid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px;
 margin:12px 0
 }
-
 .tee{
 background:var(--pale);
 border:1px solid var(--line);
 border-radius:9px;
 padding:13px
 }
-
 .tee-time{
 font-size:18px;
 font-weight:900;
 color:var(--navy);
 margin-bottom:7px
 }
-
 .players{
 font-size:14px;
 line-height:1.7;
 color:var(--navy-mid)
 }
-
 .links{
 display:flex;
 flex-wrap:wrap;
 gap:8px;
 margin-top:14px
 }
-
 .link-pair{
 display:flex;
 gap:8px;
 flex-wrap:nowrap;
 align-items:stretch
 }
-
 .link{
 display:inline-block;
 text-decoration:none;
@@ -340,29 +289,23 @@ font-weight:800;
 font-size:13px;
 white-space:nowrap
 }
-
 .link:hover{
 background:var(--pale)
 }
-
 .directions{
 border-color:var(--navy);
 background:var(--navy);
 color:#fff
 }
-
 .directions:hover{
 background:var(--navy-dark)
 }
-
 /* COURSE LOGOS */
-
 .course-title{
 display:flex;
 align-items:center;
 gap:10px
 }
-
 .course-logo{
 width:38px;
 height:38px;
@@ -373,15 +316,12 @@ border:1px solid var(--line);
 border-radius:7px;
 padding:4px
 }
-
 .course-logo-wide{
 width:46px;
 height:38px;
 flex:0 0 46px
 }
-
 /* BARS / RESTAURANTS */
-
 .bars-intro{
 background:var(--pale);
 border:1px solid var(--line);
@@ -389,39 +329,33 @@ border-radius:10px;
 padding:17px;
 margin-bottom:14px
 }
-
 .bars-intro h2{
 font:700 27px Georgia,serif;
 margin:0 0 5px;
 color:var(--navy-dark)
 }
-
 .bars-intro p{
 margin:0;
 color:var(--blue-gray);
 font-size:14px;
 line-height:1.5
 }
-
 .bar-list{
 display:flex;
 flex-direction:column;
 gap:9px
 }
-
 .bar-card{
 border:1px solid var(--line);
 border-radius:10px;
 background:#fff;
 padding:15px
 }
-
 .bar-card-top{
 display:flex;
 align-items:flex-start;
 gap:12px
 }
-
 .bar-rank{
 flex:0 0 36px;
 height:36px;
@@ -434,91 +368,73 @@ justify-content:center;
 font-weight:900;
 font-size:14px
 }
-
 .bar-content{
 flex:1;
 min-width:0
 }
-
 .bar-name{
 font:700 20px Georgia,serif;
 color:var(--navy-dark);
 margin:0 0 5px
 }
-
 .bar-description{
 font-size:14px;
 line-height:1.5;
 color:var(--blue-gray)
 }
-
 .bar-card .links{
 margin-top:12px
 }
-
 /* SCOTLAND CUP */
-
 .score{
 border:1px solid var(--line);
 border-radius:10px;
 overflow:hidden
 }
-
 .score-head{
 background:var(--navy);
 color:#fff;
 padding:20px
 }
-
 .score-head .eyebrow{
 color:#fff;
 opacity:.72
 }
-
 .score-head h2{
 font:700 28px Georgia,serif;
 margin:4px 0
 }
-
 .score-body{
 padding:16px
 }
-
 /* PARTICIPANTS */
-
 .people{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px
 }
-
 .person{
 border:1px solid var(--line);
 border-radius:10px;
 padding:15px;
 background:#fff
 }
-
 .person h3{
 font:700 21px Georgia,serif;
 margin:0 0 3px;
 color:var(--navy-dark)
 }
-
 .meta{
 font-size:13px;
 color:var(--muted)
 }
-
 .person p{
 font-size:14px;
 line-height:1.55;
 margin:12px 0 0;
 color:var(--navy-mid)
 }
-
 /* WEATHER */
-
 .weather-hero{
 background:var(--navy);
 color:#fff;
@@ -526,23 +442,19 @@ border-radius:10px;
 padding:22px;
 margin-bottom:14px
 }
-
 .weather-hero .eyebrow{
 color:#fff;
 opacity:.7
 }
-
 .weather-location{
 font:700 29px Georgia,serif;
 margin:3px 0
 }
-
 .weather-date{
 font-size:13px;
 opacity:.72;
 margin-bottom:17px
 }
-
 .weather-selected-label{
 font-size:10px;
 font-weight:900;
@@ -550,37 +462,31 @@ letter-spacing:.14em;
 opacity:.7;
 margin-bottom:5px
 }
-
 .weather-current{
 display:grid;
 grid-template-columns:1.2fr 1fr 1fr 1fr;
 gap:9px
 }
-
 .weather-current-main{
 background:rgba(255,255,255,.09);
 border-radius:8px;
 padding:13px
 }
-
 .weather-current-temp{
 font:700 43px Georgia,serif;
 line-height:1
 }
-
 .weather-current-label{
 font-size:10px;
 font-weight:800;
 opacity:.7;
 margin-top:6px
 }
-
 .weather-stat{
 background:rgba(255,255,255,.09);
 border-radius:8px;
 padding:13px
 }
-
 .weather-stat-label{
 font-size:9px;
 font-weight:900;
@@ -588,12 +494,10 @@ letter-spacing:.08em;
 opacity:.68;
 margin-bottom:5px
 }
-
 .weather-stat-value{
 font-size:18px;
 font-weight:900
 }
-
 .weather-card{
 border:1px solid var(--line);
 border-radius:10px;
@@ -601,33 +505,28 @@ background:#fff;
 padding:17px;
 margin-bottom:14px
 }
-
 .weather-card h3{
 font:700 23px Georgia,serif;
 margin:0 0 14px;
 color:var(--navy-dark)
 }
-
 .weather-loading{
 text-align:center;
 padding:22px 10px;
 color:var(--muted);
 font-size:14px
 }
-
 .rain-chart-wrap{
 position:relative;
 width:100%;
 height:240px
 }
-
 #rainChart{
 display:block;
 width:100%;
 height:240px;
 touch-action:none
 }
-
 .rain-chart-tooltip{
 position:absolute;
 display:none;
@@ -642,19 +541,16 @@ white-space:nowrap;
 box-shadow:0 4px 12px rgba(0,0,0,.16);
 transform:translate(-50%,-115%)
 }
-
 .rain-chart-subtitle{
 font-size:12px;
 color:var(--muted);
 margin:-7px 0 10px
 }
-
 .forecast-list{
 display:flex;
 flex-direction:column;
 gap:8px
 }
-
 .forecast-row{
 display:grid;
 grid-template-columns:1.2fr 1fr 1fr 1fr;
@@ -667,46 +563,38 @@ background:#fff;
 cursor:pointer;
 transition:.15s
 }
-
 .forecast-row:hover{
 background:#f7f9fb;
 border-color:#b9c9d5
 }
-
 .forecast-row.today{
 background:var(--pale);
 border-color:#b9c9d5
 }
-
 .forecast-row.selected{
 background:var(--navy);
 border-color:var(--navy);
 color:#fff
 }
-
 .forecast-row.selected .forecast-day,
 .forecast-row.selected .forecast-date,
 .forecast-row.selected .forecast-label,
 .forecast-row.selected .forecast-value{
 color:#fff
 }
-
 .forecast-row.selected .forecast-date,
 .forecast-row.selected .forecast-label{
 opacity:.7
 }
-
 .forecast-day{
 font-weight:900;
 color:var(--navy-mid)
 }
-
 .forecast-date{
 font-size:12px;
 color:var(--muted);
 margin-top:2px
 }
-
 .forecast-label{
 font-size:9px;
 font-weight:900;
@@ -714,33 +602,27 @@ letter-spacing:.06em;
 color:var(--muted);
 margin-bottom:3px
 }
-
 .forecast-value{
 font-size:16px;
 font-weight:900;
 color:var(--navy)
 }
-
 .forecast-rain .forecast-value{
 color:var(--blue-gray)
 }
-
 .forecast-row.selected .forecast-rain .forecast-value{
 color:#fff
 }
-
 .weather-source{
 font-size:11px;
 color:var(--muted);
 line-height:1.5;
 margin-top:12px
 }
-
 .weather-source a{
 color:var(--navy);
 font-weight:800
 }
-
 .weather-refresh{
 border:1px solid #bccbd6;
 background:#fff;
@@ -750,11 +632,9 @@ padding:9px 11px;
 font-weight:800;
 cursor:pointer
 }
-
 .weather-refresh:disabled{
 opacity:.6
 }
-
 .weather-header-row{
 display:flex;
 justify-content:space-between;
@@ -762,7 +642,6 @@ align-items:center;
 gap:10px;
 margin-bottom:14px
 }
-
 .weather-error{
 background:#fff7f7;
 border:1px solid #e2c2c2;
@@ -772,9 +651,7 @@ color:#a33b3b;
 font-size:13px;
 font-weight:700
 }
-
 /* GUINNESS */
-
 .guinness-hero{
 background:var(--navy-dark);
 color:#fff;
@@ -783,11 +660,9 @@ padding:22px;
 margin-bottom:14px;
 text-align:center
 }
-
 .guinness-icon{
 display:none
 }
-
 .guinness-label{
 font-size:10px;
 font-weight:900;
@@ -795,17 +670,14 @@ letter-spacing:.2em;
 opacity:.7;
 margin-top:2px
 }
-
 .guinness-total{
 font:700 54px Georgia,serif;
 margin:4px 0
 }
-
 .guinness-total-label{
 font-size:13px;
 opacity:.72
 }
-
 .guinness-log-btn{
 width:100%;
 border:0;
@@ -818,11 +690,9 @@ font-weight:900;
 cursor:pointer;
 margin-bottom:14px
 }
-
 .guinness-log-btn:hover{
 background:var(--navy-dark)
 }
-
 .guinness-card{
 border:1px solid var(--line);
 border-radius:10px;
@@ -830,13 +700,11 @@ background:#fff;
 padding:17px;
 margin-bottom:14px
 }
-
 .guinness-card h3{
 font:700 23px Georgia,serif;
 margin:0 0 14px;
 color:var(--navy-dark)
 }
-
 .guinness-form{
 background:var(--pale);
 border:1px solid var(--line);
@@ -844,7 +712,6 @@ border-radius:9px;
 padding:15px;
 margin-bottom:14px
 }
-
 .guinness-form label{
 display:block;
 font-size:11px;
@@ -852,7 +719,6 @@ font-weight:900;
 color:var(--navy-mid);
 margin-bottom:6px
 }
-
 .guinness-form input[type="date"]{
 width:100%;
 min-height:46px;
@@ -864,30 +730,25 @@ font-size:16px;
 color:var(--navy-dark);
 margin-bottom:14px
 }
-
 .guinness-form input[type="date"]:focus{
 outline:3px solid #e1e9ef;
 border-color:var(--navy)
 }
-
 .guinness-people{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:8px;
 margin-top:7px
 }
-
 .guinness-check{
 position:relative
 }
-
 .guinness-check input{
 position:absolute;
 opacity:0;
 width:1px;
 height:1px
 }
-
 .guinness-check label{
 display:block;
 border:1px solid #c7d4de;
@@ -900,23 +761,19 @@ background:#fff;
 cursor:pointer;
 text-align:center
 }
-
 .guinness-check input:checked+label{
 background:var(--navy);
 border-color:var(--navy);
 color:#fff
 }
-
 .guinness-check input:focus+label{
 outline:3px solid #e1e9ef
 }
-
 .guinness-selected{
 font-size:12px;
 color:var(--muted);
 margin:8px 0 13px
 }
-
 .guinness-submit{
 width:100%;
 border:0;
@@ -928,29 +785,24 @@ font-size:15px;
 font-weight:900;
 cursor:pointer
 }
-
 .guinness-submit:disabled{
 opacity:.65;
 cursor:wait
 }
-
 .guinness-message{
 margin-top:10px;
 font-size:13px;
 font-weight:700;
 color:#a33b3b
 }
-
 .guinness-message.success{
 color:#277044
 }
-
 .leaderboard{
 display:flex;
 flex-direction:column;
 gap:8px
 }
-
 .leader-row{
 display:grid;
 grid-template-columns:40px 1fr auto;
@@ -961,37 +813,31 @@ border-radius:8px;
 padding:12px 13px;
 background:#fff
 }
-
 .leader-rank{
 font-size:18px;
 font-weight:900;
 color:var(--muted);
 text-align:center
 }
-
 .leader-row:first-child .leader-rank{
 color:#9b762e
 }
-
 .leader-name{
 font-weight:900;
 color:var(--navy-mid)
 }
-
 .leader-count{
 font-size:21px;
 font-weight:900;
 color:var(--navy);
 text-align:right
 }
-
 .leader-count-label{
 font-size:11px;
 color:var(--muted);
 font-weight:700;
 margin-left:3px
 }
-
 .guinness-refresh{
 border:1px solid #bccbd6;
 background:#fff;
@@ -1001,11 +847,9 @@ padding:9px 11px;
 font-weight:800;
 cursor:pointer
 }
-
 .guinness-refresh:disabled{
 opacity:.6
 }
-
 .guinness-header-row{
 display:flex;
 justify-content:space-between;
@@ -1013,13 +857,11 @@ align-items:center;
 gap:10px;
 margin-bottom:14px
 }
-
 .guinness-history{
 border-top:1px solid var(--line-light);
 margin-top:14px;
 padding-top:12px
 }
-
 .guinness-history-row{
 display:grid;
 grid-template-columns:1fr auto;
@@ -1028,29 +870,24 @@ gap:12px;
 padding:11px 0;
 border-bottom:1px solid var(--line-light)
 }
-
 .guinness-history-row:last-child{
 border-bottom:0
 }
-
 .guinness-history-date{
 font-weight:800;
 color:var(--navy-mid)
 }
-
 .guinness-history-people{
 color:var(--muted);
 text-align:right;
 font-size:13px
 }
-
 .guinness-history-actions{
 margin-top:6px;
 grid-column:1 / -1;
 display:flex;
 justify-content:flex-end
 }
-
 .guinness-delete{
 border:1px solid #e2c2c2;
 background:#fff;
@@ -1061,18 +898,14 @@ font-size:12px;
 font-weight:800;
 cursor:pointer
 }
-
 .guinness-delete:hover{
 background:#fff7f7
 }
-
 .guinness-delete:disabled{
 opacity:.6;
 cursor:wait
 }
-
 /* DUES */
-
 .dues-intro{
 background:var(--pale);
 border:1px solid var(--line);
@@ -1080,20 +913,17 @@ border-radius:10px;
 padding:16px;
 margin-bottom:14px
 }
-
 .dues-intro h2{
 font:700 27px Georgia,serif;
 margin:0 0 5px;
 color:var(--navy-dark)
 }
-
 .dues-intro p{
 margin:0;
 color:var(--blue-gray);
 font-size:14px;
 line-height:1.5
 }
-
 .fx-card{
 background:var(--navy);
 color:#fff;
@@ -1101,32 +931,27 @@ border-radius:10px;
 padding:17px;
 margin-bottom:14px
 }
-
 .fx-top{
 display:flex;
 justify-content:space-between;
 align-items:center;
 gap:12px
 }
-
 .fx-title{
 font-size:10px;
 font-weight:900;
 letter-spacing:.14em;
 opacity:.72
 }
-
 .fx-rate{
 font:700 29px Georgia,serif;
 margin-top:4px
 }
-
 .fx-sub{
 font-size:12px;
 opacity:.72;
 margin-top:4px
 }
-
 .fx-refresh{
 border:1px solid rgba(255,255,255,.4);
 background:rgba(255,255,255,.08);
@@ -1137,7 +962,6 @@ font-weight:800;
 cursor:pointer;
 white-space:nowrap
 }
-
 .fx-example{
 margin-top:13px;
 background:rgba(255,255,255,.08);
@@ -1145,7 +969,6 @@ border-radius:8px;
 padding:10px 12px;
 font-size:13px
 }
-
 .dues-card{
 border:1px solid var(--line);
 border-radius:10px;
@@ -1153,23 +976,19 @@ background:#fff;
 padding:17px;
 margin-bottom:14px
 }
-
 .dues-card h3{
 font:700 22px Georgia,serif;
 margin:0 0 14px;
 color:var(--navy-dark)
 }
-
 .form-row{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px
 }
-
 .form-group{
 margin-bottom:13px
 }
-
 .form-group label{
 display:block;
 font-size:11px;
@@ -1177,7 +996,6 @@ font-weight:900;
 color:var(--navy-mid);
 margin-bottom:6px
 }
-
 .form-group input,.form-group select{
 width:100%;
 min-height:46px;
@@ -1188,30 +1006,25 @@ padding:10px 12px;
 font-size:16px;
 color:var(--navy-dark)
 }
-
 .form-group input:focus,.form-group select:focus{
 outline:3px solid #e1e9ef;
 border-color:var(--navy)
 }
-
 .people-select{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:8px;
 margin-top:7px
 }
-
 .person-check{
 position:relative
 }
-
 .person-check input{
 position:absolute;
 opacity:0;
 width:1px;
 height:1px
 }
-
 .person-check label{
 display:block;
 border:1px solid #c7d4de;
@@ -1224,23 +1037,19 @@ background:#fff;
 cursor:pointer;
 text-align:center
 }
-
 .person-check input:checked+label{
 background:var(--navy);
 border-color:var(--navy);
 color:#fff
 }
-
 .person-check input:focus+label{
 outline:3px solid #e1e9ef
 }
-
 .selected-count{
 font-size:12px;
 color:var(--muted);
 margin:8px 0 13px
 }
-
 .primary-btn{
 width:100%;
 border:0;
@@ -1252,16 +1061,13 @@ font-size:15px;
 font-weight:900;
 cursor:pointer
 }
-
 .primary-btn:hover{
 background:var(--navy-dark)
 }
-
 .primary-btn:disabled{
 opacity:.65;
 cursor:wait
 }
-
 .refresh-btn{
 border:1px solid #bccbd6;
 background:#fff;
@@ -1271,11 +1077,9 @@ padding:9px 11px;
 font-weight:800;
 cursor:pointer
 }
-
 .refresh-btn:disabled{
 opacity:.6
 }
-
 .danger-btn{
 border:1px solid #e2c2c2;
 background:#fff;
@@ -1285,7 +1089,6 @@ padding:10px 12px;
 font-weight:800;
 cursor:pointer
 }
-
 .delete-btn{
 border:1px solid #e2c2c2;
 background:#fff;
@@ -1297,72 +1100,59 @@ font-weight:800;
 cursor:pointer;
 white-space:nowrap
 }
-
 .delete-btn:disabled{
 opacity:.6;
 cursor:wait
 }
-
 .form-message{
 margin-top:10px;
 font-size:13px;
 font-weight:700;
 color:#a33b3b
 }
-
 .form-message.success{
 color:#277044
 }
-
 .balance-grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px
 }
-
 .balance{
 border:1px solid var(--line);
 border-radius:9px;
 padding:13px;
 background:#fff
 }
-
 .balance-name{
 font-weight:900;
 color:var(--navy-mid)
 }
-
 .balance-amount{
 font-size:20px;
 font-weight:900;
 margin-top:4px
 }
-
 .balance-amount.owed{
 color:#a33b3b
 }
-
 .balance-amount.owedto{
 color:#277044
 }
-
 .balance-amount.even{
 color:var(--muted)
 }
-
 .balance-gbp{
 font-size:12px;
 color:var(--muted);
 margin-top:3px
 }
-
 .debt-player-tabs{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:7px;
 margin:14px 0 10px
 }
-
 .debt-player-tab{
 border:1px solid #c7d4de;
 background:#fff;
@@ -1373,21 +1163,17 @@ font-weight:900;
 color:var(--navy-mid);
 cursor:pointer
 }
-
 .debt-player-tab.active{
 background:var(--navy);
 border-color:var(--navy);
 color:#fff
 }
-
 .debt-player-tab:hover{
 background:var(--pale)
 }
-
 .debt-player-tab.active:hover{
 background:var(--navy)
 }
-
 .debt-player-label{
 font-size:10px;
 font-weight:900;
@@ -1396,7 +1182,6 @@ letter-spacing:.08em;
 margin-top:14px;
 margin-bottom:8px
 }
-
 .settlement{
 background:var(--pale);
 border:1px solid var(--line);
@@ -1404,13 +1189,11 @@ border-radius:9px;
 padding:14px;
 margin-top:12px
 }
-
 .settlement h4{
 margin:0 0 8px;
 color:var(--navy);
 font-size:15px
 }
-
 .settlement-item{
 background:#fff;
 border:1px solid #c7d4de;
@@ -1418,38 +1201,31 @@ border-radius:8px;
 padding:12px;
 margin-bottom:8px
 }
-
 .settlement-item.paid{
 background:#f4faf6;
 border-color:#c8dfcf
 }
-
 .settlement-link{
 display:block;
 text-decoration:none;
 color:var(--navy);
 font-weight:900
 }
-
 .settlement-link:hover{
 color:var(--navy-dark)
 }
-
 .settlement-main{
 font-size:15px
 }
-
 .settlement-usd{
 font-size:19px;
 margin-top:2px
 }
-
 .settlement-gbp{
 font-size:12px;
 color:var(--muted);
 margin-top:2px
 }
-
 .settlement-actions{
 display:flex;
 align-items:center;
@@ -1459,7 +1235,6 @@ margin-top:10px;
 padding-top:9px;
 border-top:1px solid var(--line-light)
 }
-
 .settlement-paid-badge{
 display:inline-flex;
 align-items:center;
@@ -1472,13 +1247,11 @@ font-size:11px;
 font-weight:900;
 letter-spacing:.05em
 }
-
 .settlement-paid-date{
 font-size:11px;
 color:var(--muted);
 margin-top:4px
 }
-
 .mark-paid-btn{
 border:1px solid #9fc4aa;
 background:#fff;
@@ -1490,16 +1263,13 @@ font-weight:900;
 cursor:pointer;
 white-space:nowrap
 }
-
 .mark-paid-btn:hover{
 background:#f0f8f2
 }
-
 .mark-paid-btn:disabled{
 opacity:.6;
 cursor:wait
 }
-
 .undo-paid-btn{
 border:1px solid #e2c2c2;
 background:#fff;
@@ -1511,16 +1281,13 @@ font-weight:800;
 cursor:pointer;
 white-space:nowrap
 }
-
 .undo-paid-btn:hover{
 background:#fff7f7
 }
-
 .undo-paid-btn:disabled{
 opacity:.6;
 cursor:wait
 }
-
 .paid-section-label{
 font-size:10px;
 font-weight:900;
@@ -1530,7 +1297,6 @@ margin:16px 0 7px;
 padding-top:5px;
 border-top:1px solid var(--line-light)
 }
-
 .purchase{
 border:1px solid var(--line);
 border-radius:9px;
@@ -1538,71 +1304,60 @@ padding:14px;
 margin-bottom:10px;
 background:#fff
 }
-
 .purchase:last-child{
 margin-bottom:0
 }
-
 .purchase-top{
 display:flex;
 justify-content:space-between;
 align-items:flex-start;
 gap:10px
 }
-
 .purchase-name{
 font-weight:900;
 color:var(--navy-mid);
 font-size:16px
 }
-
 .purchase-total{
 font-size:19px;
 font-weight:900;
 color:var(--navy);
 white-space:nowrap
 }
-
 .purchase-meta{
 font-size:12px;
 color:var(--muted);
 margin-top:3px
 }
-
 .purchase-details{
 margin-top:9px;
 font-size:13px;
 color:var(--blue-gray);
 line-height:1.55
 }
-
 .purchase-share{
 margin-top:7px;
 font-size:13px;
 font-weight:800;
 color:var(--navy-mid)
 }
-
 .purchase-usd{
 font-size:13px;
 font-weight:800;
 color:#277044;
 margin-top:3px
 }
-
 .purchase-actions{
 display:flex;
 justify-content:flex-end;
 margin-top:10px
 }
-
 .empty-state{
 text-align:center;
 color:var(--muted);
 padding:18px 10px;
 font-size:14px
 }
-
 .auth-card{
 max-width:430px;
 margin:20px auto;
@@ -1611,20 +1366,17 @@ border-radius:10px;
 padding:22px;
 background:#fff
 }
-
 .auth-card h2{
 font:700 28px Georgia,serif;
 margin:0 0 7px;
 color:var(--navy-dark)
 }
-
 .auth-card p{
 color:var(--blue-gray);
 font-size:14px;
 line-height:1.5;
 margin:0 0 17px
 }
-
 .auth-card input{
 width:100%;
 min-height:50px;
@@ -1635,12 +1387,10 @@ font-size:20px;
 text-align:center;
 letter-spacing:.2em
 }
-
 .auth-card input:focus{
 outline:3px solid #e1e9ef;
 border-color:var(--navy)
 }
-
 .auth-error{
 color:#a33b3b;
 font-size:13px;
@@ -1648,14 +1398,12 @@ font-weight:800;
 margin-top:10px;
 text-align:center
 }
-
 .dues-header-row{
 display:flex;
 justify-content:space-between;
 align-items:center;
 gap:10px
 }
-
 .footer{
 padding:26px 16px;
 text-align:center;
@@ -1663,246 +1411,185 @@ font-size:11px;
 color:#8494a1;
 letter-spacing:.03em
 }
-
 @media(max-width:600px){
-
 .hero{
 padding:31px 16px 27px
 }
-
 h1{
 font-size:37px;
 line-height:1.04
 }
-
 .hero-divider{
 gap:12px;
 margin-top:15px
 }
-
 .hero p{
 font-size:10px;
 letter-spacing:.22em
 }
-
 .tabs{
 grid-template-columns:repeat(2,1fr)
 }
-
 .tab{
 font-size:13px;
 padding:14px 5px
 }
-
 .tab[data-tab="itinerary"]{
 grid-column:1 / -1
 }
-
 .teegrid,.people{
 grid-template-columns:1fr
 }
-
 .info{
 display:block
 }
-
 .info span{
 display:block;
 text-align:left;
 margin-top:3px
 }
-
 .arrival-person{
 align-items:flex-start
 }
-
 .arrival-details{
 text-align:right
 }
-
 .link-pair{
 width:100%
 }
-
 .link-pair .link:first-child{
 flex:1
 }
-
 .link-pair .directions{
 flex:0 0 auto
 }
-
 .bar-card-top{
 gap:9px
 }
-
 .bar-rank{
 flex:0 0 34px;
 height:34px;
 font-size:13px
 }
-
 .bar-name{
 font-size:19px
 }
-
 .bar-description{
 font-size:13px
 }
-
 .course-title{
 gap:8px
 }
-
 .course-logo{
 width:34px;
 height:34px;
 flex-basis:34px
 }
-
 .course-logo-wide{
 width:42px;
 height:34px;
 flex-basis:42px
 }
-
 .form-row{
 grid-template-columns:1fr
 }
-
 .people-select{
 grid-template-columns:1fr 1fr
 }
-
 .balance-grid{
 grid-template-columns:1fr
 }
-
 .purchase-top{
 align-items:flex-start
 }
-
 .purchase-total{
 font-size:17px
 }
-
 .dues-header-row{
 align-items:flex-start
 }
-
 .fx-top{
 align-items:flex-start
 }
-
 .fx-rate{
 font-size:25px
 }
-
 .guinness-total{
 font-size:48px
 }
-
 .guinness-people{
 grid-template-columns:1fr 1fr
 }
-
 .guinness-history-row{
 grid-template-columns:1fr auto
 }
-
 .guinness-history-people{
 text-align:right
 }
-
 .weather-current{
 grid-template-columns:1fr 1fr
 }
-
 .weather-current-main{
 grid-column:1 / -1
 }
-
 .weather-location{
 font-size:26px
 }
-
 .forecast-row{
 grid-template-columns:1.3fr 1fr 1fr 1fr;
 gap:7px;
 padding:11px 9px
 }
-
 .forecast-value{
 font-size:14px
 }
-
 .forecast-label{
 font-size:9px
 }
-
 .rain-chart-wrap{
 height:220px
 }
-
 #rainChart{
 height:220px
 }
-
 .debt-player-tabs{
 grid-template-columns:repeat(2,1fr);
 gap:7px
 }
-
 .debt-player-tab{
 padding:12px 6px;
 font-size:14px
 }
-
 .settlement-actions{
 align-items:flex-start;
 flex-direction:column
 }
-
 .mark-paid-btn,
 .undo-paid-btn{
 width:100%
 }
-
 }
 </style>
 </head>
-
 <body>
-
 <div class="app">
-
 <header class="hero">
-
 <div class="eyebrow">
 SCOTLAND • 2027
 </div>
-
 <h1>
 Zach’s Dirty 30<br>
 with the Lads
 </h1>
-
 <div class="hero-divider">
-
 <div class="hero-divider-line"></div>
-
 <div class="hero-divider-icon">SCOTLAND</div>
-
 <div class="hero-divider-line"></div>
-
 </div>
-
 <p>
 JUNE 11–19
 </p>
-
 </header>
-
 <nav class="tabs">
 <button class="tab" data-tab="cup">Scotland Cup</button>
 <button class="tab" data-tab="participants">Participants</button>
@@ -1912,16 +1599,12 @@ JUNE 11–19
 <button class="tab" data-tab="bars">Bars / Restaurants</button>
 <button class="tab active" data-tab="itinerary">Itinerary</button>
 </nav>
-
 <main id="itinerary">
-
 <div class="base">
 <b>TRIP BASE</b><br>
 26 Dublin Street Lane South, Edinburgh EH1 3PX
 </div>
-
 <article class="day">
-
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">TRAVEL</div>
@@ -1930,19 +1613,14 @@ JUNE 11–19
 </div>
 <div class="arrow">⌄</div>
 </button>
-
 <div class="day-body">
-
 <div class="info">
 <b>Flight</b>
 <span>Fly to Edinburgh</span>
 </div>
-
 </div>
 </article>
-
 <article class="day">
-
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">ARRIVAL</div>
@@ -1951,93 +1629,70 @@ JUNE 11–19
 </div>
 <div class="arrow">⌄</div>
 </button>
-
 <div class="day-body">
-
 <div class="info">
 <b>Base</b>
 <span>26 Dublin Street Lane South, Edinburgh</span>
 </div>
-
 <div class="info">
 <b>Everyone’s Arrival</b>
 <span>Flight information below</span>
 </div>
-
 <div class="arrival-list">
-
 <div class="arrival-person">
 <div class="arrival-name">Mike Ribbing</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL208<br><b>Arrival:</b> 10:25 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Tom Chung</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL208<br><b>Arrival:</b> 10:25 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Eric Hopton</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL208<br><b>Arrival:</b> 10:25 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Zach Gordon</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL208<br><b>Arrival:</b> 10:25 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Brian Gordon</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL208<br><b>Arrival:</b> 10:25 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Clem Diglio</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL208<br><b>Arrival:</b> 10:25 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Veer Singh</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL208<br><b>Arrival:</b> 10:25 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Yeags</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Arrival:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL208<br><b>Arrival:</b> 10:25 AM</div>
 </div>
-
 </div>
-
 <div class="info">
 <b>Plan</b>
 <span>Check in • Dinner • Drinks</span>
 </div>
-
 <div class="links">
-
 <a class="link" href="https://www.airbnb.com/rooms/3496863?adults=8&amp;check_in=2027-06-12&amp;check_out=2027-06-18&amp;location=Edinburgh%2C%20United%20Kingdom" target="_blank" rel="noopener">Airbnb ↗</a>
-
 <div class="link-pair">
 <a class="link" href="https://www.theoxedinburgh.com/" target="_blank" rel="noopener">The Ox ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Ox+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
-
 <div class="link-pair">
 <a class="link" href="https://www.kaysbar.uk/" target="_blank" rel="noopener">Kay's Bar ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Kay%27s+Bar+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
-
 </div>
-
 </div>
 </article>
-
 <article class="day">
-
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 1</div>
-
 <div class="course-title">
 <img
 class="course-logo"
@@ -2050,20 +1705,15 @@ loading="lazy"
 <div class="date">Sun • Jun 13</div>
 </div>
 </div>
-
 </div>
 <div class="arrow">⌄</div>
 </button>
-
 <div class="day-body">
-
 <div class="info">
 <b>Pickup</b>
 <span>11:00 AM</span>
 </div>
-
 <div class="teegrid">
-
 <div class="tee">
 <div class="tee-time">1:04 PM</div>
 <div class="players">
@@ -2073,7 +1723,6 @@ loading="lazy"
 <div>• Brian</div>
 </div>
 </div>
-
 <div class="tee">
 <div class="tee-time">1:14 PM</div>
 <div class="players">
@@ -2083,29 +1732,20 @@ loading="lazy"
 <div>• Yeags</div>
 </div>
 </div>
-
 </div>
-
 <div class="links">
-
 <a class="link" href="https://www.kilspindiegolfclub.co.uk/" target="_blank" rel="noopener">Kilspindie ↗</a>
-
 <div class="link-pair">
 <a class="link" href="https://queensarmsedinburgh.com/" target="_blank" rel="noopener">The Queens Arms ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Queens+Arms+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
-
 </div>
-
 </div>
 </article>
-
 <article class="day">
-
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 2</div>
-
 <div class="course-title">
 <img
 class="course-logo"
@@ -2119,25 +1759,19 @@ onerror="this.style.display='none'"
 <div class="date">Mon • Jun 14</div>
 </div>
 </div>
-
 </div>
 <div class="arrow">⌄</div>
 </button>
-
 <div class="day-body">
-
 <div class="info">
 <b>Train to North Berwick</b>
 <span>9:39 AM or 10:40 AM</span>
 </div>
-
 <div class="info">
 <b>Train home</b>
 <span>9:27 PM or 10:24 PM</span>
 </div>
-
 <div class="teegrid">
-
 <div class="tee">
 <div class="tee-time">2:00 PM</div>
 <div class="players">
@@ -2147,7 +1781,6 @@ onerror="this.style.display='none'"
 <div>• Eric</div>
 </div>
 </div>
-
 <div class="tee">
 <div class="tee-time">2:10 PM</div>
 <div class="players">
@@ -2157,31 +1790,21 @@ onerror="this.style.display='none'"
 <div>• Clem</div>
 </div>
 </div>
-
 </div>
-
 <div class="links">
-
 <a class="link" href="https://www.northberwickgolfclub.com/" target="_blank" rel="noopener">North Berwick ↗</a>
-
 <a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">Omio App ↗</a>
-
 <div class="link-pair">
 <a class="link" href="https://www.theshipinnnorthberwick.com/" target="_blank" rel="noopener">The Ship Inn ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Ship+Inn+North+Berwick" target="_blank" rel="noopener">Directions</a>
 </div>
-
 </div>
-
 </div>
 </article>
-
 <article class="day">
-
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 3</div>
-
 <div class="course-title">
 <img
 class="course-logo"
@@ -2195,20 +1818,15 @@ onerror="this.style.display='none'"
 <div class="date">Tue • Jun 15</div>
 </div>
 </div>
-
 </div>
 <div class="arrow">⌄</div>
 </button>
-
 <div class="day-body">
-
 <div class="info">
 <b>Pickup</b>
 <span>7:45 AM</span>
 </div>
-
 <div class="teegrid">
-
 <div class="tee">
 <div class="tee-time">9:04 AM</div>
 <div class="players">
@@ -2218,7 +1836,6 @@ onerror="this.style.display='none'"
 <div>• Eric</div>
 </div>
 </div>
-
 <div class="tee">
 <div class="tee-time">9:14 AM</div>
 <div class="players">
@@ -2228,7 +1845,6 @@ onerror="this.style.display='none'"
 <div>• Mike</div>
 </div>
 </div>
-
 <div class="tee">
 <div class="tee-time">2:56 PM</div>
 <div class="players">
@@ -2238,7 +1854,6 @@ onerror="this.style.display='none'"
 <div>• Mike</div>
 </div>
 </div>
-
 <div class="tee">
 <div class="tee-time">3:06 PM</div>
 <div class="players">
@@ -2248,25 +1863,17 @@ onerror="this.style.display='none'"
 <div>• Eric</div>
 </div>
 </div>
-
 </div>
-
 <div class="links">
-
 <a class="link" href="https://gullanegolfclub.com/" target="_blank" rel="noopener">Gullane Golf Club ↗</a>
-
 <div class="link-pair">
 <a class="link" href="https://auldhundrededinburgh.com/" target="_blank" rel="noopener">The Auld Hundred ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Auld+Hundred+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
-
 </div>
-
 </div>
 </article>
-
 <article class="day">
-
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">OPEN DAY</div>
@@ -2275,37 +1882,27 @@ onerror="this.style.display='none'"
 </div>
 <div class="arrow">⌄</div>
 </button>
-
 <div class="day-body">
-
 <div class="info">
 <b>Plans</b>
 <span>TBD</span>
 </div>
-
 <div class="info">
 <b>Optional</b>
 <span>Biddy Mulligans</span>
 </div>
-
 <div class="links">
-
 <div class="link-pair">
 <a class="link" href="https://www.biddymulligans.co.uk/" target="_blank" rel="noopener">Biddy Mulligans ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Biddy+Mulligans+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
-
 </div>
-
 </div>
 </article>
-
 <article class="day">
-
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 5</div>
-
 <div class="course-title">
 <img
 class="course-logo"
@@ -2319,20 +1916,15 @@ onerror="this.style.display='none'"
 <div class="date">Thu • Jun 17</div>
 </div>
 </div>
-
 </div>
 <div class="arrow">⌄</div>
 </button>
-
 <div class="day-body">
-
 <div class="info">
 <b>Pickup</b>
 <span>10:00 AM</span>
 </div>
-
 <div class="teegrid">
-
 <div class="tee">
 <div class="tee-time">11:44 AM</div>
 <div class="players">
@@ -2342,7 +1934,6 @@ onerror="this.style.display='none'"
 <div>• Clem</div>
 </div>
 </div>
-
 <div class="tee">
 <div class="tee-time">11:54 AM</div>
 <div class="players">
@@ -2352,34 +1943,24 @@ onerror="this.style.display='none'"
 <div>• Eric</div>
 </div>
 </div>
-
 </div>
-
 <div class="links">
-
 <a class="link" href="https://gullanegolfclub.com/" target="_blank" rel="noopener">Gullane Golf Club ↗</a>
-
 <div class="link-pair">
 <a class="link" href="https://www.dishoom.com/edinburgh/" target="_blank" rel="noopener">Dishoom Edinburgh ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Dishoom+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
-
 <div class="link-pair">
 <a class="link" href="https://guildfordarms.com/" target="_blank" rel="noopener">The Guildford Arms ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Guildford+Arms+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
-
 </div>
-
 </div>
 </article>
-
 <article class="day">
-
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">GOLF • DAY 6</div>
-
 <div class="course-title">
 <img
 class="course-logo"
@@ -2393,20 +1974,15 @@ onerror="this.style.display='none'"
 <div class="date">Fri • Jun 18</div>
 </div>
 </div>
-
 </div>
 <div class="arrow">⌄</div>
 </button>
-
 <div class="day-body">
-
 <div class="info">
 <b>Pickup</b>
 <span>9:00 AM</span>
 </div>
-
 <div class="teegrid">
-
 <div class="tee">
 <div class="tee-time">10:54 AM</div>
 <div class="players">
@@ -2416,7 +1992,6 @@ onerror="this.style.display='none'"
 <div>• Yeags</div>
 </div>
 </div>
-
 <div class="tee">
 <div class="tee-time">11:04 AM</div>
 <div class="players">
@@ -2426,35 +2001,25 @@ onerror="this.style.display='none'"
 <div>• Clem</div>
 </div>
 </div>
-
 </div>
-
 <div class="links">
-
 <a class="link" href="https://www.dunbargolfclub.com/" target="_blank" rel="noopener">Dunbar ↗</a>
-
 <div class="link-pair">
 <a class="link" href="https://makarsmash.com/" target="_blank" rel="noopener">Makars Mash Bar ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Makars+Mash+Bar+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
-
 <div class="link-pair">
 <a class="link" href="https://scotsmans-lounge.co.uk/" target="_blank" rel="noopener">Scotsman's Lounge ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Scotsman%27s+Lounge+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
-
 <div class="link-pair">
 <a class="link" href="https://www.hilton.com/en/hotels/edihxhx-hampton-edinburgh-airport/" target="_blank" rel="noopener">Airport Hotel ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Hampton+by+Hilton+Edinburgh+Airport%2C+5+Almond+Avenue%2C+Ingliston%2C+Edinburgh+EH12+9GN" target="_blank" rel="noopener">Directions</a>
 </div>
-
 </div>
-
 </div>
 </article>
-
 <article class="day">
-
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">DEPARTURE</div>
@@ -2463,66 +2028,51 @@ onerror="this.style.display='none'"
 </div>
 <div class="arrow">⌄</div>
 </button>
-
 <div class="day-body">
-
 <div class="info">
 <b>Base</b>
 <span>Departure from Edinburgh</span>
 </div>
-
 <div class="info">
 <b>Everyone’s Departure</b>
 <span>Flight information below</span>
 </div>
-
 <div class="arrival-list">
-
 <div class="arrival-person">
 <div class="arrival-name">Mike Ribbing</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Departure:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL341<br><b>Departure:</b> 9:00 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Tom Chung</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Departure:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL341<br><b>Departure:</b> 9:00 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Eric Hopton</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Departure:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL341<br><b>Departure:</b> 9:00 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Zach Gordon</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Departure:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL341<br><b>Departure:</b> 9:00 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Brian Gordon</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Departure:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL341<br><b>Departure:</b> 9:00 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Clem Diglio</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Departure:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL341<br><b>Departure:</b> 9:00 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Veer Singh</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Departure:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL341<br><b>Departure:</b> 9:00 AM</div>
 </div>
-
 <div class="arrival-person">
 <div class="arrival-name">Yeags</div>
-<div class="arrival-details"><b>Flight:</b> TBD<br><b>Departure:</b> TBD</div>
+<div class="arrival-details"><b>Flight:</b> DL341<br><b>Departure:</b> 9:00 AM</div>
 </div>
-
 </div>
-
 </div>
 </article>
-
 <div class="notice">
 <b>Train tickets</b><br>
 Use the Omio app for the North Berwick / Edinburgh train.
@@ -2530,20 +2080,15 @@ Use the Omio app for the North Berwick / Edinburgh train.
 <a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">Open Omio App ↗</a>
 </div>
 </div>
-
 </main>
-
 <main id="bars" style="display:none">
-
 <div class="bars-intro">
 <h2>Bars / Restaurants</h2>
 <p>
 The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street Lane South. Ranked for atmosphere, Scottish character, beer, whisky and overall group potential.
 </p>
 </div>
-
 <div class="bar-list">
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">1</div>
@@ -2559,7 +2104,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">2</div>
@@ -2575,7 +2119,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">3</div>
@@ -2591,7 +2134,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">4</div>
@@ -2607,7 +2149,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">5</div>
@@ -2623,7 +2164,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">6</div>
@@ -2639,7 +2179,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">7</div>
@@ -2655,7 +2194,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">8</div>
@@ -2671,7 +2209,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">9</div>
@@ -2687,7 +2224,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">10</div>
@@ -2703,7 +2239,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">11</div>
@@ -2719,7 +2254,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">12</div>
@@ -2735,7 +2269,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">13</div>
@@ -2751,7 +2284,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">14</div>
@@ -2767,7 +2299,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">15</div>
@@ -2783,7 +2314,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">16</div>
@@ -2799,7 +2329,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">17</div>
@@ -2815,7 +2344,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">18</div>
@@ -2831,7 +2359,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">19</div>
@@ -2847,7 +2374,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">20</div>
@@ -2863,7 +2389,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">21</div>
@@ -2879,7 +2404,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">22</div>
@@ -2895,7 +2419,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">23</div>
@@ -2911,7 +2434,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">24</div>
@@ -2927,7 +2449,6 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 <div class="bar-card">
 <div class="bar-card-top">
 <div class="bar-rank">25</div>
@@ -2943,23 +2464,16 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-
 </div>
-
 </main>
-
 <main id="cup" style="display:none">
-
 <div class="score">
-
 <div class="score-head">
 <div class="eyebrow">LIVE COMPETITION</div>
 <h2>Scotland Cup</h2>
 <div>Live leaderboard powered by Squabbit</div>
 </div>
-
 <div class="score-body">
-
 <iframe
 src="https://app.squabbitgolf.com/w/tournament/TvY7fGicz?embed=leaderboard"
 width="100%"
@@ -2967,244 +2481,179 @@ height="700"
 style="border:none;border-radius:8px;"
 title="Scotland Cup Live Leaderboard">
 </iframe>
-
 </div>
-
 </div>
-
 </main>
-
 <main id="participants" style="display:none">
-
 <div class="notice">
 <b>THE CREW</b><br>
 Handicaps, Venmo handles and the official scouting reports.
 </div>
-
 <div class="people">
-
 <div class="person">
 <h3>Mike Ribbing</h3>
 <div class="meta">3.9 handicap • @mike_ribbing</div>
 <p>Had his second kid, so if the game falls off, he has the perfect excuse ready to go.</p>
 </div>
-
 <div class="person">
 <h3>Tom Chung</h3>
 <div class="meta">16.9 handicap • @tomchung11</div>
 <p>Somehow runs a physical therapy practice and teaches at the same time, yet still hasn&#x27;t managed to rehabilitate his own golf game.</p>
 </div>
-
 <div class="person">
 <h3>Eric Hopton</h3>
 <div class="meta">12.5 handicap • @ehop57</div>
 <p>A “professor” at Georgia Tech, although the group remains convinced he actually works with aliens. Will also sacrifice at least 10 balls to the Firth of Forth.</p>
 </div>
-
 <div class="person">
 <h3>Zach Gordon</h3>
 <div class="meta">9.2 handicap • @zach-Gordon-15</div>
 <p>The reason this trip exists, allegedly, because he is turning 30. As if eight guys needed an excuse to go to Scotland and drink for a week.</p>
 </div>
-
 <div class="person">
 <h3>Brian Gordon</h3>
 <div class="meta">8.3 handicap • @Brian-Gordon-115</div>
 <p>Already holed out for birdie at the Old Course last trip. Unfortunately, he has also already told us the story roughly 400 times.</p>
 </div>
-
 <div class="person">
 <h3>Clem Diglio</h3>
 <div class="meta">17.1 handicap • @Carol-Diglio</div>
 <p>Always has a smile and is ready to have fun. His golf game is a complete wildcard. Bonus points: his wife was Eric&#x27;s high school principal.</p>
 </div>
-
 <div class="person">
 <h3>Veer Singh</h3>
 <div class="meta">17.7 handicap • @veersingh24</div>
 <p>Lives in New York now, so the golf game may be rusty. ChatGPT has already pegged him as the weak link when it comes to Guinness.</p>
 </div>
-
 <div class="person">
 <h3>Yeags</h3>
 <div class="meta">8.5 handicap • @papa-yeags</div>
 <p>The only lefty. Hits it a mile when he finds the club face. The bigger question is whether he is going to play golf or personally eliminate Scotland&#x27;s Guinness supply.</p>
 </div>
-
 </div>
-
 </main>
-
 <main id="guinness" style="display:none">
-
 <div class="guinness-hero">
-
 <div class="guinness-label">
 GROUP TOTAL
 </div>
-
 <div class="guinness-total" id="guinnessTotal">
 0
 </div>
-
 <div class="guinness-total-label">
 Guinnesses consumed
 </div>
-
 </div>
-
 <button
 class="guinness-log-btn"
 id="showGuinnessForm"
 type="button">
 Log Guinness
 </button>
-
 <div
 class="guinness-form"
 id="guinnessForm"
 style="display:none">
-
 <label for="guinnessDate">
 Date
 </label>
-
 <input
 id="guinnessDate"
 type="date"
 >
-
 <label>
 Who drank it?
 </label>
-
 <div class="guinness-people">
-
 <div class="guinness-check">
 <input type="checkbox" id="g-mike" value="Mike Ribbing">
 <label for="g-mike">Mike</label>
 </div>
-
 <div class="guinness-check">
 <input type="checkbox" id="g-tom" value="Tom Chung">
 <label for="g-tom">Tom</label>
 </div>
-
 <div class="guinness-check">
 <input type="checkbox" id="g-eric" value="Eric Hopton">
 <label for="g-eric">Eric</label>
 </div>
-
 <div class="guinness-check">
 <input type="checkbox" id="g-zach" value="Zach Gordon">
 <label for="g-zach">Zach</label>
 </div>
-
 <div class="guinness-check">
 <input type="checkbox" id="g-brian" value="Brian Gordon">
 <label for="g-brian">Brian</label>
 </div>
-
 <div class="guinness-check">
 <input type="checkbox" id="g-clem" value="Clem Diglio">
 <label for="g-clem">Clem</label>
 </div>
-
 <div class="guinness-check">
 <input type="checkbox" id="g-veer" value="Veer Singh">
 <label for="g-veer">Veer</label>
 </div>
-
 <div class="guinness-check">
 <input type="checkbox" id="g-yeags" value="Yeags">
 <label for="g-yeags">Yeags</label>
 </div>
-
 </div>
-
 <div class="guinness-selected" id="guinnessSelected">
 0 people selected
 </div>
-
 <button
 class="guinness-submit"
 id="logGuinness"
 type="button">
 Log Guinness
 </button>
-
 <div
 class="guinness-message"
 id="guinnessMessage"
 aria-live="polite">
 </div>
-
 </div>
-
 <div class="guinness-card">
-
 <div class="guinness-header-row">
-
 <h3>Guinness Leaderboard</h3>
-
 <button
 class="guinness-refresh"
 id="refreshGuinness"
 type="button">
 ↻ Refresh
 </button>
-
 </div>
-
 <div
 class="leaderboard"
 id="guinnessLeaderboard">
-
 <div class="empty-state">
 Loading Guinness Tracker…
 </div>
-
 </div>
-
 </div>
-
 <div class="guinness-card">
-
 <h3>Guinness Log</h3>
-
 <div
 class="guinness-history"
 id="guinnessHistory">
-
 <div class="empty-state">
 Loading Guinness history…
 </div>
-
 </div>
-
 </div>
-
 </main>
-
 <main id="dues" style="display:none">
-
 <div id="duesAuth">
-
 <div class="dues-intro">
 <h2>Trip Dues</h2>
 <p>Track drinks, dinners, taxis, and anything else someone picks up for the group.</p>
 </div>
-
 <div class="auth-card">
-
 <h2>Dues Access</h2>
-
 <p>
 Enter the trip PIN once on this device. The site will remember your access so you don't have to enter it again.
 </p>
-
 <form id="authForm">
-
 <input
 id="duesPin"
 type="password"
@@ -3215,76 +2664,48 @@ placeholder="••••"
 aria-label="Dues PIN"
 required
 >
-
 <button class="primary-btn" type="submit" style="margin-top:12px">
 Enter Dues
 </button>
-
 <div class="auth-error" id="authError" aria-live="polite"></div>
-
 </form>
-
 </div>
-
 </div>
-
 <div id="duesContent" style="display:none">
-
 <div class="dues-intro">
-
 <h2>Trip Dues</h2>
-
 <p>
 Log drinks, dinners, taxis, or anything else someone picks up for the group.
 Purchases are entered in pounds and the page automatically shows the current USD equivalent.
 </p>
-
 </div>
-
 <div class="fx-card">
-
 <div class="fx-top">
-
 <div>
-
 <div class="fx-title">CURRENT GBP → USD RATE</div>
-
 <div class="fx-rate" id="fxRate">
 Loading…
 </div>
-
 <div class="fx-sub" id="fxUpdated">
 Getting current exchange rate…
 </div>
-
 </div>
-
 <button class="fx-refresh" id="refreshFx" type="button">
 ↻ Refresh
 </button>
-
 </div>
-
 <div class="fx-example" id="fxExample">
 £100 = loading…
 </div>
-
 </div>
-
 <div class="dues-card">
-
 <h3>Log a Purchase</h3>
-
 <form id="purchaseForm">
-
 <div class="form-row">
-
 <div class="form-group">
-
 <label for="purchaseDescription">
 What was purchased?
 </label>
-
 <input
 id="purchaseDescription"
 type="text"
@@ -3292,15 +2713,11 @@ placeholder="e.g. Drinks at Kay’s Bar"
 maxlength="80"
 required
 >
-
 </div>
-
 <div class="form-group">
-
 <label for="purchaseAmount">
 Total Price (£)
 </label>
-
 <input
 id="purchaseAmount"
 type="number"
@@ -3311,21 +2728,14 @@ step="0.01"
 placeholder="100.00"
 required
 >
-
 </div>
-
 </div>
-
 <div class="form-row">
-
 <div class="form-group">
-
 <label for="purchasePayer">
 Who paid?
 </label>
-
 <select id="purchasePayer" required>
-
 <option value="">Select payer</option>
 <option>Mike Ribbing</option>
 <option>Tom Chung</option>
@@ -3335,402 +2745,267 @@ Who paid?
 <option>Clem Diglio</option>
 <option>Veer Singh</option>
 <option>Yeags</option>
-
 </select>
-
 </div>
-
 <div class="form-group">
-
 <label for="purchaseDate">
 Date
 </label>
-
 <input
 id="purchaseDate"
 type="date"
 >
-
 </div>
-
 </div>
-
 <div class="form-group">
-
 <label>
 Who was in on it?
 </label>
-
+<button class="refresh-btn" id="selectAllPeople" type="button" style="margin:7px 0 10px">Select All</button>
 <div class="people-select">
-
 <div class="person-check">
 <input type="checkbox" id="p-mike" value="Mike Ribbing">
 <label for="p-mike">Mike</label>
 </div>
-
 <div class="person-check">
 <input type="checkbox" id="p-tom" value="Tom Chung">
 <label for="p-tom">Tom</label>
 </div>
-
 <div class="person-check">
 <input type="checkbox" id="p-eric" value="Eric Hopton">
 <label for="p-eric">Eric</label>
 </div>
-
 <div class="person-check">
 <input type="checkbox" id="p-zach" value="Zach Gordon">
 <label for="p-zach">Zach</label>
 </div>
-
 <div class="person-check">
 <input type="checkbox" id="p-brian" value="Brian Gordon">
 <label for="p-brian">Brian</label>
 </div>
-
 <div class="person-check">
 <input type="checkbox" id="p-clem" value="Clem Diglio">
 <label for="p-clem">Clem</label>
 </div>
-
 <div class="person-check">
 <input type="checkbox" id="p-veer" value="Veer Singh">
 <label for="p-veer">Veer</label>
 </div>
-
 <div class="person-check">
 <input type="checkbox" id="p-yeags" value="Yeags">
 <label for="p-yeags">Yeags</label>
 </div>
-
 </div>
-
 <div class="selected-count" id="selectedCount">
 0 people selected
 </div>
-
 </div>
-
 <button class="primary-btn" type="submit">
 Log Purchase
 </button>
-
 <div class="form-message" id="formMessage" aria-live="polite"></div>
-
 </form>
-
 </div>
-
 <div class="dues-card">
-
 <div class="dues-header-row">
-
 <h3>Who Owes Who</h3>
-
 <button class="refresh-btn" id="refreshDues" type="button">
 ↻ Refresh
 </button>
-
 </div>
-
 <div class="debt-player-label">
 SELECT A PLAYER TO SEE WHO THEY OWE
 </div>
-
 <div class="debt-player-tabs" id="debtPlayerTabs">
-
 <button class="debt-player-tab active" type="button" data-debt-player="Mike Ribbing">
 Mike
 </button>
-
 <button class="debt-player-tab" type="button" data-debt-player="Tom Chung">
 Tom
 </button>
-
 <button class="debt-player-tab" type="button" data-debt-player="Eric Hopton">
 Eric
 </button>
-
 <button class="debt-player-tab" type="button" data-debt-player="Zach Gordon">
 Zach
 </button>
-
 <button class="debt-player-tab" type="button" data-debt-player="Brian Gordon">
 Brian
 </button>
-
 <button class="debt-player-tab" type="button" data-debt-player="Clem Diglio">
 Clem
 </button>
-
 <button class="debt-player-tab" type="button" data-debt-player="Veer Singh">
 Veer
 </button>
-
 <button class="debt-player-tab" type="button" data-debt-player="Yeags">
 Yeags
 </button>
-
 </div>
-
 <div class="settlement">
-
 <h4 id="settlementTitle">
 Mike owes
 </h4>
-
 <div id="settlementList"></div>
-
 </div>
-
 </div>
-
 <div class="dues-card">
-
 <div class="dues-header-row">
-
 <h3>Purchase History</h3>
-
 <button class="danger-btn" id="clearPurchases" type="button">
 Clear All
 </button>
-
 </div>
-
 <div id="purchaseHistory">
-
 <div class="empty-state">
 Loading purchases...
 </div>
-
 </div>
-
 </div>
-
 <div class="dues-card">
-
 <h3>Total Balances</h3>
-
 <div class="balance-grid" id="balanceGrid"></div>
-
 </div>
-
 </div>
-
 </main>
-
 <main id="weather" style="display:none">
-
 <div class="weather-hero">
-
 <div class="eyebrow">LIVE WEATHER</div>
-
 <div class="weather-location">
 Edinburgh, Scotland
 </div>
-
 <div class="weather-date" id="weatherTodayDate">
 Loading today’s forecast…
 </div>
-
 <div class="weather-selected-label" id="weatherSelectedLabel">
 TODAY
 </div>
-
 <div class="weather-current">
-
 <div class="weather-current-main">
-
 <div class="weather-current-temp" id="weatherCurrentTemp">
 —°
 </div>
-
 <div class="weather-current-label" id="weatherTemperatureLabel">
 CURRENT TEMPERATURE
 </div>
-
 </div>
-
 <div class="weather-stat">
-
 <div class="weather-stat-label">
 HIGH / LOW
 </div>
-
 <div class="weather-stat-value" id="weatherHighLow">
 — / —
 </div>
-
 </div>
-
 <div class="weather-stat">
-
 <div class="weather-stat-label">
 WIND
 </div>
-
 <div class="weather-stat-value" id="weatherCurrentWind">
 —
 </div>
-
 </div>
-
 <div class="weather-stat">
-
 <div class="weather-stat-label">
 RAIN CHANCE
 </div>
-
 <div class="weather-stat-value" id="weatherCurrentRain">
 —
 </div>
-
 </div>
-
 </div>
-
 </div>
-
 <div class="weather-card">
-
 <div class="weather-header-row">
-
 <h3 id="rainChartTitle">
 Today’s Rain Chance
 </h3>
-
 </div>
-
 <div class="rain-chart-subtitle" id="rainChartSubtitle">
 Hourly precipitation probability
 </div>
-
 <div class="rain-chart-wrap">
-
 <canvas id="rainChart" height="240"></canvas>
-
 <div class="rain-chart-tooltip" id="rainChartTooltip">
 </div>
-
 </div>
-
 </div>
-
 <div class="weather-card">
-
 <div class="weather-header-row">
-
 <h3>7-Day Forecast</h3>
-
 <button class="weather-refresh" id="refreshWeather" type="button">
 ↻ Refresh
 </button>
-
 </div>
-
 <div class="forecast-list" id="weatherForecast">
-
 <div class="weather-loading">
 Loading Edinburgh weather…
 </div>
-
 </div>
-
 <div class="weather-source">
 Weather data by
 <a href="https://open-meteo.com/" target="_blank" rel="noopener">
 Open-Meteo
 </a>
 </div>
-
 </div>
-
 </main>
-
 <div class="footer">
 Zach’s Dirty 30 with the Lads • Built for the crew
 </div>
-
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-
 document.querySelectorAll('.day-head').forEach(button=>{
-
 button.addEventListener('click',()=>{
-
 const day=button.parentElement;
-
 const isOpen=
 day.classList.toggle('open');
-
 button.setAttribute(
 'aria-expanded',
 isOpen?'true':'false'
 );
-
 });
-
 });
-
 document.querySelectorAll('.tab').forEach(button=>{
-
 button.addEventListener('click',()=>{
-
 document.querySelectorAll('.tab').forEach(tab=>{
 tab.classList.remove('active');
 });
-
 button.classList.add('active');
-
 document.querySelectorAll('main').forEach(main=>{
 main.style.display='none';
 });
-
 document.getElementById(
 button.dataset.tab
 ).style.display='block';
-
 window.scrollTo({
 top:0,
 behavior:'smooth'
 });
-
 if(button.dataset.tab==='dues'){
 initializeDues();
 }
-
 if(button.dataset.tab==='guinness'){
 initializeGuinness();
 }
-
 if(button.dataset.tab==='weather'){
 initializeWeather();
 }
-
 });
-
 });
-
 const SUPABASE_URL=
 'https://rxkzcetitmuyztiqnkes.supabase.co';
-
 const SUPABASE_ANON_KEY=
 'sb_publishable_ohoPFPa1a5pi7sYeKyUuww_KSj08KUG';
-
 const DUES_PIN='1234';
-
 const DUES_AUTH_KEY=
 'scotland2027_dues_authenticated';
-
 const supabaseClient=
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_ANON_KEY
 );
-
 const PEOPLE=[
 'Mike Ribbing',
 'Tom Chung',
@@ -3741,7 +3016,6 @@ const PEOPLE=[
 'Veer Singh',
 'Yeags'
 ];
-
 const SHORT_NAMES={
 'Mike Ribbing':'Mike',
 'Tom Chung':'Tom',
@@ -3752,7 +3026,6 @@ const SHORT_NAMES={
 'Veer Singh':'Veer',
 'Yeags':'Yeags'
 };
-
 const VENMO={
 'Mike Ribbing':'mike_ribbing',
 'Tom Chung':'tomchung11',
@@ -3763,36 +3036,28 @@ const VENMO={
 'Veer Singh':'veersingh24',
 'Yeags':'papa-yeags'
 };
-
 let weatherInitialized=false;
 let weatherLoaded=false;
 let weatherData=null;
 let selectedWeatherDayIndex=0;
 let rainChartPoints=[];
-
 function formatWeatherDay(dateString){
-
 const date=
 new Date(
 dateString+'T12:00:00'
 );
-
 return date.toLocaleDateString(
 'en-US',
 {
 weekday:'short'
 }
 );
-
 }
-
 function formatWeatherDate(dateString){
-
 const date=
 new Date(
 dateString+'T12:00:00'
 );
-
 return date.toLocaleDateString(
 'en-US',
 {
@@ -3801,16 +3066,12 @@ month:'long',
 day:'numeric'
 }
 );
-
 }
-
 function formatForecastDate(dateString){
-
 const date=
 new Date(
 dateString+'T12:00:00'
 );
-
 return date.toLocaleDateString(
 'en-US',
 {
@@ -3818,101 +3079,68 @@ month:'short',
 day:'numeric'
 }
 );
-
 }
-
 function formatWind(speed){
-
 if(
 speed===null ||
 speed===undefined ||
 !Number.isFinite(Number(speed))
 ){
-
 return '—';
-
 }
-
 return Math.round(Number(speed))+' mph';
-
 }
-
 function formatTemp(value){
-
 if(
 value===null ||
 value===undefined ||
 !Number.isFinite(Number(value))
 ){
-
 return '—';
-
 }
-
 return Math.round(Number(value))+'°';
-
 }
-
 function formatRain(value){
-
 if(
 value===null ||
 value===undefined ||
 !Number.isFinite(Number(value))
 ){
-
 return '—';
-
 }
-
 return Math.round(Number(value))+'%';
-
 }
-
 function formatHourlyLabel(dateTimeString){
-
 const hour=
 Number(
 String(dateTimeString).slice(11,13)
 );
-
 if(!Number.isFinite(hour)){
 return '';
 }
-
 if(hour===0){
 return '12 AM';
 }
-
 if(hour===12){
 return '12 PM';
 }
-
 if(hour<12){
 return hour+' AM';
 }
-
 return (hour-12)+' PM';
-
 }
-
 function formatHourlyTooltipTime(dateTimeString){
-
 const hour=
 Number(
 String(dateTimeString).slice(11,13)
 );
-
 if(!Number.isFinite(hour)){
 return dateTimeString;
 }
-
 const minute=
 String(dateTimeString).slice(14,16);
-
 let displayHour;
 let suffix;
-
 if(hour===0){
 displayHour=12;
 suffix='AM';
@@ -3926,191 +3154,135 @@ suffix='AM';
 displayHour=hour-12;
 suffix='PM';
 }
-
 return displayHour+':'+minute+' '+suffix;
-
 }
-
 function updateWeatherHero(dayIndex){
-
 if(!weatherData)return;
-
 const date=
 weatherData.daily.time[dayIndex];
-
 const high=
 weatherData.daily.temperature_2m_max[dayIndex];
-
 const low=
 weatherData.daily.temperature_2m_min[dayIndex];
-
 const wind=
 weatherData.daily.wind_speed_10m_max[dayIndex];
-
 const rain=
 weatherData.daily.precipitation_probability_max[dayIndex];
-
 const isToday=
 dayIndex===0;
-
 document.getElementById(
 'weatherTodayDate'
 ).textContent=
 formatWeatherDate(date);
-
 document.getElementById(
 'weatherSelectedLabel'
 ).textContent=
 isToday
 ?'TODAY'
 :formatWeatherDay(date).toUpperCase();
-
 document.getElementById(
 'weatherHighLow'
 ).textContent=
 formatTemp(high)+
 ' / '+
 formatTemp(low);
-
 document.getElementById(
 'weatherCurrentWind'
 ).textContent=
 formatWind(wind);
-
 document.getElementById(
 'weatherCurrentRain'
 ).textContent=
 formatRain(rain);
-
 if(isToday){
-
 document.getElementById(
 'weatherCurrentTemp'
 ).textContent=
 formatTemp(
 weatherData.current.temperature_2m
 );
-
 document.getElementById(
 'weatherTemperatureLabel'
 ).textContent=
 'CURRENT TEMPERATURE';
-
 }else{
-
 document.getElementById(
 'weatherCurrentTemp'
 ).textContent=
 formatTemp(high);
-
 document.getElementById(
 'weatherTemperatureLabel'
 ).textContent=
 'DAYTIME HIGH';
-
 }
-
 document.getElementById(
 'rainChartTitle'
 ).textContent=
 (isToday?'Today’s':formatWeatherDay(date)+'’s')+
 ' Rain Chance';
-
 document.getElementById(
 'rainChartSubtitle'
 ).textContent=
 'Hourly precipitation probability';
-
 selectedWeatherDayIndex=dayIndex;
-
 renderForecastSelection();
-
 drawRainChartForDay(dayIndex);
-
 }
-
 function renderForecastSelection(){
-
 document.querySelectorAll(
 '.forecast-row'
 ).forEach(row=>{
-
 const index=
 Number(
 row.dataset.weatherDay
 );
-
 row.classList.toggle(
 'selected',
 index===selectedWeatherDayIndex
 );
-
 });
-
 }
-
 function selectWeatherDay(dayIndex){
-
 if(
 !weatherData ||
 dayIndex<0 ||
 dayIndex>=weatherData.daily.time.length
 ){
-
 return;
-
 }
-
 updateWeatherHero(dayIndex);
-
 }
-
 function drawRainChartForDay(dayIndex){
-
 const canvas=
 document.getElementById(
 'rainChart'
 );
-
 if(!canvas || !weatherData)return;
-
 const ctx=
 canvas.getContext('2d');
-
 const allTimes=
 weatherData.hourly.time||[];
-
 const allValues=
 weatherData.hourly.precipitation_probability||[];
-
 const targetDate=
 weatherData.daily.time[dayIndex];
-
 const points=[];
-
 allTimes.forEach((time,index)=>{
-
 if(
 String(time).slice(0,10)===targetDate &&
 Number.isFinite(
 Number(allValues[index])
 )
 ){
-
 points.push({
 time,
 value:Number(allValues[index])
 });
-
 }
-
 });
-
 rainChartPoints=points;
-
 const wrap=
 canvas.parentElement;
-
 const width=
 Math.max(
 280,
@@ -4118,27 +3290,20 @@ Math.floor(
 wrap.clientWidth
 )
 );
-
 const height=
 window.innerWidth<=600
 ?220
 :240;
-
 const dpr=
 window.devicePixelRatio||1;
-
 canvas.width=
 width*dpr;
-
 canvas.height=
 height*dpr;
-
 canvas.style.width=
 width+'px';
-
 canvas.style.height=
 height+'px';
-
 ctx.setTransform(
 dpr,
 0,
@@ -4147,218 +3312,150 @@ dpr,
 0,
 0
 );
-
 ctx.clearRect(
 0,
 0,
 width,
 height
 );
-
 if(!points.length){
-
 ctx.fillStyle='#718596';
-
 ctx.font='14px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif';
-
 ctx.textAlign='center';
-
 ctx.fillText(
 'Hourly precipitation data unavailable.',
 width/2,
 height/2
 );
-
 return;
-
 }
-
 const padding={
 left:38,
 right:12,
 top:14,
 bottom:35
 };
-
 const chartWidth=
 width-
 padding.left-
 padding.right;
-
 const chartHeight=
 height-
 padding.top-
 padding.bottom;
-
 ctx.strokeStyle='#e1e8ed';
-
 ctx.lineWidth=1;
-
 ctx.font=
 '10px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif';
-
 ctx.textAlign='right';
-
 ctx.fillStyle='#718596';
-
 [0,25,50,75,100].forEach(value=>{
-
 const y=
 padding.top+
 chartHeight-
 (value/100)*chartHeight;
-
 ctx.beginPath();
-
 ctx.moveTo(
 padding.left,
 y
 );
-
 ctx.lineTo(
 width-padding.right,
 y
 );
-
 ctx.stroke();
-
 ctx.fillText(
 value+'%',
 padding.left-7,
 y+3
 );
-
 });
-
 ctx.textAlign='center';
-
 const labelEvery=
 points.length<=12
 ?2
 :3;
-
 points.forEach((point,index)=>{
-
 if(
 index%labelEvery!==0 &&
 index!==points.length-1
 ){
-
 return;
-
 }
-
 const x=
 padding.left+
 (index/(Math.max(points.length-1,1)))*
 chartWidth;
-
 ctx.fillStyle='#718596';
-
 ctx.fillText(
 formatHourlyLabel(point.time),
 x,
 height-12
 );
-
 });
-
 const coordinates=
 points.map((point,index)=>{
-
 const x=
 padding.left+
 (index/(Math.max(points.length-1,1)))*
 chartWidth;
-
 const y=
 padding.top+
 chartHeight-
 (point.value/100)*chartHeight;
-
 return {
 x,
 y,
 point
 };
-
 });
-
 ctx.beginPath();
-
 coordinates.forEach((coordinate,index)=>{
-
 if(index===0){
-
 ctx.moveTo(
 coordinate.x,
 coordinate.y
 );
-
 }else{
-
 ctx.lineTo(
 coordinate.x,
 coordinate.y
 );
-
 }
-
 });
-
 ctx.lineTo(
 coordinates[coordinates.length-1].x,
 padding.top+chartHeight
 );
-
 ctx.lineTo(
 coordinates[0].x,
 padding.top+chartHeight
 );
-
 ctx.closePath();
-
 ctx.fillStyle=
 'rgba(21,47,74,.08)';
-
 ctx.fill();
-
 ctx.beginPath();
-
 coordinates.forEach((coordinate,index)=>{
-
 if(index===0){
-
 ctx.moveTo(
 coordinate.x,
 coordinate.y
 );
-
 }else{
-
 ctx.lineTo(
 coordinate.x,
 coordinate.y
 );
-
 }
-
 });
-
 ctx.strokeStyle='#152f4a';
-
 ctx.lineWidth=2.5;
-
 ctx.lineJoin='round';
-
 ctx.lineCap='round';
-
 ctx.stroke();
-
 coordinates.forEach(coordinate=>{
-
 ctx.beginPath();
-
 ctx.arc(
 coordinate.x,
 coordinate.y,
@@ -4366,13 +3463,9 @@ coordinate.y,
 0,
 Math.PI*2
 );
-
 ctx.fillStyle='#152f4a';
-
 ctx.fill();
-
 ctx.beginPath();
-
 ctx.arc(
 coordinate.x,
 coordinate.y,
@@ -4380,70 +3473,49 @@ coordinate.y,
 0,
 Math.PI*2
 );
-
 ctx.fillStyle='#fff';
-
 ctx.fill();
-
 });
-
 }
-
 function handleRainChartPointer(event){
-
 const canvas=
 document.getElementById(
 'rainChart'
 );
-
 const tooltip=
 document.getElementById(
 'rainChartTooltip'
 );
-
 if(
 !canvas ||
 !tooltip ||
 !rainChartPoints.length
 ){
-
 return;
-
 }
-
 const rect=
 canvas.getBoundingClientRect();
-
 const x=
 event.clientX-
 rect.left;
-
 const width=
 rect.width;
-
 const paddingLeft=38;
 const paddingRight=12;
-
 const chartWidth=
 width-
 paddingLeft-
 paddingRight;
-
 if(
 x<paddingLeft ||
 x>width-paddingRight
 ){
-
 tooltip.style.display='none';
-
 return;
-
 }
-
 const rawIndex=
 ((x-paddingLeft)/chartWidth)*
 (rainChartPoints.length-1);
-
 const index=
 Math.max(
 0,
@@ -4452,93 +3524,62 @@ rainChartPoints.length-1,
 Math.round(rawIndex)
 )
 );
-
 const point=
 rainChartPoints[index];
-
 if(!point)return;
-
 const pointX=
 paddingLeft+
 (index/(Math.max(rainChartPoints.length-1,1)))*
 chartWidth;
-
 tooltip.textContent=
 formatHourlyTooltipTime(point.time)+
 ' • '+
 formatRain(point.value);
-
 tooltip.style.left=
 pointX+'px';
-
 tooltip.style.top=
 '80px';
-
 tooltip.style.display='block';
-
 }
-
 const rainCanvas=
 document.getElementById(
 'rainChart'
 );
-
 if(rainCanvas){
-
 rainCanvas.addEventListener(
 'pointermove',
 handleRainChartPointer
 );
-
 rainCanvas.addEventListener(
 'pointerdown',
 handleRainChartPointer
 );
-
 rainCanvas.addEventListener(
 'pointerleave',
 ()=>{
-
 document.getElementById(
 'rainChartTooltip'
 ).style.display='none';
-
 });
-
 }
-
 function initializeWeather(){
-
 if(weatherInitialized){
-
 if(!weatherLoaded){
-
 loadWeather();
-
 }
-
 return;
-
 }
-
 weatherInitialized=true;
-
 loadWeather();
-
 }
-
 async function loadWeather(){
-
 const forecast=
 document.getElementById(
 'weatherForecast'
 );
-
 forecast.innerHTML=
 '<div class="weather-loading">Loading Edinburgh weather…</div>';
-
 try{
-
 const url=
 'https://api.open-meteo.com/v1/forecast'+
 '?latitude=55.9533'+
@@ -4550,7 +3591,6 @@ const url=
 '&wind_speed_unit=mph'+
 '&timezone=Europe%2FLondon'+
 '&forecast_days=8';
-
 const response=
 await fetch(
 url,
@@ -4558,18 +3598,13 @@ url,
 cache:'no-store'
 }
 );
-
 if(!response.ok){
-
 throw new Error(
 'Weather request failed'
 );
-
 }
-
 const data=
 await response.json();
-
 if(
 !data.current ||
 !data.daily ||
@@ -4578,243 +3613,165 @@ if(
 !Array.isArray(data.hourly.time) ||
 !Array.isArray(data.hourly.precipitation_probability)
 ){
-
 throw new Error(
 'Weather data was unavailable'
 );
-
 }
-
 weatherLoaded=true;
-
 weatherData=data;
-
 selectedWeatherDayIndex=0;
-
 forecast.innerHTML=
 data.daily.time
 .slice(0,8)
 .map((date,index)=>{
-
 const dayLabel=
 index===0
 ?'Today'
 :formatWeatherDay(date);
-
 const dateLabel=
 index===0
 ?''
 :formatForecastDate(date);
-
 const max=
 data.daily.temperature_2m_max[index];
-
 const min=
 data.daily.temperature_2m_min[index];
-
 const wind=
 data.daily.wind_speed_10m_max[index];
-
 const precipitation=
 data.daily.precipitation_probability_max[index];
-
 return `
-
 <div
 class="forecast-row ${index===0?'today selected':''}"
 data-weather-day="${index}"
 role="button"
 tabindex="0"
 aria-label="View weather for ${escapeHtml(formatWeatherDate(date))}">
-
 <div>
-
 <div class="forecast-day">
 ${dayLabel}
 </div>
-
 <div class="forecast-date">
 ${dateLabel}
 </div>
-
 </div>
-
 <div>
-
 <div class="forecast-label">
 TEMP
 </div>
-
 <div class="forecast-value">
 ${formatTemp(max)} / ${formatTemp(min)}
 </div>
-
 </div>
-
 <div>
-
 <div class="forecast-label">
 WIND
 </div>
-
 <div class="forecast-value">
 ${formatWind(wind)}
 </div>
-
 </div>
-
 <div class="forecast-rain">
-
 <div class="forecast-label">
 RAIN
 </div>
-
 <div class="forecast-value">
 ${formatRain(precipitation)}
 </div>
-
 </div>
-
 </div>
-
 `;
-
 }).join('');
-
 document.querySelectorAll(
 '[data-weather-day]'
 ).forEach(row=>{
-
 row.addEventListener(
 'click',
 ()=>{
-
 selectWeatherDay(
 Number(row.dataset.weatherDay)
 );
-
 });
-
 row.addEventListener(
 'keydown',
 event=>{
-
 if(
 event.key==='Enter' ||
 event.key===' '
 ){
-
 event.preventDefault();
-
 selectWeatherDay(
 Number(row.dataset.weatherDay)
 );
-
 }
-
 });
-
 });
-
 updateWeatherHero(0);
-
 }
-
 catch(error){
-
 console.error(
 'Weather error:',
 error
 );
-
 weatherLoaded=false;
-
 weatherData=null;
-
 forecast.innerHTML=
 '<div class="weather-error">'+
 'Unable to load the Edinburgh forecast right now. '+
 'Tap Refresh to try again.'+
 '</div>';
-
 const canvas=
 document.getElementById(
 'rainChart'
 );
-
 if(canvas){
-
 const ctx=
 canvas.getContext('2d');
-
 ctx.clearRect(
 0,
 0,
 canvas.width,
 canvas.height
 );
-
 }
-
 }
-
 }
-
 document.getElementById(
 'refreshWeather'
 ).addEventListener(
 'click',
 async()=>{
-
 const button=
 document.getElementById(
 'refreshWeather'
 );
-
 button.disabled=true;
-
 button.textContent='Loading…';
-
 await loadWeather();
-
 button.disabled=false;
-
 button.textContent='↻ Refresh';
-
 });
-
 window.addEventListener(
 'resize',
 ()=>{
-
 if(
 weatherLoaded &&
 weatherData
 ){
-
 drawRainChartForDay(
 selectedWeatherDayIndex
 );
-
 }
-
 });
-
 let guinnessLogs=[];
 let guinnessInitialized=false;
-
 function todayString(){
-
 return new Date()
 .toISOString()
 .slice(0,10);
-
 }
-
 function formatGuinnessDate(date){
-
 if(!date)return '';
-
 return new Date(
 date+'T12:00:00'
 ).toLocaleDateString(
@@ -4826,62 +3783,42 @@ day:'numeric',
 year:'numeric'
 }
 );
-
 }
-
 function formatSupabaseError(prefix,error){
-
 if(!error){
 return prefix;
 }
-
 const details=[
 error.message,
 error.details,
 error.hint,
 error.code
 ].filter(Boolean);
-
 if(!details.length){
 return prefix;
 }
-
 return prefix+
 ': '+
 details.join(' | ');
-
 }
-
 function initializeGuinness(){
-
 if(!guinnessInitialized){
-
 guinnessInitialized=true;
-
 document.getElementById(
 'guinnessDate'
 ).value=todayString();
-
 updateGuinnessSelected();
-
 }
-
 loadGuinness();
-
 }
-
 async function loadGuinness(){
-
 const leaderboard=
 document.getElementById(
 'guinnessLeaderboard'
 );
-
 leaderboard.innerHTML=
 '<div class="empty-state">Loading Guinness Tracker…</div>';
-
 try{
-
 const {data,error}=
 await supabaseClient.rpc(
 'get_guinness_logs',
@@ -4889,14 +3826,11 @@ await supabaseClient.rpc(
 p_pin:DUES_PIN
 }
 );
-
 if(error){
-
 console.error(
 'Guinness load error:',
 error
 );
-
 leaderboard.innerHTML=
 '<div class="empty-state">'+
 escapeHtml(
@@ -4906,25 +3840,18 @@ error
 )
 )+
 '</div>';
-
 return;
-
 }
-
 guinnessLogs=
 Array.isArray(data)
 ?data
 :[];
-
 renderGuinness();
-
 }catch(error){
-
 console.error(
 'Guinness connection error:',
 error
 );
-
 leaderboard.innerHTML=
 '<div class="empty-state">'+
 escapeHtml(
@@ -4934,64 +3861,44 @@ error
 )
 )+
 '</div>';
-
 }
-
 }
-
 function calculateGuinnessTotals(){
-
 const totals={};
-
 PEOPLE.forEach(person=>{
 totals[person]=0;
 });
-
 guinnessLogs.forEach(log=>{
-
 const people=
 Array.isArray(log.people)
 ?log.people
 :[];
-
 people.forEach(person=>{
-
 if(
 Object.prototype.hasOwnProperty.call(
 totals,
 person
 )
 ){
-
 totals[person]++;
-
 }
-
 });
-
 });
-
 return totals;
-
 }
-
 function renderGuinness(){
-
 const totals=
 calculateGuinnessTotals();
-
 const groupTotal=
 Object.values(totals)
 .reduce(
 (sum,value)=>sum+value,
 0
 );
-
 document.getElementById(
 'guinnessTotal'
 ).textContent=
 groupTotal;
-
 const ranked=
 PEOPLE
 .map(person=>({
@@ -4999,73 +3906,51 @@ person,
 count:totals[person]
 }))
 .sort((a,b)=>{
-
 if(b.count!==a.count){
 return b.count-a.count;
 }
-
 return PEOPLE.indexOf(a.person)-
 PEOPLE.indexOf(b.person);
-
 });
-
 document.getElementById(
 'guinnessLeaderboard'
 ).innerHTML=
 ranked.map((entry,index)=>{
-
 return `
-
 <div class="leader-row">
-
 <div class="leader-rank">
 ${index+1}
 </div>
-
 <div class="leader-name">
 ${escapeHtml(
 shortName(entry.person)
 )}
 </div>
-
 <div class="leader-count">
 ${entry.count}
 <span class="leader-count-label">
 ${entry.count===1?'Guinness':'Guinnesses'}
 </span>
 </div>
-
 </div>
-
 `;
-
 }).join('');
-
 renderGuinnessHistory();
-
 }
-
 function renderGuinnessHistory(){
-
 const history=
 document.getElementById(
 'guinnessHistory'
 );
-
 if(!guinnessLogs.length){
-
 history.innerHTML=
 '<div class="empty-state">'+
 'No Guinness logged yet. Time to get started.'+
 '</div>';
-
 return;
-
 }
-
 const sorted=
 [...guinnessLogs].sort((a,b)=>{
-
 return String(b.drink_date)
 .localeCompare(
 String(a.drink_date)
@@ -5075,23 +3960,16 @@ String(b.created_at)
 .localeCompare(
 String(a.created_at)
 );
-
 });
-
 history.innerHTML=
 sorted.map(log=>{
-
 const people=
 Array.isArray(log.people)
 ?log.people
 :[];
-
 return `
-
 <div class="guinness-history-row">
-
 <div>
-
 <div class="guinness-history-date">
 ${escapeHtml(
 formatGuinnessDate(
@@ -5099,7 +3977,6 @@ log.drink_date
 )
 )}
 </div>
-
 <div class="guinness-history-people">
 ${people.map(person=>
 escapeHtml(
@@ -5107,30 +3984,21 @@ shortName(person)
 )
 ).join(', ')}
 </div>
-
 </div>
-
 <div class="guinness-history-actions">
-
 <button
 class="guinness-delete"
 type="button"
 data-guinness-delete-id="${escapeHtml(log.id)}">
 Delete
 </button>
-
 </div>
-
 </div>
-
 `;
-
 }).join('');
-
 document.querySelectorAll(
 '[data-guinness-delete-id]'
 ).forEach(button=>{
-
 button.addEventListener(
 'click',
 ()=>deleteGuinness(
@@ -5138,32 +4006,24 @@ button.dataset.guinnessDeleteId,
 button
 )
 );
-
 });
-
 }
-
 async function deleteGuinness(
 guinnessId,
 button
 ){
-
 const log=
 guinnessLogs.find(
 item=>String(item.id)===String(guinnessId)
 );
-
 if(!log)return;
-
 const people=
 Array.isArray(log.people)
 ?log.people
 :[];
-
 const names=
 people.map(person=>shortName(person))
 .join(', ');
-
 const confirmed=
 window.confirm(
 'Delete this Guinness log for '+
@@ -5172,31 +4032,21 @@ names+
 formatGuinnessDate(log.drink_date)+
 '?'
 );
-
 if(!confirmed)return;
-
 const pin=
 window.prompt(
 'Enter the Dues PIN to delete this Guinness log:'
 );
-
 if(pin===null)return;
-
 if(pin!==DUES_PIN){
-
 window.alert(
 'Incorrect PIN. Nothing was deleted.'
 );
-
 return;
-
 }
-
 button.disabled=true;
 button.textContent='Deleting…';
-
 try{
-
 const {data,error}=
 await supabaseClient.rpc(
 'delete_guinness',
@@ -5205,133 +4055,95 @@ p_pin:DUES_PIN,
 p_id:guinnessId
 }
 );
-
 if(error){
-
 console.error(
 'Guinness delete error:',
 error
 );
-
 window.alert(
 formatSupabaseError(
 'Unable to delete Guinness',
 error
 )
 );
-
 return;
-
 }
-
 if(!data){
-
 window.alert(
 'Guinness log could not be deleted.'
 );
-
 return;
-
 }
-
 await loadGuinness();
-
 }catch(error){
-
 console.error(
 'Guinness deletion connection error:',
 error
 );
-
 window.alert(
 formatSupabaseError(
 'Unable to connect to the Guinness database',
 error
 )
 );
-
 }finally{
-
 button.disabled=false;
 button.textContent='Delete';
-
 }
-
 }
-
 document.getElementById(
 'showGuinnessForm'
 ).addEventListener(
 'click',
 ()=>{
-
 const form=
 document.getElementById(
 'guinnessForm'
 );
-
 const button=
 document.getElementById(
 'showGuinnessForm'
 );
-
 if(form.style.display==='none'){
-
 form.style.display='block';
-
 button.textContent=
 'Cancel';
-
 }else{
-
 form.style.display='none';
-
 button.textContent=
 'Log Guinness';
-
 }
-
 });
-
 function updateGuinnessSelected(){
-
 const selected=
 document.querySelectorAll(
 '.guinness-check input:checked'
 ).length;
-
 document.getElementById(
 'guinnessSelected'
 ).textContent=
 selected===1
 ?'1 person selected'
 :selected+' people selected';
-
 }
-
 document.querySelectorAll(
 '.guinness-check input'
 ).forEach(input=>{
-
 input.addEventListener(
 'change',
 updateGuinnessSelected
 );
-
 });
-
 document.getElementById(
 'logGuinness'
 ).addEventListener(
 'click',
 async()=>{
-
 const date=
 document.getElementById(
 'guinnessDate'
 ).value ||
 todayString();
-
 const selectedPeople=
 Array.from(
 document.querySelectorAll(
@@ -5340,36 +4152,25 @@ document.querySelectorAll(
 ).map(
 input=>input.value
 );
-
 const message=
 document.getElementById(
 'guinnessMessage'
 );
-
 message.textContent='';
 message.className=
 'guinness-message';
-
 if(!selectedPeople.length){
-
 message.textContent=
 'Select at least one person who drank it.';
-
 return;
-
 }
-
 const button=
 document.getElementById(
 'logGuinness'
 );
-
 button.disabled=true;
-
 button.textContent='Saving…';
-
 try{
-
 const {data,error}=
 await supabaseClient.rpc(
 'log_guinness',
@@ -5379,151 +4180,102 @@ p_drink_date:date,
 p_people:selectedPeople
 }
 );
-
 if(error){
-
 console.error(
 'Guinness log error:',
 error
 );
-
 message.textContent=
 formatSupabaseError(
 'Could not save',
 error
 );
-
 return;
-
 }
-
 if(!data){
-
 message.textContent=
 'Guinness was not returned by the database.';
-
 return;
-
 }
-
 document.querySelectorAll(
 '.guinness-check input'
 ).forEach(input=>{
 input.checked=false;
 });
-
 updateGuinnessSelected();
-
 message.textContent=
 'Guinness logged!';
-
 message.className=
 'guinness-message success';
-
 await loadGuinness();
-
 setTimeout(()=>{
-
 message.textContent='';
-
 },2500);
-
 }catch(error){
-
 console.error(
 'Guinness connection error:',
 error
 );
-
 message.textContent=
 formatSupabaseError(
 'Could not connect to the Guinness database',
 error
 );
-
 }finally{
-
 button.disabled=false;
-
 button.textContent=
 'Log Guinness';
-
 }
-
 });
-
 document.getElementById(
 'refreshGuinness'
 ).addEventListener(
 'click',
 async()=>{
-
 const button=
 document.getElementById(
 'refreshGuinness'
 );
-
 button.disabled=true;
-
 button.textContent='Loading…';
-
 await loadGuinness();
-
 button.disabled=false;
-
 button.textContent='↻ Refresh';
-
 });
-
 function escapeHtml(value){
-
 return String(value)
 .replace(/&/g,'&amp;')
 .replace(/</g,'&lt;')
 .replace(/>/g,'&gt;')
 .replace(/"/g,'&quot;')
 .replace(/'/g,'&#039;');
-
 }
-
 function shortName(person){
-
 return SHORT_NAMES[person]||person;
-
 }
-
 let purchases=[];
 let settlementPayments=[];
 let duesInitialized=false;
 let gbpToUsd=1.35111;
 let fxUpdatedText='Current rate';
 let selectedDebtPlayer='Mike Ribbing';
-
 function formatMoney(value){
 return '£'+Number(value).toFixed(2);
 }
-
 function formatUSD(value){
 return '$'+Number(value).toFixed(2);
 }
-
 async function loadFxRate(){
-
 const rateDisplay=
 document.getElementById('fxRate');
-
 const updatedDisplay=
 document.getElementById('fxUpdated');
-
 const exampleDisplay=
 document.getElementById('fxExample');
-
 if(rateDisplay){
 rateDisplay.textContent='Loading…';
 }
-
 try{
-
 const response=
 await fetch(
 'https://open.er-api.com/v6/latest/USD',
@@ -5531,178 +4283,119 @@ await fetch(
 cache:'no-store'
 }
 );
-
 if(!response.ok){
 throw new Error('FX request failed');
 }
-
 const data=
 await response.json();
-
 if(
 !data.rates ||
 !data.rates.GBP
 ){
 throw new Error('GBP rate unavailable');
 }
-
 gbpToUsd=
 1/Number(data.rates.GBP);
-
 fxUpdatedText=
 data.time_last_update_utc
 ?'Rate updated '+data.time_last_update_utc
 :'Current exchange rate';
-
 if(rateDisplay){
-
 rateDisplay.textContent=
 '£1 = '+formatUSD(gbpToUsd);
-
 }
-
 if(updatedDisplay){
 updatedDisplay.textContent=
 fxUpdatedText;
 }
-
 if(exampleDisplay){
-
 exampleDisplay.textContent=
 '£100 = '+formatUSD(100*gbpToUsd);
-
 }
-
 renderDues();
-
 }catch(error){
-
 console.error(
 'FX rate error:',
 error
 );
-
 if(rateDisplay){
-
 rateDisplay.textContent=
 '£1 = '+formatUSD(gbpToUsd);
-
 }
-
 if(updatedDisplay){
-
 updatedDisplay.textContent=
 'Using last available rate';
-
 }
-
 if(exampleDisplay){
-
 exampleDisplay.textContent=
 '£100 = '+formatUSD(100*gbpToUsd);
-
 }
-
 }
-
 }
-
 function isAuthenticated(){
-
 return localStorage.getItem(
 DUES_AUTH_KEY
 )==='true';
-
 }
-
 function showDuesContent(){
-
 document.getElementById(
 'duesAuth'
 ).style.display='none';
-
 document.getElementById(
 'duesContent'
 ).style.display='block';
-
 }
-
 function showDuesAuth(){
-
 document.getElementById(
 'duesAuth'
 ).style.display='block';
-
 document.getElementById(
 'duesContent'
 ).style.display='none';
-
 }
-
 document.getElementById(
 'authForm'
 ).addEventListener(
 'submit',
 event=>{
-
 event.preventDefault();
-
 const pin=
 document.getElementById(
 'duesPin'
 ).value.trim();
-
 const error=
 document.getElementById(
 'authError'
 );
-
 if(pin!==DUES_PIN){
-
 error.textContent=
 'Incorrect PIN. Try again.';
-
 document.getElementById(
 'duesPin'
 ).select();
-
 return;
-
 }
-
 localStorage.setItem(
 DUES_AUTH_KEY,
 'true'
 );
-
 error.textContent='';
-
 document.getElementById(
 'duesPin'
 ).value='';
-
 showDuesContent();
-
 loadPurchases();
-
 loadSettlementPayments();
-
 loadFxRate();
-
 });
-
 async function loadPurchases(){
-
 const history=
 document.getElementById(
 'purchaseHistory'
 );
-
 history.innerHTML=
 '<div class="empty-state">Loading purchases...</div>';
-
 try{
-
 const {data,error}=
 await supabaseClient.rpc(
 'get_purchases',
@@ -5710,51 +4403,36 @@ await supabaseClient.rpc(
 p_pin:DUES_PIN
 }
 );
-
 if(error){
-
 console.error(
 'Supabase get_purchases error:',
 error
 );
-
 history.innerHTML=
 '<div class="empty-state">'+
 'Unable to load the shared ledger.<br>'+
 'Please refresh and try again.'+
 '</div>';
-
 return;
-
 }
-
 purchases=
 Array.isArray(data)
 ?data
 :[];
-
 renderDues();
-
 }catch(error){
-
 console.error(
 'Supabase connection error:',
 error
 );
-
 history.innerHTML=
 '<div class="empty-state">'+
 'Unable to connect to the Dues database.'+
 '</div>';
-
 }
-
 }
-
 async function loadSettlementPayments(){
-
 try{
-
 const {data,error}=
 await supabaseClient.rpc(
 'get_settlement_payments',
@@ -5762,57 +4440,39 @@ await supabaseClient.rpc(
 p_pin:DUES_PIN
 }
 );
-
 if(error){
-
 console.error(
 'Supabase get_settlement_payments error:',
 error
 );
-
 return;
-
 }
-
 settlementPayments=
 Array.isArray(data)
 ?data
 :[];
-
 renderDues();
-
 }catch(error){
-
 console.error(
 'Supabase settlement payments connection error:',
 error
 );
-
 }
-
 }
-
 function renderPurchases(){
-
 const history=
 document.getElementById(
 'purchaseHistory'
 );
-
 if(!purchases.length){
-
 history.innerHTML=
 '<div class="empty-state">'+
 'No purchases logged yet.'+
 '</div>';
-
 return;
-
 }
-
 const sorted=
 [...purchases].sort((a,b)=>{
-
 return String(b.purchase_date)
 .localeCompare(
 String(a.purchase_date)
@@ -5822,28 +4482,21 @@ String(b.created_at)
 .localeCompare(
 String(a.created_at)
 );
-
 });
-
 history.innerHTML=
 sorted.map(purchase=>{
-
 const people=
 Array.isArray(purchase.people)
 ?purchase.people
 :[];
-
 const share=
 people.length
 ?Number(purchase.amount)/people.length
 :0;
-
 const amountUSD=
 Number(purchase.amount)*gbpToUsd;
-
 const shareUSD=
 share*gbpToUsd;
-
 const dateDisplay=
 purchase.purchase_date
 ?new Date(
@@ -5857,21 +4510,15 @@ year:'numeric'
 }
 )
 :'Date not specified';
-
 return `
-
 <div class="purchase">
-
 <div class="purchase-top">
-
 <div>
-
 <div class="purchase-name">
 ${escapeHtml(
 purchase.description
 )}
 </div>
-
 <div class="purchase-meta">
 ${escapeHtml(dateDisplay)}
 •
@@ -5880,65 +4527,44 @@ ${escapeHtml(
 shortName(purchase.payer)
 )}
 </div>
-
 </div>
-
 <div class="purchase-total">
 ${formatMoney(purchase.amount)}
 </div>
-
 </div>
-
 <div class="purchase-details">
-
 <b>Included:</b>
-
 ${people.map(person=>
 escapeHtml(
 shortName(person)
 )
 ).join(', ')}
-
 </div>
-
 <div class="purchase-share">
-
 ${formatMoney(share)}
 per person
-
 </div>
-
 <div class="purchase-usd">
-
 Current USD equivalent:
 ${formatUSD(shareUSD)}
 per person
 •
 Total ${formatUSD(amountUSD)}
-
 </div>
-
 <div class="purchase-actions">
-
 <button
 class="delete-btn"
 type="button"
 data-delete-id="${escapeHtml(purchase.id)}">
 Delete Purchase
 </button>
-
 </div>
-
 </div>
-
 `;
-
 }).join('');
-
 document.querySelectorAll(
 '[data-delete-id]'
 ).forEach(button=>{
-
 button.addEventListener(
 'click',
 ()=>deletePurchase(
@@ -5946,23 +4572,17 @@ button.dataset.deleteId,
 button
 )
 );
-
 });
-
 }
-
 async function deletePurchase(
 purchaseId,
 button
 ){
-
 const purchase=
 purchases.find(
 item=>String(item.id)===String(purchaseId)
 );
-
 if(!purchase)return;
-
 const confirmed=
 window.confirm(
 'Delete "'+
@@ -5971,31 +4591,21 @@ purchase.description+
 formatMoney(purchase.amount)+
 '?'
 );
-
 if(!confirmed)return;
-
 const pin=
 window.prompt(
 'Enter the Dues PIN to delete this purchase:'
 );
-
 if(pin===null)return;
-
 if(pin!==DUES_PIN){
-
 window.alert(
 'Incorrect PIN. Nothing was deleted.'
 );
-
 return;
-
 }
-
 button.disabled=true;
 button.textContent='Deleting…';
-
 try{
-
 const {data,error}=
 await supabaseClient.rpc(
 'delete_purchase',
@@ -6004,413 +4614,270 @@ p_pin:DUES_PIN,
 p_id:purchaseId
 }
 );
-
 if(error){
-
 console.error(
 'Supabase delete error:',
 error
 );
-
 window.alert(
 'Unable to delete purchase: '+
 (error.message||'Unknown error')
 );
-
 return;
-
 }
-
 if(!data){
-
 window.alert(
 'Purchase could not be deleted.'
 );
-
 return;
-
 }
-
 await loadPurchases();
-
 }catch(error){
-
 console.error(error);
-
 window.alert(
 'Unable to connect to the Dues database.'
 );
-
 }finally{
-
 button.disabled=false;
 button.textContent='Delete Purchase';
-
 }
-
 }
-
 function calculateBalances(){
-
 const balances={};
-
 PEOPLE.forEach(person=>{
 balances[person]=0;
 });
-
 purchases.forEach(purchase=>{
-
 const people=
 Array.isArray(purchase.people)
 ?purchase.people
 :[];
-
 if(!people.length){
 return;
 }
-
 const amount=
 Number(purchase.amount)||0;
-
 if(amount<=0){
 return;
 }
-
 const share=
 amount/people.length;
-
 const payer=
 purchase.payer;
-
 if(
 Object.prototype.hasOwnProperty.call(
 balances,
 payer
 )
 ){
-
 balances[payer]+=amount;
-
 }
-
 people.forEach(person=>{
-
 if(
 Object.prototype.hasOwnProperty.call(
 balances,
 person
 )
 ){
-
 balances[person]-=share;
-
 }
-
 });
-
 });
-
 /* APPLY RECORDED SETTLEMENT PAYMENTS
-
 A payment means the debtor has actually paid the
 creditor, so remove that amount from the debtor's
 outstanding balance and add it to the creditor's
 balance.
-
 Payments are stored in GBP, which matches the
 purchase/balance calculations above.
-
 */
-
 settlementPayments.forEach(payment=>{
-
 const debtor=
 payment.debtor;
-
 const creditor=
 payment.creditor;
-
 const amount=
 Number(payment.amount)||0;
-
 if(
 amount<=0 ||
 !PEOPLE.includes(debtor) ||
 !PEOPLE.includes(creditor) ||
 debtor===creditor
 ){
-
 return;
-
 }
-
 balances[debtor]+=amount;
-
 balances[creditor]-=amount;
-
 });
-
 return balances;
-
 }
-
 function calculatePurchaseDebts(){
-
 const debts={};
-
 purchases.forEach(purchase=>{
-
 const people=
 Array.isArray(purchase.people)
 ?purchase.people
 :[];
-
 if(!people.length){
 return;
 }
-
 const amount=
 Number(purchase.amount)||0;
-
 if(amount<=0){
 return;
 }
-
 const share=
 amount/people.length;
-
 const payer=
 purchase.payer;
-
 if(!PEOPLE.includes(payer)){
 return;
 }
-
 people.forEach(person=>{
-
 if(
 !PEOPLE.includes(person) ||
 person===payer
 ){
-
 return;
-
 }
-
 const key=
 person+'||'+payer;
-
 debts[key]=
 (debts[key]||0)+share;
-
 });
-
 });
-
 return debts;
-
 }
-
 function calculatePairwiseSettlements(){
-
 const debts=
 calculatePurchaseDebts();
-
 const settlements={};
-
 const processed=new Set();
-
 Object.entries(debts).forEach(
 ([key,amount])=>{
-
 if(processed.has(key)){
 return;
 }
-
 const parts=
 key.split('||');
-
 const debtor=
 parts[0];
-
 const creditor=
 parts[1];
-
 const reverseKey=
 creditor+'||'+debtor;
-
 const reverseAmount=
 debts[reverseKey]||0;
-
 const difference=
 amount-reverseAmount;
-
 if(
 Math.abs(difference)>0.005
 ){
-
 if(difference>0){
-
 settlements[key]=difference;
-
 }else{
-
 settlements[reverseKey]=
 Math.abs(difference);
-
 }
-
 }
-
 processed.add(key);
 processed.add(reverseKey);
-
 });
-
 return settlements;
-
 }
-
 function renderBalances(){
-
 const balances=
 calculateBalances();
-
 document.getElementById(
 'balanceGrid'
 ).innerHTML=
 PEOPLE.map(person=>{
-
 const balance=
 balances[person];
-
 let amountClass='even';
-
 let label='Even';
-
 if(balance>0.005){
-
 amountClass='owedto';
 label='is owed';
-
 }else if(balance<-0.005){
-
 amountClass='owed';
 label='owes';
-
 }
-
 return `
-
 <div class="balance">
-
 <div class="balance-name">
 ${escapeHtml(
 shortName(person)
 )}
 </div>
-
 <div class="balance-amount ${amountClass}">
 ${formatUSD(Math.abs(balance)*gbpToUsd)}
 </div>
-
 <div style="font-size:12px;color:#718596;margin-top:2px">
 ${label}
 </div>
-
 <div class="balance-gbp">
 ${formatMoney(Math.abs(balance))}
 </div>
-
 </div>
-
 `;
-
 }).join('');
-
 }
-
 function renderDebtPlayerTabs(){
-
 document.querySelectorAll(
 '[data-debt-player]'
 ).forEach(button=>{
-
 button.classList.toggle(
 'active',
 button.dataset.debtPlayer===
 selectedDebtPlayer
 );
-
 });
-
 }
-
 function selectDebtPlayer(player){
-
 if(!PEOPLE.includes(player)){
 return;
 }
-
 selectedDebtPlayer=player;
-
 renderDebtPlayerTabs();
-
 renderSettlements();
-
 }
-
 function findSettlementPayment(
 debtor,
 creditor,
 amount
 ){
-
 const target=
 Math.round(Number(amount)*100)/100;
-
 const matches=
 settlementPayments.filter(payment=>{
-
 const paymentAmount=
 Math.round(Number(payment.amount)*100)/100;
-
 return(
 payment.debtor===debtor &&
 payment.creditor===creditor &&
 Math.abs(paymentAmount-target)<0.005
 );
-
 });
-
 if(!matches.length){
 return null;
 }
-
 return [...matches].sort((a,b)=>{
-
 return String(b.paid_at)
 .localeCompare(
 String(a.paid_at)
 );
-
 })[0];
-
 }
-
 function formatPaidDate(dateString){
-
 if(!dateString){
 return '';
 }
-
 const date=
 new Date(dateString);
-
 if(Number.isNaN(date.getTime())){
 return '';
 }
-
 return date.toLocaleDateString(
 'en-US',
 {
@@ -6419,142 +4886,97 @@ day:'numeric',
 year:'numeric'
 }
 );
-
 }
-
 function renderSettlementCard(
 settlement,
 payment
 ){
-
 const debtorName=
 shortName(
 settlement.debtor
 );
-
 const creditorName=
 shortName(
 settlement.creditor
 );
-
 const usdAmount=
 formatUSD(
 settlement.amount*gbpToUsd
 );
-
 const gbpAmount=
 formatMoney(
 settlement.amount
 );
-
 const venmoUsername=
 VENMO[
 settlement.creditor
 ];
-
 let paymentLink='';
-
 if(venmoUsername){
-
 paymentLink=`
-
 <a
 class="settlement-link"
 href="https://venmo.com/${encodeURIComponent(venmoUsername)}"
 onclick="openVenmoApp(event,'${escapeHtml(venmoUsername)}',${Number(settlement.amount*gbpToUsd).toFixed(2)})">
-
 <div class="settlement-main">
 ${escapeHtml(debtorName)}
 owes
 ${escapeHtml(creditorName)}
 </div>
-
 <div class="settlement-usd">
 ${usdAmount}
 ${payment?'':'↗'}
 </div>
-
 <div class="settlement-gbp">
 ${gbpAmount} • ${payment?'Payment recorded':'Tap to open '+escapeHtml(creditorName)+'’s Venmo'}
 </div>
-
 </a>
-
 `;
-
 }else{
-
 paymentLink=`
-
 <div class="settlement-link">
-
 <div class="settlement-main">
 ${escapeHtml(debtorName)}
 owes
 ${escapeHtml(creditorName)}
 </div>
-
 <div class="settlement-usd">
 ${usdAmount}
 </div>
-
 <div class="settlement-gbp">
 ${gbpAmount} • ${escapeHtml(creditorName)} has no Venmo
 </div>
-
 </div>
-
 `;
-
 }
-
 if(payment){
-
 return `
-
 <div class="settlement-item paid">
-
 ${paymentLink}
-
 <div class="settlement-actions">
-
 <div>
-
 <div class="settlement-paid-badge">
 ✓ PAID
 </div>
-
 <div class="settlement-paid-date">
 Recorded ${escapeHtml(formatPaidDate(payment.paid_at))}
 </div>
-
 </div>
-
 <button
 class="undo-paid-btn"
 type="button"
 data-delete-payment-id="${escapeHtml(payment.id)}">
 Undo Paid
 </button>
-
 </div>
-
 </div>
-
 `;
-
 }
-
 return `
-
 <div class="settlement-item">
-
 ${paymentLink}
-
 <div class="settlement-actions">
-
 <div></div>
-
 <button
 class="mark-paid-btn"
 type="button"
@@ -6563,43 +4985,31 @@ data-mark-paid-creditor="${escapeHtml(settlement.creditor)}"
 data-mark-paid-amount="${Number(settlement.amount).toFixed(2)}">
 Mark Paid
 </button>
-
 </div>
-
 </div>
-
 `;
-
 }
-
 function renderSettlements(){
-
 const settlements=
 calculatePairwiseSettlements();
-
 const selectedPlayer=
 selectedDebtPlayer;
-
 const entries=
 Object.entries(settlements)
 .map(([key,amount])=>{
-
 const parts=
 key.split('||');
-
 return {
 debtor:parts[0],
 creditor:parts[1],
 amount:Number(amount)
 };
-
 })
 .filter(settlement=>
 settlement.debtor===selectedPlayer &&
 settlement.amount>0.005
 )
 .map(settlement=>{
-
 return {
 ...settlement,
 payment:findSettlementPayment(
@@ -6608,48 +5018,36 @@ settlement.creditor,
 settlement.amount
 )
 };
-
 });
-
 const unpaidEntries=
 entries
 .filter(entry=>!entry.payment)
 .sort(
 (a,b)=>b.amount-a.amount
 );
-
 const paidEntries=
 entries
 .filter(entry=>!!entry.payment)
 .sort((a,b)=>{
-
 return String(b.payment.paid_at)
 .localeCompare(
 String(a.payment.paid_at)
 );
-
 });
-
 const list=
 document.getElementById(
 'settlementList'
 );
-
 const title=
 document.getElementById(
 'settlementTitle'
 );
-
 if(title){
-
 title.textContent=
 shortName(selectedPlayer)+
 ' owes';
-
 }
-
 if(!entries.length){
-
 list.innerHTML=
 '<div class="empty-state">'+
 escapeHtml(
@@ -6657,15 +5055,10 @@ shortName(selectedPlayer)
 )+
 ' is currently even.'+
 '</div>';
-
 return;
-
 }
-
 let html='';
-
 if(unpaidEntries.length){
-
 html+=
 unpaidEntries
 .map(entry=>
@@ -6675,14 +5068,10 @@ null
 )
 )
 .join('');
-
 }
-
 if(paidEntries.length){
-
 html+=
 '<div class="paid-section-label">PAID</div>';
-
 html+=
 paidEntries
 .map(entry=>
@@ -6692,16 +5081,12 @@ entry.payment
 )
 )
 .join('');
-
 }
-
 list.innerHTML=
 html;
-
 document.querySelectorAll(
 '[data-mark-paid-debtor]'
 ).forEach(button=>{
-
 button.addEventListener(
 'click',
 ()=>markSettlementPaid(
@@ -6711,13 +5096,10 @@ Number(button.dataset.markPaidAmount),
 button
 )
 );
-
 });
-
 document.querySelectorAll(
 '[data-delete-payment-id]'
 ).forEach(button=>{
-
 button.addEventListener(
 'click',
 ()=>undoSettlementPaid(
@@ -6725,29 +5107,22 @@ button.dataset.deletePaymentId,
 button
 )
 );
-
 });
-
 }
-
 async function markSettlementPaid(
 debtor,
 creditor,
 amount,
 button
 ){
-
 if(
 !debtor ||
 !creditor ||
 !Number.isFinite(Number(amount)) ||
 Number(amount)<=0
 ){
-
 return;
-
 }
-
 const confirmed=
 window.confirm(
 'Mark '+
@@ -6758,35 +5133,25 @@ shortName(creditor)+
 formatMoney(amount)+
 ' as PAID?'
 );
-
 if(!confirmed){
 return;
 }
-
 const pin=
 window.prompt(
 'Enter the Dues PIN to mark this settlement as paid:'
 );
-
 if(pin===null){
 return;
 }
-
 if(pin!==DUES_PIN){
-
 window.alert(
 'Incorrect PIN. Nothing was marked paid.'
 );
-
 return;
-
 }
-
 button.disabled=true;
 button.textContent='Saving…';
-
 try{
-
 const {data,error}=
 await supabaseClient.rpc(
 'mark_settlement_paid',
@@ -6797,74 +5162,53 @@ p_creditor:creditor,
 p_amount:Math.round(Number(amount)*100)/100
 }
 );
-
 if(error){
-
 console.error(
 'Supabase mark_settlement_paid error:',
 error
 );
-
 window.alert(
 formatSupabaseError(
 'Unable to mark settlement as paid',
 error
 )
 );
-
 return;
-
 }
-
 if(!data){
-
 window.alert(
 'Payment was not returned by the database.'
 );
-
 return;
-
 }
-
 await loadSettlementPayments();
-
 }catch(error){
-
 console.error(
 'Settlement payment connection error:',
 error
 );
-
 window.alert(
 formatSupabaseError(
 'Unable to connect to the Dues database',
 error
 )
 );
-
 }finally{
-
 button.disabled=false;
 button.textContent='Mark Paid';
-
 }
-
 }
-
 async function undoSettlementPaid(
 paymentId,
 button
 ){
-
 const payment=
 settlementPayments.find(
 item=>String(item.id)===String(paymentId)
 );
-
 if(!payment){
 return;
 }
-
 const confirmed=
 window.confirm(
 'Undo the PAID status for '+
@@ -6875,35 +5219,25 @@ shortName(payment.creditor)+
 formatMoney(payment.amount)+
 ')?'
 );
-
 if(!confirmed){
 return;
 }
-
 const pin=
 window.prompt(
 'Enter the Dues PIN to undo this payment:'
 );
-
 if(pin===null){
 return;
 }
-
 if(pin!==DUES_PIN){
-
 window.alert(
 'Incorrect PIN. Nothing was changed.'
 );
-
 return;
-
 }
-
 button.disabled=true;
 button.textContent='Undoing…';
-
 try{
-
 const {data,error}=
 await supabaseClient.rpc(
 'delete_settlement_payment',
@@ -6912,109 +5246,78 @@ p_pin:DUES_PIN,
 p_id:paymentId
 }
 );
-
 if(error){
-
 console.error(
 'Supabase delete_settlement_payment error:',
 error
 );
-
 window.alert(
 formatSupabaseError(
 'Unable to undo payment',
 error
 )
 );
-
 return;
-
 }
-
 if(!data){
-
 window.alert(
 'Payment could not be removed.'
 );
-
 return;
-
 }
-
 await loadSettlementPayments();
-
 }catch(error){
-
 console.error(
 'Settlement payment deletion connection error:',
 error
 );
-
 window.alert(
 formatSupabaseError(
 'Unable to connect to the Dues database',
 error
 )
 );
-
 }finally{
-
 button.disabled=false;
 button.textContent='Undo Paid';
-
 }
-
 }
-
 function renderDues(){
-
 if(
 !document.getElementById(
 'duesContent'
 )
 )return;
-
 renderPurchases();
-
 renderBalances();
-
 renderDebtPlayerTabs();
-
 renderSettlements();
-
 }
-
 document.getElementById(
 'purchaseForm'
 ).addEventListener(
 'submit',
 async event=>{
-
 event.preventDefault();
-
 const description=
 document.getElementById(
 'purchaseDescription'
 ).value.trim();
-
 const amount=
 Number(
 document.getElementById(
 'purchaseAmount'
 ).value
 );
-
 const payer=
 document.getElementById(
 'purchasePayer'
 ).value;
-
 const date=
 document.getElementById(
 'purchaseDate'
 ).value ||
 todayString();
-
 const selectedPeople=
 Array.from(
 document.querySelectorAll(
@@ -7023,73 +5326,47 @@ document.querySelectorAll(
 ).map(
 input=>input.value
 );
-
 const message=
 document.getElementById(
 'formMessage'
 );
-
 message.textContent='';
 message.className='form-message';
-
 if(!description){
-
 message.textContent=
 'Enter what the purchase was for.';
-
 return;
-
 }
-
 if(
 !Number.isFinite(amount) ||
 amount<=0
 ){
-
 message.textContent=
 'Enter a valid purchase amount.';
-
 return;
-
 }
-
 if(!payer){
-
 message.textContent=
 'Select who paid.';
-
 return;
-
 }
-
 if(selectedPeople.length===0){
-
 message.textContent=
 'Select at least one person who was in on the purchase.';
-
 return;
-
 }
-
 if(!selectedPeople.includes(payer)){
-
 message.textContent=
 'The person who paid must be included.';
-
 return;
-
 }
-
 const submitButton=
 document.querySelector(
 '#purchaseForm .primary-btn'
 );
-
 submitButton.disabled=true;
 submitButton.textContent='Saving…';
-
 try{
-
 const {data,error}=
 await supabaseClient.rpc(
 'log_purchase',
@@ -7102,237 +5379,176 @@ p_purchase_date:date,
 p_people:selectedPeople
 }
 );
-
 if(error){
-
 console.error(
 'Supabase log_purchase error:',
 error
 );
-
 message.textContent=
 'Could not save: '+
 (error.message||'Unknown database error');
-
 return;
-
 }
-
 if(!data){
-
 message.textContent=
 'Purchase was not returned by the database.';
-
 return;
-
 }
-
 document.getElementById(
 'purchaseForm'
 ).reset();
-
 document.getElementById(
 'purchaseDate'
 ).value=todayString();
-
 updateSelectedCount();
-
 message.textContent=
 'Purchase logged successfully.';
-
 message.className=
 'form-message success';
-
 await loadPurchases();
-
 setTimeout(()=>{
-
 message.textContent='';
-
 },2500);
-
 }catch(error){
-
 console.error(
 'Purchase connection error:',
 error
 );
-
 message.textContent=
 'Could not connect to the Dues database.';
-
 }finally{
-
 submitButton.disabled=false;
-
 submitButton.textContent=
 'Log Purchase';
-
 }
-
 });
-
 function updateSelectedCount(){
-
 const selected=
 document.querySelectorAll(
 '.person-check input:checked'
 ).length;
-
 document.getElementById(
 'selectedCount'
 ).textContent=
 selected===1
 ?'1 person selected'
 :selected+' people selected';
-
 }
-
 document.getElementById(
 'purchasePayer'
 ).addEventListener(
 'change',
 event=>{
-
 const payer=
 event.target.value;
-
 if(!payer){
 return;
 }
-
 const payerCheckbox=
 document.querySelector(
 '.person-check input[value="'+
 CSS.escape(payer)+
 '"]'
 );
-
 if(payerCheckbox){
-
 payerCheckbox.checked=true;
-
 updateSelectedCount();
-
 }
-
 });
-
+document.getElementById(
+'selectAllPeople'
+).addEventListener(
+'click',
+()=>{
 document.querySelectorAll(
 '.person-check input'
 ).forEach(input=>{
-
+input.checked=true;
+});
+updateSelectedCount();
+});
+document.querySelectorAll(
+'.person-check input'
+).forEach(input=>{
 input.addEventListener(
 'change',
 updateSelectedCount
 );
-
 });
-
 document.querySelectorAll(
 '[data-debt-player]'
 ).forEach(button=>{
-
 button.addEventListener(
 'click',
 ()=>{
-
 selectDebtPlayer(
 button.dataset.debtPlayer
 );
-
 });
-
 });
-
 document.getElementById(
 'refreshDues'
 ).addEventListener(
 'click',
 async()=>{
-
 const button=
 document.getElementById(
 'refreshDues'
 );
-
 button.disabled=true;
 button.textContent='Loading…';
-
 await loadPurchases();
 await loadSettlementPayments();
 await loadFxRate();
-
 button.disabled=false;
 button.textContent='↻ Refresh';
-
 });
-
 document.getElementById(
 'refreshFx'
 ).addEventListener(
 'click',
 async()=>{
-
 const button=
 document.getElementById(
 'refreshFx'
 );
-
 button.disabled=true;
 button.textContent='Loading…';
-
 await loadFxRate();
-
 button.disabled=false;
 button.textContent='↻ Refresh';
-
 });
-
 document.getElementById(
 'clearPurchases'
 ).addEventListener(
 'click',
 async()=>{
-
 if(!purchases.length){
 return;
 }
-
 const confirmed=
 window.confirm(
 'Are you sure you want to delete every purchase from the Dues ledger?'
 );
-
 if(!confirmed)return;
-
 const pin=
 window.prompt(
 'Enter the Dues PIN to clear the ledger:'
 );
-
 if(pin===null)return;
-
 if(pin!==DUES_PIN){
-
 window.alert(
 'Incorrect PIN. Nothing was deleted.'
 );
-
 return;
-
 }
-
 const button=
 document.getElementById(
 'clearPurchases'
 );
-
 button.disabled=true;
 button.textContent='Clearing…';
-
 try{
-
 const {error}=
 await supabaseClient.rpc(
 'clear_purchases',
@@ -7340,197 +5556,126 @@ await supabaseClient.rpc(
 p_pin:DUES_PIN
 }
 );
-
 if(error){
-
 console.error(
 'Supabase clear error:',
 error
 );
-
 window.alert(
 'Unable to clear the ledger: '+
 (error.message||'Unknown error')
 );
-
 return;
-
 }
-
 await loadPurchases();
-
 }catch(error){
-
 console.error(error);
-
 window.alert(
 'Unable to connect to the Dues database.'
 );
-
 }finally{
-
 button.disabled=false;
 button.textContent='Clear All';
-
 }
-
 });
-
 function openVenmoApp(event,username,amount){
-
 if(event){
 event.preventDefault();
 event.stopPropagation();
 }
-
 const fallbackUrl=
 'https://venmo.com/'+
 encodeURIComponent(username);
-
 const safeAmount=
 Number(amount||0).toFixed(2);
-
 const appUrl=
 'venmo://paycharge?txn=pay&recipients='+
 encodeURIComponent(username)+
 '&amount='+
 encodeURIComponent(safeAmount);
-
 let fallbackTimer;
-
 const cleanup=()=>{
-
 if(fallbackTimer){
 clearTimeout(fallbackTimer);
 }
-
 document.removeEventListener(
 'visibilitychange',
 handleVisibility
 );
-
 window.removeEventListener(
 'pagehide',
 handlePageHide
 );
-
 };
-
 const handleVisibility=()=>{
-
 if(document.hidden){
 cleanup();
 }
-
 };
-
 const handlePageHide=()=>{
-
 cleanup();
-
 };
-
 document.addEventListener(
 'visibilitychange',
 handleVisibility
 );
-
 window.addEventListener(
 'pagehide',
 handlePageHide
 );
-
 window.location.href=appUrl;
-
 fallbackTimer=setTimeout(()=>{
-
 if(!document.hidden){
-
 cleanup();
-
 window.location.href=fallbackUrl;
-
 }
-
 },1200);
-
 return false;
-
 }
-
 function initializeDues(){
-
 if(duesInitialized){
-
 if(isAuthenticated()){
-
 loadPurchases();
 loadSettlementPayments();
 loadFxRate();
-
 }
-
 return;
-
 }
-
 duesInitialized=true;
-
 const today=
 todayString();
-
 document.getElementById(
 'purchaseDate'
 ).value=today;
-
 updateSelectedCount();
-
 if(isAuthenticated()){
-
 showDuesContent();
-
 loadPurchases();
 loadSettlementPayments();
 loadFxRate();
-
 }else{
-
 showDuesAuth();
-
 }
-
 }
-
 setInterval(()=>{
-
 if(
 isAuthenticated() &&
 document.getElementById(
 'dues'
 ).style.display!=='none'
 ){
-
 loadFxRate();
-
 }
-
 },1800000);
-
 setInterval(()=>{
-
 if(
 document.getElementById(
 'weather'
 ).style.display!=='none'
 ){
-
 loadWeather();
-
 }
-
 },1800000);
-
 </script>
-
 </body>
 </html>
