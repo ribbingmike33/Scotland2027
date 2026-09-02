@@ -4647,70 +4647,36 @@ const balances={};
 PEOPLE.forEach(person=>{
 balances[person]=0;
 });
-purchases.forEach(purchase=>{
-const people=
-Array.isArray(purchase.people)
-?purchase.people
-:[];
-if(!people.length){
-return;
-}
-const amount=
-Number(purchase.amount)||0;
-if(amount<=0){
-return;
-}
-const share=
-amount/people.length;
-const payer=
-purchase.payer;
-if(
-Object.prototype.hasOwnProperty.call(
-balances,
-payer
-)
-){
-balances[payer]+=amount;
-}
-people.forEach(person=>{
-if(
-Object.prototype.hasOwnProperty.call(
-balances,
-person
-)
-){
-balances[person]-=share;
-}
-});
-});
-/* APPLY RECORDED SETTLEMENT PAYMENTS
-A payment means the debtor has actually paid the
-creditor, so remove that amount from the debtor's
-outstanding balance and add it to the creditor's
-balance.
-Payments are stored in GBP, which matches the
-purchase/balance calculations above.
+
+/*
+The settlement list is the single source of truth for
+outstanding balances.  This keeps Total Balances and
+Who Owes Who mathematically identical, including
+recorded payments.
 */
-settlementPayments.forEach(payment=>{
-const debtor=
-payment.debtor;
-const creditor=
-payment.creditor;
-const amount=
-Number(payment.amount)||0;
+const settlements=calculateOutstandingSettlements();
+
+Object.entries(settlements).forEach(([key,amount])=>{
+const parts=key.split('||');
+const debtor=parts[0];
+const creditor=parts[1];
+const value=Number(amount)||0;
+
 if(
-amount<=0 ||
+value<=0 ||
 !PEOPLE.includes(debtor) ||
-!PEOPLE.includes(creditor) ||
-debtor===creditor
+!PEOPLE.includes(creditor)
 ){
 return;
 }
-balances[debtor]+=amount;
-balances[creditor]-=amount;
+
+balances[debtor]-=value;
+balances[creditor]+=value;
 });
+
 return balances;
 }
+
 function calculatePurchaseDebts(){
 const debts={};
 purchases.forEach(purchase=>{
@@ -4785,6 +4751,53 @@ processed.add(reverseKey);
 });
 return settlements;
 }
+function getSettlementPaymentsForPair(debtor,creditor){
+return settlementPayments
+.filter(payment=>{
+return(
+payment.debtor===debtor &&
+payment.creditor===creditor &&
+Number(payment.amount)>0
+);
+})
+.sort((a,b)=>String(b.paid_at).localeCompare(String(a.paid_at)));
+}
+
+function getSettlementPaidAmount(debtor,creditor){
+return settlementPayments
+.filter(payment=>{
+return(
+payment.debtor===debtor &&
+payment.creditor===creditor
+);
+})
+.reduce((sum,payment)=>{
+const amount=Number(payment.amount)||0;
+return sum+Math.max(0,amount);
+},0);
+}
+
+function calculateOutstandingSettlements(){
+const rawSettlements=calculatePairwiseSettlements();
+const outstanding={};
+
+Object.entries(rawSettlements).forEach(([key,amount])=>{
+const parts=key.split('||');
+const debtor=parts[0];
+const creditor=parts[1];
+const original=Math.max(0,Number(amount)||0);
+const paid=Math.max(0,getSettlementPaidAmount(debtor,creditor));
+const remaining=Math.max(0,original-paid);
+
+if(remaining>0.005){
+const rounded=Math.round(remaining*100)/100;
+outstanding[key]=rounded;
+}
+});
+
+return outstanding;
+}
+
 function renderBalances(){
 const balances=
 calculateBalances();
@@ -4842,38 +4855,32 @@ selectedDebtPlayer=player;
 renderDebtPlayerTabs();
 renderSettlements();
 }
-function getSettlementPaymentsForPair(
+function findSettlementPayment(
 debtor,
-creditor
+creditor,
+amount
 ){
-return settlementPayments
-.filter(payment=>{
+const target=
+Math.round(Number(amount)*100)/100;
+const matches=
+settlementPayments.filter(payment=>{
+const paymentAmount=
+Math.round(Number(payment.amount)*100)/100;
 return(
 payment.debtor===debtor &&
 payment.creditor===creditor &&
-Number(payment.amount)>0
+Math.abs(paymentAmount-target)<0.005
 );
-})
-.sort((a,b)=>{
-return String(b.paid_at)
-.localeCompare(String(a.paid_at));
 });
+if(!matches.length){
+return null;
 }
-function getSettlementPaidAmount(
-debtor,
-creditor
-){
-return settlementPayments
-.filter(payment=>{
-return(
-payment.debtor===debtor &&
-payment.creditor===creditor
+return [...matches].sort((a,b)=>{
+return String(b.paid_at)
+.localeCompare(
+String(a.paid_at)
 );
-})
-.reduce((sum,payment)=>{
-const amount=Number(payment.amount)||0;
-return sum+Math.max(0,amount);
-},0);
+})[0];
 }
 function formatPaidDate(dateString){
 if(!dateString){
@@ -4893,10 +4900,7 @@ year:'numeric'
 }
 );
 }
-function renderSettlementCard(
-settlement,
-paymentInfo
-){
+function renderSettlementCard(settlement,paymentInfo){
 const debtorName=shortName(settlement.debtor);
 const creditorName=shortName(settlement.creditor);
 const displayAmount=paymentInfo?settlement.originalAmount:settlement.amount;
@@ -4904,6 +4908,7 @@ const usdAmount=formatUSD(displayAmount*gbpToUsd);
 const gbpAmount=formatMoney(displayAmount);
 const venmoUsername=VENMO[settlement.creditor];
 let paymentLink='';
+
 if(venmoUsername){
 paymentLink=`
 <a
@@ -4917,10 +4922,12 @@ ${escapeHtml(creditorName)}
 </div>
 <div class="settlement-usd">
 ${usdAmount}
-${paymentInfo?'':'↗'}
+${paymentInfo&&paymentInfo.remainingAmount<=0.005?'':'↗'}
 </div>
 <div class="settlement-gbp">
-${gbpAmount} • ${paymentInfo?'Payment recorded':'Tap to open '+escapeHtml(creditorName)+'’s Venmo'}
+${paymentInfo&&paymentInfo.remainingAmount>0.005
+?formatMoney(settlement.amount)+' remaining • Tap to open '+escapeHtml(creditorName)+'’s Venmo'
+:gbpAmount+' • '+(paymentInfo?'Payment recorded':'Tap to open '+escapeHtml(creditorName)+'’s Venmo')}
 </div>
 </a>
 `;
@@ -4936,14 +4943,17 @@ ${escapeHtml(creditorName)}
 ${usdAmount}
 </div>
 <div class="settlement-gbp">
-${gbpAmount} • ${paymentInfo?'Payment recorded':escapeHtml(creditorName)+' has no Venmo'}
+${paymentInfo&&paymentInfo.remainingAmount>0.005
+?formatMoney(settlement.amount)+' remaining'
+:gbpAmount+' • '+(paymentInfo?'Payment recorded':escapeHtml(creditorName)+' has no Venmo')}
 </div>
 </div>
 `;
 }
+
 if(paymentInfo){
 return `
-<div class="settlement-item paid">
+<div class="settlement-item ${paymentInfo.remainingAmount<=0.005?'paid':''}">
 ${paymentLink}
 <div class="settlement-actions">
 <div>
@@ -4951,19 +4961,22 @@ ${paymentLink}
 ✓ ${paymentInfo.remainingAmount<=0.005?'PAID':'PARTIALLY PAID'}
 </div>
 <div class="settlement-paid-date">
-${paymentInfo.remainingAmount<=0.005?'Payment complete':formatMoney(paymentInfo.paidAmount)+' paid • '+formatMoney(paymentInfo.remainingAmount)+' remaining'}
+${paymentInfo.remainingAmount<=0.005
+?'Payment complete'
+:formatMoney(paymentInfo.paidAmount)+' paid • '+formatMoney(paymentInfo.remainingAmount)+' remaining'}
 </div>
 </div>
 <button
 class="undo-paid-btn"
 type="button"
-data-delete-payment-id="${escapeHtml(paymentInfo.latestPaymentId)}">
+data-delete-payment-id="${escapeHtml(paymentInfo.latestPaymentId||'')}">
 Undo Paid
 </button>
 </div>
 </div>
 `;
 }
+
 return `
 <div class="settlement-item">
 ${paymentLink}
@@ -4981,19 +4994,31 @@ Mark Paid
 </div>
 `;
 }
+
 function renderSettlements(){
-const settlements=calculatePairwiseSettlements();
+const rawSettlements=calculatePairwiseSettlements();
 const selectedPlayer=selectedDebtPlayer;
-const entries=Object.entries(settlements)
-.map(([key,amount])=>{
+const entries=[];
+
+Object.entries(rawSettlements).forEach(([key,amount])=>{
 const parts=key.split('||');
 const debtor=parts[0];
 const creditor=parts[1];
-const originalAmount=Math.round(Number(amount)*100)/100;
+
+if(debtor!==selectedPlayer){
+return;
+}
+
+const originalAmount=Math.round((Number(amount)||0)*100)/100;
 const paidAmount=Math.round(getSettlementPaidAmount(debtor,creditor)*100)/100;
 const remainingAmount=Math.round(Math.max(0,originalAmount-paidAmount)*100)/100;
 const payments=getSettlementPaymentsForPair(debtor,creditor);
-return {
+
+if(originalAmount<=0.005){
+return;
+}
+
+entries.push({
 debtor,
 creditor,
 originalAmount,
@@ -5004,32 +5029,64 @@ paidAmount,
 remainingAmount,
 latestPaymentId:payments[0]?payments[0].id:null
 }:null
-};
-})
-.filter(settlement=>
-settlement.debtor===selectedPlayer &&
-(settlement.amount>0.005 || settlement.paidAmount>0)
-);
+});
+});
+
+const unpaidEntries=entries
+.filter(entry=>entry.amount>0.005)
+.sort((a,b)=>b.amount-a.amount);
+
+const paidEntries=entries
+.filter(entry=>entry.paidAmount>0 && entry.remainingAmount<=0.005)
+.sort((a,b)=>{
+const aDate=a.paymentInfo&&a.paymentInfo.latestPaymentId
+?String((getSettlementPaymentsForPair(a.debtor,a.creditor)[0]||{}).paid_at||'')
+:'';
+const bDate=b.paymentInfo&&b.paymentInfo.latestPaymentId
+?String((getSettlementPaymentsForPair(b.debtor,b.creditor)[0]||{}).paid_at||'')
+:'';
+return bDate.localeCompare(aDate);
+});
+
+const partialEntries=entries
+.filter(entry=>entry.paidAmount>0 && entry.remainingAmount>0.005)
+.sort((a,b)=>b.amount-a.amount);
+
 const list=document.getElementById('settlementList');
 const title=document.getElementById('settlementTitle');
+
 if(title){
 title.textContent=shortName(selectedPlayer)+' owes';
 }
+
 if(!entries.length){
 list.innerHTML='<div class="empty-state">'+escapeHtml(shortName(selectedPlayer))+' is currently even.</div>';
 return;
 }
-const unpaidEntries=entries.filter(entry=>entry.amount>0.005 && (!entry.paymentInfo || entry.paymentInfo.remainingAmount>0.005)).sort((a,b)=>b.amount-a.amount);
-const paidEntries=entries.filter(entry=>entry.paymentInfo && entry.paymentInfo.remainingAmount<=0.005).sort((a,b)=>b.amount-a.amount);
+
 let html='';
+
 if(unpaidEntries.length){
-html+=unpaidEntries.map(entry=>renderSettlementCard(entry,entry.paymentInfo)).join('');
+html+=unpaidEntries
+.map(entry=>renderSettlementCard(entry,entry.paymentInfo))
+.join('');
 }
+
+if(partialEntries.length){
+html+=partialEntries
+.map(entry=>renderSettlementCard(entry,entry.paymentInfo))
+.join('');
+}
+
 if(paidEntries.length){
 html+='<div class="paid-section-label">PAID</div>';
-html+=paidEntries.map(entry=>renderSettlementCard(entry,entry.paymentInfo)).join('');
+html+=paidEntries
+.map(entry=>renderSettlementCard(entry,entry.paymentInfo))
+.join('');
 }
+
 list.innerHTML=html;
+
 document.querySelectorAll('[data-mark-paid-debtor]').forEach(button=>{
 button.addEventListener('click',()=>markSettlementPaid(
 button.dataset.markPaidDebtor,
@@ -5038,6 +5095,7 @@ Number(button.dataset.markPaidAmount),
 button
 ));
 });
+
 document.querySelectorAll('[data-delete-payment-id]').forEach(button=>{
 button.addEventListener('click',()=>undoSettlementPaid(
 button.dataset.deletePaymentId,
@@ -5045,6 +5103,7 @@ button
 ));
 });
 }
+
 async function markSettlementPaid(
 debtor,
 creditor,
