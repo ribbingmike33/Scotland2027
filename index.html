@@ -1823,6 +1823,61 @@ color:var(--navy)
 .weather-inline-retry{
 margin-top:5px
 }
+
+/* Itinerary readability + compact tee-time layout */
+#itinerary .teegrid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:12px
+}
+#itinerary .tee{
+padding:15px;
+min-height:0
+}
+#itinerary .tee-time{
+font-size:21px;
+margin-bottom:9px
+}
+#itinerary .players{
+font-size:16px;
+line-height:1.55
+}
+#itinerary .day-body > .info{
+padding:13px 0;
+font-size:17px
+}
+#itinerary .day-body > .info b{
+font-size:17px
+}
+#itinerary .day-body > .info span{
+font-size:17px;
+font-weight:700
+}
+@media(max-width:600px){
+#itinerary .teegrid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:9px
+}
+#itinerary .tee{
+padding:12px
+}
+#itinerary .tee-time{
+font-size:20px
+}
+#itinerary .players{
+font-size:15px;
+line-height:1.55
+}
+#itinerary .day-body > .info{
+padding:13px 0
+}
+#itinerary .day-body > .info b,
+#itinerary .day-body > .info span{
+font-size:17px
+}
+#itinerary .day-body > .info span{
+margin-top:5px
+}
+}
 </style>
 </head>
 <body>
