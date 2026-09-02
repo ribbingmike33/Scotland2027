@@ -1984,6 +1984,22 @@ box-sizing:border-box !important;
 -webkit-box-sizing:border-box !important;
 }
 }
+
+/* Log a Purchase: keep Date as a standalone full-width field, matching Guinness */
+#dues #purchaseForm .purchase-date-group{
+width:100%;
+max-width:100%;
+min-width:0;
+box-sizing:border-box
+}
+#dues #purchaseForm .purchase-date-group #purchaseDate{
+display:block;
+width:100% !important;
+max-width:100% !important;
+min-width:0 !important;
+box-sizing:border-box !important;
+-webkit-box-sizing:border-box !important;
+}
 </style>
 </head>
 <body>
@@ -3487,7 +3503,8 @@ Who paid?
 <option>Yeags</option>
 </select>
 </div>
-<div class="form-group">
+</div>
+<div class="form-group purchase-date-group">
 <label for="purchaseDate">
 Date
 </label>
@@ -3495,7 +3512,6 @@ Date
 id="purchaseDate"
 type="date"
 >
-</div>
 </div>
 <div class="form-group">
 <label>
