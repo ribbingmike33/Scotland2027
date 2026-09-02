@@ -1878,6 +1878,15 @@ font-size:17px
 margin-top:5px
 }
 }
+
+.guinness-form input[type="date"]{
+box-sizing:border-box;
+-webkit-appearance:none;
+appearance:none;
+width:100%;
+max-width:100%;
+min-width:0
+}
 </style>
 </head>
 <body>
@@ -4426,9 +4435,15 @@ lastError
 }
 
 function todayString(){
-return new Date()
-.toISOString()
-.slice(0,10);
+const now=new Date();
+const year=now.getFullYear();
+const month=String(
+now.getMonth()+1
+).padStart(2,'0');
+const day=String(
+now.getDate()
+).padStart(2,'0');
+return year+'-'+month+'-'+day;
 }
 function formatGuinnessDate(date){
 if(!date)return '';
@@ -4765,6 +4780,13 @@ document.getElementById(
 'showGuinnessForm'
 );
 if(form.style.display==='none'){
+const dateInput=
+document.getElementById(
+'guinnessDate'
+);
+if(dateInput && !dateInput.value){
+dateInput.value=todayString();
+}
 form.style.display='block';
 button.textContent=
 'Cancel';
