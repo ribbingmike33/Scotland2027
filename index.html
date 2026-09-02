@@ -7,7 +7,7 @@
 
 <link
 rel="apple-touch-icon"
-rel="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230056A6'/%3E%3Cpath d='M0 0L180 180M180 0L0 180' stroke='white' stroke-width='32'/%3E%3C/svg%3E"
+rel="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%23152F4A'/%3E%3Cpath d='M0 0L180 180M180 0L0 180' stroke='white' stroke-width='32'/%3E%3C/svg%3E"
 >
 
 <meta
@@ -17,118 +17,138 @@ content="Scotland 2027"
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f7fbff;color:#10253d;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-.app{max-width:900px;margin:auto;background:#fff;min-height:100vh}
+
+:root{
+--navy:#152f4a;
+--navy-dark:#0f2539;
+--navy-mid:#234764;
+--blue-gray:#526b80;
+--muted:#718596;
+--line:#d8e1e8;
+--line-light:#e8eef3;
+--pale:#f3f7fa;
+--page:#f5f7f9;
+--white:#fff;
+}
+
+body{
+margin:0;
+background:var(--page);
+color:var(--navy-dark);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
+}
+
+.app{
+max-width:900px;
+margin:auto;
+background:#fff;
+min-height:100vh;
+box-shadow:0 0 35px rgba(15,37,57,.05)
+}
+
 a{color:inherit}
 
+/* BRANDING */
+
 .hero{
-background:#fff;
-color:#07549a;
-padding:30px 22px 27px;
+background:var(--white);
+color:var(--navy);
+padding:36px 24px 30px;
 text-align:center;
-border:2px solid #07549a;
-border-radius:18px;
-margin:12px;
+border-bottom:1px solid var(--line);
 position:relative;
 overflow:hidden
 }
 
-.hero:before,
-.hero:after{
-content:"";
-position:absolute;
-width:18px;
-height:18px;
-border-color:#07549a;
-border-style:solid;
-opacity:.9
-}
-
 .hero:before{
-top:-2px;
-left:-2px;
-border-width:3px 0 0 3px
-}
-
-.hero:after{
-bottom:-2px;
-right:-2px;
-border-width:0 3px 3px 0
+content:"";
+display:block;
+width:54px;
+height:3px;
+background:var(--navy);
+margin:0 auto 20px
 }
 
 .eyebrow{
-font-size:12px;
+font-size:11px;
 font-weight:900;
-letter-spacing:.22em;
-color:#07549a;
-opacity:1;
-margin-bottom:7px
+letter-spacing:.28em;
+color:var(--navy);
+margin-bottom:9px
 }
 
 h1{
 font:700 44px Georgia,serif;
-line-height:1.05;
+line-height:1.04;
 margin:0 auto;
-color:#07549a;
-max-width:760px
+color:var(--navy);
+max-width:760px;
+letter-spacing:-.02em
 }
 
 .hero-divider{
 display:flex;
 align-items:center;
 justify-content:center;
-gap:18px;
-margin:17px auto 10px;
-max-width:430px
+gap:15px;
+margin:18px auto 11px;
+max-width:390px
 }
 
 .hero-divider-line{
-height:2px;
-background:#07549a;
+height:1px;
+background:var(--navy);
 flex:1;
-opacity:.75
+opacity:.35
 }
 
 .hero-divider-icon{
-font-size:25px;
+font-size:13px;
 line-height:1;
-color:#07549a
+color:var(--navy);
+font-weight:700
 }
 
 .hero p{
 margin:0;
-font-size:15px;
+font-size:11px;
 font-weight:900;
-letter-spacing:.18em;
-color:#07549a;
-opacity:1
+letter-spacing:.28em;
+color:var(--navy);
 }
 
 /* 7-TAB LAYOUT */
+
 .tabs{
 background:#fff;
-border-bottom:1px solid #d7e5f1;
+border-bottom:1px solid var(--line);
 padding:10px;
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:7px
+gap:6px
 }
 
 .tab{
-border:1px solid #cbdceb;
+border:1px solid var(--line);
 background:#fff;
-border-radius:12px;
-padding:17px 6px;
+border-radius:8px;
+padding:15px 6px;
 font-weight:800;
-color:#31516d;
+color:var(--blue-gray);
 cursor:pointer;
-font-size:15px
+font-size:14px;
+transition:.15s
+}
+
+.tab:hover{
+background:var(--pale);
+border-color:#bdccd7
 }
 
 .tab.active{
-background:#07549a;
+background:var(--navy);
 color:#fff;
-border-color:#07549a
+border-color:var(--navy)
 }
 
 .tab[data-tab="itinerary"]{
@@ -145,60 +165,215 @@ order:7
 
 main{padding:16px}
 
-.base,.notice{background:#eef6fc;border:1px solid #d4e4f1;border-radius:16px;padding:15px;margin-bottom:12px}
-.base b,.notice b{color:#07549a}
+.base,.notice{
+background:var(--pale);
+border:1px solid var(--line);
+border-radius:10px;
+padding:15px;
+margin-bottom:12px
+}
 
-.day{border:1px solid #d4e2ee;border-radius:16px;margin:10px 0;overflow:hidden;background:#fff}
-.day-head{width:100%;border:0;background:#fff;text-align:left;padding:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-.day.open .day-head{background:#f2f8fd}
-.tag{font-size:10px;font-weight:900;letter-spacing:.12em;color:#07549a}
-.day h2{font:700 23px Georgia,serif;margin:4px 0 2px}
-.date{font-size:13px;color:#6d8194}
-.arrow{font-size:24px;color:#07549a;transition:.2s}
-.day.open .arrow{transform:rotate(180deg)}
-.day-body{display:none;border-top:1px solid #dbe7f0;padding:15px}
-.day.open .day-body{display:block}
+.base b,.notice b{
+color:var(--navy);
+letter-spacing:.04em
+}
 
-.info{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf2f6;font-size:14px}
-.info span{text-align:right;color:#51677c}
+.day{
+border:1px solid var(--line);
+border-radius:10px;
+margin:10px 0;
+overflow:hidden;
+background:#fff
+}
 
-.arrival-list{margin:12px 0}
-.arrival-person{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf2f6}
-.arrival-person:last-child{border-bottom:0}
-.arrival-name{font-weight:800;color:#243f58}
-.arrival-details{text-align:right;font-size:13px;color:#51677c;line-height:1.6}
-.arrival-details b{color:#07549a}
+.day-head{
+width:100%;
+border:0;
+background:#fff;
+text-align:left;
+padding:17px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+cursor:pointer
+}
 
-.teegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
-.tee{background:#eef6fc;border:1px solid #d5e5f2;border-radius:14px;padding:13px}
-.tee-time{font-size:18px;font-weight:900;color:#07549a;margin-bottom:7px}
-.players{font-size:14px;line-height:1.7;color:#243f58}
+.day.open .day-head{
+background:var(--pale)
+}
 
-.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.link-pair{display:flex;gap:8px;flex-wrap:nowrap;align-items:stretch}
-.link{display:inline-block;text-decoration:none;border:1px solid #b9d0e2;background:#fff;border-radius:11px;padding:11px 13px;color:#07549a;font-weight:800;font-size:13px;white-space:nowrap}
-.link:hover{background:#eef6fc}
-.directions{border-color:#07549a;background:#07549a;color:#fff}
-.directions:hover{background:#064781}
+.tag{
+font-size:10px;
+font-weight:900;
+letter-spacing:.16em;
+color:var(--navy)
+}
+
+.day h2{
+font:700 23px Georgia,serif;
+margin:4px 0 2px;
+color:var(--navy-dark)
+}
+
+.date{
+font-size:13px;
+color:var(--muted)
+}
+
+.arrow{
+font-size:22px;
+color:var(--navy);
+transition:.2s
+}
+
+.day.open .arrow{
+transform:rotate(180deg)
+}
+
+.day-body{
+display:none;
+border-top:1px solid var(--line-light);
+padding:15px
+}
+
+.day.open .day-body{
+display:block
+}
+
+.info{
+display:flex;
+justify-content:space-between;
+gap:12px;
+padding:9px 0;
+border-bottom:1px solid var(--line-light);
+font-size:14px
+}
+
+.info span{
+text-align:right;
+color:var(--blue-gray)
+}
+
+.arrival-list{
+margin:12px 0
+}
+
+.arrival-person{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+padding:12px 0;
+border-bottom:1px solid var(--line-light)
+}
+
+.arrival-person:last-child{
+border-bottom:0
+}
+
+.arrival-name{
+font-weight:800;
+color:var(--navy-mid)
+}
+
+.arrival-details{
+text-align:right;
+font-size:13px;
+color:var(--blue-gray);
+line-height:1.6
+}
+
+.arrival-details b{
+color:var(--navy)
+}
+
+.teegrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin:12px 0
+}
+
+.tee{
+background:var(--pale);
+border:1px solid var(--line);
+border-radius:9px;
+padding:13px
+}
+
+.tee-time{
+font-size:18px;
+font-weight:900;
+color:var(--navy);
+margin-bottom:7px
+}
+
+.players{
+font-size:14px;
+line-height:1.7;
+color:var(--navy-mid)
+}
+
+.links{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:14px
+}
+
+.link-pair{
+display:flex;
+gap:8px;
+flex-wrap:nowrap;
+align-items:stretch
+}
+
+.link{
+display:inline-block;
+text-decoration:none;
+border:1px solid #bccbd6;
+background:#fff;
+border-radius:8px;
+padding:10px 13px;
+color:var(--navy);
+font-weight:800;
+font-size:13px;
+white-space:nowrap
+}
+
+.link:hover{
+background:var(--pale)
+}
+
+.directions{
+border-color:var(--navy);
+background:var(--navy);
+color:#fff
+}
+
+.directions:hover{
+background:var(--navy-dark)
+}
 
 /* BARS / RESTAURANTS */
+
 .bars-intro{
-background:#eef6fc;
-border:1px solid #d4e4f1;
-border-radius:16px;
-padding:16px;
+background:var(--pale);
+border:1px solid var(--line);
+border-radius:10px;
+padding:17px;
 margin-bottom:14px
 }
 
 .bars-intro h2{
 font:700 27px Georgia,serif;
 margin:0 0 5px;
-color:#10253d
+color:var(--navy-dark)
 }
 
 .bars-intro p{
 margin:0;
-color:#51677c;
+color:var(--blue-gray);
 font-size:14px;
 line-height:1.5
 }
@@ -206,12 +381,12 @@ line-height:1.5
 .bar-list{
 display:flex;
 flex-direction:column;
-gap:10px
+gap:9px
 }
 
 .bar-card{
-border:1px solid #d4e2ee;
-border-radius:16px;
+border:1px solid var(--line);
+border-radius:10px;
 background:#fff;
 padding:15px
 }
@@ -223,16 +398,16 @@ gap:12px
 }
 
 .bar-rank{
-flex:0 0 38px;
-height:38px;
-border-radius:11px;
-background:#07549a;
+flex:0 0 36px;
+height:36px;
+border-radius:7px;
+background:var(--navy);
 color:#fff;
 display:flex;
 align-items:center;
 justify-content:center;
 font-weight:900;
-font-size:16px
+font-size:14px
 }
 
 .bar-content{
@@ -242,37 +417,94 @@ min-width:0
 
 .bar-name{
 font:700 20px Georgia,serif;
-color:#10253d;
+color:var(--navy-dark);
 margin:0 0 5px
 }
 
 .bar-description{
 font-size:14px;
 line-height:1.5;
-color:#51677c
+color:var(--blue-gray)
 }
 
 .bar-card .links{
 margin-top:12px
 }
 
-.score{border:1px solid #d4e2ee;border-radius:18px;overflow:hidden}
-.score-head{background:#07549a;color:#fff;padding:18px}
-.score-head h2{font:700 28px Georgia,serif;margin:4px 0}
-.score-body{padding:16px}
+/* SCOTLAND CUP */
 
-.people{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.person{border:1px solid #d4e2ee;border-radius:16px;padding:15px;background:#fff}
-.person h3{font:700 21px Georgia,serif;margin:0 0 3px}
-.meta{font-size:13px;color:#647b8f}
-.person p{font-size:14px;line-height:1.55;margin:12px 0 0;color:#263f56}
+.score{
+border:1px solid var(--line);
+border-radius:10px;
+overflow:hidden
+}
+
+.score-head{
+background:var(--navy);
+color:#fff;
+padding:20px
+}
+
+.score-head .eyebrow{
+color:#fff;
+opacity:.72
+}
+
+.score-head h2{
+font:700 28px Georgia,serif;
+margin:4px 0
+}
+
+.score-body{
+padding:16px
+}
+
+/* PARTICIPANTS */
+
+.people{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
+}
+
+.person{
+border:1px solid var(--line);
+border-radius:10px;
+padding:15px;
+background:#fff
+}
+
+.person h3{
+font:700 21px Georgia,serif;
+margin:0 0 3px;
+color:var(--navy-dark)
+}
+
+.meta{
+font-size:13px;
+color:var(--muted)
+}
+
+.person p{
+font-size:14px;
+line-height:1.55;
+margin:12px 0 0;
+color:var(--navy-mid)
+}
+
+/* WEATHER */
 
 .weather-hero{
-background:#07549a;
+background:var(--navy);
 color:#fff;
-border-radius:18px;
+border-radius:10px;
 padding:22px;
 margin-bottom:14px
+}
+
+.weather-hero .eyebrow{
+color:#fff;
+opacity:.7
 }
 
 .weather-location{
@@ -282,15 +514,15 @@ margin:3px 0
 
 .weather-date{
 font-size:13px;
-opacity:.8;
+opacity:.72;
 margin-bottom:17px
 }
 
 .weather-selected-label{
-font-size:11px;
+font-size:10px;
 font-weight:900;
-letter-spacing:.12em;
-opacity:.72;
+letter-spacing:.14em;
+opacity:.7;
 margin-bottom:5px
 }
 
@@ -301,8 +533,8 @@ gap:9px
 }
 
 .weather-current-main{
-background:rgba(255,255,255,.12);
-border-radius:13px;
+background:rgba(255,255,255,.09);
+border-radius:8px;
 padding:13px
 }
 
@@ -312,23 +544,23 @@ line-height:1
 }
 
 .weather-current-label{
-font-size:11px;
+font-size:10px;
 font-weight:800;
-opacity:.75;
+opacity:.7;
 margin-top:6px
 }
 
 .weather-stat{
-background:rgba(255,255,255,.12);
-border-radius:13px;
+background:rgba(255,255,255,.09);
+border-radius:8px;
 padding:13px
 }
 
 .weather-stat-label{
-font-size:10px;
+font-size:9px;
 font-weight:900;
 letter-spacing:.08em;
-opacity:.75;
+opacity:.68;
 margin-bottom:5px
 }
 
@@ -338,8 +570,8 @@ font-weight:900
 }
 
 .weather-card{
-border:1px solid #d4e2ee;
-border-radius:16px;
+border:1px solid var(--line);
+border-radius:10px;
 background:#fff;
 padding:17px;
 margin-bottom:14px
@@ -348,13 +580,13 @@ margin-bottom:14px
 .weather-card h3{
 font:700 23px Georgia,serif;
 margin:0 0 14px;
-color:#10253d
+color:var(--navy-dark)
 }
 
 .weather-loading{
 text-align:center;
 padding:22px 10px;
-color:#647b8f;
+color:var(--muted);
 font-size:14px
 }
 
@@ -375,9 +607,9 @@ touch-action:none
 position:absolute;
 display:none;
 pointer-events:none;
-background:#10253d;
+background:var(--navy-dark);
 color:#fff;
-border-radius:9px;
+border-radius:7px;
 padding:7px 9px;
 font-size:12px;
 font-weight:800;
@@ -388,7 +620,7 @@ transform:translate(-50%,-115%)
 
 .rain-chart-subtitle{
 font-size:12px;
-color:#71869a;
+color:var(--muted);
 margin:-7px 0 10px
 }
 
@@ -403,8 +635,8 @@ display:grid;
 grid-template-columns:1.2fr 1fr 1fr 1fr;
 align-items:center;
 gap:10px;
-border:1px solid #d4e2ee;
-border-radius:13px;
+border:1px solid var(--line);
+border-radius:8px;
 padding:13px;
 background:#fff;
 cursor:pointer;
@@ -412,18 +644,18 @@ transition:.15s
 }
 
 .forecast-row:hover{
-background:#f7fbff;
-border-color:#b9d0e2
+background:#f7f9fb;
+border-color:#b9c9d5
 }
 
 .forecast-row.today{
-background:#eef6fc;
-border-color:#b9d0e2
+background:var(--pale);
+border-color:#b9c9d5
 }
 
 .forecast-row.selected{
-background:#07549a;
-border-color:#07549a;
+background:var(--navy);
+border-color:var(--navy);
 color:#fff
 }
 
@@ -436,36 +668,36 @@ color:#fff
 
 .forecast-row.selected .forecast-date,
 .forecast-row.selected .forecast-label{
-opacity:.75
+opacity:.7
 }
 
 .forecast-day{
 font-weight:900;
-color:#243f58
+color:var(--navy-mid)
 }
 
 .forecast-date{
 font-size:12px;
-color:#71869a;
+color:var(--muted);
 margin-top:2px
 }
 
 .forecast-label{
-font-size:10px;
+font-size:9px;
 font-weight:900;
 letter-spacing:.06em;
-color:#71869a;
+color:var(--muted);
 margin-bottom:3px
 }
 
 .forecast-value{
 font-size:16px;
 font-weight:900;
-color:#07549a
+color:var(--navy)
 }
 
 .forecast-rain .forecast-value{
-color:#31516d
+color:var(--blue-gray)
 }
 
 .forecast-row.selected .forecast-rain .forecast-value{
@@ -474,21 +706,21 @@ color:#fff
 
 .weather-source{
 font-size:11px;
-color:#71869a;
+color:var(--muted);
 line-height:1.5;
 margin-top:12px
 }
 
 .weather-source a{
-color:#07549a;
+color:var(--navy);
 font-weight:800
 }
 
 .weather-refresh{
-border:1px solid #b9d0e2;
+border:1px solid #bccbd6;
 background:#fff;
-color:#07549a;
-border-radius:10px;
+color:var(--navy);
+border-radius:8px;
 padding:9px 11px;
 font-weight:800;
 cursor:pointer
@@ -509,65 +741,66 @@ margin-bottom:14px
 .weather-error{
 background:#fff7f7;
 border:1px solid #e2c2c2;
-border-radius:13px;
+border-radius:8px;
 padding:13px;
 color:#a33b3b;
 font-size:13px;
 font-weight:700
 }
 
+/* GUINNESS */
+
 .guinness-hero{
-background:#2f2118;
+background:var(--navy-dark);
 color:#fff;
-border-radius:18px;
+border-radius:10px;
 padding:22px;
 margin-bottom:14px;
 text-align:center
 }
 
 .guinness-icon{
-font-size:46px;
-line-height:1
+display:none
 }
 
 .guinness-label{
-font-size:11px;
+font-size:10px;
 font-weight:900;
-letter-spacing:.16em;
-opacity:.75;
-margin-top:10px
+letter-spacing:.2em;
+opacity:.7;
+margin-top:2px
 }
 
 .guinness-total{
 font:700 54px Georgia,serif;
-margin:2px 0
+margin:4px 0
 }
 
 .guinness-total-label{
-font-size:14px;
-opacity:.8
+font-size:13px;
+opacity:.72
 }
 
 .guinness-log-btn{
 width:100%;
 border:0;
-border-radius:13px;
-background:#07549a;
+border-radius:8px;
+background:var(--navy);
 color:#fff;
 padding:15px;
-font-size:16px;
+font-size:15px;
 font-weight:900;
 cursor:pointer;
 margin-bottom:14px
 }
 
 .guinness-log-btn:hover{
-background:#064781
+background:var(--navy-dark)
 }
 
 .guinness-card{
-border:1px solid #d4e2ee;
-border-radius:16px;
+border:1px solid var(--line);
+border-radius:10px;
 background:#fff;
 padding:17px;
 margin-bottom:14px
@@ -576,40 +809,40 @@ margin-bottom:14px
 .guinness-card h3{
 font:700 23px Georgia,serif;
 margin:0 0 14px;
-color:#10253d
+color:var(--navy-dark)
 }
 
 .guinness-form{
-background:#f7fbff;
-border:1px solid #d4e4f1;
-border-radius:14px;
+background:var(--pale);
+border:1px solid var(--line);
+border-radius:9px;
 padding:15px;
 margin-bottom:14px
 }
 
 .guinness-form label{
 display:block;
-font-size:12px;
+font-size:11px;
 font-weight:900;
-color:#31516d;
+color:var(--navy-mid);
 margin-bottom:6px
 }
 
 .guinness-form input[type="date"]{
 width:100%;
 min-height:46px;
-border:1px solid #cbdceb;
-border-radius:11px;
+border:1px solid #c7d4de;
+border-radius:8px;
 background:#fff;
 padding:10px 12px;
 font-size:16px;
-color:#10253d;
+color:var(--navy-dark);
 margin-bottom:14px
 }
 
 .guinness-form input[type="date"]:focus{
-outline:3px solid #d9ebfa;
-border-color:#07549a
+outline:3px solid #e1e9ef;
+border-color:var(--navy)
 }
 
 .guinness-people{
@@ -632,38 +865,38 @@ height:1px
 
 .guinness-check label{
 display:block;
-border:1px solid #cbdceb;
-border-radius:11px;
+border:1px solid #c7d4de;
+border-radius:8px;
 padding:12px 10px;
 font-size:14px;
 font-weight:800;
-color:#31516d;
+color:var(--navy-mid);
 background:#fff;
 cursor:pointer;
 text-align:center
 }
 
 .guinness-check input:checked+label{
-background:#2f2118;
-border-color:#2f2118;
+background:var(--navy);
+border-color:var(--navy);
 color:#fff
 }
 
 .guinness-check input:focus+label{
-outline:3px solid #d9ebfa
+outline:3px solid #e1e9ef
 }
 
 .guinness-selected{
 font-size:12px;
-color:#647b8f;
+color:var(--muted);
 margin:8px 0 13px
 }
 
 .guinness-submit{
 width:100%;
 border:0;
-border-radius:12px;
-background:#07549a;
+border-radius:8px;
+background:var(--navy);
 color:#fff;
 padding:14px;
 font-size:15px;
@@ -698,47 +931,47 @@ display:grid;
 grid-template-columns:40px 1fr auto;
 align-items:center;
 gap:10px;
-border:1px solid #d4e2ee;
-border-radius:13px;
+border:1px solid var(--line);
+border-radius:8px;
 padding:12px 13px;
 background:#fff
 }
 
 .leader-rank{
-font-size:20px;
+font-size:18px;
 font-weight:900;
-color:#647b8f;
+color:var(--muted);
 text-align:center
 }
 
 .leader-row:first-child .leader-rank{
-color:#c28b25
+color:#9b762e
 }
 
 .leader-name{
 font-weight:900;
-color:#243f58
+color:var(--navy-mid)
 }
 
 .leader-count{
 font-size:21px;
 font-weight:900;
-color:#07549a;
+color:var(--navy);
 text-align:right
 }
 
 .leader-count-label{
 font-size:11px;
-color:#71869a;
+color:var(--muted);
 font-weight:700;
 margin-left:3px
 }
 
 .guinness-refresh{
-border:1px solid #b9d0e2;
+border:1px solid #bccbd6;
 background:#fff;
-color:#07549a;
-border-radius:10px;
+color:var(--navy);
+border-radius:8px;
 padding:9px 11px;
 font-weight:800;
 cursor:pointer
@@ -757,7 +990,7 @@ margin-bottom:14px
 }
 
 .guinness-history{
-border-top:1px solid #edf2f6;
+border-top:1px solid var(--line-light);
 margin-top:14px;
 padding-top:12px
 }
@@ -768,7 +1001,7 @@ grid-template-columns:1fr auto;
 align-items:center;
 gap:12px;
 padding:11px 0;
-border-bottom:1px solid #edf2f6
+border-bottom:1px solid var(--line-light)
 }
 
 .guinness-history-row:last-child{
@@ -777,11 +1010,11 @@ border-bottom:0
 
 .guinness-history-date{
 font-weight:800;
-color:#243f58
+color:var(--navy-mid)
 }
 
 .guinness-history-people{
-color:#647b8f;
+color:var(--muted);
 text-align:right;
 font-size:13px
 }
@@ -797,7 +1030,7 @@ justify-content:flex-end
 border:1px solid #e2c2c2;
 background:#fff;
 color:#a33b3b;
-border-radius:9px;
+border-radius:7px;
 padding:7px 9px;
 font-size:12px;
 font-weight:800;
@@ -813,10 +1046,12 @@ opacity:.6;
 cursor:wait
 }
 
+/* DUES */
+
 .dues-intro{
-background:#eef6fc;
-border:1px solid #d4e4f1;
-border-radius:16px;
+background:var(--pale);
+border:1px solid var(--line);
+border-radius:10px;
 padding:16px;
 margin-bottom:14px
 }
@@ -824,20 +1059,20 @@ margin-bottom:14px
 .dues-intro h2{
 font:700 27px Georgia,serif;
 margin:0 0 5px;
-color:#10253d
+color:var(--navy-dark)
 }
 
 .dues-intro p{
 margin:0;
-color:#51677c;
+color:var(--blue-gray);
 font-size:14px;
 line-height:1.5
 }
 
 .fx-card{
-background:#07549a;
+background:var(--navy);
 color:#fff;
-border-radius:16px;
+border-radius:10px;
 padding:17px;
 margin-bottom:14px
 }
@@ -850,10 +1085,10 @@ gap:12px
 }
 
 .fx-title{
-font-size:12px;
+font-size:10px;
 font-weight:900;
-letter-spacing:.12em;
-opacity:.8
+letter-spacing:.14em;
+opacity:.72
 }
 
 .fx-rate{
@@ -863,15 +1098,15 @@ margin-top:4px
 
 .fx-sub{
 font-size:12px;
-opacity:.8;
+opacity:.72;
 margin-top:4px
 }
 
 .fx-refresh{
-border:1px solid rgba(255,255,255,.45);
-background:rgba(255,255,255,.12);
+border:1px solid rgba(255,255,255,.4);
+background:rgba(255,255,255,.08);
 color:#fff;
-border-radius:10px;
+border-radius:8px;
 padding:9px 11px;
 font-weight:800;
 cursor:pointer;
@@ -880,15 +1115,15 @@ white-space:nowrap
 
 .fx-example{
 margin-top:13px;
-background:rgba(255,255,255,.12);
-border-radius:11px;
+background:rgba(255,255,255,.08);
+border-radius:8px;
 padding:10px 12px;
 font-size:13px
 }
 
 .dues-card{
-border:1px solid #d4e2ee;
-border-radius:16px;
+border:1px solid var(--line);
+border-radius:10px;
 background:#fff;
 padding:17px;
 margin-bottom:14px
@@ -897,7 +1132,7 @@ margin-bottom:14px
 .dues-card h3{
 font:700 22px Georgia,serif;
 margin:0 0 14px;
-color:#10253d
+color:var(--navy-dark)
 }
 
 .form-row{
@@ -906,30 +1141,32 @@ grid-template-columns:1fr 1fr;
 gap:12px
 }
 
-.form-group{margin-bottom:13px}
+.form-group{
+margin-bottom:13px
+}
 
 .form-group label{
 display:block;
-font-size:12px;
+font-size:11px;
 font-weight:900;
-color:#31516d;
+color:var(--navy-mid);
 margin-bottom:6px
 }
 
 .form-group input,.form-group select{
 width:100%;
 min-height:46px;
-border:1px solid #cbdceb;
-border-radius:11px;
+border:1px solid #c7d4de;
+border-radius:8px;
 background:#fff;
 padding:10px 12px;
 font-size:16px;
-color:#10253d
+color:var(--navy-dark)
 }
 
 .form-group input:focus,.form-group select:focus{
-outline:3px solid #d9ebfa;
-border-color:#07549a
+outline:3px solid #e1e9ef;
+border-color:var(--navy)
 }
 
 .people-select{
@@ -939,7 +1176,9 @@ gap:8px;
 margin-top:7px
 }
 
-.person-check{position:relative}
+.person-check{
+position:relative
+}
 
 .person-check input{
 position:absolute;
@@ -950,38 +1189,38 @@ height:1px
 
 .person-check label{
 display:block;
-border:1px solid #cbdceb;
-border-radius:11px;
+border:1px solid #c7d4de;
+border-radius:8px;
 padding:11px 10px;
 font-size:14px;
 font-weight:800;
-color:#31516d;
+color:var(--navy-mid);
 background:#fff;
 cursor:pointer;
 text-align:center
 }
 
 .person-check input:checked+label{
-background:#07549a;
-border-color:#07549a;
+background:var(--navy);
+border-color:var(--navy);
 color:#fff
 }
 
 .person-check input:focus+label{
-outline:3px solid #d9ebfa
+outline:3px solid #e1e9ef
 }
 
 .selected-count{
 font-size:12px;
-color:#647b8f;
+color:var(--muted);
 margin:8px 0 13px
 }
 
 .primary-btn{
 width:100%;
 border:0;
-border-radius:12px;
-background:#07549a;
+border-radius:8px;
+background:var(--navy);
 color:#fff;
 padding:14px;
 font-size:15px;
@@ -989,26 +1228,34 @@ font-weight:900;
 cursor:pointer
 }
 
-.primary-btn:hover{background:#064781}
-.primary-btn:disabled{opacity:.65;cursor:wait}
+.primary-btn:hover{
+background:var(--navy-dark)
+}
+
+.primary-btn:disabled{
+opacity:.65;
+cursor:wait
+}
 
 .refresh-btn{
-border:1px solid #b9d0e2;
+border:1px solid #bccbd6;
 background:#fff;
-color:#07549a;
-border-radius:10px;
+color:var(--navy);
+border-radius:8px;
 padding:9px 11px;
 font-weight:800;
 cursor:pointer
 }
 
-.refresh-btn:disabled{opacity:.6}
+.refresh-btn:disabled{
+opacity:.6
+}
 
 .danger-btn{
 border:1px solid #e2c2c2;
 background:#fff;
 color:#a33b3b;
-border-radius:10px;
+border-radius:8px;
 padding:10px 12px;
 font-weight:800;
 cursor:pointer
@@ -1018,7 +1265,7 @@ cursor:pointer
 border:1px solid #e2c2c2;
 background:#fff;
 color:#a33b3b;
-border-radius:9px;
+border-radius:7px;
 padding:7px 9px;
 font-size:12px;
 font-weight:800;
@@ -1038,7 +1285,9 @@ font-weight:700;
 color:#a33b3b
 }
 
-.form-message.success{color:#277044}
+.form-message.success{
+color:#277044
+}
 
 .balance-grid{
 display:grid;
@@ -1047,15 +1296,15 @@ gap:10px
 }
 
 .balance{
-border:1px solid #d4e2ee;
-border-radius:14px;
+border:1px solid var(--line);
+border-radius:9px;
 padding:13px;
 background:#fff
 }
 
 .balance-name{
 font-weight:900;
-color:#243f58
+color:var(--navy-mid)
 }
 
 .balance-amount{
@@ -1064,13 +1313,21 @@ font-weight:900;
 margin-top:4px
 }
 
-.balance-amount.owed{color:#a33b3b}
-.balance-amount.owedto{color:#277044}
-.balance-amount.even{color:#647b8f}
+.balance-amount.owed{
+color:#a33b3b
+}
+
+.balance-amount.owedto{
+color:#277044
+}
+
+.balance-amount.even{
+color:var(--muted)
+}
 
 .balance-gbp{
 font-size:12px;
-color:#71869a;
+color:var(--muted);
 margin-top:3px
 }
 
@@ -1082,50 +1339,50 @@ margin:14px 0 10px
 }
 
 .debt-player-tab{
-border:1px solid #cbdceb;
+border:1px solid #c7d4de;
 background:#fff;
-border-radius:11px;
+border-radius:8px;
 padding:11px 6px;
 font-size:13px;
 font-weight:900;
-color:#31516d;
+color:var(--navy-mid);
 cursor:pointer
 }
 
 .debt-player-tab.active{
-background:#07549a;
-border-color:#07549a;
+background:var(--navy);
+border-color:var(--navy);
 color:#fff
 }
 
 .debt-player-tab:hover{
-background:#eef6fc
+background:var(--pale)
 }
 
 .debt-player-tab.active:hover{
-background:#07549a
+background:var(--navy)
 }
 
 .debt-player-label{
-font-size:12px;
+font-size:10px;
 font-weight:900;
-color:#71869a;
-letter-spacing:.06em;
+color:var(--muted);
+letter-spacing:.08em;
 margin-top:14px;
 margin-bottom:8px
 }
 
 .settlement{
-background:#eef6fc;
-border:1px solid #d4e4f1;
-border-radius:14px;
+background:var(--pale);
+border:1px solid var(--line);
+border-radius:9px;
 padding:14px;
 margin-top:12px
 }
 
 .settlement h4{
 margin:0 0 8px;
-color:#07549a;
+color:var(--navy);
 font-size:15px
 }
 
@@ -1133,17 +1390,17 @@ font-size:15px
 display:block;
 text-decoration:none;
 background:#fff;
-border:1px solid #cbdceb;
-border-radius:11px;
+border:1px solid #c7d4de;
+border-radius:8px;
 padding:12px;
 margin-bottom:8px;
-color:#07549a;
+color:var(--navy);
 font-weight:900
 }
 
 .settlement-link:hover{
-background:#f4faff;
-border-color:#07549a
+background:#f7f9fb;
+border-color:var(--navy)
 }
 
 .settlement-main{
@@ -1157,27 +1414,29 @@ margin-top:2px
 
 .settlement-gbp{
 font-size:12px;
-color:#71869a;
+color:var(--muted);
 margin-top:2px
 }
 
 .settlement-plain{
 background:#fff;
-border:1px solid #d4e2ee;
-border-radius:11px;
+border:1px solid var(--line);
+border-radius:8px;
 padding:12px;
 margin-bottom:8px
 }
 
 .purchase{
-border:1px solid #d4e2ee;
-border-radius:14px;
+border:1px solid var(--line);
+border-radius:9px;
 padding:14px;
 margin-bottom:10px;
 background:#fff
 }
 
-.purchase:last-child{margin-bottom:0}
+.purchase:last-child{
+margin-bottom:0
+}
 
 .purchase-top{
 display:flex;
@@ -1188,27 +1447,27 @@ gap:10px
 
 .purchase-name{
 font-weight:900;
-color:#243f58;
+color:var(--navy-mid);
 font-size:16px
 }
 
 .purchase-total{
 font-size:19px;
 font-weight:900;
-color:#07549a;
+color:var(--navy);
 white-space:nowrap
 }
 
 .purchase-meta{
 font-size:12px;
-color:#71869a;
+color:var(--muted);
 margin-top:3px
 }
 
 .purchase-details{
 margin-top:9px;
 font-size:13px;
-color:#51677c;
+color:var(--blue-gray);
 line-height:1.55
 }
 
@@ -1216,7 +1475,7 @@ line-height:1.55
 margin-top:7px;
 font-size:13px;
 font-weight:800;
-color:#31516d
+color:var(--navy-mid)
 }
 
 .purchase-usd{
@@ -1234,7 +1493,7 @@ margin-top:10px
 
 .empty-state{
 text-align:center;
-color:#71869a;
+color:var(--muted);
 padding:18px 10px;
 font-size:14px
 }
@@ -1242,19 +1501,20 @@ font-size:14px
 .auth-card{
 max-width:430px;
 margin:20px auto;
-border:1px solid #d4e2ee;
-border-radius:18px;
+border:1px solid var(--line);
+border-radius:10px;
 padding:22px;
 background:#fff
 }
 
 .auth-card h2{
 font:700 28px Georgia,serif;
-margin:0 0 7px
+margin:0 0 7px;
+color:var(--navy-dark)
 }
 
 .auth-card p{
-color:#647b8f;
+color:var(--blue-gray);
 font-size:14px;
 line-height:1.5;
 margin:0 0 17px
@@ -1263,8 +1523,8 @@ margin:0 0 17px
 .auth-card input{
 width:100%;
 min-height:50px;
-border:1px solid #cbdceb;
-border-radius:11px;
+border:1px solid #c7d4de;
+border-radius:8px;
 padding:10px 14px;
 font-size:20px;
 text-align:center;
@@ -1272,8 +1532,8 @@ letter-spacing:.2em
 }
 
 .auth-card input:focus{
-outline:3px solid #d9ebfa;
-border-color:#07549a
+outline:3px solid #e1e9ef;
+border-color:var(--navy)
 }
 
 .auth-error{
@@ -1292,17 +1552,17 @@ gap:10px
 }
 
 .footer{
-padding:24px 16px;
+padding:26px 16px;
 text-align:center;
-font-size:12px;
-color:#7a8ea0
+font-size:11px;
+color:#8494a1;
+letter-spacing:.03em
 }
 
 @media(max-width:600px){
 
 .hero{
-padding:27px 16px 24px;
-margin:8px
+padding:31px 16px 27px
 }
 
 h1{
@@ -1316,12 +1576,17 @@ margin-top:15px
 }
 
 .hero p{
-font-size:12px;
-letter-spacing:.14em
+font-size:10px;
+letter-spacing:.22em
 }
 
 .tabs{
 grid-template-columns:repeat(2,1fr)
+}
+
+.tab{
+font-size:13px;
+padding:14px 5px
 }
 
 .tab[data-tab="itinerary"]{
@@ -1369,7 +1634,7 @@ gap:9px
 .bar-rank{
 flex:0 0 34px;
 height:34px;
-font-size:14px
+font-size:13px
 }
 
 .bar-name{
@@ -1495,7 +1760,7 @@ with the Lads
 
 <div class="hero-divider-line"></div>
 
-<div class="hero-divider-icon">⛳</div>
+<div class="hero-divider-icon">SCOTLAND</div>
 
 <div class="hero-divider-line"></div>
 
@@ -1508,13 +1773,13 @@ JUNE 11–19
 </header>
 
 <nav class="tabs">
-<button class="tab" data-tab="cup">🏆 Scotland Cup</button>
-<button class="tab" data-tab="participants">👥 Participants</button>
-<button class="tab" data-tab="guinness">🍺 Guinness</button>
-<button class="tab" data-tab="dues">💰 Dues</button>
-<button class="tab" data-tab="weather">🌦️ Weather</button>
-<button class="tab" data-tab="bars">🍻 Bars/Restaurants</button>
-<button class="tab active" data-tab="itinerary">📅 Itinerary</button>
+<button class="tab" data-tab="cup">Scotland Cup</button>
+<button class="tab" data-tab="participants">Participants</button>
+<button class="tab" data-tab="guinness">Guinness</button>
+<button class="tab" data-tab="dues">Dues</button>
+<button class="tab" data-tab="weather">Weather</button>
+<button class="tab" data-tab="bars">Bars / Restaurants</button>
+<button class="tab active" data-tab="itinerary">Itinerary</button>
 </nav>
 
 <main id="itinerary">
@@ -1523,8 +1788,6 @@ JUNE 11–19
 <b>TRIP BASE</b><br>
 26 Dublin Street Lane South, Edinburgh EH1 3PX
 </div>
-
-<!-- UPDATED: DEPART FROM USA -->
 
 <article class="day">
 
@@ -1621,16 +1884,16 @@ JUNE 11–19
 
 <div class="links">
 
-<a class="link" href="https://www.airbnb.com/rooms/3496863?adults=8&amp;check_in=2027-06-12&amp;check_out=2027-06-18&amp;location=Edinburgh%2C%20United%20Kingdom" target="_blank" rel="noopener">🏠 Airbnb ↗</a>
+<a class="link" href="https://www.airbnb.com/rooms/3496863?adults=8&amp;check_in=2027-06-12&amp;check_out=2027-06-18&amp;location=Edinburgh%2C%20United%20Kingdom" target="_blank" rel="noopener">Airbnb ↗</a>
 
 <div class="link-pair">
-<a class="link" href="https://www.theoxedinburgh.com/" target="_blank" rel="noopener">🍽️ The Ox ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Ox+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.theoxedinburgh.com/" target="_blank" rel="noopener">The Ox ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Ox+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 
 <div class="link-pair">
-<a class="link" href="https://www.kaysbar.uk/" target="_blank" rel="noopener">🍺 Kay&#x27;s Bar ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Kay%27s+Bar+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.kaysbar.uk/" target="_blank" rel="noopener">Kay's Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Kay%27s+Bar+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 
 </div>
@@ -1682,11 +1945,11 @@ JUNE 11–19
 
 <div class="links">
 
-<a class="link" href="https://www.kilspindiegolfclub.co.uk/" target="_blank" rel="noopener">⛳ Kilspindie ↗</a>
+<a class="link" href="https://www.kilspindiegolfclub.co.uk/" target="_blank" rel="noopener">Kilspindie ↗</a>
 
 <div class="link-pair">
-<a class="link" href="https://queensarmsedinburgh.com/" target="_blank" rel="noopener">🍽️ The Queens Arms ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Queens+Arms+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://queensarmsedinburgh.com/" target="_blank" rel="noopener">The Queens Arms ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Queens+Arms+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 
 </div>
@@ -1743,13 +2006,13 @@ JUNE 11–19
 
 <div class="links">
 
-<a class="link" href="https://www.northberwickgolfclub.com/" target="_blank" rel="noopener">⛳ North Berwick ↗</a>
+<a class="link" href="https://www.northberwickgolfclub.com/" target="_blank" rel="noopener">North Berwick ↗</a>
 
-<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">🚆 Omio App ↗</a>
+<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">Omio App ↗</a>
 
 <div class="link-pair">
-<a class="link" href="https://www.theshipinnnorthberwick.com/" target="_blank" rel="noopener">🍺 The Ship Inn ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Ship+Inn+North+Berwick" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.theshipinnnorthberwick.com/" target="_blank" rel="noopener">The Ship Inn ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Ship+Inn+North+Berwick" target="_blank" rel="noopener">Directions</a>
 </div>
 
 </div>
@@ -1821,11 +2084,11 @@ JUNE 11–19
 
 <div class="links">
 
-<a class="link" href="https://gullanegolfclub.com/" target="_blank" rel="noopener">⛳ Gullane Golf Club ↗</a>
+<a class="link" href="https://gullanegolfclub.com/" target="_blank" rel="noopener">Gullane Golf Club ↗</a>
 
 <div class="link-pair">
-<a class="link" href="https://auldhundrededinburgh.com/" target="_blank" rel="noopener">🍺 The Auld Hundred ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Auld+Hundred+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://auldhundrededinburgh.com/" target="_blank" rel="noopener">The Auld Hundred ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Auld+Hundred+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 
 </div>
@@ -1859,8 +2122,8 @@ JUNE 11–19
 <div class="links">
 
 <div class="link-pair">
-<a class="link" href="https://www.biddymulligans.co.uk/" target="_blank" rel="noopener">🍺 Biddy Mulligans ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Biddy+Mulligans+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.biddymulligans.co.uk/" target="_blank" rel="noopener">Biddy Mulligans ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Biddy+Mulligans+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 
 </div>
@@ -1912,16 +2175,16 @@ JUNE 11–19
 
 <div class="links">
 
-<a class="link" href="https://gullanegolfclub.com/" target="_blank" rel="noopener">⛳ Gullane Golf Club ↗</a>
+<a class="link" href="https://gullanegolfclub.com/" target="_blank" rel="noopener">Gullane Golf Club ↗</a>
 
 <div class="link-pair">
-<a class="link" href="https://www.dishoom.com/edinburgh/" target="_blank" rel="noopener">🍽️ Dishoom Edinburgh ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Dishoom+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.dishoom.com/edinburgh/" target="_blank" rel="noopener">Dishoom Edinburgh ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Dishoom+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 
 <div class="link-pair">
-<a class="link" href="https://guildfordarms.com/" target="_blank" rel="noopener">🍺 The Guildford Arms ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Guildford+Arms+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://guildfordarms.com/" target="_blank" rel="noopener">The Guildford Arms ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Guildford+Arms+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 
 </div>
@@ -1973,29 +2236,27 @@ JUNE 11–19
 
 <div class="links">
 
-<a class="link" href="https://www.dunbargolfclub.com/" target="_blank" rel="noopener">⛳ Dunbar ↗</a>
+<a class="link" href="https://www.dunbargolfclub.com/" target="_blank" rel="noopener">Dunbar ↗</a>
 
 <div class="link-pair">
-<a class="link" href="https://makarsmash.com/" target="_blank" rel="noopener">🍽️ Makars Mash Bar ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Makars+Mash+Bar+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://makarsmash.com/" target="_blank" rel="noopener">Makars Mash Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Makars+Mash+Bar+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 
 <div class="link-pair">
-<a class="link" href="https://scotsmans-lounge.co.uk/" target="_blank" rel="noopener">🍺 Scotsman&#x27;s Lounge ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Scotsman%27s+Lounge+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://scotsmans-lounge.co.uk/" target="_blank" rel="noopener">Scotsman's Lounge ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Scotsman%27s+Lounge+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 
 <div class="link-pair">
-<a class="link" href="https://www.hilton.com/en/hotels/edihxhx-hampton-edinburgh-airport/" target="_blank" rel="noopener">🏨 Hampton by Hilton Edinburgh Airport ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Hampton+by+Hilton+Edinburgh+Airport%2C+5+Almond+Avenue%2C+Ingliston%2C+Edinburgh+EH12+9GN" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.hilton.com/en/hotels/edihxhx-hampton-edinburgh-airport/" target="_blank" rel="noopener">Hampton by Hilton Edinburgh Airport ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Hampton+by+Hilton+Edinburgh+Airport%2C+5+Almond+Avenue%2C+Ingliston%2C+Edinburgh+EH12+9GN" target="_blank" rel="noopener">Directions</a>
 </div>
 
 </div>
 
 </div>
 </article>
-
-<!-- UPDATED: FLY HOME -->
 
 <article class="day">
 
@@ -2068,21 +2329,19 @@ JUNE 11–19
 </article>
 
 <div class="notice">
-<b>🚆 Train tickets</b><br>
+<b>Train tickets</b><br>
 Use the Omio app for the North Berwick / Edinburgh train.
 <div class="links">
-<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">🚆 Open Omio App ↗</a>
+<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">Open Omio App ↗</a>
 </div>
 </div>
 
 </main>
 
-<!-- UPDATED: BARS / RESTAURANTS -->
-
 <main id="bars" style="display:none">
 
 <div class="bars-intro">
-<h2>🍻 Bars / Restaurants</h2>
+<h2>Bars / Restaurants</h2>
 <p>
 The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street Lane South. Ranked for atmosphere, Scottish character, beer, whisky and overall group potential.
 </p>
@@ -2100,8 +2359,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://thistlestreetbar.com/" target="_blank" rel="noopener">🍺 Thistle Street Bar ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Thistle+Street+Bar%2C+39+Thistle+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://thistlestreetbar.com/" target="_blank" rel="noopener">Thistle Street Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Thistle+Street+Bar%2C+39+Thistle+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2116,8 +2375,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.belhaven.co.uk/pubs/edinburgh/milnes-bar/" target="_blank" rel="noopener">🍺 Milnes Bar ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Milnes+Bar%2C+35+Hanover+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.belhaven.co.uk/pubs/edinburgh/milnes-bar/" target="_blank" rel="noopener">Milnes Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Milnes+Bar%2C+35+Hanover+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2132,8 +2391,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.thebroughtonbar.com/" target="_blank" rel="noopener">🍺 The Broughton ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Broughton%2C+46-48A+Broughton+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.thebroughtonbar.com/" target="_blank" rel="noopener">The Broughton ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Broughton%2C+46-48A+Broughton+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2148,8 +2407,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.google.com/search?q=Mathers+Bar+Edinburgh" target="_blank" rel="noopener">🍺 Mathers ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Mathers+Bar+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.google.com/search?q=Mathers+Bar+Edinburgh" target="_blank" rel="noopener">Mathers ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Mathers+Bar+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2164,8 +2423,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.caskandbarrelbroughton.co.uk/" target="_blank" rel="noopener">🍺 Cask &amp; Barrel ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Cask+and+Barrel+Broughton%2C+115+Broughton+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.caskandbarrelbroughton.co.uk/" target="_blank" rel="noopener">Cask &amp; Barrel ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Cask+and+Barrel+Broughton%2C+115+Broughton+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2180,8 +2439,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.kellertaproom.com/" target="_blank" rel="noopener">🍺 The Keller ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Keller+Taproom%2C+23-27+Broughton+Street+Lane%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.kellertaproom.com/" target="_blank" rel="noopener">The Keller ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Keller+Taproom%2C+23-27+Broughton+Street+Lane%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2196,8 +2455,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://guildfordarms.com/" target="_blank" rel="noopener">🍺 The Guildford Arms ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Guildford+Arms%2C+1+West+Register+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://guildfordarms.com/" target="_blank" rel="noopener">The Guildford Arms ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Guildford+Arms%2C+1+West+Register+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2212,8 +2471,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://auldhundrededinburgh.com/" target="_blank" rel="noopener">🍺 The Auld Hundred ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Auld+Hundred%2C+100+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://auldhundrededinburgh.com/" target="_blank" rel="noopener">The Auld Hundred ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Auld+Hundred%2C+100+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2228,8 +2487,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.nicholsonspubs.co.uk/restaurants/scotlandandnorthernireland/kenilworthedinburgh" target="_blank" rel="noopener">🍺 The Kenilworth ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Kenilworth%2C+152-154+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.nicholsonspubs.co.uk/restaurants/scotlandandnorthernireland/kenilworthedinburgh" target="_blank" rel="noopener">The Kenilworth ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Kenilworth%2C+152-154+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2244,8 +2503,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://theabbotsford.com/" target="_blank" rel="noopener">🍺 The Abbotsford ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Abbotsford%2C+3-5+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://theabbotsford.com/" target="_blank" rel="noopener">The Abbotsford ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Abbotsford%2C+3-5+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2260,8 +2519,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.caferoyaledinburgh.com/" target="_blank" rel="noopener">🍺 Café Royal ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Cafe+Royal%2C+19+West+Register+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.caferoyaledinburgh.com/" target="_blank" rel="noopener">Café Royal ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Cafe+Royal%2C+19+West+Register+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2276,8 +2535,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.kaysbar.uk/" target="_blank" rel="noopener">🍺 Kay's Bar ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Kay%27s+Bar%2C+39+Jamaica+Street+West%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.kaysbar.uk/" target="_blank" rel="noopener">Kay's Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Kay%27s+Bar%2C+39+Jamaica+Street+West%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2292,8 +2551,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.cumberlandbar.co.uk/" target="_blank" rel="noopener">🍺 The Cumberland Bar ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Cumberland+Bar%2C+1-3+Cumberland+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.cumberlandbar.co.uk/" target="_blank" rel="noopener">The Cumberland Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Cumberland+Bar%2C+1-3+Cumberland+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2308,8 +2567,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.facebook.com/theblackcatedinburgh/" target="_blank" rel="noopener">🍺 The Black Cat ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Black+Cat%2C+168+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.facebook.com/theblackcatedinburgh/" target="_blank" rel="noopener">The Black Cat ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Black+Cat%2C+168+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2324,8 +2583,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.dirtydicksedinburgh.com/" target="_blank" rel="noopener">🍺 Dirty Dick's ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Dirty+Dicks%2C+159+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.dirtydicksedinburgh.com/" target="_blank" rel="noopener">Dirty Dick's ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Dirty+Dicks%2C+159+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2340,8 +2599,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.yell.com/biz/rose-and-crown-edinburgh-2434484/" target="_blank" rel="noopener">🍺 Rose &amp; Crown ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Rose+and+Crown%2C+170+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.yell.com/biz/rose-and-crown-edinburgh-2434484/" target="_blank" rel="noopener">Rose &amp; Crown ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Rose+and+Crown%2C+170+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2356,8 +2615,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.nicholsonspubs.co.uk/restaurants/scotlandandnorthernireland/rosestreetbreweryedinburgh" target="_blank" rel="noopener">🍺 Rose Street Brewery ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Rose+Street+Brewery%2C+55-57+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.nicholsonspubs.co.uk/restaurants/scotlandandnorthernireland/rosestreetbreweryedinburgh" target="_blank" rel="noopener">Rose Street Brewery ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Rose+Street+Brewery%2C+55-57+Rose+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2372,8 +2631,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.oxfordbar.co.uk/" target="_blank" rel="noopener">🍺 The Oxford Bar ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Oxford+Bar%2C+8+Young+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.oxfordbar.co.uk/" target="_blank" rel="noopener">The Oxford Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Oxford+Bar%2C+8+Young+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2388,8 +2647,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.baronybar.com/" target="_blank" rel="noopener">🍺 Barony Bar ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Barony+Bar%2C+81-85+Broughton+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.baronybar.com/" target="_blank" rel="noopener">Barony Bar ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Barony+Bar%2C+81-85+Broughton+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2404,8 +2663,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.google.com/search?q=Pickles+Edinburgh+60+Broughton+Street" target="_blank" rel="noopener">🍽️ Pickles ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Pickles%2C+60+Broughton+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.google.com/search?q=Pickles+Edinburgh+60+Broughton+Street" target="_blank" rel="noopener">Pickles ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Pickles%2C+60+Broughton+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2420,8 +2679,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.google.com/search?q=The+Conan+Doyle+Edinburgh" target="_blank" rel="noopener">🍺 The Conan Doyle ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Conan+Doyle%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.google.com/search?q=The+Conan+Doyle+Edinburgh" target="_blank" rel="noopener">The Conan Doyle ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Conan+Doyle%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2436,8 +2695,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.dublinstreetsocial.com/" target="_blank" rel="noopener">🍽️ Dublin Street Social ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Dublin+Street+Social%2C+26B+Dublin+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.dublinstreetsocial.com/" target="_blank" rel="noopener">Dublin Street Social ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Dublin+Street+Social%2C+26B+Dublin+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2452,8 +2711,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://www.outhouse-edinburgh.co.uk/" target="_blank" rel="noopener">🍺 Outhouse ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Outhouse%2C+12A+Broughton+Street+Lane%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://www.outhouse-edinburgh.co.uk/" target="_blank" rel="noopener">Outhouse ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Outhouse%2C+12A+Broughton+Street+Lane%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2468,8 +2727,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://queensarmsedinburgh.com/" target="_blank" rel="noopener">🍺 The Queens Arms ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Queens+Arms%2C+49+Frederick+Street%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://queensarmsedinburgh.com/" target="_blank" rel="noopener">The Queens Arms ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=The+Queens+Arms%2C+49+Frederick+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2484,8 +2743,8 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 <div class="links">
 <div class="link-pair">
-<a class="link" href="https://camra.org.uk/pubs/stockbridge-tap-edinburgh-151125" target="_blank" rel="noopener">🍺 Stockbridge Tap ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Stockbridge+Tap%2C+2-6+Raeburn+Place%2C+Edinburgh" target="_blank" rel="noopener">📍 Directions</a>
+<a class="link" href="https://camra.org.uk/pubs/stockbridge-tap-edinburgh-151125" target="_blank" rel="noopener">Stockbridge Tap ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Stockbridge+Tap%2C+2-6+Raeburn+Place%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
@@ -2510,7 +2769,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 src="https://app.squabbitgolf.com/w/tournament/TvY7fGicz?embed=leaderboard"
 width="100%"
 height="700"
-style="border:none;border-radius:12px;"
+style="border:none;border-radius:8px;"
 title="Scotland Cup Live Leaderboard">
 </iframe>
 
@@ -2605,7 +2864,7 @@ Guinnesses consumed
 class="guinness-log-btn"
 id="showGuinnessForm"
 type="button">
-🍺 Log Guinness
+Log Guinness
 </button>
 
 <div
@@ -2678,7 +2937,7 @@ Who drank it?
 class="guinness-submit"
 id="logGuinness"
 type="button">
-🍺 Log Guinness
+Log Guinness
 </button>
 
 <div
@@ -2693,7 +2952,7 @@ aria-live="polite">
 
 <div class="guinness-header-row">
 
-<h3>🏆 Guinness Leaderboard</h3>
+<h3>Guinness Leaderboard</h3>
 
 <button
 class="guinness-refresh"
@@ -2718,7 +2977,7 @@ Loading Guinness Tracker…
 
 <div class="guinness-card">
 
-<h3>🍺 Guinness Log</h3>
+<h3>Guinness Log</h3>
 
 <div
 class="guinness-history"
@@ -2739,13 +2998,13 @@ Loading Guinness history…
 <div id="duesAuth">
 
 <div class="dues-intro">
-<h2>💰 Trip Dues</h2>
+<h2>Trip Dues</h2>
 <p>Track drinks, dinners, taxis, and anything else someone picks up for the group.</p>
 </div>
 
 <div class="auth-card">
 
-<h2>🔐 Dues Access</h2>
+<h2>Dues Access</h2>
 
 <p>
 Enter the trip PIN once on this device. The site will remember your access so you don't have to enter it again.
@@ -2780,7 +3039,7 @@ Enter Dues
 
 <div class="dues-intro">
 
-<h2>💰 Trip Dues</h2>
+<h2>Trip Dues</h2>
 
 <p>
 Log drinks, dinners, taxis, or anything else someone picks up for the group.
@@ -2821,7 +3080,7 @@ Getting current exchange rate…
 
 <div class="dues-card">
 
-<h3>➕ Log a Purchase</h3>
+<h3>Log a Purchase</h3>
 
 <form id="purchaseForm">
 
@@ -2960,7 +3219,7 @@ Who was in on it?
 </div>
 
 <button class="primary-btn" type="submit">
-💰 Log Purchase
+Log Purchase
 </button>
 
 <div class="form-message" id="formMessage" aria-live="polite"></div>
@@ -2973,7 +3232,7 @@ Who was in on it?
 
 <div class="dues-header-row">
 
-<h3>📊 Who Owes Who</h3>
+<h3>Who Owes Who</h3>
 
 <button class="refresh-btn" id="refreshDues" type="button">
 ↻ Refresh
@@ -3037,7 +3296,7 @@ Mike owes
 
 <div class="dues-header-row">
 
-<h3>🧾 Purchase History</h3>
+<h3>Purchase History</h3>
 
 <button class="danger-btn" id="clearPurchases" type="button">
 Clear All
@@ -3057,7 +3316,7 @@ Loading purchases...
 
 <div class="dues-card">
 
-<h3>💵 Total Balances</h3>
+<h3>Total Balances</h3>
 
 <div class="balance-grid" id="balanceGrid"></div>
 
@@ -3144,7 +3403,7 @@ RAIN CHANCE
 <div class="weather-header-row">
 
 <h3 id="rainChartTitle">
-🌧️ Today’s Rain Chance
+Today’s Rain Chance
 </h3>
 
 </div>
@@ -3168,7 +3427,7 @@ Hourly precipitation probability
 
 <div class="weather-header-row">
 
-<h3>🌦️ 7-Day Forecast</h3>
+<h3>7-Day Forecast</h3>
 
 <button class="weather-refresh" id="refreshWeather" type="button">
 ↻ Refresh
@@ -3561,7 +3820,6 @@ document.getElementById(
 document.getElementById(
 'rainChartTitle'
 ).textContent=
-'🌧️ '+
 (isToday?'Today’s':formatWeatherDay(date)+'’s')+
 ' Rain Chance';
 
@@ -3706,7 +3964,7 @@ height
 
 if(!points.length){
 
-ctx.fillStyle='#71869a';
+ctx.fillStyle='#718596';
 
 ctx.font='14px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif';
 
@@ -3739,7 +3997,7 @@ height-
 padding.top-
 padding.bottom;
 
-ctx.strokeStyle='#e3ebf2';
+ctx.strokeStyle='#e1e8ed';
 
 ctx.lineWidth=1;
 
@@ -3748,7 +4006,7 @@ ctx.font=
 
 ctx.textAlign='right';
 
-ctx.fillStyle='#71869a';
+ctx.fillStyle='#718596';
 
 [0,25,50,75,100].forEach(value=>{
 
@@ -3802,7 +4060,7 @@ padding.left+
 (index/(Math.max(points.length-1,1)))*
 chartWidth;
 
-ctx.fillStyle='#71869a';
+ctx.fillStyle='#718596';
 
 ctx.fillText(
 formatHourlyLabel(point.time),
@@ -3868,7 +4126,7 @@ padding.top+chartHeight
 ctx.closePath();
 
 ctx.fillStyle=
-'rgba(7,84,154,.09)';
+'rgba(21,47,74,.08)';
 
 ctx.fill();
 
@@ -3894,7 +4152,7 @@ coordinate.y
 
 });
 
-ctx.strokeStyle='#07549a';
+ctx.strokeStyle='#152f4a';
 
 ctx.lineWidth=2.5;
 
@@ -3916,7 +4174,7 @@ coordinate.y,
 Math.PI*2
 );
 
-ctx.fillStyle='#07549a';
+ctx.fillStyle='#152f4a';
 
 ctx.fill();
 
@@ -4605,7 +4863,7 @@ if(!guinnessLogs.length){
 
 history.innerHTML=
 '<div class="empty-state">'+
-'No Guinness logged yet. Time to get started. 🍺'+
+'No Guinness logged yet. Time to get started.'+
 '</div>';
 
 return;
@@ -4665,7 +4923,7 @@ shortName(person)
 class="guinness-delete"
 type="button"
 data-guinness-delete-id="${escapeHtml(log.id)}">
-🗑️ Delete
+Delete
 </button>
 
 </div>
@@ -4802,7 +5060,7 @@ error
 }finally{
 
 button.disabled=false;
-button.textContent='🗑️ Delete';
+button.textContent='Delete';
 
 }
 
@@ -4829,14 +5087,14 @@ if(form.style.display==='none'){
 form.style.display='block';
 
 button.textContent=
-'✕ Cancel';
+'Cancel';
 
 }else{
 
 form.style.display='none';
 
 button.textContent=
-'🍺 Log Guinness';
+'Log Guinness';
 
 }
 
@@ -4964,7 +5222,7 @@ input.checked=false;
 updateGuinnessSelected();
 
 message.textContent=
-'🍺 Guinness logged!';
+'Guinness logged!';
 
 message.className=
 'guinness-message success';
@@ -4995,7 +5253,7 @@ error
 button.disabled=false;
 
 button.textContent=
-'🍺 Log Guinness';
+'Log Guinness';
 
 }
 
@@ -5779,7 +6037,7 @@ shortName(person)
 ${formatUSD(Math.abs(balance)*gbpToUsd)}
 </div>
 
-<div style="font-size:12px;color:#71869a;margin-top:2px">
+<div style="font-size:12px;color:#718596;margin-top:2px">
 ${label}
 </div>
 
@@ -5880,7 +6138,7 @@ list.innerHTML=
 escapeHtml(
 shortName(selectedPlayer)
 )+
-' is currently even. 🍻'+
+' is currently even.'+
 '</div>';
 
 return;
@@ -6174,7 +6432,7 @@ message.textContent=
 submitButton.disabled=false;
 
 submitButton.textContent=
-'💰 Log Purchase';
+'Log Purchase';
 
 }
 
