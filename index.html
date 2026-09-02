@@ -147,6 +147,29 @@ border-radius:10px;
 padding:15px;
 margin-bottom:12px
 }
+.base-address{
+display:block;
+margin-top:6px;
+line-height:1.35
+}
+.get-home-btn{
+display:flex;
+width:max-content;
+align-items:center;
+justify-content:center;
+margin-top:16px;
+padding:10px 15px;
+border-radius:8px;
+background:var(--navy);
+color:#fff;
+font-weight:800;
+font-size:14px;
+text-decoration:none;
+letter-spacing:.02em
+}
+.get-home-btn:hover{
+opacity:.9
+}
 .base b,.notice b{
 color:var(--navy);
 letter-spacing:.04em
@@ -1639,8 +1662,9 @@ JUNE 11–19
 </nav>
 <main id="itinerary">
 <div class="base">
-<b>TRIP BASE</b><br>
-26 Dublin Street Lane South, Edinburgh EH1 3PX
+<b>TRIP BASE</b>
+<span class="base-address">26 Dublin Street Lane South, Edinburgh EH1 3PX</span>
+<a class="get-home-btn" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=26+Dublin+Street+Lane+South%2C+Edinburgh+EH1+3PX&amp;travelmode=driving" target="_blank" rel="noopener">📍 Get Home</a>
 </div>
 <article class="day">
 <button class="day-head" aria-expanded="false">
