@@ -653,61 +653,116 @@ font-weight:700
 }
 /* GUINNESS */
 .guinness-hero{
-background:var(--navy-dark);
-color:#fff;
-border-radius:10px;
-padding:22px;
+background:
+linear-gradient(135deg,#1b100b 0%,#2b1a12 55%,#3b2519 100%);
+color:#f8f0df;
+border:1px solid #5d412d;
+border-radius:12px;
+padding:24px 20px 22px;
 margin-bottom:14px;
-text-align:center
+text-align:center;
+box-shadow:0 5px 16px rgba(50,31,18,.12);
+position:relative;
+overflow:hidden
 }
-.guinness-icon{
-display:none
+.guinness-hero:before{
+content:'';
+position:absolute;
+inset:8px;
+border:1px solid rgba(221,191,132,.28);
+border-radius:8px;
+pointer-events:none
+}
+.guinness-brand{
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+margin-bottom:15px
+}
+.guinness-brand-mark{
+width:38px;
+height:38px;
+border:2px solid #d7b66a;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font:700 20px Georgia,serif;
+color:#d7b66a;
+background:#130b08;
+box-shadow:0 0 0 3px rgba(215,182,106,.08)
+}
+.guinness-brand-name{
+font:700 22px Georgia,serif;
+letter-spacing:.14em;
+color:#f7f0e2
+}
+.guinness-brand-sub{
+font-size:8px;
+font-weight:900;
+letter-spacing:.22em;
+color:#d7b66a;
+margin-top:2px
 }
 .guinness-label{
+position:relative;
 font-size:10px;
 font-weight:900;
-letter-spacing:.2em;
-opacity:.7;
+letter-spacing:.22em;
+color:#d7b66a;
 margin-top:2px
 }
 .guinness-total{
-font:700 54px Georgia,serif;
-margin:4px 0
+position:relative;
+font:700 58px Georgia,serif;
+margin:3px 0 0;
+color:#fff
 }
 .guinness-total-label{
+position:relative;
 font-size:13px;
-opacity:.72
+color:#e7dccb;
+margin-top:2px
 }
 .guinness-log-btn{
 width:100%;
-border:0;
+border:1px solid #5d412d;
 border-radius:8px;
-background:var(--navy);
-color:#fff;
+background:#4b2d1c;
+color:#fff8eb;
 padding:15px;
 font-size:15px;
 font-weight:900;
 cursor:pointer;
-margin-bottom:14px
+margin-bottom:14px;
+box-shadow:0 2px 5px rgba(50,31,18,.08)
 }
 .guinness-log-btn:hover{
-background:var(--navy-dark)
+background:#5a3622
 }
 .guinness-card{
-border:1px solid var(--line);
+border:1px solid #d8c8b2;
 border-radius:10px;
-background:#fff;
+background:#fffaf1;
 padding:17px;
-margin-bottom:14px
+margin-bottom:14px;
+box-shadow:0 2px 8px rgba(70,45,25,.05)
 }
 .guinness-card h3{
 font:700 23px Georgia,serif;
 margin:0 0 14px;
-color:var(--navy-dark)
+color:#352116
+}
+.guinness-card h3:before{
+content:'•';
+color:#a47b38;
+margin-right:8px
 }
 .guinness-form{
-background:var(--pale);
-border:1px solid var(--line);
+background:#f4ecdf;
+border:1px solid #d8c8b2;
 border-radius:9px;
 padding:15px;
 margin-bottom:14px
@@ -716,23 +771,23 @@ margin-bottom:14px
 display:block;
 font-size:11px;
 font-weight:900;
-color:var(--navy-mid);
+color:#5b402d;
 margin-bottom:6px
 }
 .guinness-form input[type="date"]{
 width:100%;
 min-height:46px;
-border:1px solid #c7d4de;
+border:1px solid #cdbba3;
 border-radius:8px;
-background:#fff;
+background:#fffdf8;
 padding:10px 12px;
 font-size:16px;
-color:var(--navy-dark);
+color:#352116;
 margin-bottom:14px
 }
 .guinness-form input[type="date"]:focus{
-outline:3px solid #e1e9ef;
-border-color:var(--navy)
+outline:3px solid #eadfcf;
+border-color:#8b6333
 }
 .guinness-people{
 display:grid;
@@ -751,35 +806,35 @@ height:1px
 }
 .guinness-check label{
 display:block;
-border:1px solid #c7d4de;
+border:1px solid #cdbba3;
 border-radius:8px;
 padding:12px 10px;
 font-size:14px;
 font-weight:800;
-color:var(--navy-mid);
-background:#fff;
+color:#5b402d;
+background:#fffdf8;
 cursor:pointer;
 text-align:center
 }
 .guinness-check input:checked+label{
-background:var(--navy);
-border-color:var(--navy);
-color:#fff
+background:#4b2d1c;
+border-color:#4b2d1c;
+color:#fff8eb
 }
 .guinness-check input:focus+label{
-outline:3px solid #e1e9ef
+outline:3px solid #eadfcf
 }
 .guinness-selected{
 font-size:12px;
-color:var(--muted);
+color:#806d59;
 margin:8px 0 13px
 }
 .guinness-submit{
 width:100%;
 border:0;
 border-radius:8px;
-background:var(--navy);
-color:#fff;
+background:#4b2d1c;
+color:#fff8eb;
 padding:14px;
 font-size:15px;
 font-weight:900;
@@ -796,56 +851,63 @@ font-weight:700;
 color:#a33b3b
 }
 .guinness-message.success{
-color:#277044
+color:#4e7049
 }
 .leaderboard{
 display:flex;
 flex-direction:column;
-gap:8px
+gap:7px
 }
 .leader-row{
 display:grid;
 grid-template-columns:40px 1fr auto;
 align-items:center;
 gap:10px;
-border:1px solid var(--line);
+border:1px solid #dfd2c1;
 border-radius:8px;
 padding:12px 13px;
-background:#fff
+background:#fffdf8
+}
+.leader-row:first-child{
+background:#f3eadb;
+border-color:#d1b57a
 }
 .leader-rank{
 font-size:18px;
 font-weight:900;
-color:var(--muted);
+color:#8b7761;
 text-align:center
 }
 .leader-row:first-child .leader-rank{
-color:#9b762e
+color:#a47b38
 }
 .leader-name{
 font-weight:900;
-color:var(--navy-mid)
+color:#513724
 }
 .leader-count{
 font-size:21px;
 font-weight:900;
-color:var(--navy);
+color:#4b2d1c;
 text-align:right
 }
 .leader-count-label{
 font-size:11px;
-color:var(--muted);
+color:#8b7761;
 font-weight:700;
 margin-left:3px
 }
 .guinness-refresh{
-border:1px solid #bccbd6;
-background:#fff;
-color:var(--navy);
+border:1px solid #cdbba3;
+background:#fffdf8;
+color:#5b402d;
 border-radius:8px;
 padding:9px 11px;
 font-weight:800;
 cursor:pointer
+}
+.guinness-refresh:hover{
+background:#f4ecdf
 }
 .guinness-refresh:disabled{
 opacity:.6
@@ -858,7 +920,7 @@ gap:10px;
 margin-bottom:14px
 }
 .guinness-history{
-border-top:1px solid var(--line-light);
+border-top:1px solid #e6dccd;
 margin-top:14px;
 padding-top:12px
 }
@@ -868,17 +930,17 @@ grid-template-columns:1fr auto;
 align-items:center;
 gap:12px;
 padding:11px 0;
-border-bottom:1px solid var(--line-light)
+border-bottom:1px solid #e6dccd
 }
 .guinness-history-row:last-child{
 border-bottom:0
 }
 .guinness-history-date{
 font-weight:800;
-color:var(--navy-mid)
+color:#5b402d
 }
 .guinness-history-people{
-color:var(--muted);
+color:#8b7761;
 text-align:right;
 font-size:13px
 }
@@ -889,8 +951,8 @@ display:flex;
 justify-content:flex-end
 }
 .guinness-delete{
-border:1px solid #e2c2c2;
-background:#fff;
+border:1px solid #d9bebe;
+background:#fffdf8;
 color:#a33b3b;
 border-radius:7px;
 padding:7px 9px;
@@ -899,7 +961,7 @@ font-weight:800;
 cursor:pointer
 }
 .guinness-delete:hover{
-background:#fff7f7
+background:#fff2f0
 }
 .guinness-delete:disabled{
 opacity:.6;
@@ -2534,6 +2596,13 @@ Handicaps, Venmo handles and the official scouting reports.
 </main>
 <main id="guinness" style="display:none">
 <div class="guinness-hero">
+<div class="guinness-brand">
+<div class="guinness-brand-mark">G</div>
+<div>
+<div class="guinness-brand-name">GUINNESS</div>
+<div class="guinness-brand-sub">ST. JAMES'S GATE • DUBLIN</div>
+</div>
+</div>
 <div class="guinness-label">
 GROUP TOTAL
 </div>
