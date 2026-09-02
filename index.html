@@ -1695,6 +1695,31 @@ background:#fff
 
 
 .home-distance{margin-top:6px;font-size:12px;font-weight:800;color:var(--blue-gray);letter-spacing:.01em}
+
+.bar-filters{
+display:flex;
+flex-wrap:wrap;
+gap:7px;
+margin:0 0 14px
+}
+.bar-filter{
+border:1px solid var(--line);
+background:#fff;
+color:var(--navy);
+border-radius:999px;
+padding:8px 13px;
+font-size:12px;
+font-weight:800;
+cursor:pointer
+}
+.bar-filter.active{
+background:var(--navy);
+color:#fff;
+border-color:var(--navy)
+}
+.bar-card[data-category].bar-filter-hidden{
+display:none
+}
 </style>
 </head>
 <body>
@@ -2195,28 +2220,22 @@ onerror="this.style.display='none'"
 </div>
 <div class="arrival-person">
 <div class="arrival-name">Yeags</div>
-<div class="arrival-details"><b>Flight:</b> DL341<br><b>Departure:</b> 9:00 AM</div>
-</div>
-</div>
-</div>
-</article>
-<div class="notice">
-<b>Train tickets</b><br>
-Use the Omio app for the North Berwick / Edinburgh train.
-<div class="links">
-<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">Open Omio App ↗</a>
-</div>
-</div>
-</main>
-<main id="bars" style="display:none">
+<div class="arrival-deta<main id="bars" style="display:none">
 <div class="bars-intro">
 <h2>Bars / Restaurants</h2>
 <p>
 The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street Lane South. Ranked for atmosphere, Scottish character, beer, whisky and overall group potential.
 </p>
 </div>
+<div class="bar-filters" id="barFilters" aria-label="Filter bars and restaurants">
+<button class="bar-filter active" type="button" data-bar-filter="all">All</button>
+<button class="bar-filter" type="button" data-bar-filter="restaurant">Restaurant</button>
+<button class="bar-filter" type="button" data-bar-filter="pub">Pub</button>
+<button class="bar-filter" type="button" data-bar-filter="indian">Indian</button>
+<button class="bar-filter" type="button" data-bar-filter="shawarma">Shawarma</button>
+</div>
 <div class="bar-list">
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">1</div>
 <div class="bar-content">
@@ -2232,7 +2251,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">2</div>
 <div class="bar-content">
@@ -2248,7 +2267,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">3</div>
 <div class="bar-content">
@@ -2264,7 +2283,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">4</div>
 <div class="bar-content">
@@ -2280,7 +2299,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">5</div>
 <div class="bar-content">
@@ -2296,7 +2315,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">6</div>
 <div class="bar-content">
@@ -2312,7 +2331,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">7</div>
 <div class="bar-content">
@@ -2328,7 +2347,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">8</div>
 <div class="bar-content">
@@ -2344,7 +2363,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">9</div>
 <div class="bar-content">
@@ -2360,7 +2379,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">10</div>
 <div class="bar-content">
@@ -2376,7 +2395,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="restaurant"
 <div class="bar-card-top">
 <div class="bar-rank">11</div>
 <div class="bar-content">
@@ -2392,7 +2411,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">12</div>
 <div class="bar-content">
@@ -2408,7 +2427,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">13</div>
 <div class="bar-content">
@@ -2424,7 +2443,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">14</div>
 <div class="bar-content">
@@ -2440,7 +2459,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">15</div>
 <div class="bar-content">
@@ -2456,7 +2475,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">16</div>
 <div class="bar-content">
@@ -2472,7 +2491,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">17</div>
 <div class="bar-content">
@@ -2488,7 +2507,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">18</div>
 <div class="bar-content">
@@ -2504,7 +2523,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">19</div>
 <div class="bar-content">
@@ -2520,7 +2539,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="restaurant"
 <div class="bar-card-top">
 <div class="bar-rank">20</div>
 <div class="bar-content">
@@ -2536,7 +2555,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">21</div>
 <div class="bar-content">
@@ -2552,7 +2571,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="restaurant"
 <div class="bar-card-top">
 <div class="bar-rank">22</div>
 <div class="bar-content">
@@ -2568,7 +2587,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">23</div>
 <div class="bar-content">
@@ -2584,7 +2603,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">24</div>
 <div class="bar-content">
@@ -2600,7 +2619,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">25</div>
 <div class="bar-content">
@@ -2616,7 +2635,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">26</div>
 <div class="bar-content">
@@ -2632,7 +2651,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="pub"
 <div class="bar-card-top">
 <div class="bar-rank">27</div>
 <div class="bar-content">
@@ -2648,7 +2667,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="restaurant indian"
 <div class="bar-card-top">
 <div class="bar-rank">28</div>
 <div class="bar-content">
@@ -2664,7 +2683,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="restaurant indian"
 <div class="bar-card-top">
 <div class="bar-rank">29</div>
 <div class="bar-content">
@@ -2680,7 +2699,7 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 </div>
-<div class="bar-card">
+<div class="bar-card"> data-category="shawarma"
 <div class="bar-card-top">
 <div class="bar-rank">30</div>
 <div class="bar-content">
@@ -2690,6 +2709,14 @@ The 25 best pubs within roughly a 15-minute walk of our base at 26 Dublin Street
 </div>
 </div>
 <div class="links">
+<div class="link-pair">
+<a class="link" href="https://palmyrapizza.netlify.app/" target="_blank" rel="noopener">Palmyra Pizza ↗</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Palmyra+Pizza%2C+22+Nicolson+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
+</div>
+</div>
+</div>
+</div>
+</main>">
 <div class="link-pair">
 <a class="link" href="https://palmyrapizza.netlify.app/" target="_blank" rel="noopener">Palmyra Pizza ↗</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current+Location&amp;destination=Palmyra+Pizza%2C+22+Nicolson+Street%2C+Edinburgh" target="_blank" rel="noopener">Directions</a>
@@ -5739,5 +5766,26 @@ loadWeather();
 }
 },1800000);
 </script>
+
+<script>
+(function(){
+const filterButtons=document.querySelectorAll('[data-bar-filter]');
+const barCards=document.querySelectorAll('.bar-card[data-category]');
+filterButtons.forEach(button=>{
+button.addEventListener('click',()=>{
+const filter=button.dataset.barFilter;
+filterButtons.forEach(item=>{
+item.classList.toggle('active',item===button);
+});
+barCards.forEach(card=>{
+const categories=(card.dataset.category||'').split(/\s+/);
+const show=filter==='all'||categories.includes(filter);
+card.classList.toggle('bar-filter-hidden',!show);
+});
+});
+});
+})();
+</script>
+
 </body>
 </html>
