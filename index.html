@@ -1809,6 +1809,20 @@ border-color:var(--navy)
 .bar-card.bar-filter-hidden{
 display:none!important
 }
+
+.weather-error{
+display:flex;
+flex-direction:column;
+gap:7px;
+align-items:flex-start;
+line-height:1.4
+}
+.weather-error strong{
+color:var(--navy)
+}
+.weather-inline-retry{
+margin-top:5px
+}
 </style>
 </head>
 <body>
@@ -4160,7 +4174,7 @@ document.getElementById(
 );
 forecast.innerHTML=
 '<div class="weather-loading">Loading Edinburgh weather…</div>';
-try{
+
 const url=
 'https://api.open-meteo.com/v1/forecast'+
 '?latitude=55.9533'+
@@ -4172,20 +4186,45 @@ const url=
 '&wind_speed_unit=mph'+
 '&timezone=Europe%2FLondon'+
 '&forecast_days=8';
+
+let lastError=null;
+
+for(let attempt=0;attempt<2;attempt++){
+try{
+const controller=
+new AbortController();
+const timeout=
+setTimeout(
+()=>controller.abort(),
+10000
+);
+const requestUrl=
+attempt===0
+?url
+:url+'&_retry='+Date.now();
+
 const response=
 await fetch(
-url,
+requestUrl,
 {
-cache:'no-store'
+cache:'no-store',
+signal:controller.signal,
+headers:{
+'Accept':'application/json'
+}
 }
 );
+clearTimeout(timeout);
+
 if(!response.ok){
 throw new Error(
-'Weather request failed'
+'Weather request returned '+response.status
 );
 }
+
 const data=
 await response.json();
+
 if(
 !data.current ||
 !data.daily ||
@@ -4198,9 +4237,11 @@ throw new Error(
 'Weather data was unavailable'
 );
 }
+
 weatherLoaded=true;
 weatherData=data;
 selectedWeatherDayIndex=0;
+
 forecast.innerHTML=
 data.daily.time
 .slice(0,8)
@@ -4219,60 +4260,43 @@ const min=
 data.daily.temperature_2m_min[index];
 const wind=
 data.daily.wind_speed_10m_max[index];
-const precipitation=
+const rain=
 data.daily.precipitation_probability_max[index];
 return `
-<div
-class="forecast-row ${index===0?'today selected':''}"
-data-weather-day="${index}"
-role="button"
-tabindex="0"
-aria-label="View weather for ${escapeHtml(formatWeatherDate(date))}">
-<div>
+<div class="forecast-row" data-weather-day="${index}" role="button" tabindex="0">
 <div class="forecast-day">
-${dayLabel}
+<strong>${dayLabel}</strong>
+<span>${dateLabel}</span>
 </div>
-<div class="forecast-date">
-${dateLabel}
-</div>
-</div>
-<div>
-<div class="forecast-label">
-TEMP
-</div>
-<div class="forecast-value">
-${formatTemp(max)} / ${formatTemp(min)}
-</div>
-</div>
-<div>
-<div class="forecast-label">
-WIND
-</div>
-<div class="forecast-value">
-${formatWind(wind)}
-</div>
+<div class="forecast-temp">
+<strong>${formatTemp(max)}</strong>
+<span>${formatTemp(min)}</span>
 </div>
 <div class="forecast-rain">
-<div class="forecast-label">
-RAIN
+<span>RAIN</span>
+<strong>${formatRain(rain)}</strong>
 </div>
-<div class="forecast-value">
-${formatRain(precipitation)}
-</div>
+<div class="forecast-wind">
+<span>WIND</span>
+<strong>${formatWind(wind)}</strong>
 </div>
 </div>
 `;
-}).join('');
+})
+.join('');
+
 document.querySelectorAll(
-'[data-weather-day]'
+'.forecast-row'
 ).forEach(row=>{
-row.addEventListener(
-'click',
-()=>{
+const select=()=>{
 selectWeatherDay(
 Number(row.dataset.weatherDay)
 );
-});
+};
+row.addEventListener(
+'click',
+select
+);
 row.addEventListener(
 'keydown',
 event=>{
@@ -4281,71 +4305,71 @@ event.key==='Enter' ||
 event.key===' '
 ){
 event.preventDefault();
-selectWeatherDay(
-Number(row.dataset.weatherDay)
-);
+select();
 }
 });
 });
+
 updateWeatherHero(0);
-}
-catch(error){
-console.error(
-'Weather error:',
-error
+return;
+
+}catch(error){
+lastError=error;
+if(attempt===0){
+await new Promise(
+resolve=>setTimeout(resolve,700)
 );
+}
+}
+}
+
 weatherLoaded=false;
 weatherData=null;
 forecast.innerHTML=
-'<div class="weather-error">'+
-'Unable to load the Edinburgh forecast right now. '+
-'Tap Refresh to try again.'+
-'</div>';
-const canvas=
+`<div class="weather-loading weather-error">
+<strong>Weather couldn’t load.</strong>
+<span>Open-Meteo may be temporarily unavailable. Tap Refresh to try again.</span>
+<button type="button" class="weather-refresh weather-inline-retry" id="weatherInlineRetry">↻ Try Again</button>
+</div>`;
+
+const retryButton=
 document.getElementById(
-'rainChart'
+'weatherInlineRetry'
 );
-if(canvas){
-const ctx=
-canvas.getContext('2d');
-ctx.clearRect(
-0,
-0,
-canvas.width,
-canvas.height
-);
-}
-}
-}
-document.getElementById(
-'refreshWeather'
-).addEventListener(
+if(retryButton){
+retryButton.addEventListener(
 'click',
-async()=>{
-const button=
-document.getElementById(
-'refreshWeather'
-);
-button.disabled=true;
-button.textContent='Loading…';
-await loadWeather();
-button.disabled=false;
-button.textContent='↻ Refresh';
-});
-window.addEventListener(
-'resize',
 ()=>{
-if(
-weatherLoaded &&
-weatherData
-){
-drawRainChartForDay(
-selectedWeatherDayIndex
+loadWeather();
+}
 );
 }
-});
-let guinnessLogs=[];
-let guinnessInitialized=false;
+
+document.getElementById(
+'weatherCurrentTemp'
+).textContent='—°';
+document.getElementById(
+'weatherHighLow'
+).textContent='— / —';
+document.getElementById(
+'weatherCurrentWind'
+).textContent='—';
+document.getElementById(
+'weatherCurrentRain'
+).textContent='—';
+document.getElementById(
+'rainChartTitle'
+).textContent='Today’s Rain Chance';
+document.getElementById(
+'rainChartSubtitle'
+).textContent='Hourly precipitation probability';
+
+console.error(
+'Edinburgh weather failed to load:',
+lastError
+);
+}
+
 function todayString(){
 return new Date()
 .toISOString()
