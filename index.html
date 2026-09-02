@@ -6110,6 +6110,46 @@ balances[person]-=share;
 
 });
 
+/* APPLY RECORDED SETTLEMENT PAYMENTS
+
+A payment means the debtor has actually paid the
+creditor, so remove that amount from the debtor's
+outstanding balance and add it to the creditor's
+balance.
+
+Payments are stored in GBP, which matches the
+purchase/balance calculations above.
+
+*/
+
+settlementPayments.forEach(payment=>{
+
+const debtor=
+payment.debtor;
+
+const creditor=
+payment.creditor;
+
+const amount=
+Number(payment.amount)||0;
+
+if(
+amount<=0 ||
+!PEOPLE.includes(debtor) ||
+!PEOPLE.includes(creditor) ||
+debtor===creditor
+){
+
+return;
+
+}
+
+balances[debtor]-=amount;
+
+balances[creditor]+=amount;
+
+});
+
 return balances;
 
 }
