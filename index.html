@@ -980,14 +980,50 @@ display:flex;
 flex-direction:column;
 gap:7px
 }
+/* GUINNESS LEADERBOARD */
+.guinness-leader-header{
+display:flex;
+align-items:flex-end;
+justify-content:space-between;
+gap:14px;
+margin-bottom:18px
+}
+.guinness-leader-kicker{
+font-size:11px;
+font-weight:900;
+letter-spacing:.16em;
+text-transform:uppercase;
+color:#9a7b45;
+margin-bottom:4px
+}
+.guinness-leader-title{
+margin:0;
+font-family:Arial,sans-serif;
+font-size:26px;
+line-height:1.05;
+font-weight:900;
+letter-spacing:-.035em;
+color:#3f2a1d
+}
+.guinness-leader-subtitle{
+margin:6px 0 0;
+font-size:12px;
+font-weight:700;
+color:#8b7761
+}
+.leaderboard{
+display:flex;
+flex-direction:column;
+gap:8px
+}
 .leader-row{
 display:grid;
-grid-template-columns:40px 1fr auto;
+grid-template-columns:42px minmax(0,1fr) auto;
 align-items:center;
-gap:10px;
+gap:11px;
 border:1px solid #dfd2c1;
 border-radius:10px;
-padding:12px 13px;
+padding:11px 13px;
 background:#fffdf8;
 transition:transform .15s ease,box-shadow .15s ease
 }
@@ -996,19 +1032,19 @@ transform:translateY(-1px);
 box-shadow:0 5px 14px rgba(49,35,25,.08)
 }
 .leader-row.podium-gold{
-background:linear-gradient(135deg,#f7e7a8 0%,#d9b44a 48%,#f8edbc 100%);
-border-color:#b58a28;
-box-shadow:0 5px 16px rgba(165,123,42,.22)
+background:#f4e8bd;
+border-color:#c5a552;
+box-shadow:0 3px 10px rgba(149,116,48,.12)
 }
 .leader-row.podium-silver{
-background:linear-gradient(135deg,#f0f0ee 0%,#c6c8ca 48%,#f7f7f5 100%);
-border-color:#9da1a5;
-box-shadow:0 4px 13px rgba(95,99,103,.16)
+background:#e9ebeb;
+border-color:#b5b9ba;
+box-shadow:0 3px 9px rgba(80,86,89,.10)
 }
 .leader-row.podium-bronze{
-background:linear-gradient(135deg,#e8c09e 0%,#b87943 48%,#edc9aa 100%);
-border-color:#9a5e32;
-box-shadow:0 4px 13px rgba(137,83,42,.17)
+background:#ead6c3;
+border-color:#bd8d65;
+box-shadow:0 3px 9px rgba(124,80,48,.10)
 }
 .leader-rank{
 width:34px;
@@ -1017,27 +1053,26 @@ display:flex;
 align-items:center;
 justify-content:center;
 border-radius:50%;
-font-size:17px;
+font-size:16px;
 font-weight:900;
 color:#8b7761;
 text-align:center;
 box-sizing:border-box
 }
-.podium-gold .leader-rank,
-.podium-silver .leader-rank,
-.podium-bronze .leader-rank{
-color:#fff;
-text-shadow:0 1px 2px rgba(0,0,0,.28);
-border:1px solid rgba(255,255,255,.55)
-}
 .podium-gold .leader-rank{
-background:linear-gradient(145deg,#fff1a8,#b98620)
+background:#c7a449;
+color:#fff;
+border:1px solid #b18b31
 }
 .podium-silver .leader-rank{
-background:linear-gradient(145deg,#ffffff,#8e9398)
+background:#aeb3b5;
+color:#fff;
+border:1px solid #969c9f
 }
 .podium-bronze .leader-rank{
-background:linear-gradient(145deg,#f0c8a4,#96552d)
+background:#b77b4e;
+color:#fff;
+border:1px solid #9f653c
 }
 .leader-name{
 font-weight:900;
@@ -1052,12 +1087,13 @@ color:#3f2a1d
 font-size:21px;
 font-weight:900;
 color:#4b2d1c;
-text-align:right
+text-align:right;
+white-space:nowrap
 }
 .podium-gold .leader-count,
 .podium-silver .leader-count,
 .podium-bronze .leader-count{
-color:#2f2119
+color:#332319
 }
 .leader-count-label{
 font-size:11px;
@@ -1068,22 +1104,37 @@ margin-left:3px
 .podium-gold .leader-count-label,
 .podium-silver .leader-count-label,
 .podium-bronze .leader-count-label{
-color:#5f4938
+color:#665241
 }
 .guinness-refresh{
-border:1px solid #cdbba3;
-background:#fffdf8;
+width:38px;
+height:38px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+flex:0 0 38px;
+border:1px solid #d0bea1;
+background:#f8f2e8;
 color:#5b402d;
-border-radius:8px;
-padding:9px 11px;
-font-weight:800;
-cursor:pointer
+border-radius:10px;
+font-size:20px;
+font-weight:900;
+cursor:pointer;
+box-shadow:0 2px 6px rgba(49,35,25,.06);
+transition:transform .15s ease,background .15s ease,border-color .15s ease
 }
 .guinness-refresh:hover{
-background:#f4ecdf
+background:#efe5d5;
+border-color:#bca47f;
+transform:rotate(20deg)
+}
+.guinness-refresh:active{
+transform:rotate(20deg) scale(.94)
 }
 .guinness-refresh:disabled{
-opacity:.6
+opacity:.6;
+cursor:wait;
+transform:none
 }
 .guinness-header-row{
 display:flex;
@@ -3605,13 +3656,19 @@ aria-live="polite">
 </div>
 </div>
 <div class="guinness-card">
-<div class="guinness-header-row">
-<h3>Guinness Leaderboard</h3>
+<div class="guinness-leader-header">
+<div>
+<div class="guinness-leader-kicker">GUINNESS CUP</div>
+<h3 class="guinness-leader-title">Live Standings</h3>
+<p class="guinness-leader-subtitle">Who’s leading the pint race?</p>
+</div>
 <button
 class="guinness-refresh"
 id="refreshGuinness"
-type="button">
-↻ Refresh
+type="button"
+aria-label="Refresh Guinness leaderboard"
+title="Refresh leaderboard">
+↻
 </button>
 </div>
 <div
@@ -4937,6 +4994,9 @@ return b.count-a.count;
 return PEOPLE.indexOf(a.person)-
 PEOPLE.indexOf(b.person);
 });
+document.getElementById(
+'guinnessLeaderboard'
+).innerHTML=
 document.getElementById(
 'guinnessLeaderboard'
 ).innerHTML=
