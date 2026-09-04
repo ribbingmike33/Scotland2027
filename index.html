@@ -981,49 +981,42 @@ flex-direction:column;
 gap:7px
 }
 /* GUINNESS LEADERBOARD */
+/* GUINNESS LEADERBOARD */
 .guinness-leader-header{
 display:flex;
-align-items:flex-end;
+align-items:center;
 justify-content:space-between;
-gap:14px;
-margin-bottom:18px
-}
-.guinness-leader-kicker{
-font-size:11px;
-font-weight:900;
-letter-spacing:.16em;
-text-transform:uppercase;
-color:#9a7b45;
-margin-bottom:4px
+gap:16px;
+margin-bottom:18px;
+padding:2px 1px
 }
 .guinness-leader-title{
 margin:0;
 font-family:Arial,sans-serif;
-font-size:26px;
-line-height:1.05;
-font-weight:900;
-letter-spacing:-.035em;
-color:#3f2a1d
+font-size:27px;
+line-height:1.1;
+font-weight:800;
+letter-spacing:-.025em;
+color:#352116
 }
-.guinness-leader-subtitle{
-margin:6px 0 0;
-font-size:12px;
-font-weight:700;
-color:#8b7761
+.guinness-leader-title:before{
+content:none
 }
 .leaderboard{
 display:flex;
 flex-direction:column;
-gap:8px
+gap:9px
 }
 .leader-row{
 display:grid;
 grid-template-columns:42px minmax(0,1fr) auto;
 align-items:center;
-gap:11px;
+gap:12px;
+min-height:58px;
+box-sizing:border-box;
 border:1px solid #dfd2c1;
-border-radius:10px;
-padding:11px 13px;
+border-radius:11px;
+padding:11px 14px;
 background:#fffdf8;
 transition:transform .15s ease,box-shadow .15s ease
 }
@@ -1032,19 +1025,19 @@ transform:translateY(-1px);
 box-shadow:0 5px 14px rgba(49,35,25,.08)
 }
 .leader-row.podium-gold{
-background:#f4e8bd;
-border-color:#c5a552;
-box-shadow:0 3px 10px rgba(149,116,48,.12)
+background:linear-gradient(112deg,#fff8dc 0%,#e8cf83 42%,#b8933c 72%,#f6e8ad 100%);
+border-color:#b5964a;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 4px 12px rgba(128,96,37,.14)
 }
 .leader-row.podium-silver{
-background:#e9ebeb;
-border-color:#b5b9ba;
-box-shadow:0 3px 9px rgba(80,86,89,.10)
+background:linear-gradient(112deg,#fafafa 0%,#d9dcdd 42%,#9ea3a6 72%,#eceeee 100%);
+border-color:#aeb3b5;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.82),0 4px 12px rgba(82,88,92,.12)
 }
 .leader-row.podium-bronze{
-background:#ead6c3;
-border-color:#bd8d65;
-box-shadow:0 3px 9px rgba(124,80,48,.10)
+background:linear-gradient(112deg,#f8e7d5 0%,#d6a77c 42%,#9b6038 72%,#e5c1a3 100%);
+border-color:#ae744d;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.66),0 4px 12px rgba(112,68,39,.13)
 }
 .leader-rank{
 width:34px;
@@ -1053,37 +1046,42 @@ display:flex;
 align-items:center;
 justify-content:center;
 border-radius:50%;
-font-size:16px;
+font-size:15px;
 font-weight:900;
 color:#8b7761;
 text-align:center;
 box-sizing:border-box
 }
-.podium-gold .leader-rank{
-background:#c7a449;
+.podium-gold .leader-rank,
+.podium-silver .leader-rank,
+.podium-bronze .leader-rank{
 color:#fff;
-border:1px solid #b18b31
+text-shadow:0 1px 2px rgba(0,0,0,.3);
+border:1px solid rgba(255,255,255,.62);
+box-shadow:inset 0 1px 1px rgba(255,255,255,.5),0 1px 2px rgba(0,0,0,.12)
+}
+.podium-gold .leader-rank{
+background:linear-gradient(145deg,#fff3b0 0%,#d2ad4c 48%,#9e7727 100%)
 }
 .podium-silver .leader-rank{
-background:#aeb3b5;
-color:#fff;
-border:1px solid #969c9f
+background:linear-gradient(145deg,#ffffff 0%,#c7cbcd 48%,#858b8f 100%)
 }
 .podium-bronze .leader-rank{
-background:#b77b4e;
-color:#fff;
-border:1px solid #9f653c
+background:linear-gradient(145deg,#f3cda9 0%,#bc7d4e 48%,#854d2d 100%)
 }
 .leader-name{
-font-weight:900;
+font-family:Arial,sans-serif;
+font-weight:800;
+font-size:15px;
 color:#513724
 }
 .podium-gold .leader-name,
 .podium-silver .leader-name,
 .podium-bronze .leader-name{
-color:#3f2a1d
+color:#38271d
 }
 .leader-count{
+font-family:Arial,sans-serif;
 font-size:21px;
 font-weight:900;
 color:#4b2d1c;
@@ -1096,7 +1094,7 @@ white-space:nowrap
 color:#332319
 }
 .leader-count-label{
-font-size:11px;
+font-size:10px;
 color:#8b7761;
 font-weight:700;
 margin-left:3px
@@ -1104,35 +1102,38 @@ margin-left:3px
 .podium-gold .leader-count-label,
 .podium-silver .leader-count-label,
 .podium-bronze .leader-count-label{
-color:#665241
+color:#5f4a39
 }
 .guinness-refresh{
-width:38px;
-height:38px;
+width:30px;
+height:30px;
 display:inline-flex;
 align-items:center;
 justify-content:center;
-flex:0 0 38px;
-border:1px solid #d0bea1;
-background:#f8f2e8;
-color:#5b402d;
-border-radius:10px;
-font-size:20px;
-font-weight:900;
+flex:0 0 30px;
+border:1px solid #cdbba3;
+background:transparent;
+color:#6b503a;
+border-radius:50%;
+font-size:18px;
+font-weight:700;
+line-height:1;
 cursor:pointer;
-box-shadow:0 2px 6px rgba(49,35,25,.06);
-transition:transform .15s ease,background .15s ease,border-color .15s ease
+padding:0;
+box-shadow:none;
+transition:transform .15s ease,background .15s ease,color .15s ease,border-color .15s ease
 }
 .guinness-refresh:hover{
-background:#efe5d5;
-border-color:#bca47f;
+background:#f1e8da;
+border-color:#bda789;
+color:#4b3425;
 transform:rotate(20deg)
 }
 .guinness-refresh:active{
-transform:rotate(20deg) scale(.94)
+transform:rotate(20deg) scale(.92)
 }
 .guinness-refresh:disabled{
-opacity:.6;
+opacity:.55;
 cursor:wait;
 transform:none
 }
@@ -3657,11 +3658,7 @@ aria-live="polite">
 </div>
 <div class="guinness-card">
 <div class="guinness-leader-header">
-<div>
-<div class="guinness-leader-kicker">GUINNESS CUP</div>
-<h3 class="guinness-leader-title">Live Standings</h3>
-<p class="guinness-leader-subtitle">Who’s leading the pint race?</p>
-</div>
+<h3 class="guinness-leader-title">Guinness Standings</h3>
 <button
 class="guinness-refresh"
 id="refreshGuinness"
