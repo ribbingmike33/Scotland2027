@@ -2667,6 +2667,67 @@ font-weight:800
   #participants .who-wheel{transition:none}
 }
 
+
+/* WHEEL TAB — playful plum with a light lavender secondary accent */
+.tab[data-tab="itinerary"]{
+  grid-column:auto !important;
+  order:7 !important;
+}
+.tab[data-tab="wheel"]{
+  order:8 !important;
+}
+.tab.active[data-tab="wheel"]{
+  background:#5b4b7a !important;
+  border-color:#d7c9e8 !important;
+  color:#fff !important;
+  box-shadow:inset 0 0 0 1px rgba(215,201,232,.24);
+}
+.tab[data-tab="wheel"]:hover{
+  background:#6a598c !important;
+  border-color:#d7c9e8 !important;
+}
+#wheel .wheel-roast-wrap{
+  margin:0 0 18px;
+}
+#wheel .wheel-roast-heading{
+  color:#5b4b7a;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.14em;
+  margin:2px 0 7px;
+}
+#wheel .roast-us-wrap{
+  margin:0;
+}
+#wheel .roast-us-btn{
+  border-color:#d7c9e8 !important;
+  background:#5b4b7a !important;
+  color:#fff !important;
+  box-shadow:0 2px 5px rgba(91,75,122,.12);
+}
+#wheel .roast-us-btn:hover{
+  background:#6a598c !important;
+  border-color:#d7c9e8 !important;
+}
+#wheel .who-wheel-section{
+  margin-top:0;
+  padding-top:18px;
+  border-top:1px solid #d7c9e8;
+}
+#wheel .who-wheel-spin{
+  border-color:#d7c9e8 !important;
+  background:#5b4b7a !important;
+  color:#fff !important;
+  box-shadow:0 2px 5px rgba(91,75,122,.12);
+}
+#wheel .who-wheel-spin:hover{
+  background:#6a598c !important;
+  border-color:#d7c9e8 !important;
+}
+#wheel .who-wheel-result{
+  color:#5b4b7a;
+}
+
 </style>
 </head>
 <body>
@@ -2696,7 +2757,7 @@ JUNE 11–19 • 2027
 <button class="tab" data-tab="dues"><span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5h13.5A2.5 2.5 0 0 1 20 10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7.5"/><path d="M3 7.5 15.5 4A2 2 0 0 1 18 6v2"/><path d="M15 14h5"/><circle cx="15" cy="14" r="1"/></svg></span><span>Dues</span></button>
 <button class="tab" data-tab="weather"><span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 18h10.5a4 4 0 0 0 .3-8 5.5 5.5 0 0 0-10.6-1A4.5 4.5 0 0 0 7 18Z"/><path d="M17 4v2"/><path d="m21 6-1.4 1.4"/><path d="M22 10h-2"/><path d="m5 4 1.4 1.4"/></svg></span><span>Weather</span></button>
 <button class="tab" data-tab="bars"><span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3v7"/><path d="M4 3v4a3 3 0 0 0 6 0V3"/><path d="M7 10v11"/><path d="M17 3v18"/><path d="M17 3c-2 2-3 4-3 7 0 2 1.2 3 3 3"/></svg></span><span>Bars / Restaurants</span></button>
-<button class="tab active" data-tab="itinerary"><span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 9h16"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01"/></svg></span><span>Itinerary</span></button>
+<button class="tab active" data-tab="itinerary"><span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 9h16"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01"/></svg></span><span>Itinerary</span></button> <button class="tab" data-tab="wheel"><span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 4v6M18.9 8l-5.2 3M18.9 16l-5.2-3M12 20v-6M5.1 16l5.2-3M5.1 8l5.2 3"/></svg></span><span>Wheel</span></button>
 </nav>
 <main id="itinerary">
 <div class="base">
@@ -3172,6 +3233,27 @@ Use the Omio app for the North Berwick / Edinburgh train.
 </div>
 
 
+</main>
+<main id="wheel" style="display:none">
+<div class="wheel-roast-wrap">
+<div class="wheel-roast-heading">ROAST THE LADS</div>
+<div class="roast-us-wrap" id="roastUsWrap">
+  <button class="roast-us-btn" id="roastUsBtn" type="button">Roast Us</button>
+  <div class="roast-us-result" id="roastUsResult" aria-live="polite" aria-atomic="true"></div>
+</div>
+<div class="who-wheel-section">
+  <div class="who-wheel-title">Who’s Gonna Do It?</div>
+  <div class="who-wheel-subtitle">Spin the wheel. No arguing with the result.</div>
+  <div class="who-wheel-wrap">
+    <div class="who-wheel-pointer" aria-hidden="true"></div>
+    <div class="who-wheel" id="whoWheel" role="img" aria-label="Wheel containing all eight participants"></div>
+    <div class="who-wheel-center" aria-hidden="true">SPIN</div>
+  </div>
+  <button class="who-wheel-spin" id="whoWheelSpin" type="button">SPIN</button>
+  <div class="who-wheel-result" id="whoWheelResult" aria-live="polite" aria-atomic="true">
+    Spin it to find out.
+  </div>
+</div>
 </main>
 <main id="bars" style="display:none">
 <div class="bars-intro">
@@ -4312,9 +4394,6 @@ color:#fff
 
 </style>
 <main id="participants" style="display:none">
-<div class="roast-us-wrap" id="roastUsWrap">
-  <button class="roast-us-btn" id="roastUsBtn" type="button">Roast Us</button>
-  <div class="roast-us-result" id="roastUsResult" aria-live="polite" aria-atomic="true"></div>
 </div>
 
 <div class="notice">
@@ -4364,19 +4443,6 @@ Handicaps, Venmo handles and the official scouting reports.
 </div>
 <div class="participant-prediction"><span>BOLD PREDICTION</span>Yeags will hit one shot so good everyone will wonder where the hell that came from, then immediately make three decisions that answer the question.</div></div>
 
-<div class="who-wheel-section">
-  <div class="who-wheel-title">Who’s Gonna Do It?</div>
-  <div class="who-wheel-subtitle">Spin the wheel. No arguing with the result.</div>
-  <div class="who-wheel-wrap">
-    <div class="who-wheel-pointer" aria-hidden="true"></div>
-    <div class="who-wheel" id="whoWheel" role="img" aria-label="Wheel containing all eight participants"></div>
-    <div class="who-wheel-center" aria-hidden="true">SPIN</div>
-  </div>
-  <button class="who-wheel-spin" id="whoWheelSpin" type="button">SPIN</button>
-  <div class="who-wheel-result" id="whoWheelResult" aria-live="polite" aria-atomic="true">
-    Spin it to find out.
-  </div>
-</div>
 </main>
 <main id="guinness" style="display:none">
 <div class="guinness-hero">
