@@ -2537,31 +2537,31 @@ font-weight:800
 
 
 /* WHO'S GONNA DO IT? */
-#participants .who-wheel-section{
+#wheel .who-wheel-section{
   margin-top:18px;
   padding-top:18px;
   border-top:1px solid #cbd4df;
   text-align:center;
 }
-#participants .who-wheel-title{
+#wheel .who-wheel-title{
   color:#263c4f;
   font-size:22px;
   font-weight:900;
   letter-spacing:.01em;
 }
-#participants .who-wheel-subtitle{
+#wheel .who-wheel-subtitle{
   margin-top:3px;
   color:#6a7783;
   font-size:12px;
   font-weight:700;
 }
-#participants .who-wheel-wrap{
+#wheel .who-wheel-wrap{
   position:relative;
   width:min(100%,330px);
   aspect-ratio:1;
   margin:18px auto 14px;
 }
-#participants .who-wheel{
+#wheel .who-wheel{
   width:100%;
   height:100%;
   border-radius:50%;
@@ -2582,7 +2582,7 @@ font-weight:800
   transition:transform 4s cubic-bezier(.12,.78,.16,1);
   will-change:transform;
 }
-#participants .who-wheel-label{
+#wheel .who-wheel-label{
   position:absolute;
   width:42%;
   color:#fff;
@@ -2595,11 +2595,11 @@ font-weight:800
   transform:translate(-50%,-50%) rotate(0deg);
   transition:transform 4s cubic-bezier(.12,.78,.16,1);
 }
-#participants .who-wheel-label.light{
+#wheel .who-wheel-label.light{
   color:#263c4f;
   text-shadow:0 1px 1px rgba(255,255,255,.8);
 }
-#participants .who-wheel-pointer{
+#wheel .who-wheel-pointer{
   position:absolute;
   z-index:3;
   top:-3px;
@@ -2613,7 +2613,7 @@ font-weight:800
   border-bottom:25px solid #bdcbd7;
   filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
 }
-#participants .who-wheel-center{
+#wheel .who-wheel-center{
   position:absolute;
   z-index:2;
   left:50%;
@@ -2633,7 +2633,7 @@ font-weight:800
   letter-spacing:.08em;
   box-shadow:0 2px 6px rgba(0,0,0,.14);
 }
-#participants .who-wheel-spin{
+#wheel .who-wheel-spin{
   width:100%;
   max-width:330px;
   min-height:46px;
@@ -2647,15 +2647,15 @@ font-weight:800
   cursor:pointer;
   box-shadow:0 2px 5px rgba(38,60,79,.10);
 }
-#participants .who-wheel-spin:hover{
+#wheel .who-wheel-spin:hover{
   background:#263c4f;
   border-color:#dfe6ec;
 }
-#participants .who-wheel-spin:disabled{
+#wheel .who-wheel-spin:disabled{
   opacity:.65;
   cursor:default;
 }
-#participants .who-wheel-result{
+#wheel .who-wheel-result{
   margin:10px auto 0;
   width:min(100%,330px);
   min-height:20px;
@@ -2664,7 +2664,7 @@ font-weight:800
   font-weight:900;
 }
 @media (prefers-reduced-motion:reduce){
-  #participants .who-wheel{transition:none}
+  #wheel .who-wheel{transition:none}
 }
 
 
@@ -4394,7 +4394,6 @@ color:#fff
 
 </style>
 <main id="participants" style="display:none">
-</div>
 
 <div class="notice">
 <b>THE CREW</b><br>
