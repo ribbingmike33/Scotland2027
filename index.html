@@ -2398,6 +2398,101 @@ font-weight:800
   outline:3px solid rgba(201,162,63,.18) !important;
 }
 
+
+/* LIGHT SECONDARY ACCENTS — ALL COMPONENTS
+   Keep each component's existing main color; use a restrained, light
+   complementary border/accent for contrast, matching the Guinness treatment. */
+
+/* Scotland Cup — warm parchment gold */
+.tab.active[data-tab="cup"]{
+  border-color:#e6d7b5 !important;
+  box-shadow:inset 0 0 0 1px rgba(230,215,181,.25);
+}
+#cup .score{
+  border-color:#e6d7b5;
+}
+#cup .score-head{
+  border-bottom:2px solid #e6d7b5;
+}
+
+/* Participants — soft blue-gray */
+.tab.active[data-tab="participants"]{
+  border-color:#cbd4df !important;
+  box-shadow:inset 0 0 0 1px rgba(203,212,223,.22);
+}
+#participants .person{
+  border-top-color:#cbd4df;
+}
+#participants .participant-card{
+  border-color:#cbd4df;
+}
+#participants .section-head{
+  border-bottom-color:#cbd4df;
+}
+
+/* Dues — light sage */
+.tab.active[data-tab="dues"]{
+  border-color:#b9cabe !important;
+  box-shadow:inset 0 0 0 1px rgba(185,202,190,.22);
+}
+#dues .primary-btn,
+#dues .debt-player-tab.active,
+#dues .debt-player-tab[aria-selected="true"],
+#dues .person-check input:checked+label{
+  border-color:#b9cabe !important;
+}
+#dues .fx-card{
+  border:1px solid #b9cabe;
+}
+
+/* Weather — light sky blue */
+.tab.active[data-tab="weather"]{
+  border-color:#b8cbd5 !important;
+  box-shadow:inset 0 0 0 1px rgba(184,203,213,.22);
+}
+#weather .weather-hero{
+  border:1px solid #b8cbd5;
+}
+#weather .weather-refresh{
+  border-color:#b8cbd5;
+}
+#weather .forecast-row.selected{
+  border-color:#b8cbd5 !important;
+}
+
+/* Bars / Restaurants — muted dusty rose */
+.tab.active[data-tab="bars"]{
+  border-color:#d8b9c1 !important;
+  box-shadow:inset 0 0 0 1px rgba(216,185,193,.22);
+}
+#bars .bar-filter.active{
+  border-color:#d8b9c1 !important;
+}
+#bars .directions{
+  border-color:#d8b9c1 !important;
+}
+#bars .link{
+  border-color:#d8b9c1;
+}
+
+/* Itinerary — light steel blue */
+.tab.active[data-tab="itinerary"]{
+  border-color:#bdcbd7 !important;
+  box-shadow:inset 0 0 0 1px rgba(189,203,215,.22);
+}
+#itinerary .get-home-btn{
+  border-color:#bdcbd7 !important;
+}
+#itinerary .day{
+  border-color:#bdcbd7;
+}
+
+/* Keep the active Guinness treatment exactly as established. */
+.tab.active[data-tab="guinness"],
+.tab.active[data-tab="guinness"]:hover{
+  border-color:#c9a23f !important;
+}
+
 </style>
 </head>
 <body>
