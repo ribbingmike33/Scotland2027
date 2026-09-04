@@ -4637,6 +4637,11 @@ const VENMO={
 'Veer Singh':'veersingh24',
 'Yeags':'papa-yeags'
 };
+let guinnessInitialized=false;
+let guinnessLoaded=false;
+let guinnessLoading=false;
+let guinnessLogs=[];
+
 let weatherInitialized=false;
 let weatherLoaded=false;
 let weatherData=null;
@@ -5426,8 +5431,15 @@ document.getElementById(
 ).value=todayString();
 updateGuinnessSelected();
 }
+if(!guinnessLoaded && !guinnessLoading){
+loadGuinness();
+}
 }
 async function loadGuinness(){
+if(guinnessLoading){
+return;
+}
+guinnessLoading=true;
 const leaderboard=
 document.getElementById(
 'guinnessLeaderboard'
@@ -5445,6 +5457,7 @@ p_pin:DUES_PIN
 }
 );
 if(error){
+guinnessLoaded=false;
 console.error(
 'Guinness load error:',
 error
@@ -5458,14 +5471,17 @@ error
 )
 )+
 '</div>';
+guinnessLoading=false;
 return;
 }
 guinnessLogs=
 Array.isArray(data)
 ?data
 :[];
+guinnessLoaded=true;
 renderGuinness();
 }catch(error){
+guinnessLoaded=false;
 console.error(
 'Guinness connection error:',
 error
@@ -5479,6 +5495,8 @@ error
 )
 )+
 '</div>';
+}finally{
+guinnessLoading=false;
 }
 }
 function calculateGuinnessTotals(){
