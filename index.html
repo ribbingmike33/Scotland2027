@@ -5637,22 +5637,64 @@ const balances={};
 PEOPLE.forEach(person=>{
 balances[person]=0;
 });
-const settlements=
-calculateOutstandingSettlements();
-Object.entries(settlements).forEach(
-([key,amount])=>{
-const parts=key.split('||');
-const debtor=parts[0];
-const creditor=parts[1];
+
+/*
+Purchase ledger is the authoritative source for balances:
+- The payer is credited with the full purchase amount.
+- Every participant is charged an equal share.
+- Recorded settlement payments are then applied:
+  the debtor's balance increases and the creditor's balance decreases.
+*/
+purchases.forEach(purchase=>{
+const people=
+Array.isArray(purchase.people)
+?purchase.people
+:[];
+if(!people.length){
+return;
+}
+const amount=
+Number(purchase.amount)||0;
+const payer=
+purchase.payer;
 if(
-!PEOPLE.includes(debtor) ||
-!PEOPLE.includes(creditor)
+amount<=0 ||
+!PEOPLE.includes(payer)
 ){
 return;
 }
-balances[debtor]-=amount;
-balances[creditor]+=amount;
+
+balances[payer]+=amount;
+
+const share=
+amount/people.length;
+people.forEach(person=>{
+if(!PEOPLE.includes(person)){
+return;
+}
+balances[person]-=share;
 });
+});
+
+settlementPayments.forEach(payment=>{
+const debtor=
+payment.debtor;
+const creditor=
+payment.creditor;
+const amount=
+Number(payment.amount)||0;
+if(
+!PEOPLE.includes(debtor) ||
+!PEOPLE.includes(creditor) ||
+debtor===creditor ||
+amount<=0
+){
+return;
+}
+balances[debtor]+=amount;
+balances[creditor]-=amount;
+});
+
 return balances;
 }
 function calculateOutstandingSettlements(){
