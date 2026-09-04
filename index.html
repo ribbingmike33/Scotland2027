@@ -888,15 +888,19 @@ position:relative
 }
 .guinness-check.quantity-visible{
 display:grid;
-grid-template-columns:1fr 70px;
+grid-template-columns:minmax(0,1fr) 64px;
 gap:6px;
-align-items:stretch
+align-items:stretch;
+min-width:0
 }
-.guinness-check input{
+.guinness-check input[type="checkbox"]{
 position:absolute;
 opacity:0;
 width:1px;
 height:1px
+}
+.guinness-check label{
+min-width:0
 }
 .guinness-check label{
 display:block;
@@ -912,8 +916,11 @@ text-align:center
 }
 .guinness-check .guinness-qty{
 display:none;
+position:static;
+opacity:1;
 width:100%;
 min-width:0;
+box-sizing:border-box;
 border:1px solid #cdbba3;
 border-radius:8px;
 background:#fffdf8;
