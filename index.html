@@ -981,25 +981,24 @@ flex-direction:column;
 gap:7px
 }
 /* GUINNESS LEADERBOARD */
-/* GUINNESS LEADERBOARD */
 .guinness-leader-header{
 display:flex;
 align-items:center;
 justify-content:space-between;
 gap:16px;
 margin-bottom:18px;
-padding:2px 1px
+padding:0 1px
 }
-.guinness-leader-title{
+.guinness-card .guinness-leader-title{
 margin:0;
 font-family:Arial,sans-serif;
-font-size:27px;
-line-height:1.1;
+font-size:24px;
+line-height:1.15;
 font-weight:800;
 letter-spacing:-.025em;
 color:#352116
 }
-.guinness-leader-title:before{
+.guinness-card .guinness-leader-title:before{
 content:none
 }
 .leaderboard{
@@ -1012,32 +1011,27 @@ display:grid;
 grid-template-columns:42px minmax(0,1fr) auto;
 align-items:center;
 gap:12px;
-min-height:58px;
+min-height:60px;
 box-sizing:border-box;
 border:1px solid #dfd2c1;
-border-radius:11px;
+border-radius:10px;
 padding:11px 14px;
-background:#fffdf8;
-transition:transform .15s ease,box-shadow .15s ease
-}
-.leader-row:hover{
-transform:translateY(-1px);
-box-shadow:0 5px 14px rgba(49,35,25,.08)
+background:#fffdf8
 }
 .leader-row.podium-gold{
-background:linear-gradient(112deg,#fff8dc 0%,#e8cf83 42%,#b8933c 72%,#f6e8ad 100%);
-border-color:#b5964a;
-box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 4px 12px rgba(128,96,37,.14)
+background:linear-gradient(105deg,#fbf2cf 0%,#d9bc65 25%,#fff7d8 48%,#c2a04a 72%,#f1df9b 100%);
+border-color:#b99a4b;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.82),0 3px 10px rgba(103,78,29,.10)
 }
 .leader-row.podium-silver{
-background:linear-gradient(112deg,#fafafa 0%,#d9dcdd 42%,#9ea3a6 72%,#eceeee 100%);
-border-color:#aeb3b5;
-box-shadow:inset 0 1px 0 rgba(255,255,255,.82),0 4px 12px rgba(82,88,92,.12)
+background:linear-gradient(105deg,#f7f8f8 0%,#c5c9ca 25%,#ffffff 48%,#a8adaf 72%,#e5e7e7 100%);
+border-color:#adb2b4;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 3px 10px rgba(75,82,85,.09)
 }
 .leader-row.podium-bronze{
-background:linear-gradient(112deg,#f8e7d5 0%,#d6a77c 42%,#9b6038 72%,#e5c1a3 100%);
-border-color:#ae744d;
-box-shadow:inset 0 1px 0 rgba(255,255,255,.66),0 4px 12px rgba(112,68,39,.13)
+background:linear-gradient(105deg,#f3e0cf 0%,#c78e61 25%,#f8e9da 48%,#a96b43 72%,#e2b999 100%);
+border-color:#ad754e;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.78),0 3px 10px rgba(100,59,34,.10)
 }
 .leader-rank{
 width:34px;
@@ -1057,17 +1051,17 @@ box-sizing:border-box
 .podium-bronze .leader-rank{
 color:#fff;
 text-shadow:0 1px 2px rgba(0,0,0,.3);
-border:1px solid rgba(255,255,255,.62);
-box-shadow:inset 0 1px 1px rgba(255,255,255,.5),0 1px 2px rgba(0,0,0,.12)
+border:1px solid rgba(255,255,255,.72);
+box-shadow:inset 0 1px 1px rgba(255,255,255,.55),0 1px 2px rgba(0,0,0,.10)
 }
 .podium-gold .leader-rank{
-background:linear-gradient(145deg,#fff3b0 0%,#d2ad4c 48%,#9e7727 100%)
+background:linear-gradient(145deg,#fff4bd,#d0aa43 52%,#9c7728)
 }
 .podium-silver .leader-rank{
-background:linear-gradient(145deg,#ffffff 0%,#c7cbcd 48%,#858b8f 100%)
+background:linear-gradient(145deg,#ffffff,#c4c9ca 52%,#858b8e)
 }
 .podium-bronze .leader-rank{
-background:linear-gradient(145deg,#f3cda9 0%,#bc7d4e 48%,#854d2d 100%)
+background:linear-gradient(145deg,#f5d2b1,#bf8051 52%,#854d2d)
 }
 .leader-name{
 font-family:Arial,sans-serif;
@@ -1105,37 +1099,60 @@ margin-left:3px
 color:#5f4a39
 }
 .guinness-refresh{
-width:30px;
-height:30px;
+width:32px;
+height:32px;
 display:inline-flex;
 align-items:center;
 justify-content:center;
-flex:0 0 30px;
+flex:0 0 32px;
 border:1px solid #cdbba3;
 background:transparent;
 color:#6b503a;
 border-radius:50%;
-font-size:18px;
+font-size:19px;
 font-weight:700;
 line-height:1;
 cursor:pointer;
 padding:0;
-box-shadow:none;
-transition:transform .15s ease,background .15s ease,color .15s ease,border-color .15s ease
+box-shadow:none
 }
 .guinness-refresh:hover{
 background:#f1e8da;
-border-color:#bda789;
-color:#4b3425;
-transform:rotate(20deg)
+border-color:#bda789
 }
 .guinness-refresh:active{
-transform:rotate(20deg) scale(.92)
+background:#eadfce
 }
 .guinness-refresh:disabled{
-opacity:.55;
-cursor:wait;
-transform:none
+opacity:.6;
+cursor:wait
+}
+.guinness-refresh .refresh-icon{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:100%;
+height:100%
+}
+.guinness-refresh.is-loading .refresh-icon{
+animation:guinnessSpin .8s linear infinite
+}
+@keyframes guinnessSpin{
+to{transform:rotate(360deg)}
+}
+.guinness-loading{
+height:92px;
+display:flex;
+align-items:center;
+justify-content:center
+}
+.guinness-loading-spinner{
+width:22px;
+height:22px;
+border:2px solid #dfd2c1;
+border-top-color:#8d6c38;
+border-radius:50%;
+animation:guinnessSpin .8s linear infinite
 }
 .guinness-header-row{
 display:flex;
@@ -3665,14 +3682,14 @@ id="refreshGuinness"
 type="button"
 aria-label="Refresh Guinness leaderboard"
 title="Refresh leaderboard">
-↻
+<span class="refresh-icon" aria-hidden="true">↻</span>
 </button>
 </div>
 <div
 class="leaderboard"
 id="guinnessLeaderboard">
-<div class="empty-state">
-Loading Guinness Tracker…
+<div class="guinness-loading" aria-label="Loading Guinness standings">
+<span class="guinness-loading-spinner" aria-hidden="true"></span>
 </div>
 </div>
 </div>
@@ -4896,7 +4913,9 @@ document.getElementById(
 'guinnessLeaderboard'
 );
 leaderboard.innerHTML=
-'<div class="empty-state">Loading Guinness Tracker…</div>';
+'<div class="guinness-loading" aria-label="Loading Guinness standings">'+
+'<span class="guinness-loading-spinner" aria-hidden="true"></span>'+
+'</div>';
 try{
 const {data,error}=
 await supabaseClient.rpc(
@@ -5462,10 +5481,10 @@ document.getElementById(
 'refreshGuinness'
 );
 button.disabled=true;
-button.textContent='Loading…';
+button.classList.add('is-loading');
 await loadGuinness();
+button.classList.remove('is-loading');
 button.disabled=false;
-button.textContent='↻ Refresh';
 });
 function escapeHtml(value){
 return String(value)
