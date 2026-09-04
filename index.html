@@ -5580,185 +5580,107 @@ return sum+Math.max(0,amount);
 },0);
 }
 function calculatePairwiseSettlements(){
-const debts=
-calculatePurchaseDebts();
-const settlements={};
-const processed=new Set();
-Object.entries(debts).forEach(
-([key,amount])=>{
-if(processed.has(key)){
-return;
-}
-const parts=
-key.split('||');
-const debtor=
-parts[0];
-const creditor=
-parts[1];
-const reverseKey=
-creditor+'||'+debtor;
-const reverseAmount=
-debts[reverseKey]||0;
-const difference=
-amount-reverseAmount;
-if(
-Math.abs(difference)>0.005
-){
-if(difference>0){
-settlements[key]=difference;
-}else{
-settlements[reverseKey]=
-Math.abs(difference);
-}
-}
-processed.add(key);
-processed.add(reverseKey);
-});
-return settlements;
-}
-function calculateBalances(){
-const balances={};
-PEOPLE.forEach(person=>{
-balances[person]=0;
-});
-purchases.forEach(purchase=>{
-const people=
-Array.isArray(purchase.people)
-?purchase.people
-:[];
-if(!people.length){
-return;
-}
-const amount=
-Number(purchase.amount)||0;
-if(amount<=0){
-return;
-}
-const share=
-amount/people.length;
-const payer=
-purchase.payer;
-if(
-Object.prototype.hasOwnProperty.call(
-balances,
-payer
-)
-){
-balances[payer]+=amount;
-}
-people.forEach(person=>{
-if(
-Object.prototype.hasOwnProperty.call(
-balances,
-person
-)
-){
-balances[person]-=share;
-}
-});
-});
-/* APPLY RECORDED SETTLEMENT PAYMENTS
-A payment means the debtor has actually paid the
-creditor, so remove that amount from the debtor's
-outstanding balance and add it to the creditor's
-balance.
-Payments are stored in GBP, which matches the
-purchase/balance calculations above.
+/*
+Pairwise settlement ledger.
+
+Total Balances and Who Owes Who are intentionally different:
+- Total Balances = each person's net position against the entire group.
+- Who Owes Who = the running balance between two specific people.
+
+A settlement payment is a HARD RESET for that pair. Once A pays B,
+that pair starts a new running balance. The paid item disappears.
+Future purchases between the same two people create a new balance.
+
+Example:
+Mike pays $100 for Mike/Eric/Zach -> Eric owes Mike 33.33 and Zach owes Mike 33.33.
+Zach then pays $200 for all three -> Mike owes Zach 66.67, Eric owes Zach 66.67.
+The pairwise net becomes Mike owes Zach 33.34, while Eric still owes Mike 33.33
+and Eric owes Zach 66.67.
 */
-settlementPayments.forEach(payment=>{
-const debtor=
-payment.debtor;
-const creditor=
-payment.creditor;
-const amount=
-Number(payment.amount)||0;
-if(
-amount<=0 ||
-!PEOPLE.includes(debtor) ||
-!PEOPLE.includes(creditor) ||
-debtor===creditor
-){
-return;
+const pairBalances={};
+const pairKey=(a,b)=>a<b?a+'||'+b:b+'||'+a;
+const addPairDelta=(debtor,creditor,amount)=>{
+if(!PEOPLE.includes(debtor)||!PEOPLE.includes(creditor)||debtor===creditor||amount<=0){return;}
+const key=pairKey(debtor,creditor);
+if(!Object.prototype.hasOwnProperty.call(pairBalances,key)){
+pairBalances[key]=0;
 }
-balances[debtor]+=amount;
-balances[creditor]-=amount;
-});
-return balances;
-}
-function calculateOutstandingSettlements(){
-const debts=
-calculatePurchaseDebts();
-const pairKeys=
-new Set(
-Object.keys(debts)
-);
-Object.keys(debts).forEach(key=>{
+/* Positive means the first person in the canonical key owes the second. */
 const parts=key.split('||');
-pairKeys.add(
-parts[1]+'||'+parts[0]
-);
+if(debtor===parts[0]){
+pairBalances[key]+=amount;
+}else{
+pairBalances[key]-=amount;
+}
+};
+
+const purchasesSorted=[...purchases].sort((a,b)=>{
+const ad=String(a.created_at||a.purchase_date||'');
+const bd=String(b.created_at||b.purchase_date||'');
+return ad.localeCompare(bd);
 });
-const settlements={};
-const processed=new Set();
-pairKeys.forEach(key=>{
-if(processed.has(key)){
+const paymentsSorted=[...settlementPayments].sort((a,b)=>{
+return String(a.paid_at||a.created_at||'').localeCompare(String(b.paid_at||b.created_at||''));
+});
+
+/* Process purchases and payments chronologically. A payment resets only
+that exact pair; it does not affect anyone else's pairwise balance. */
+const events=[];
+purchasesSorted.forEach((purchase,index)=>{
+const stamp=String(purchase.created_at||purchase.purchase_date||'');
+events.push({type:'purchase',stamp,index,purchase});
+});
+paymentsSorted.forEach((payment,index)=>{
+const stamp=String(payment.paid_at||payment.created_at||'');
+events.push({type:'payment',stamp,index,payment});
+});
+events.sort((a,b)=>{
+const byStamp=a.stamp.localeCompare(b.stamp);
+if(byStamp!==0){return byStamp;}
+if(a.type===b.type){return a.index-b.index;}
+/* If timestamps are identical, apply purchases before a payment so the
+payment can close the balance that existed at that moment. */
+return a.type==='purchase'?-1:1;
+});
+
+events.forEach(event=>{
+if(event.type==='purchase'){
+const purchase=event.purchase;
+const people=Array.isArray(purchase.people)?purchase.people:[];
+const amount=Number(purchase.amount)||0;
+const payer=purchase.payer;
+if(!people.length||amount<=0||!PEOPLE.includes(payer)){return;}
+const share=amount/people.length;
+people.forEach(person=>{
+if(!PEOPLE.includes(person)||person===payer){return;}
+addPairDelta(person,payer,share);
+});
 return;
 }
+
+const payment=event.payment;
+const debtor=payment.debtor;
+const creditor=payment.creditor;
+if(!PEOPLE.includes(debtor)||!PEOPLE.includes(creditor)||debtor===creditor){return;}
+/* Marking a settlement PAID closes the current balance for this pair. */
+pairBalances[pairKey(debtor,creditor)]=0;
+});
+
+const settlements={};
+Object.entries(pairBalances).forEach(([key,signedAmount])=>{
+if(Math.abs(signedAmount)<=0.005){return;}
 const parts=key.split('||');
 const first=parts[0];
 const second=parts[1];
-if(
-!PEOPLE.includes(first) ||
-!PEOPLE.includes(second) ||
-first===second
-){
-processed.add(key);
-return;
-}
-const directDebt=
-debts[first+'||'+second]||0;
-const reverseDebt=
-debts[second+'||'+first]||0;
-const difference=
-directDebt-reverseDebt;
-if(Math.abs(difference)>0.005){
-let debtor;
-let creditor;
-let gross;
-if(difference>0){
-debtor=first;
-creditor=second;
-gross=difference;
+if(signedAmount>0){
+settlements[first+'||'+second]=Math.round(signedAmount*100)/100;
 }else{
-debtor=second;
-creditor=first;
-gross=Math.abs(difference);
+settlements[second+'||'+first]=Math.round(Math.abs(signedAmount)*100)/100;
 }
-const paid=
-getSettlementPaidAmount(
-debtor,
-creditor
-);
-const remaining=
-Math.max(
-0,
-gross-paid
-);
-if(remaining>0.005){
-settlements[
-debtor+'||'+creditor
-]=remaining;
-}
-}
-processed.add(
-first+'||'+second
-);
-processed.add(
-second+'||'+first
-);
 });
 return settlements;
 }
+
 function renderBalances(){
 const balances=
 calculateBalances();
@@ -5834,13 +5756,10 @@ year:'numeric'
 }
 );
 }
-function renderSettlementCard(
-settlement,
-paymentInfo
-){
+function renderSettlementCard(settlement,paymentInfo){
 const debtorName=shortName(settlement.debtor);
 const creditorName=shortName(settlement.creditor);
-const displayAmount=paymentInfo?settlement.originalAmount:settlement.amount;
+const displayAmount=Math.round(Number(settlement.amount)*100)/100;
 const usdAmount=formatUSD(displayAmount*gbpToUsd);
 const gbpAmount=formatMoney(displayAmount);
 const venmoUsername=VENMO[settlement.creditor];
@@ -5850,18 +5769,17 @@ paymentLink=`
 <a
 class="settlement-link"
 href="https://venmo.com/${encodeURIComponent(venmoUsername)}"
-onclick="openVenmoApp(event,'${escapeHtml(venmoUsername)}',${Number(settlement.amount*gbpToUsd).toFixed(2)})">
+onclick="openVenmoApp(event,'${escapeHtml(venmoUsername)}',${Number(displayAmount*gbpToUsd).toFixed(2)})">
 <div class="settlement-main">
 ${escapeHtml(debtorName)}
 owes
 ${escapeHtml(creditorName)}
 </div>
 <div class="settlement-usd">
-${usdAmount}
-${paymentInfo?'':'↗'}
+${usdAmount} ↗
 </div>
 <div class="settlement-gbp">
-${gbpAmount} • ${paymentInfo?'Payment recorded':'Tap to open '+escapeHtml(creditorName)+'’s Venmo'}
+${gbpAmount} • Tap to open ${escapeHtml(creditorName)}’s Venmo
 </div>
 </a>
 `;
@@ -5877,30 +5795,7 @@ ${escapeHtml(creditorName)}
 ${usdAmount}
 </div>
 <div class="settlement-gbp">
-${gbpAmount} • ${paymentInfo?'Payment recorded':escapeHtml(creditorName)+' has no Venmo'}
-</div>
-</div>
-`;
-}
-if(paymentInfo){
-return `
-<div class="settlement-item paid">
-${paymentLink}
-<div class="settlement-actions">
-<div>
-<div class="settlement-paid-badge">
-✓ ${paymentInfo.remainingAmount<=0.005?'PAID':'PARTIALLY PAID'}
-</div>
-<div class="settlement-paid-date">
-${paymentInfo.remainingAmount<=0.005?'Payment complete':formatMoney(paymentInfo.paidAmount)+' paid • '+formatMoney(paymentInfo.remainingAmount)+' remaining'}
-</div>
-</div>
-<button
-class="undo-paid-btn"
-type="button"
-data-delete-payment-id="${escapeHtml(paymentInfo.latestPaymentId)}">
-Undo Paid
-</button>
+${gbpAmount} • ${escapeHtml(creditorName)} has no Venmo
 </div>
 </div>
 `;
@@ -5915,42 +5810,28 @@ class="mark-paid-btn"
 type="button"
 data-mark-paid-debtor="${escapeHtml(settlement.debtor)}"
 data-mark-paid-creditor="${escapeHtml(settlement.creditor)}"
-data-mark-paid-amount="${Number(settlement.amount).toFixed(2)}">
+data-mark-paid-amount="${Number(displayAmount).toFixed(2)}">
 Mark Paid
 </button>
 </div>
 </div>
 `;
 }
+
 function renderSettlements(){
 const settlements=calculatePairwiseSettlements();
 const selectedPlayer=selectedDebtPlayer;
 const entries=Object.entries(settlements)
 .map(([key,amount])=>{
 const parts=key.split('||');
-const debtor=parts[0];
-const creditor=parts[1];
-const originalAmount=Math.round(Number(amount)*100)/100;
-const paidAmount=Math.round(getSettlementPaidAmount(debtor,creditor)*100)/100;
-const remainingAmount=Math.round(Math.max(0,originalAmount-paidAmount)*100)/100;
-const payments=getSettlementPaymentsForPair(debtor,creditor);
 return {
-debtor,
-creditor,
-originalAmount,
-amount:remainingAmount,
-paidAmount,
-paymentInfo:paidAmount>0?{
-paidAmount,
-remainingAmount,
-latestPaymentId:payments[0]?payments[0].id:null
-}:null
+debtor:parts[0],
+creditor:parts[1],
+amount:Math.round(Number(amount)*100)/100
 };
 })
-.filter(settlement=>
-settlement.debtor===selectedPlayer &&
-(settlement.amount>0.005 || settlement.paidAmount>0)
-);
+.filter(settlement=>settlement.debtor===selectedPlayer&&settlement.amount>0.005)
+.sort((a,b)=>b.amount-a.amount);
 const list=document.getElementById('settlementList');
 const title=document.getElementById('settlementTitle');
 if(title){
@@ -5960,17 +5841,7 @@ if(!entries.length){
 list.innerHTML='<div class="empty-state">'+escapeHtml(shortName(selectedPlayer))+' is currently even.</div>';
 return;
 }
-const unpaidEntries=entries.filter(entry=>entry.amount>0.005 && (!entry.paymentInfo || entry.paymentInfo.remainingAmount>0.005)).sort((a,b)=>b.amount-a.amount);
-const paidEntries=entries.filter(entry=>entry.paymentInfo && entry.paymentInfo.remainingAmount<=0.005).sort((a,b)=>b.amount-a.amount);
-let html='';
-if(unpaidEntries.length){
-html+=unpaidEntries.map(entry=>renderSettlementCard(entry,entry.paymentInfo)).join('');
-}
-if(paidEntries.length){
-html+='<div class="paid-section-label">PAID</div>';
-html+=paidEntries.map(entry=>renderSettlementCard(entry,entry.paymentInfo)).join('');
-}
-list.innerHTML=html;
+list.innerHTML=entries.map(entry=>renderSettlementCard(entry,null)).join('');
 document.querySelectorAll('[data-mark-paid-debtor]').forEach(button=>{
 button.addEventListener('click',()=>markSettlementPaid(
 button.dataset.markPaidDebtor,
@@ -5986,6 +5857,7 @@ button
 ));
 });
 }
+
 function renderDues(){
 if(
 !document.getElementById(
