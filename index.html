@@ -2584,8 +2584,6 @@ font-weight:800
 }
 #participants .who-wheel-label{
   position:absolute;
-  left:50%;
-  top:50%;
   width:42%;
   color:#fff;
   font-size:12px;
@@ -2594,6 +2592,8 @@ font-weight:800
   white-space:nowrap;
   text-shadow:0 1px 2px rgba(0,0,0,.55);
   pointer-events:none;
+  transform:translate(-50%,-50%) rotate(0deg);
+  transition:transform 4s cubic-bezier(.12,.78,.16,1);
 }
 #participants .who-wheel-label.light{
   color:#263c4f;
@@ -7790,13 +7790,21 @@ const whoWheelResult = document.getElementById('whoWheelResult');
 let whoWheelRotation = 0;
 let whoWheelSpinning = false;
 
+const whoWheelLabels = [];
+
 WHO_WHEEL_PEOPLE.forEach((person,index)=>{
   const label=document.createElement('span');
   label.className='who-wheel-label'+(index%2===1?' light':'');
   label.textContent=person.split(' ')[0];
   const angle=index*45+22.5;
-  label.style.transform=`translate(-50%,-50%) rotate(${angle}deg) translateY(-104px) rotate(${-angle}deg)`;
+  const radius=33;
+  const x=50 + Math.sin(angle*Math.PI/180)*radius;
+  const y=50 - Math.cos(angle*Math.PI/180)*radius;
+  label.style.left=`${x}%`;
+  label.style.top=`${y}%`;
+  label.style.transform='translate(-50%,-50%) rotate(0deg)';
   whoWheel.appendChild(label);
+  whoWheelLabels.push(label);
 });
 
 function spinWhoWheel(){
@@ -7812,6 +7820,9 @@ function spinWhoWheel(){
   const delta=(desiredMod-currentMod+360)%360 + 360*(5+Math.floor(Math.random()*3));
   whoWheelRotation += delta;
   whoWheel.style.transform=`rotate(${whoWheelRotation}deg)`;
+  whoWheelLabels.forEach(label=>{
+    label.style.transform=`translate(-50%,-50%) rotate(${-whoWheelRotation}deg)`;
+  });
 
   const finish=()=>{
     whoWheelSpinning=false;
