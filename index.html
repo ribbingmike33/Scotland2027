@@ -5122,15 +5122,19 @@ selectedInputs.reduce(
 const qtyInput=
 input.closest('.guinness-check')
 .querySelector('.guinness-qty');
+const parsedQty=
+parseInt(
+qtyInput && qtyInput.value,
+10
+);
 const qty=
 Math.max(
 1,
 Math.min(
 100,
-parseInt(
-qtyInput && qtyInput.value,
-10
-)||1
+Number.isFinite(parsedQty)
+?parsedQty
+:1
 )
 );
 return sum+qty;
@@ -5183,8 +5187,16 @@ document.querySelectorAll(
 input.addEventListener(
 'input',
 ()=>{
+if(input.value===''){
+updateGuinnessSelected();
+return;
+}
 let value=parseInt(input.value,10);
-if(!Number.isFinite(value)||value<1){
+if(!Number.isFinite(value)){
+updateGuinnessSelected();
+return;
+}
+if(value<1){
 value=1;
 }
 if(value>100){
