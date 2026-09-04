@@ -1037,179 +1037,211 @@ display:none !important
 #guinness .leader-count{
 font-family:Georgia,serif
 }
-/* GUINNESS LEADERBOARD */
+/* GUINNESS LEADERBOARD — COMPLETE REDESIGN */
 .guinness-leader-header{
 display:flex;
 align-items:center;
 justify-content:space-between;
-gap:16px;
-margin-bottom:18px;
-padding:0 1px
+gap:14px;
+margin:0 0 16px;
+padding:0
 }
 .guinness-card .guinness-leader-title{
 margin:0;
-font-family:Arial,sans-serif;
-font-size:24px;
-line-height:1.15;
-font-weight:800;
-letter-spacing:-.025em;
+font-family:Georgia,serif;
+font-size:27px;
+line-height:1.12;
+font-weight:700;
+letter-spacing:-.02em;
 color:#352116
 }
 .guinness-card .guinness-leader-title:before{
-content:none
-}
-.leaderboard{
-display:flex;
-flex-direction:column;
-gap:9px
-}
-.leader-row{
-display:grid;
-grid-template-columns:42px minmax(0,1fr) auto;
-align-items:center;
-gap:12px;
-min-height:60px;
-box-sizing:border-box;
-border:1px solid #dfd2c1;
-border-radius:10px;
-padding:11px 14px;
-background:#fffdf8
-}
-.leader-row.podium-gold{
-background:linear-gradient(105deg,#fbf2cf 0%,#d9bc65 25%,#fff7d8 48%,#c2a04a 72%,#f1df9b 100%);
-border-color:#b99a4b;
-box-shadow:inset 0 1px 0 rgba(255,255,255,.82),0 3px 10px rgba(103,78,29,.10)
-}
-.leader-row.podium-silver{
-background:linear-gradient(105deg,#f7f8f8 0%,#c5c9ca 25%,#ffffff 48%,#a8adaf 72%,#e5e7e7 100%);
-border-color:#adb2b4;
-box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 3px 10px rgba(75,82,85,.09)
-}
-.leader-row.podium-bronze{
-background:linear-gradient(105deg,#f3e0cf 0%,#c78e61 25%,#f8e9da 48%,#a96b43 72%,#e2b999 100%);
-border-color:#ad754e;
-box-shadow:inset 0 1px 0 rgba(255,255,255,.78),0 3px 10px rgba(100,59,34,.10)
-}
-.leader-rank{
-width:34px;
-height:34px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-font-size:15px;
-font-weight:900;
-color:#8b7761;
-text-align:center;
-box-sizing:border-box
-}
-.podium-gold .leader-rank,
-.podium-silver .leader-rank,
-.podium-bronze .leader-rank{
-color:#fff;
-text-shadow:0 1px 2px rgba(0,0,0,.3);
-border:1px solid rgba(255,255,255,.72);
-box-shadow:inset 0 1px 1px rgba(255,255,255,.55),0 1px 2px rgba(0,0,0,.10)
-}
-.podium-gold .leader-rank{
-background:linear-gradient(145deg,#fff4bd,#d0aa43 52%,#9c7728)
-}
-.podium-silver .leader-rank{
-background:linear-gradient(145deg,#ffffff,#c4c9ca 52%,#858b8e)
-}
-.podium-bronze .leader-rank{
-background:linear-gradient(145deg,#f5d2b1,#bf8051 52%,#854d2d)
-}
-.leader-name{
-font-family:Arial,sans-serif;
-font-weight:800;
-font-size:15px;
-color:#513724
-}
-.podium-gold .leader-name,
-.podium-silver .leader-name,
-.podium-bronze .leader-name{
-color:#38271d
-}
-.leader-count{
-font-family:Arial,sans-serif;
-font-size:21px;
-font-weight:900;
-color:#4b2d1c;
-text-align:right;
-white-space:nowrap
-}
-.podium-gold .leader-count,
-.podium-silver .leader-count,
-.podium-bronze .leader-count{
-color:#332319
-}
-.leader-count-label{
-font-size:10px;
-color:#8b7761;
-font-weight:700;
-margin-left:3px
-}
-.podium-gold .leader-count-label,
-.podium-silver .leader-count-label,
-.podium-bronze .leader-count-label{
-color:#5f4a39
+content:none !important;
+display:none !important
 }
 .guinness-refresh{
-width:32px;
-height:32px;
 display:inline-flex;
 align-items:center;
 justify-content:center;
-flex:0 0 32px;
+gap:6px;
+height:34px;
+padding:0 11px;
 border:1px solid #cdbba3;
-background:transparent;
+background:#fffdf8;
 color:#6b503a;
-border-radius:50%;
-font-size:19px;
+border-radius:17px;
+font-family:Georgia,serif;
+font-size:12px;
 font-weight:700;
 line-height:1;
 cursor:pointer;
-padding:0;
-box-shadow:none
+box-shadow:0 1px 2px rgba(67,44,27,.05);
+transition:background .15s,border-color .15s,transform .1s
 }
 .guinness-refresh:hover{
-background:#f1e8da;
+background:#f5eee4;
 border-color:#bda789
 }
 .guinness-refresh:active{
-background:#eadfce
+transform:translateY(1px)
 }
 .guinness-refresh:disabled{
-opacity:.6;
+opacity:.65;
 cursor:wait
 }
 .guinness-refresh .refresh-icon{
 display:inline-flex;
 align-items:center;
 justify-content:center;
-width:100%;
-height:100%
+width:16px;
+height:16px;
+font-family:Arial,sans-serif;
+font-size:18px;
+line-height:16px
 }
 .guinness-refresh.is-loading .refresh-icon{
 animation:guinnessSpin .8s linear infinite
 }
+.guinness-refresh.is-loading .refresh-label{
+opacity:.7
+}
 @keyframes guinnessSpin{
 to{transform:rotate(360deg)}
 }
-.guinness-loading{
-height:92px;
+.leaderboard{
+display:flex;
+flex-direction:column;
+gap:7px
+}
+.leader-row{
+display:grid;
+grid-template-columns:38px minmax(0,1fr) auto;
+align-items:center;
+gap:13px;
+min-height:56px;
+box-sizing:border-box;
+border:1px solid #ded4c7;
+border-radius:9px;
+padding:9px 13px;
+background:#fffdf9;
+box-shadow:0 1px 2px rgba(66,45,29,.035)
+}
+.leader-row.podium-gold,
+.leader-row.podium-silver,
+.leader-row.podium-bronze{
+box-shadow:0 2px 6px rgba(66,45,29,.07),inset 0 1px 0 rgba(255,255,255,.8)
+}
+.leader-row.podium-gold{
+background:linear-gradient(100deg,#fffaf0 0%,#f4e3a6 44%,#dfc467 100%);
+border-color:#c6a653
+}
+.leader-row.podium-silver{
+background:linear-gradient(100deg,#fbfcfc 0%,#e3e6e7 44%,#c8ccce 100%);
+border-color:#b9bec0
+}
+.leader-row.podium-bronze{
+background:linear-gradient(100deg,#fff9f3 0%,#ead0b8 44%,#cf9c75 100%);
+border-color:#b9825c
+}
+.leader-rank{
+width:32px;
+height:32px;
 display:flex;
 align-items:center;
-justify-content:center
-}
-.guinness-loading-spinner{
-width:22px;
-height:22px;
-border:2px solid #dfd2c1;
-border-top-color:#8d6c38;
+justify-content:center;
 border-radius:50%;
-animation:guinnessSpin .8s linear infinite
+font-family:Georgia,serif;
+font-size:14px;
+font-weight:700;
+color:#8b7761;
+background:#f4eee5;
+border:1px solid #e0d5c7;
+box-sizing:border-box
+}
+.podium-gold .leader-rank,
+.podium-silver .leader-rank,
+.podium-bronze .leader-rank{
+color:#fff;
+border-color:rgba(255,255,255,.78);
+text-shadow:0 1px 2px rgba(0,0,0,.22);
+box-shadow:inset 0 1px 1px rgba(255,255,255,.55),0 1px 2px rgba(0,0,0,.09)
+}
+.podium-gold .leader-rank{
+background:linear-gradient(145deg,#f9e8a7,#c49c35 56%,#9b7727)
+}
+.podium-silver .leader-rank{
+background:linear-gradient(145deg,#fafafa,#bfc4c6 56%,#909699)
+}
+.podium-bronze .leader-rank{
+background:linear-gradient(145deg,#f2d0b0,#b9784d 56%,#8d5635)
+}
+.leader-name{
+font-family:Georgia,serif;
+font-size:17px;
+font-weight:700;
+line-height:1.1;
+color:#4a3021
+}
+.leader-count{
+display:flex;
+align-items:baseline;
+justify-content:flex-end;
+gap:4px;
+font-family:Georgia,serif;
+font-size:22px;
+font-weight:700;
+line-height:1;
+color:#4a3021;
+text-align:right;
+white-space:nowrap
+}
+.leader-count-label{
+font-family:Georgia,serif;
+font-size:10px;
+font-weight:700;
+color:#826e5b;
+margin:0
+}
+.podium-gold .leader-name,
+.podium-silver .leader-name,
+.podium-bronze .leader-name,
+.podium-gold .leader-count,
+.podium-silver .leader-count,
+.podium-bronze .leader-count{
+color:#38271d
+}
+.podium-gold .leader-count-label,
+.podium-silver .leader-count-label,
+.podium-bronze .leader-count-label{
+color:#66503c
+}
+.guinness-loading{
+min-height:120px;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:6px;
+box-sizing:border-box;
+color:#806f5f;
+font-family:Georgia,serif;
+font-size:14px;
+font-weight:700;
+text-align:center
+}
+.guinness-loading-prompt{
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:108px;
+padding:10px;
+box-sizing:border-box;
+border:1px dashed #d9cbb9;
+border-radius:9px;
+background:#fcfaf6;
+color:#806f5f;
+font-family:Georgia,serif;
+font-size:14px;
+font-weight:700
 }
 .guinness-header-row{
 display:flex;
@@ -4113,13 +4145,14 @@ type="button"
 aria-label="Refresh Guinness leaderboard"
 title="Refresh leaderboard">
 <span class="refresh-icon" aria-hidden="true">↻</span>
+<span class="refresh-label">Refresh</span>
 </button>
 </div>
 <div
 class="leaderboard"
 id="guinnessLeaderboard">
-<div class="guinness-loading" aria-label="Loading Guinness standings">
-<span class="guinness-loading-spinner" aria-hidden="true"></span>
+<div class="guinness-loading-prompt">
+Refresh to get standings
 </div>
 </div>
 </div>
@@ -5335,7 +5368,6 @@ document.getElementById(
 ).value=todayString();
 updateGuinnessSelected();
 }
-loadGuinness();
 }
 async function loadGuinness(){
 const leaderboard=
@@ -5344,7 +5376,7 @@ document.getElementById(
 );
 leaderboard.innerHTML=
 '<div class="guinness-loading" aria-label="Loading Guinness standings">'+
-'<span class="guinness-loading-spinner" aria-hidden="true"></span>'+
+'<span aria-hidden="true">Updating standings…</span>'+
 '</div>';
 try{
 const {data,error}=
