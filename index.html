@@ -982,7 +982,7 @@ gap:7px
 }
 .leader-row{
 display:grid;
-grid-template-columns:40px minmax(0,1fr) auto;
+grid-template-columns:40px 1fr auto;
 align-items:center;
 gap:10px;
 border:1px solid #dfd2c1;
@@ -1039,48 +1039,20 @@ background:linear-gradient(145deg,#ffffff,#8e9398)
 .podium-bronze .leader-rank{
 background:linear-gradient(145deg,#f0c8a4,#96552d)
 }
-.leader-main{
-min-width:0
-}
 .leader-name{
 font-weight:900;
-color:#513724;
-margin-bottom:6px
+color:#513724
 }
 .podium-gold .leader-name,
 .podium-silver .leader-name,
 .podium-bronze .leader-name{
 color:#3f2a1d
 }
-.leader-progress{
-height:7px;
-width:100%;
-background:rgba(81,55,36,.13);
-border-radius:999px;
-overflow:hidden
-}
-.leader-progress-fill{
-height:100%;
-width:0;
-border-radius:999px;
-background:#7d6650;
-transition:width .35s ease
-}
-.podium-gold .leader-progress-fill{
-background:linear-gradient(90deg,#a87920,#f7df82)
-}
-.podium-silver .leader-progress-fill{
-background:linear-gradient(90deg,#7d8388,#e2e3e3)
-}
-.podium-bronze .leader-progress-fill{
-background:linear-gradient(90deg,#8e542e,#d99b68)
-}
 .leader-count{
 font-size:21px;
 font-weight:900;
 color:#4b2d1c;
-text-align:right;
-white-space:nowrap
+text-align:right
 }
 .podium-gold .leader-count,
 .podium-silver .leader-count,
@@ -1099,33 +1071,19 @@ margin-left:3px
 color:#5f4938
 }
 .guinness-refresh{
-width:42px;
-height:42px;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-border:1px solid #d2c1aa;
+border:1px solid #cdbba3;
 background:#fffdf8;
 color:#5b402d;
-border-radius:50%;
-font-size:21px;
-font-weight:900;
-cursor:pointer;
-box-shadow:0 2px 7px rgba(49,35,25,.08);
-transition:transform .15s ease,background .15s ease,box-shadow .15s ease
+border-radius:8px;
+padding:9px 11px;
+font-weight:800;
+cursor:pointer
 }
 .guinness-refresh:hover{
-background:#f4ecdf;
-transform:rotate(25deg);
-box-shadow:0 4px 11px rgba(49,35,25,.12)
-}
-.guinness-refresh:active{
-transform:rotate(25deg) scale(.94)
+background:#f4ecdf
 }
 .guinness-refresh:disabled{
-opacity:.6;
-cursor:wait;
-transform:none
+opacity:.6
 }
 .guinness-header-row{
 display:flex;
@@ -3652,10 +3610,8 @@ aria-live="polite">
 <button
 class="guinness-refresh"
 id="refreshGuinness"
-type="button"
-aria-label="Refresh Guinness leaderboard"
-title="Refresh leaderboard">
-↻
+type="button">
+↻ Refresh
 </button>
 </div>
 <div
@@ -4984,16 +4940,6 @@ PEOPLE.indexOf(b.person);
 document.getElementById(
 'guinnessLeaderboard'
 ).innerHTML=
-const leaderMax=
-ranked.length
-?Math.max(
-ranked[0].count,
-1
-)
-:1;
-document.getElementById(
-'guinnessLeaderboard'
-).innerHTML=
 ranked.map((entry,index)=>{
 const podiumClass=
 index===0
@@ -5003,32 +4949,15 @@ index===0
 :index===2
 ?'podium-bronze'
 :'';
-const progress=
-Math.max(
-0,
-Math.min(
-100,
-(entry.count/leaderMax)*100
-)
-);
 return `
 <div class="leader-row ${podiumClass}">
 <div class="leader-rank">
 ${index+1}
 </div>
-<div class="leader-main">
 <div class="leader-name">
 ${escapeHtml(
 shortName(entry.person)
 )}
-</div>
-<div class="leader-progress"
-aria-label="${entry.count} of ${leaderMax} Guinnesses">
-<div
-class="leader-progress-fill"
-style="width:${progress.toFixed(1)}%">
-</div>
-</div>
 </div>
 <div class="leader-count">
 ${entry.count}
