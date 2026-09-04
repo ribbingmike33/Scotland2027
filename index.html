@@ -886,6 +886,12 @@ margin-top:7px
 .guinness-check{
 position:relative
 }
+.guinness-check.quantity-visible{
+display:grid;
+grid-template-columns:1fr 70px;
+gap:6px;
+align-items:stretch
+}
 .guinness-check input{
 position:absolute;
 opacity:0;
@@ -903,6 +909,27 @@ color:#5b402d;
 background:#fffdf8;
 cursor:pointer;
 text-align:center
+}
+.guinness-check .guinness-qty{
+display:none;
+width:100%;
+min-width:0;
+border:1px solid #cdbba3;
+border-radius:8px;
+background:#fffdf8;
+padding:10px 7px;
+font-size:16px;
+font-weight:900;
+color:#4b2d1c;
+text-align:center;
+outline:0
+}
+.guinness-check.quantity-visible .guinness-qty{
+display:block
+}
+.guinness-check .guinness-qty:focus{
+outline:3px solid #eadfcf;
+border-color:#8b6333
 }
 .guinness-check input:checked+label{
 background:#4b2d1c;
@@ -3394,34 +3421,114 @@ Who drank it?
 <div class="guinness-check">
 <input type="checkbox" id="g-mike" value="Mike Ribbing">
 <label for="g-mike">Mike</label>
+<input
+class="guinness-qty"
+type="number"
+min="1"
+max="100"
+step="1"
+value="1"
+inputmode="numeric"
+aria-label="Mike Guinness quantity"
+>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-tom" value="Tom Chung">
 <label for="g-tom">Tom</label>
+<input
+class="guinness-qty"
+type="number"
+min="1"
+max="100"
+step="1"
+value="1"
+inputmode="numeric"
+aria-label="Tom Guinness quantity"
+>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-eric" value="Eric Hopton">
 <label for="g-eric">Eric</label>
+<input
+class="guinness-qty"
+type="number"
+min="1"
+max="100"
+step="1"
+value="1"
+inputmode="numeric"
+aria-label="Eric Guinness quantity"
+>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-zach" value="Zach Gordon">
 <label for="g-zach">Zach</label>
+<input
+class="guinness-qty"
+type="number"
+min="1"
+max="100"
+step="1"
+value="1"
+inputmode="numeric"
+aria-label="Zach Guinness quantity"
+>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-brian" value="Brian Gordon">
 <label for="g-brian">Brian</label>
+<input
+class="guinness-qty"
+type="number"
+min="1"
+max="100"
+step="1"
+value="1"
+inputmode="numeric"
+aria-label="Brian Guinness quantity"
+>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-clem" value="Clem Diglio">
 <label for="g-clem">Clem</label>
+<input
+class="guinness-qty"
+type="number"
+min="1"
+max="100"
+step="1"
+value="1"
+inputmode="numeric"
+aria-label="Clem Guinness quantity"
+>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-veer" value="Veer Singh">
 <label for="g-veer">Veer</label>
+<input
+class="guinness-qty"
+type="number"
+min="1"
+max="100"
+step="1"
+value="1"
+inputmode="numeric"
+aria-label="Veer Guinness quantity"
+>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-yeags" value="Yeags">
 <label for="g-yeags">Yeags</label>
+<input
+class="guinness-qty"
+type="number"
+min="1"
+max="100"
+step="1"
+value="1"
+inputmode="numeric"
+aria-label="Yeags Guinness quantity"
+>
 </div>
 </div>
 <div class="guinness-selected" id="guinnessSelected">
@@ -4838,11 +4945,23 @@ log.drink_date
 )}
 </div>
 <div class="guinness-history-people">
-${people.map(person=>
-escapeHtml(
-shortName(person)
+${Array.from(
+people.reduce(
+(map,person)=>{
+map.set(
+person,
+(map.get(person)||0)+1
+);
+return map;
+},
+new Map()
 )
-).join(', ')}
+).map(([person,count])=>{
+return escapeHtml(
+shortName(person)
+)+
+(count>1?' ×'+count:'');
+}).join(', ')}
 </div>
 </div>
 <div class="guinness-history-actions">
@@ -4982,23 +5101,100 @@ button.textContent=
 }
 });
 function updateGuinnessSelected(){
-const selected=
+const selectedInputs=
+Array.from(
 document.querySelectorAll(
-'.guinness-check input:checked'
-).length;
+'.guinness-check input[type="checkbox"]:checked'
+)
+);
+const selectedCount=
+selectedInputs.length;
+const totalGuinness=
+selectedInputs.reduce(
+(sum,input)=>{
+const qtyInput=
+input.closest('.guinness-check')
+.querySelector('.guinness-qty');
+const qty=
+Math.max(
+1,
+Math.min(
+100,
+parseInt(
+qtyInput && qtyInput.value,
+10
+)||1
+)
+);
+return sum+qty;
+},
+0
+);
+const selectedDisplay=
 document.getElementById(
 'guinnessSelected'
-).textContent=
-selected===1
-?'1 person selected'
-:selected+' people selected';
+);
+if(selectedCount===0){
+selectedDisplay.textContent=
+'0 people selected';
+}else{
+selectedDisplay.textContent=
+selectedCount===1
+?'1 person selected • '+totalGuinness+' Guinness'
+:selectedCount+' people selected • '+totalGuinness+' Guinnesses';
+}
+}
+function syncGuinnessPerson(input){
+const card=
+input.closest('.guinness-check');
+if(!card)return;
+const qty=
+card.querySelector('.guinness-qty');
+if(input.checked){
+card.classList.add('quantity-visible');
+if(qty && (!qty.value || Number(qty.value)<1)){
+qty.value='1';
+}
+}else{
+card.classList.remove('quantity-visible');
+}
+updateGuinnessSelected();
 }
 document.querySelectorAll(
-'.guinness-check input'
+'.guinness-check input[type="checkbox"]'
 ).forEach(input=>{
 input.addEventListener(
 'change',
-updateGuinnessSelected
+()=>{
+syncGuinnessPerson(input);
+}
+);
+});
+document.querySelectorAll(
+'.guinness-check .guinness-qty'
+).forEach(input=>{
+input.addEventListener(
+'input',
+()=>{
+let value=parseInt(input.value,10);
+if(!Number.isFinite(value)||value<1){
+value=1;
+}
+if(value>100){
+value=100;
+}
+input.value=String(value);
+updateGuinnessSelected();
+}
+);
+input.addEventListener(
+'blur',
+()=>{
+if(!input.value || Number(input.value)<1){
+input.value='1';
+}
+updateGuinnessSelected();
+}
 );
 });
 document.getElementById(
@@ -5012,13 +5208,26 @@ document.getElementById(
 ).value ||
 todayString();
 const selectedPeople=
-Array.from(
+[];
 document.querySelectorAll(
-'.guinness-check input:checked'
-)
-).map(
-input=>input.value
+'.guinness-check input[type="checkbox"]:checked'
+).forEach(input=>{
+const qtyInput=
+input.closest('.guinness-check')
+.querySelector('.guinness-qty');
+let quantity=
+parseInt(
+qtyInput && qtyInput.value,
+10
 );
+if(!Number.isFinite(quantity)||quantity<1){
+quantity=1;
+}
+quantity=Math.min(quantity,100);
+for(let i=0;i<quantity;i++){
+selectedPeople.push(input.value);
+}
+});
 const message=
 document.getElementById(
 'guinnessMessage'
@@ -5065,9 +5274,23 @@ message.textContent=
 return;
 }
 document.querySelectorAll(
-'.guinness-check input'
-).forEach(input=>{
-input.checked=false;
+'.guinness-check'
+).forEach(card=>{
+const checkbox=
+card.querySelector(
+'input[type="checkbox"]'
+);
+const qty=
+card.querySelector(
+'.guinness-qty'
+);
+if(checkbox){
+checkbox.checked=false;
+}
+card.classList.remove('quantity-visible');
+if(qty){
+qty.value='1';
+}
 });
 updateGuinnessSelected();
 message.textContent=
