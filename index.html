@@ -986,26 +986,67 @@ grid-template-columns:40px 1fr auto;
 align-items:center;
 gap:10px;
 border:1px solid #dfd2c1;
-border-radius:8px;
+border-radius:10px;
 padding:12px 13px;
-background:#fffdf8
+background:#fffdf8;
+transition:transform .15s ease,box-shadow .15s ease
 }
-.leader-row:first-child{
-background:#f3eadb;
-border-color:#d1b57a
+.leader-row:hover{
+transform:translateY(-1px);
+box-shadow:0 5px 14px rgba(49,35,25,.08)
+}
+.leader-row.podium-gold{
+background:linear-gradient(135deg,#f7e7a8 0%,#d9b44a 48%,#f8edbc 100%);
+border-color:#b58a28;
+box-shadow:0 5px 16px rgba(165,123,42,.22)
+}
+.leader-row.podium-silver{
+background:linear-gradient(135deg,#f0f0ee 0%,#c6c8ca 48%,#f7f7f5 100%);
+border-color:#9da1a5;
+box-shadow:0 4px 13px rgba(95,99,103,.16)
+}
+.leader-row.podium-bronze{
+background:linear-gradient(135deg,#e8c09e 0%,#b87943 48%,#edc9aa 100%);
+border-color:#9a5e32;
+box-shadow:0 4px 13px rgba(137,83,42,.17)
 }
 .leader-rank{
-font-size:18px;
+width:34px;
+height:34px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+font-size:17px;
 font-weight:900;
 color:#8b7761;
-text-align:center
+text-align:center;
+box-sizing:border-box
 }
-.leader-row:first-child .leader-rank{
-color:#a47b38
+.podium-gold .leader-rank,
+.podium-silver .leader-rank,
+.podium-bronze .leader-rank{
+color:#fff;
+text-shadow:0 1px 2px rgba(0,0,0,.28);
+border:1px solid rgba(255,255,255,.55)
+}
+.podium-gold .leader-rank{
+background:linear-gradient(145deg,#fff1a8,#b98620)
+}
+.podium-silver .leader-rank{
+background:linear-gradient(145deg,#ffffff,#8e9398)
+}
+.podium-bronze .leader-rank{
+background:linear-gradient(145deg,#f0c8a4,#96552d)
 }
 .leader-name{
 font-weight:900;
 color:#513724
+}
+.podium-gold .leader-name,
+.podium-silver .leader-name,
+.podium-bronze .leader-name{
+color:#3f2a1d
 }
 .leader-count{
 font-size:21px;
@@ -1013,11 +1054,21 @@ font-weight:900;
 color:#4b2d1c;
 text-align:right
 }
+.podium-gold .leader-count,
+.podium-silver .leader-count,
+.podium-bronze .leader-count{
+color:#2f2119
+}
 .leader-count-label{
 font-size:11px;
 color:#8b7761;
 font-weight:700;
 margin-left:3px
+}
+.podium-gold .leader-count-label,
+.podium-silver .leader-count-label,
+.podium-bronze .leader-count-label{
+color:#5f4938
 }
 .guinness-refresh{
 border:1px solid #cdbba3;
@@ -4890,8 +4941,16 @@ document.getElementById(
 'guinnessLeaderboard'
 ).innerHTML=
 ranked.map((entry,index)=>{
+const podiumClass=
+index===0
+?'podium-gold'
+:index===1
+?'podium-silver'
+:index===2
+?'podium-bronze'
+:'';
 return `
-<div class="leader-row">
+<div class="leader-row ${podiumClass}">
 <div class="leader-rank">
 ${index+1}
 </div>
