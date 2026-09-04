@@ -5681,6 +5681,47 @@ settlements[second+'||'+first]=Math.round(Math.abs(signedAmount)*100)/100;
 return settlements;
 }
 
+function calculateBalances(){
+const balances={};
+PEOPLE.forEach(person=>{
+balances[person]=0;
+});
+purchases.forEach(purchase=>{
+const people=
+Array.isArray(purchase.people)
+?purchase.people
+:[];
+if(!people.length){
+return;
+}
+const amount=Number(purchase.amount)||0;
+if(amount<=0){
+return;
+}
+const share=amount/people.length;
+const payer=purchase.payer;
+if(Object.prototype.hasOwnProperty.call(balances,payer)){
+balances[payer]+=amount;
+}
+people.forEach(person=>{
+if(Object.prototype.hasOwnProperty.call(balances,person)){
+balances[person]-=share;
+}
+});
+});
+settlementPayments.forEach(payment=>{
+const debtor=payment.debtor;
+const creditor=payment.creditor;
+const amount=Number(payment.amount)||0;
+if(amount<=0||!PEOPLE.includes(debtor)||!PEOPLE.includes(creditor)||debtor===creditor){
+return;
+}
+balances[debtor]+=amount;
+balances[creditor]-=amount;
+});
+return balances;
+}
+
 function renderBalances(){
 const balances=
 calculateBalances();
