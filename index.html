@@ -1037,19 +1037,22 @@ display:none !important
 #guinness .leader-count{
 font-family:Georgia,serif
 }
+
+.guinness-refresh .refresh-label{
+display:none
+}
 /* GUINNESS LEADERBOARD — COMPLETE REDESIGN */
 @media (max-width:520px){
 .guinness-leader-header{
 gap:8px
 }
 .guinness-card .guinness-leader-title{
-font-size:23px
+font-size:22px
 }
 .guinness-refresh{
-height:33px;
-padding:0 10px;
-font-size:11px;
-flex:0 0 auto
+width:34px;
+height:34px;
+flex-basis:34px
 }
 }
 
@@ -1065,13 +1068,14 @@ min-width:0
 .guinness-card .guinness-leader-title{
 margin:0;
 font-family:Georgia,serif;
-font-size:25px;
+font-size:24px;
 line-height:1.1;
 font-weight:700;
 letter-spacing:-.025em;
 color:#352116;
 white-space:nowrap;
-min-width:0
+min-width:0;
+flex:1 1 auto
 }
 .guinness-card .guinness-leader-title:before{
 content:none !important;
@@ -1081,13 +1085,14 @@ display:none !important
 display:inline-flex;
 align-items:center;
 justify-content:center;
-gap:6px;
-height:34px;
-padding:0 11px;
+width:36px;
+height:36px;
+padding:0;
+flex:0 0 36px;
 border:1px solid #cdbba3;
 background:#fffdf8;
 color:#6b503a;
-border-radius:17px;
+border-radius:50%;
 font-family:Georgia,serif;
 font-size:12px;
 font-weight:700;
