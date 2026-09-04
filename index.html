@@ -1038,22 +1038,40 @@ display:none !important
 font-family:Georgia,serif
 }
 /* GUINNESS LEADERBOARD — COMPLETE REDESIGN */
+@media (max-width:520px){
+.guinness-leader-header{
+gap:8px
+}
+.guinness-card .guinness-leader-title{
+font-size:23px
+}
+.guinness-refresh{
+height:33px;
+padding:0 10px;
+font-size:11px;
+flex:0 0 auto
+}
+}
+
 .guinness-leader-header{
 display:flex;
 align-items:center;
 justify-content:space-between;
-gap:14px;
+gap:10px;
 margin:0 0 16px;
-padding:0
+padding:0;
+min-width:0
 }
 .guinness-card .guinness-leader-title{
 margin:0;
 font-family:Georgia,serif;
-font-size:27px;
-line-height:1.12;
+font-size:25px;
+line-height:1.1;
 font-weight:700;
-letter-spacing:-.02em;
-color:#352116
+letter-spacing:-.025em;
+color:#352116;
+white-space:nowrap;
+min-width:0
 }
 .guinness-card .guinness-leader-title:before{
 content:none !important;
@@ -1129,19 +1147,19 @@ box-shadow:0 1px 2px rgba(66,45,29,.035)
 .leader-row.podium-gold,
 .leader-row.podium-silver,
 .leader-row.podium-bronze{
-box-shadow:0 2px 6px rgba(66,45,29,.07),inset 0 1px 0 rgba(255,255,255,.8)
+box-shadow:0 3px 8px rgba(66,45,29,.09),inset 0 1px 0 rgba(255,255,255,.82),inset 0 -1px 0 rgba(70,45,25,.08)
 }
 .leader-row.podium-gold{
-background:linear-gradient(100deg,#fffaf0 0%,#f4e3a6 44%,#dfc467 100%);
-border-color:#c6a653
+background:linear-gradient(108deg,#f8efd0 0%,#c9a64d 28%,#f4df9a 49%,#b38b32 74%,#e5ca76 100%);
+border-color:#aa852f
 }
 .leader-row.podium-silver{
-background:linear-gradient(100deg,#fbfcfc 0%,#e3e6e7 44%,#c8ccce 100%);
-border-color:#b9bec0
+background:linear-gradient(108deg,#f4f6f6 0%,#aeb5b9 28%,#f7f8f8 49%,#969da1 74%,#d6dadb 100%);
+border-color:#9ca4a8
 }
 .leader-row.podium-bronze{
-background:linear-gradient(100deg,#fff9f3 0%,#ead0b8 44%,#cf9c75 100%);
-border-color:#b9825c
+background:linear-gradient(108deg,#f3dfcc 0%,#a96842 28%,#edc5a3 49%,#95552f 74%,#d6a27d 100%);
+border-color:#9c613d
 }
 .leader-rank{
 width:32px;
@@ -1167,13 +1185,13 @@ text-shadow:0 1px 2px rgba(0,0,0,.22);
 box-shadow:inset 0 1px 1px rgba(255,255,255,.55),0 1px 2px rgba(0,0,0,.09)
 }
 .podium-gold .leader-rank{
-background:linear-gradient(145deg,#f9e8a7,#c49c35 56%,#9b7727)
+background:linear-gradient(145deg,#f7df8b 0%,#c69d38 48%,#8f6a20 100%)
 }
 .podium-silver .leader-rank{
-background:linear-gradient(145deg,#fafafa,#bfc4c6 56%,#909699)
+background:linear-gradient(145deg,#ffffff 0%,#b8bec1 48%,#7e878b 100%)
 }
 .podium-bronze .leader-rank{
-background:linear-gradient(145deg,#f2d0b0,#b9784d 56%,#8d5635)
+background:linear-gradient(145deg,#eec09a 0%,#ae6940 48%,#7e452b 100%)
 }
 .leader-name{
 font-family:Georgia,serif;
