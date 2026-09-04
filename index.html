@@ -1155,15 +1155,15 @@ box-shadow:0 1px 2px rgba(66,45,29,.035)
 box-shadow:0 3px 8px rgba(66,45,29,.09),inset 0 1px 0 rgba(255,255,255,.82),inset 0 -1px 0 rgba(70,45,25,.08)
 }
 .leader-row.podium-gold{
-background:linear-gradient(108deg,#f8efd0 0%,#c9a64d 28%,#f4df9a 49%,#b38b32 74%,#e5ca76 100%);
+background:linear-gradient(108deg,rgba(205,169,73,.28) 0%,rgba(174,136,45,.42) 30%,rgba(245,225,157,.34) 52%,rgba(160,121,35,.38) 76%,rgba(214,182,91,.30) 100%);
 border-color:#aa852f
 }
 .leader-row.podium-silver{
-background:linear-gradient(108deg,#f4f6f6 0%,#aeb5b9 28%,#f7f8f8 49%,#969da1 74%,#d6dadb 100%);
+background:linear-gradient(108deg,rgba(177,185,189,.24) 0%,rgba(130,141,147,.34) 30%,rgba(248,249,249,.32) 52%,rgba(116,127,133,.30) 76%,rgba(192,199,202,.26) 100%);
 border-color:#9ca4a8
 }
 .leader-row.podium-bronze{
-background:linear-gradient(108deg,#f3dfcc 0%,#a96842 28%,#edc5a3 49%,#95552f 74%,#d6a27d 100%);
+background:linear-gradient(108deg,rgba(184,126,83,.25) 0%,rgba(148,83,45,.38) 30%,rgba(237,194,158,.30) 52%,rgba(132,69,36,.34) 76%,rgba(191,132,88,.27) 100%);
 border-color:#9c613d
 }
 .leader-rank{
@@ -1207,23 +1207,16 @@ color:#4a3021
 }
 .leader-count{
 display:flex;
-align-items:baseline;
+align-items:center;
 justify-content:flex-end;
-gap:4px;
 font-family:Georgia,serif;
-font-size:22px;
+font-size:27px;
 font-weight:700;
 line-height:1;
-color:#4a3021;
+color:#3a261a;
 text-align:right;
-white-space:nowrap
-}
-.leader-count-label{
-font-family:Georgia,serif;
-font-size:10px;
-font-weight:700;
-color:#826e5b;
-margin:0
+white-space:nowrap;
+min-width:28px
 }
 .podium-gold .leader-name,
 .podium-silver .leader-name,
@@ -5564,9 +5557,6 @@ shortName(entry.person)
 </div>
 <div class="leader-count">
 ${entry.count}
-<span class="leader-count-label">
-${entry.count===1?'Guinness':'Guinnesses'}
-</span>
 </div>
 </div>
 `;
