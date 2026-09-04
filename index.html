@@ -5692,15 +5692,20 @@ return settlements;
 function calculateBalances(){
 
 /*
-Overall balances are the net of the CURRENT purchase ledger plus
-recorded payments. Nothing else is involved.
+TOTAL BALANCE is derived ONLY from the current "Who Owes Who"
+pairwise records.
 
-Purchase: payer gets the full amount; every included person gets
-charged their equal share.
-Payment: debtor moves toward zero; creditor moves toward zero.
+If:
+  Brian owes Mike £500  -> Mike +£500, Brian -£500
+  Mike owes Eric £30     -> Mike -£30, Eric +£30
 
-Because this function reads the live `purchases` array, deleting a
-purchase removes it from Total Balance as soon as the array is refreshed.
+So Mike's total is +£470.
+
+If Brian then marks the £500 as PAID, that pairwise record is
+reset and disappears from calculatePairwiseSettlements(). Mike
+therefore immediately becomes -£30.
+
+Purchases themselves are NOT read here.
 */
 const balances={};
 
@@ -5708,55 +5713,45 @@ PEOPLE.forEach(person=>{
 balances[person]=0;
 });
 
-purchases.forEach(purchase=>{
+const settlements=calculatePairwiseSettlements();
 
-const people=Array.isArray(purchase.people)?purchase.people:[];
-const amount=Number(purchase.amount);
-const payer=purchase.payer;
+Object.entries(settlements).forEach(([key,amount])=>{
 
-if(
-!people.length ||
-!Number.isFinite(amount) ||
-amount<=0 ||
-!PEOPLE.includes(payer)
-){
+const parts=key.split('||');
+
+if(parts.length!==2){
 return;
 }
 
-const share=amount/people.length;
-
-balances[payer]+=amount;
-
-people.forEach(person=>{
-if(PEOPLE.includes(person)){
-balances[person]-=share;
-}
-});
-
-});
-
-settlementPayments.forEach(payment=>{
-
-const debtor=payment.debtor;
-const creditor=payment.creditor;
-const amount=Number(payment.amount);
+const debtor=parts[0];
+const creditor=parts[1];
+const value=Number(amount);
 
 if(
 !PEOPLE.includes(debtor) ||
 !PEOPLE.includes(creditor) ||
 debtor===creditor ||
-!Number.isFinite(amount) ||
-amount<=0
+!Number.isFinite(value) ||
+value<=0
 ){
 return;
 }
 
-balances[debtor]+=amount;
-balances[creditor]-=amount;
+/*
+The current pairwise record says:
+debtor owes creditor.
+
+Therefore:
+debtor is negative
+creditor is positive
+*/
+balances[debtor]-=value;
+balances[creditor]+=value;
 
 });
 
 return balances;
+
 }
 
 function renderBalances(){
