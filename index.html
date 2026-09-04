@@ -5498,6 +5498,14 @@ window.alert(
 );
 return;
 }
+
+/* Remove it locally first so Total Balances cannot retain a deleted purchase. */
+purchases=purchases.filter(
+item=>String(item.id)!==String(purchaseId)
+);
+renderDues();
+
+/* Then reload from Supabase so Purchase History and balances are authoritative. */
 await loadPurchases();
 }catch(error){
 console.error(error);
@@ -5682,43 +5690,72 @@ return settlements;
 }
 
 function calculateBalances(){
+
+/*
+Overall balances are the net of the CURRENT purchase ledger plus
+recorded payments. Nothing else is involved.
+
+Purchase: payer gets the full amount; every included person gets
+charged their equal share.
+Payment: debtor moves toward zero; creditor moves toward zero.
+
+Because this function reads the live `purchases` array, deleting a
+purchase removes it from Total Balance as soon as the array is refreshed.
+*/
 const balances={};
+
 PEOPLE.forEach(person=>{
 balances[person]=0;
 });
+
 purchases.forEach(purchase=>{
-const people=
-Array.isArray(purchase.people)
-?purchase.people
-:[];
-if(!people.length){
-return;
-}
-const amount=Number(purchase.amount)||0;
-if(amount<=0){
-return;
-}
-const share=amount/people.length;
+
+const people=Array.isArray(purchase.people)?purchase.people:[];
+const amount=Number(purchase.amount);
 const payer=purchase.payer;
-if(Object.prototype.hasOwnProperty.call(balances,payer)){
-balances[payer]+=amount;
+
+if(
+!people.length ||
+!Number.isFinite(amount) ||
+amount<=0 ||
+!PEOPLE.includes(payer)
+){
+return;
 }
+
+const share=amount/people.length;
+
+balances[payer]+=amount;
+
 people.forEach(person=>{
-if(Object.prototype.hasOwnProperty.call(balances,person)){
+if(PEOPLE.includes(person)){
 balances[person]-=share;
 }
 });
+
 });
+
 settlementPayments.forEach(payment=>{
+
 const debtor=payment.debtor;
 const creditor=payment.creditor;
-const amount=Number(payment.amount)||0;
-if(amount<=0||!PEOPLE.includes(debtor)||!PEOPLE.includes(creditor)||debtor===creditor){
+const amount=Number(payment.amount);
+
+if(
+!PEOPLE.includes(debtor) ||
+!PEOPLE.includes(creditor) ||
+debtor===creditor ||
+!Number.isFinite(amount) ||
+amount<=0
+){
 return;
 }
+
 balances[debtor]+=amount;
 balances[creditor]-=amount;
+
 });
+
 return balances;
 }
 
