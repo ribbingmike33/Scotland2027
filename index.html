@@ -5639,183 +5639,277 @@ balances[person]=0;
 });
 
 /*
-Purchase ledger is the authoritative source for balances:
-- The payer is credited with the full purchase amount.
-- Every participant is charged an equal share.
-- Recorded settlement payments are then applied:
-  the debtor's balance increases and the creditor's balance decreases.
+Total Balance is the person's net position with the entire group.
+It is calculated from the pairwise balances below, including
+recorded settlement payments.
 */
+const settlements=calculateOutstandingSettlements();
+
+Object.entries(settlements).forEach(([key,amount])=>{
+const parts=key.split('||');
+const debtor=parts[0];
+const creditor=parts[1];
+const value=Number(amount)||0;
+
+if(
+value<=0 ||
+!PEOPLE.includes(debtor) ||
+!PEOPLE.includes(creditor) ||
+debtor===creditor
+){
+return;
+}
+
+balances[debtor]-=value;
+balances[creditor]+=value;
+});
+
+return balances;
+}
+
+function calculatePurchaseDebts(){
+const debts={};
+
 purchases.forEach(purchase=>{
 const people=
 Array.isArray(purchase.people)
 ?purchase.people
 :[];
+
 if(!people.length){
 return;
 }
+
 const amount=
 Number(purchase.amount)||0;
-const payer=
-purchase.payer;
-if(
-amount<=0 ||
-!PEOPLE.includes(payer)
-){
+
+if(amount<=0){
 return;
 }
-
-balances[payer]+=amount;
 
 const share=
 amount/people.length;
-people.forEach(person=>{
-if(!PEOPLE.includes(person)){
+const payer=
+purchase.payer;
+
+if(!PEOPLE.includes(payer)){
 return;
 }
-balances[person]-=share;
-});
-});
 
-settlementPayments.forEach(payment=>{
-const debtor=
-payment.debtor;
-const creditor=
-payment.creditor;
-const amount=
-Number(payment.amount)||0;
+people.forEach(person=>{
 if(
-!PEOPLE.includes(debtor) ||
-!PEOPLE.includes(creditor) ||
-debtor===creditor ||
-amount<=0
+!PEOPLE.includes(person) ||
+person===payer
 ){
 return;
 }
-balances[debtor]+=amount;
-balances[creditor]-=amount;
+
+const key=
+person+'||'+payer;
+
+debts[key]=
+(debts[key]||0)+share;
+});
 });
 
-return balances;
+return debts;
 }
-function calculateOutstandingSettlements(){
+
 /*
-Pairwise settlement ledger. A person's overall balance does NOT determine
-whether they can owe someone else: someone can be net-positive while still
-owing a specific person. Therefore this function works strictly from the
-purchase ledger, nets only the two people in each pair, and then subtracts
-recorded payments for that exact debtor -> creditor pair.
+Who Owes Who is calculated independently for each pair of people.
+
+Example:
+- Brian owes Mike $550.
+- Brian buys lunch/dinner for Brian, Mike and Eric.
+- Mike's share creates a Mike -> Brian obligation.
+- Eric's share creates an Eric -> Brian obligation.
+
+Eric can still be net-positive overall and owe Brian at the same time.
+Only the balance between the two people matters here.
 */
-const debts=calculatePurchaseDebts();
-const peoplePairs=new Set();
-PEOPLE.forEach(debtor=>{
-PEOPLE.forEach(creditor=>{
-if(debtor!==creditor){
-peoplePairs.add(debtor+'||'+creditor);
-}
-});
-});
+function calculatePairwiseSettlements(){
+const debts=
+calculatePurchaseDebts();
+
 const settlements={};
-peoplePairs.forEach(key=>{
+const processed=new Set();
+
+Object.entries(debts).forEach(([key,amount])=>{
+if(processed.has(key)){
+return;
+}
+
 const parts=key.split('||');
 const debtor=parts[0];
 const creditor=parts[1];
-const directDebt=Number(debts[debtor+'||'+creditor]||0);
-const reverseDebt=Number(debts[creditor+'||'+debtor]||0);
-const netDebt=directDebt-reverseDebt;
-if(netDebt<=0.005){
-return;
+const reverseKey=
+creditor+'||'+debtor;
+const reverseAmount=
+Number(debts[reverseKey]||0);
+
+const difference=
+Number(amount||0)-reverseAmount;
+
+if(Math.abs(difference)>0.005){
+if(difference>0){
+settlements[key]=
+Math.round(difference*100)/100;
+}else{
+settlements[reverseKey]=
+Math.round(Math.abs(difference)*100)/100;
 }
-const paid=getSettlementPaidAmount(debtor,creditor);
-const remaining=Math.max(0,netDebt-paid);
-if(remaining>0.005){
-settlements[debtor+'||'+creditor]=remaining;
 }
+
+processed.add(key);
+processed.add(reverseKey);
 });
+
 return settlements;
 }
-function renderBalances(){
-const balances=
-calculateBalances();
-document.getElementById(
-'balanceGrid'
-).innerHTML=
-PEOPLE.map(person=>{
-const balance=
-balances[person];
-let amountClass='even';
-let label='Even';
-if(balance>0.005){
-amountClass='owedto';
-label='is owed';
-}else if(balance<-0.005){
-amountClass='owed';
-label='owes';
-}
-return `
-<div class="balance">
-<div class="balance-name">
-${escapeHtml(
-shortName(person)
-)}
-</div>
-<div class="balance-amount ${amountClass}">
-${formatUSD(Math.abs(balance)*gbpToUsd)}
-</div>
-<div style="font-size:12px;color:#718596;margin-top:2px">
-${label}
-</div>
-<div class="balance-gbp">
-${formatMoney(Math.abs(balance))}
-</div>
-</div>
-`;
-}).join('');
-}
-function renderDebtPlayerTabs(){
-document.querySelectorAll(
-'[data-debt-player]'
-).forEach(button=>{
-button.classList.toggle(
-'active',
-button.dataset.debtPlayer===
-selectedDebtPlayer
+
+function getSettlementPaymentsForPair(debtor,creditor){
+return settlementPayments
+.filter(payment=>{
+return(
+payment.debtor===debtor &&
+payment.creditor===creditor &&
+Number(payment.amount)>0
 );
+})
+.sort((a,b)=>
+String(b.paid_at).localeCompare(
+String(a.paid_at)
+)
+);
+}
+
+function getSettlementPaidAmount(debtor,creditor){
+return getSettlementPaymentsForPair(
+debtor,
+creditor
+).reduce(
+(sum,payment)=>
+sum+Math.max(0,Number(payment.amount)||0),
+0
+);
+}
+
+function calculateOutstandingSettlements(){
+const rawSettlements=
+calculatePairwiseSettlements();
+
+const outstanding={};
+
+Object.entries(rawSettlements).forEach(([key,amount])=>{
+const parts=key.split('||');
+const debtor=parts[0];
+const creditor=parts[1];
+
+const original=
+Math.max(0,Number(amount)||0);
+
+const paid=
+Math.max(
+0,
+getSettlementPaidAmount(
+debtor,
+creditor
+)
+);
+
+const remaining=
+Math.max(
+0,
+original-paid
+);
+
+if(remaining>0.005){
+outstanding[key]=
+Math.round(remaining*100)/100;
+}
 });
+
+return outstanding;
 }
-function selectDebtPlayer(player){
-if(!PEOPLE.includes(player)){
-return;
+
+function findSettlementPayment(
+debtor,
+creditor,
+amount
+){
+const target=
+Math.round(Number(amount)*100)/100;
+
+const matches=
+getSettlementPaymentsForPair(
+debtor,
+creditor
+).filter(payment=>{
+const paymentAmount=
+Math.round(Number(payment.amount)*100)/100;
+
+return Math.abs(
+paymentAmount-target
+)<0.005;
+});
+
+if(!matches.length){
+return null;
 }
-selectedDebtPlayer=player;
-renderDebtPlayerTabs();
-renderSettlements();
+
+return matches[0];
 }
+
+function formatPaidDate(dateString){
+if(!dateString){
+return '';
+}
+
+const date=
+new Date(dateString);
+
+if(Number.isNaN(date.getTime())){
+return '';
+}
+
+return date.toLocaleDateString(
+'en-US',
+{
+month:'short',
+day:'numeric',
+year:'numeric'
+}
+);
+}
+
 function renderSettlementCard(
 settlement,
-payment,
-paidAmount=0
+paymentInfo=null
 ){
 const debtorName=
-shortName(
-settlement.debtor
-);
+shortName(settlement.debtor);
+
 const creditorName=
-shortName(
-settlement.creditor
-);
+shortName(settlement.creditor);
+
+const displayAmount=
+paymentInfo
+?settlement.originalAmount
+:settlement.amount;
+
 const usdAmount=
 formatUSD(
-settlement.amount*gbpToUsd
+displayAmount*gbpToUsd
 );
+
 const gbpAmount=
-formatMoney(
-settlement.amount
-);
+formatMoney(displayAmount);
+
 const venmoUsername=
-VENMO[
-settlement.creditor
-];
+VENMO[settlement.creditor];
+
 let paymentLink='';
+
 if(venmoUsername){
 paymentLink=`
 <a
@@ -5829,10 +5923,16 @@ ${escapeHtml(creditorName)}
 </div>
 <div class="settlement-usd">
 ${usdAmount}
-${payment?'':'↗'}
+${paymentInfo&&paymentInfo.remainingAmount<=0.005?'':'↗'}
 </div>
 <div class="settlement-gbp">
-${gbpAmount} • ${payment?'Payment recorded':'Tap to open '+escapeHtml(creditorName)+'’s Venmo'}
+${gbpAmount} • ${
+paymentInfo&&paymentInfo.remainingAmount<=0.005
+?'Payment recorded'
+:paymentInfo
+?formatMoney(paymentInfo.paidAmount)+' paid • '+formatMoney(paymentInfo.remainingAmount)+' remaining'
+:'Tap to open '+escapeHtml(creditorName)+'’s Venmo'
+}
 </div>
 </a>
 `;
@@ -5848,12 +5948,19 @@ ${escapeHtml(creditorName)}
 ${usdAmount}
 </div>
 <div class="settlement-gbp">
-${gbpAmount} • ${escapeHtml(creditorName)} has no Venmo
+${gbpAmount} • ${
+paymentInfo&&paymentInfo.remainingAmount<=0.005
+?'Payment recorded'
+:paymentInfo
+?formatMoney(paymentInfo.paidAmount)+' paid • '+formatMoney(paymentInfo.remainingAmount)+' remaining'
+:escapeHtml(creditorName)+' has no Venmo'
+}
 </div>
 </div>
 `;
 }
-if(payment){
+
+if(paymentInfo&&paymentInfo.remainingAmount<=0.005){
 return `
 <div class="settlement-item paid">
 ${paymentLink}
@@ -5863,28 +5970,34 @@ ${paymentLink}
 ✓ PAID
 </div>
 <div class="settlement-paid-date">
-Recorded ${escapeHtml(formatPaidDate(payment.paid_at))}
+Recorded ${
+escapeHtml(
+formatPaidDate(
+(getSettlementPaymentsForPair(
+settlement.debtor,
+settlement.creditor
+)[0]||{}).paid_at
+)
+)
+}
 </div>
 </div>
 <button
 class="undo-paid-btn"
 type="button"
-data-delete-payment-id="${escapeHtml(payment.id)}">
+data-delete-payment-id="${escapeHtml(paymentInfo.latestPaymentId||'')}">
 Undo Paid
 </button>
 </div>
 </div>
 `;
 }
+
 return `
 <div class="settlement-item">
 ${paymentLink}
 <div class="settlement-actions">
-<div>
-${paidAmount>0.005
-?`<div class="settlement-paid-date">${formatMoney(paidAmount)} already paid • ${formatMoney(settlement.amount)} remaining</div>`
-:''}
-</div>
+<div></div>
 <button
 class="mark-paid-btn"
 type="button"
@@ -5897,57 +6010,132 @@ Mark Paid
 </div>
 `;
 }
+
 function renderSettlements(){
-const settlements=
-calculateOutstandingSettlements();
+const rawSettlements=
+calculatePairwiseSettlements();
+
 const selectedPlayer=
 selectedDebtPlayer;
-const entries=
-Object.entries(settlements)
-.map(([key,amount])=>{
-const parts=
-key.split('||');
+
+const entries=[];
+
+Object.entries(rawSettlements).forEach(([key,amount])=>{
+const parts=key.split('||');
 const debtor=parts[0];
 const creditor=parts[1];
-const grossDebts=
-calculatePurchaseDebts();
-const grossAmount=
-Math.max(
-0,
-(grossDebts[key]||0)-
-(grossDebts[creditor+'||'+debtor]||0)
-);
+
+if(debtor!==selectedPlayer){
+return;
+}
+
+const originalAmount=
+Math.round(
+(Number(amount)||0)*100
+)/100;
+
 const paidAmount=
+Math.round(
 getSettlementPaidAmount(
 debtor,
 creditor
+)*100
+)/100;
+
+const remainingAmount=
+Math.round(
+Math.max(
+0,
+originalAmount-paidAmount
+)*100
+)/100;
+
+const payments=
+getSettlementPaymentsForPair(
+debtor,
+creditor
 );
-return {
+
+if(originalAmount<=0.005){
+return;
+}
+
+entries.push({
 debtor,
 creditor,
-amount:Number(amount),
-grossAmount,
-paidAmount
-};
-})
-.filter(settlement=>
-settlement.debtor===selectedPlayer &&
-settlement.amount>0.005
+originalAmount,
+amount:remainingAmount,
+paidAmount,
+paymentInfo:paidAmount>0
+?{
+paidAmount,
+remainingAmount,
+latestPaymentId:
+payments[0]
+?payments[0].id
+:null
+}
+:null
+});
+});
+
+const unpaidEntries=
+entries
+.filter(entry=>
+entry.amount>0.005 &&
+(!entry.paymentInfo ||
+entry.paymentInfo.remainingAmount>0.005)
 )
 .sort((a,b)=>b.amount-a.amount);
+
+const partialEntries=
+entries
+.filter(entry=>
+entry.paidAmount>0 &&
+entry.remainingAmount>0.005
+)
+.sort((a,b)=>b.amount-a.amount);
+
+const paidEntries=
+entries
+.filter(entry=>
+entry.paidAmount>0 &&
+entry.remainingAmount<=0.005
+)
+.sort((a,b)=>{
+const aDate=
+String(
+(getSettlementPaymentsForPair(
+a.debtor,
+a.creditor
+)[0]||{}).paid_at||''
+);
+const bDate=
+String(
+(getSettlementPaymentsForPair(
+b.debtor,
+b.creditor
+)[0]||{}).paid_at||''
+);
+return bDate.localeCompare(aDate);
+});
+
 const list=
 document.getElementById(
 'settlementList'
 );
+
 const title=
 document.getElementById(
 'settlementTitle'
 );
+
 if(title){
 title.textContent=
 shortName(selectedPlayer)+
 ' owes';
 }
+
 if(!entries.length){
 list.innerHTML=
 '<div class="empty-state">'+
@@ -5958,14 +6146,49 @@ shortName(selectedPlayer)
 '</div>';
 return;
 }
-list.innerHTML=
-entries.map(entry=>
+
+let html='';
+
+if(unpaidEntries.length){
+html+=
+unpaidEntries
+.map(entry=>
 renderSettlementCard(
 entry,
-null,
-entry.paidAmount
+null
 )
-).join('');
+)
+.join('');
+}
+
+if(partialEntries.length){
+html+=
+partialEntries
+.map(entry=>
+renderSettlementCard(
+entry,
+entry.paymentInfo
+)
+)
+.join('');
+}
+
+if(paidEntries.length){
+html+=
+'<div class="paid-section-label">PAID</div>';
+html+=
+paidEntries
+.map(entry=>
+renderSettlementCard(
+entry,
+entry.paymentInfo
+)
+)
+.join('');
+}
+
+list.innerHTML=html;
+
 document.querySelectorAll(
 '[data-mark-paid-debtor]'
 ).forEach(button=>{
@@ -5979,7 +6202,219 @@ button
 )
 );
 });
+
+document.querySelectorAll(
+'[data-delete-payment-id]'
+).forEach(button=>{
+button.addEventListener(
+'click',
+()=>undoSettlementPaid(
+button.dataset.deletePaymentId,
+button
+)
+);
+});
 }
+
+async function markSettlementPaid(
+debtor,
+creditor,
+amount,
+button
+){
+if(
+!debtor ||
+!creditor ||
+!Number.isFinite(Number(amount)) ||
+Number(amount)<=0
+){
+return;
+}
+
+const confirmed=
+window.confirm(
+'Mark '+
+shortName(debtor)+
+' → '+
+shortName(creditor)+
+' for '+
+formatMoney(amount)+
+' as PAID?'
+);
+
+if(!confirmed){
+return;
+}
+
+const pin=
+window.prompt(
+'Enter the Dues PIN to mark this settlement as paid:'
+);
+
+if(pin===null){
+return;
+}
+
+if(pin!==DUES_PIN){
+window.alert(
+'Incorrect PIN. Nothing was marked paid.'
+);
+return;
+}
+
+button.disabled=true;
+button.textContent='Saving…';
+
+try{
+const {data,error}=
+await supabaseClient.rpc(
+'mark_settlement_paid',
+{
+p_pin:DUES_PIN,
+p_debtor:debtor,
+p_creditor:creditor,
+p_amount:
+Math.round(Number(amount)*100)/100
+}
+);
+
+if(error){
+console.error(
+'Supabase mark_settlement_paid error:',
+error
+);
+window.alert(
+formatSupabaseError(
+'Unable to mark settlement as paid',
+error
+)
+);
+return;
+}
+
+if(!data){
+window.alert(
+'Payment was not returned by the database.'
+);
+return;
+}
+
+await loadSettlementPayments();
+
+}catch(error){
+console.error(
+'Settlement payment connection error:',
+error
+);
+window.alert(
+formatSupabaseError(
+'Unable to connect to the Dues database',
+error
+)
+);
+}finally{
+button.disabled=false;
+button.textContent='Mark Paid';
+}
+}
+
+async function undoSettlementPaid(
+paymentId,
+button
+){
+const payment=
+settlementPayments.find(
+item=>String(item.id)===String(paymentId)
+);
+
+if(!payment){
+return;
+}
+
+const confirmed=
+window.confirm(
+'Undo the PAID status for '+
+shortName(payment.debtor)+
+' → '+
+shortName(payment.creditor)+
+' ('+
+formatMoney(payment.amount)+
+')?'
+);
+
+if(!confirmed){
+return;
+}
+
+const pin=
+window.prompt(
+'Enter the Dues PIN to undo this payment:'
+);
+
+if(pin===null){
+return;
+}
+
+if(pin!==DUES_PIN){
+window.alert(
+'Incorrect PIN. Nothing was changed.'
+);
+return;
+}
+
+button.disabled=true;
+button.textContent='Undoing…';
+
+try{
+const {data,error}=
+await supabaseClient.rpc(
+'delete_settlement_payment',
+{
+p_pin:DUES_PIN,
+p_id:paymentId
+}
+);
+
+if(error){
+console.error(
+'Supabase delete_settlement_payment error:',
+error
+);
+window.alert(
+formatSupabaseError(
+'Unable to undo payment',
+error
+)
+);
+return;
+}
+
+if(!data){
+window.alert(
+'Payment could not be removed.'
+);
+return;
+}
+
+await loadSettlementPayments();
+
+}catch(error){
+console.error(
+'Settlement payment deletion connection error:',
+error
+);
+window.alert(
+formatSupabaseError(
+'Unable to connect to the Dues database',
+error
+)
+);
+}finally{
+button.disabled=false;
+button.textContent='Undo Paid';
+}
+}
+
 function renderDues(){
 if(
 !document.getElementById(
