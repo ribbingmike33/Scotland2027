@@ -1315,6 +1315,60 @@ background:#fff2f0
 opacity:.6;
 cursor:wait
 }
+/* GUINNESS LOG COLLAPSE */
+.guinness-log-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+.guinness-log-toggle{
+flex:1;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+border:0;
+background:transparent;
+padding:0;
+margin:0;
+font:700 22px Georgia,serif;
+color:#38271d;
+text-align:left;
+cursor:pointer;
+}
+.guinness-log-chevron{
+font-family:Arial,sans-serif;
+font-size:22px;
+font-weight:400;
+color:#806f5f;
+line-height:1;
+}
+.guinness-delete-all{
+border:1px solid #d9bebe;
+background:#fffdf8;
+color:#a33b3b;
+border-radius:7px;
+padding:7px 10px;
+font-size:12px;
+font-weight:800;
+cursor:pointer;
+white-space:nowrap;
+}
+.guinness-delete-all:hover{
+background:#fff2f0;
+}
+.guinness-delete-all:disabled{
+opacity:.6;
+cursor:wait;
+}
+.guinness-log-body{
+margin-top:14px;
+}
+.guinness-log-body[hidden]{
+display:none;
+}
+
 /* DUES */
 .dues-intro{
 background:var(--pale);
@@ -5006,13 +5060,34 @@ Refresh to get standings
 </div>
 </div>
 </div>
-<div class="guinness-card">
-<h3>Guinness Log</h3>
+<div class="guinness-card guinness-log-card">
+<div class="guinness-log-header">
+<button
+class="guinness-log-toggle"
+id="guinnessLogToggle"
+type="button"
+aria-expanded="false"
+aria-controls="guinnessLogBody">
+<span>Guinness Log</span>
+<span class="guinness-log-chevron" aria-hidden="true">+</span>
+</button>
+<button
+class="guinness-delete-all"
+id="deleteAllGuinness"
+type="button">
+Delete All
+</button>
+</div>
+<div
+class="guinness-log-body"
+id="guinnessLogBody"
+hidden>
 <div
 class="guinness-history"
 id="guinnessHistory">
 <div class="empty-state">
 Loading Guinness history…
+</div>
 </div>
 </div>
 </div>
@@ -6397,8 +6472,9 @@ String(b.created_at)
 String(a.created_at)
 );
 });
+const recentLogs=sorted.slice(0,10);
 history.innerHTML=
-sorted.map(log=>{
+recentLogs.map(log=>{
 const people=
 Array.isArray(log.people)
 ?log.people
@@ -6539,6 +6615,111 @@ button.disabled=false;
 button.textContent='Delete';
 }
 }
+document.getElementById(
+'guinnessLogToggle'
+).addEventListener(
+'click',
+()=>{
+const toggle=
+document.getElementById(
+'guinnessLogToggle'
+);
+const body=
+document.getElementById(
+'guinnessLogBody'
+);
+const expanded=
+toggle.getAttribute(
+'aria-expanded'
+)==='true';
+toggle.setAttribute(
+'aria-expanded',
+String(!expanded)
+);
+body.hidden=expanded;
+toggle.querySelector(
+'.guinness-log-chevron'
+).textContent=
+expanded?'+':'−';
+}
+);
+async function deleteAllGuinness(){
+if(!guinnessLogs.length)return;
+const confirmed=
+window.confirm(
+'Delete all Guinness logs? This cannot be undone.'
+);
+if(!confirmed)return;
+const pin=
+window.prompt(
+'Enter the Dues PIN to delete all Guinness logs:'
+);
+if(pin===null)return;
+if(pin!==DUES_PIN){
+window.alert(
+'Incorrect PIN. Nothing was deleted.'
+);
+return;
+}
+const button=
+document.getElementById(
+'deleteAllGuinness'
+);
+button.disabled=true;
+button.textContent='Deleting…';
+try{
+const results=
+await Promise.all(
+guinnessLogs.map(
+log=>supabaseClient.rpc(
+'delete_guinness',
+{
+p_pin:DUES_PIN,
+p_id:log.id
+}
+)
+)
+);
+const failed=
+results.find(
+result=>result.error||!result.data
+);
+if(failed){
+console.error(
+'Delete all Guinness error:',
+failed.error
+);
+window.alert(
+formatSupabaseError(
+'Unable to delete all Guinness logs',
+failed.error
+)
+);
+return;
+}
+await loadGuinness();
+}catch(error){
+console.error(
+'Delete all Guinness connection error:',
+error
+);
+window.alert(
+formatSupabaseError(
+'Unable to connect to the Guinness database',
+error
+)
+);
+}finally{
+button.disabled=false;
+button.textContent='Delete All';
+}
+}
+document.getElementById(
+'deleteAllGuinness'
+).addEventListener(
+'click',
+deleteAllGuinness
+);
 document.getElementById(
 'showGuinnessForm'
 ).addEventListener(
