@@ -2889,6 +2889,153 @@ font-weight:800
   #wheel .who-wheel-label{transition:none}
 }
 
+
+
+/* St Andrews day — scoped to Jun 16 only */
+.st-andrews-day .day-head{
+  background:linear-gradient(135deg,#edf3f6 0%,#f7f9fa 100%);
+}
+.st-andrews-day .course-title{
+  align-items:center;
+  gap:14px;
+}
+.st-andrews-day .course-logo{
+  width:64px;
+  height:64px;
+  object-fit:contain;
+  padding:7px;
+  border:1px solid #d5e0e6;
+  border-radius:12px;
+  background:#fff;
+  flex:none;
+}
+.st-andrews-day .day-body{
+  padding:18px 16px 20px;
+}
+.st-andrews-day .sa-hero-plan{
+  padding:16px 17px;
+  border:1px solid #d8e1e8;
+  border-radius:13px;
+  background:linear-gradient(135deg,#f5f8fa 0%,#fff 100%);
+  margin-bottom:13px;
+}
+.st-andrews-day .sa-plan-kicker,
+.st-andrews-day .sa-section-label,
+.st-andrews-day .sa-label{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.18em;
+  color:#526b80;
+}
+.st-andrews-day .sa-plan-title{
+  margin-top:5px;
+  font:700 20px/1.2 Georgia,serif;
+  color:#152f4a;
+}
+.st-andrews-day .sa-plan-copy{
+  margin-top:6px;
+  font-size:13px;
+  line-height:1.45;
+  color:#61788a;
+  font-weight:700;
+}
+.st-andrews-day .sa-travel{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 14px;
+  border:1px solid #d8e1e8;
+  border-radius:12px;
+  background:#fff;
+  margin-bottom:17px;
+}
+.st-andrews-day .sa-route{
+  margin-top:4px;
+  font-size:15px;
+  font-weight:850;
+  color:#263c4f;
+}
+.st-andrews-day .sa-route span{
+  color:#718596;
+  padding:0 4px;
+}
+.st-andrews-day .sa-primary-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+  padding:10px 12px;
+  border:1px solid #bdcbd7;
+  border-radius:9px;
+  background:#fff;
+  color:#152f4a;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.st-andrews-day .sa-section-label{
+  margin:0 0 9px 2px;
+}
+.st-andrews-day .sa-links{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+.st-andrews-day .sa-link-card{
+  min-width:0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:stretch;
+  border:1px solid #cbd7df;
+  border-radius:11px;
+  overflow:hidden;
+  background:#fff;
+}
+.st-andrews-day .sa-link-card > .link:not(.directions){
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:13px 12px;
+  text-decoration:none;
+}
+.st-andrews-day .sa-link-name{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:13px;
+  font-weight:900;
+  color:#19364e;
+}
+.st-andrews-day .sa-arrow{
+  color:#526b80;
+  font-weight:900;
+}
+.st-andrews-day .sa-link-card .directions{
+  display:flex;
+  align-items:center;
+  padding:0 11px;
+  border-left:1px solid #cbd7df;
+  background:#f3f7fa;
+  color:#526b80;
+  text-decoration:none;
+  font-size:11px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.st-andrews-day .sa-link-card:first-child{
+  grid-column:1 / -1;
+}
+@media(max-width:600px){
+  .st-andrews-day .course-logo{width:60px;height:60px}
+  .st-andrews-day .sa-travel{align-items:stretch;flex-direction:column}
+  .st-andrews-day .sa-primary-link{width:100%}
+  .st-andrews-day .sa-links{grid-template-columns:1fr}
+  .st-andrews-day .sa-link-card:first-child{grid-column:auto}
+}
 </style>
 </head>
 <body>
@@ -3197,78 +3344,71 @@ onerror="this.style.display='none'"
 </div>
 </div>
 </article>
-<article class="day">
+<article class="day st-andrews-day">
 <button class="day-head" aria-expanded="false">
 <div>
 <div class="tag">DAY TRIP</div>
 <div class="course-title">
-<svg class="course-logo" viewBox="0 0 120 130" role="img" aria-label="St Andrews Links crest" xmlns="http://www.w3.org/2000/svg">
-<g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-<path d="M31 7 L91 91"/>
-<path d="M89 7 L29 91"/>
-<path d="M34 17 L27 9"/>
-<path d="M86 17 L93 9"/>
-<path d="M37 56 C30 48 29 36 36 27 C43 18 55 15 60 15 C65 15 77 18 84 27 C91 36 90 48 83 56"/>
-<path d="M41 55 C35 48 35 38 41 31 C46 25 53 22 60 22 C67 22 74 25 79 31 C85 38 85 48 79 55"/>
-<path d="M49 45 C51 38 55 34 60 34 C65 34 69 38 71 45"/>
-<path d="M52 48 C54 53 57 56 60 56 C63 56 66 53 68 48"/>
-<path d="M55 35 C56 30 58 28 60 28 C62 28 64 30 65 35"/>
-<path d="M48 45 L52 43 M72 45 L68 43"/>
-<path d="M60 56 L60 67"/>
-<path d="M48 62 C52 66 56 68 60 68 C64 68 68 66 72 62"/>
-<path d="M46 60 C40 65 36 70 35 78"/>
-<path d="M74 60 C80 65 84 70 85 78"/>
-<path d="M35 78 C39 83 45 86 51 87"/>
-<path d="M85 78 C81 83 75 86 69 87"/>
-<path d="M60 67 L60 87"/>
-<path d="M47 87 C51 91 56 93 60 93 C64 93 69 91 73 87"/>
-<path d="M42 90 C47 96 53 99 60 99 C67 99 73 96 78 90"/>
-<path d="M25 72 C31 84 40 94 51 99"/>
-<path d="M95 72 C89 84 80 94 69 99"/>
-</g>
-<path d="M22 92 Q60 113 98 92 L92 109 Q60 126 28 109 Z" fill="currentColor" opacity=".10" stroke="currentColor" stroke-width="2"/>
-<text x="60" y="108" text-anchor="middle" font-family="Georgia,serif" font-size="8.5" font-weight="700" fill="currentColor" letter-spacing=".45">ST ANDREWS LINKS</text>
-</svg>
+<img
+class="course-logo"
+src="https://www.gepardis.sk/golf/files_source/course_files/upload/images/loga/gbr/22097.jpeg"
+alt="St Andrews Links crest"
+loading="lazy"
+onerror="this.style.display='none'"
+>
 <div>
 <h2>St. Andrews</h2>
 <div class="date">Wed • Jun 16</div>
 </div>
 </div>
 </div>
-<div class="arrow">⌄</div>
+<div class="arrow">⌃</div>
 </button>
 <div class="day-body">
-<div class="info">
-<b>Train to St. Andrews</b>
-<span>Edinburgh Waverley → Leuchars</span>
+<div class="sa-hero-plan">
+<div class="sa-plan-kicker">THE DAY</div>
+<div class="sa-plan-title">Train in. Chase the ballot. Explore St. Andrews.</div>
+<div class="sa-plan-copy">Old Course ballot • historic town • great pubs • Himalayas putting</div>
 </div>
-<div class="info">
-<b>The Plan</b>
-<span>Train to St. Andrews • Enter the Old Course ballot • Explore the town and its history • Optional Himalayas putting</span>
+
+<div class="sa-travel">
+<div class="sa-travel-copy">
+<div class="sa-label">TRAIN</div>
+<div class="sa-route">Edinburgh Waverley <span>→</span> Leuchars</div>
 </div>
-<div class="links">
-<div class="link-pair">
-<a class="link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">Open Omio App ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=Leuchars+Railway+Station&amp;destination=St+Andrews+Bus+Station" target="_blank" rel="noopener">Bus to St. Andrews</a>
+<a class="sa-primary-link" href="https://apps.apple.com/us/app/omio-book-train-bus-flight/id885372509" target="_blank" rel="noopener">Open Omio App ↗</a>
 </div>
-<div class="link-pair">
-<a class="link" href="https://standrews.com/old-course-ballot" target="_blank" rel="noopener">Old Course Ballot ↗</a>
+
+<div class="sa-section-label">ST. ANDREWS PICKS</div>
+<div class="sa-links">
+<div class="sa-link-card">
+<a class="link" href="https://standrews.com/old-course-ballot" target="_blank" rel="noopener">
+<span class="sa-link-name">Old Course Ballot</span><span class="sa-arrow">↗</span>
+</a>
 </div>
-<div class="link-pair">
-<a class="link" href="https://www.oldcoursehotel.co.uk/dining/jigger-inn" target="_blank" rel="noopener">The Jigger Inn ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=St+Andrews+Bus+Station&amp;destination=The+Jigger+Inn+St+Andrews" target="_blank" rel="noopener">Directions</a>
-</div>
-<div class="link-pair">
-<a class="link" href="https://www.dunveganhotel.co.uk/" target="_blank" rel="noopener">The Dunvegan ↗</a>
+<div class="sa-link-card">
+<a class="link" href="https://www.dunveganhotel.co.uk/" target="_blank" rel="noopener">
+<span class="sa-link-name">The Dunvegan</span><span class="sa-arrow">↗</span>
+</a>
 <a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=St+Andrews+Bus+Station&amp;destination=The+Dunvegan+St+Andrews" target="_blank" rel="noopener">Directions</a>
 </div>
-<div class="link-pair">
-<a class="link" href="https://www.standrewsputtingclub.com/himalayas-putting-book-online" target="_blank" rel="noopener">Himalayas Putting ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=St+Andrews+Bus+Station&amp;destination=Himalayas+Putting+St+Andrews" target="_blank" rel="noopener">Directions</a>
+<div class="sa-link-card">
+<a class="link" href="https://www.oldcoursehotel.co.uk/dining/hams-hame" target="_blank" rel="noopener">
+<span class="sa-link-name">Hams Hame</span><span class="sa-arrow">↗</span>
+</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=St+Andrews+Bus+Station&amp;destination=Hams+Hame+St+Andrews" target="_blank" rel="noopener">Directions</a>
 </div>
-<div class="link-pair">
-<a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=Criterion+99+South+Street+St+Andrews+KY16+9QW" target="_blank" rel="noopener">The Criterion ↗</a>
-<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=St+Andrews+Bus+Station&amp;destination=Criterion+99+South+Street+St+Andrews+KY16+9QW" target="_blank" rel="noopener">Directions</a>
+<div class="sa-link-card">
+<a class="link" href="https://www.thekeysbar.co.uk/" target="_blank" rel="noopener">
+<span class="sa-link-name">The Keys Bar</span><span class="sa-arrow">↗</span>
+</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=St+Andrews+Bus+Station&amp;destination=The+Keys+Bar+St+Andrews" target="_blank" rel="noopener">Directions</a>
+</div>
+<div class="sa-link-card">
+<a class="link" href="https://www.standrewsputtingclub.com/himalayas-putting-book-online" target="_blank" rel="noopener">
+<span class="sa-link-name">Himalayas Putting</span><span class="sa-arrow">↗</span>
+</a>
+<a class="link directions" href="https://www.google.com/maps/dir/?api=1&amp;origin=St+Andrews+Bus+Station&amp;destination=Himalayas+Putting+St+Andrews" target="_blank" rel="noopener">Directions</a>
 </div>
 </div>
 </div>
