@@ -2668,7 +2668,7 @@ font-weight:800
 }
 
 
-/* WHEEL TAB — playful plum with a light lavender secondary accent */
+/* WHEEL TAB — plum branding */
 .tab[data-tab="itinerary"]{
   grid-column:auto !important;
   order:7 !important;
@@ -2686,46 +2686,207 @@ font-weight:800
   background:#6a598c !important;
   border-color:#d7c9e8 !important;
 }
+
+/* Roast Us card */
 #wheel .wheel-roast-wrap{
   margin:0 0 18px;
 }
-#wheel .wheel-roast-heading{
-  color:#5b4b7a;
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:.14em;
-  margin:2px 0 7px;
+#wheel .roast-card{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:14px;
+  padding:15px;
+  border:1px solid #d7c9e8;
+  border-radius:12px;
+  background:linear-gradient(135deg,#f7f3fb 0%,#fff 72%);
+  box-shadow:0 2px 8px rgba(91,75,122,.08);
 }
-#wheel .roast-us-wrap{
-  margin:0;
+#wheel .roast-card-copy{
+  min-width:0;
+}
+#wheel .roast-card-kicker{
+  color:#5b4b7a;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.16em;
+  margin-bottom:3px;
+}
+#wheel .roast-card-title{
+  color:#263c4f;
+  font-size:16px;
+  font-weight:800;
+  line-height:1.25;
 }
 #wheel .roast-us-btn{
-  border-color:#d7c9e8 !important;
+  width:auto;
+  min-width:126px;
+  border:1px solid #d7c9e8 !important;
+  border-radius:8px;
   background:#5b4b7a !important;
   color:#fff !important;
-  box-shadow:0 2px 5px rgba(91,75,122,.12);
+  padding:11px 15px;
+  font-size:14px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 2px 5px rgba(91,75,122,.14);
+  transition:background .15s ease,border-color .15s ease,transform .08s ease;
 }
 #wheel .roast-us-btn:hover{
   background:#6a598c !important;
-  border-color:#d7c9e8 !important;
+  border-color:#cbbbe0 !important;
 }
+#wheel .roast-us-btn:active{
+  transform:translateY(1px);
+}
+#wheel .roast-us-result{
+  grid-column:1 / -1;
+  display:none;
+  margin:0;
+  padding:13px 15px;
+  border:1px solid #d7c9e8;
+  border-radius:9px;
+  background:#fff;
+  color:#46395f;
+  font-size:14px;
+  font-weight:800;
+  line-height:1.45;
+  text-align:center;
+}
+#wheel .roast-us-result.show{
+  display:block;
+}
+
+/* Purple wheel */
 #wheel .who-wheel-section{
   margin-top:0;
   padding-top:18px;
   border-top:1px solid #d7c9e8;
+  text-align:center;
+}
+#wheel .who-wheel-title{
+  color:#5b4b7a;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:.01em;
+}
+#wheel .who-wheel-subtitle{
+  margin-top:3px;
+  color:#6a7783;
+  font-size:12px;
+  font-weight:700;
+}
+#wheel .who-wheel-wrap{
+  position:relative;
+  width:min(100%,330px);
+  aspect-ratio:1;
+  margin:18px auto 14px;
+}
+#wheel .who-wheel{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  border:5px solid #5b4b7a;
+  box-shadow:0 4px 12px rgba(91,75,122,.18), inset 0 0 0 2px rgba(255,255,255,.6);
+  background:conic-gradient(
+    #705d8f 0deg 45deg,
+    #f0ebf6 45deg 90deg,
+    #8a78a4 90deg 135deg,
+    #faf8fc 135deg 180deg,
+    #705d8f 180deg 225deg,
+    #f0ebf6 225deg 270deg,
+    #8a78a4 270deg 315deg,
+    #faf8fc 315deg 360deg
+  );
+  position:relative;
+  overflow:hidden;
+  transition:transform 4s cubic-bezier(.12,.78,.16,1);
+  will-change:transform;
+}
+#wheel .who-wheel-label{
+  position:absolute;
+  width:42%;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  text-align:center;
+  white-space:nowrap;
+  text-shadow:0 1px 2px rgba(0,0,0,.55);
+  pointer-events:none;
+  transform:translate(-50%,-50%) rotate(0deg);
+  transition:transform 4s cubic-bezier(.12,.78,.16,1);
+}
+#wheel .who-wheel-label.light{
+  color:#46395f;
+  text-shadow:0 1px 1px rgba(255,255,255,.9);
+}
+#wheel .who-wheel-pointer{
+  position:absolute;
+  z-index:3;
+  top:-3px;
+  left:50%;
+  width:0;
+  height:0;
+  transform:translateX(-50%);
+  border-left:13px solid transparent;
+  border-right:13px solid transparent;
+  border-top:0;
+  border-bottom:25px solid #d7c9e8;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+}
+#wheel .who-wheel-center{
+  position:absolute;
+  z-index:2;
+  left:50%;
+  top:50%;
+  width:58px;
+  height:58px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#fff;
+  border:3px solid #d7c9e8;
+  color:#5b4b7a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:1000;
+  letter-spacing:.08em;
+  box-shadow:0 2px 6px rgba(91,75,122,.16);
 }
 #wheel .who-wheel-spin{
-  border-color:#d7c9e8 !important;
+  width:100%;
+  max-width:330px;
+  min-height:46px;
+  border:1px solid #d7c9e8 !important;
+  border-radius:9px;
   background:#5b4b7a !important;
   color:#fff !important;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:.04em;
+  cursor:pointer;
   box-shadow:0 2px 5px rgba(91,75,122,.12);
 }
 #wheel .who-wheel-spin:hover{
   background:#6a598c !important;
-  border-color:#d7c9e8 !important;
+  border-color:#cbbbe0 !important;
+}
+#wheel .who-wheel-spin:disabled{
+  opacity:.65;
+  cursor:default;
 }
 #wheel .who-wheel-result{
+  margin:10px auto 0;
+  width:min(100%,330px);
+  min-height:20px;
   color:#5b4b7a;
+  font-size:18px;
+  font-weight:900;
+}
+@media (prefers-reduced-motion:reduce){
+  #wheel .who-wheel{transition:none}
+  #wheel .who-wheel-label{transition:none}
 }
 
 </style>
@@ -3236,10 +3397,14 @@ Use the Omio app for the North Berwick / Edinburgh train.
 </main>
 <main id="wheel" style="display:none">
 <div class="wheel-roast-wrap">
-<div class="wheel-roast-heading">ROAST THE LADS</div>
-<div class="roast-us-wrap" id="roastUsWrap">
-  <button class="roast-us-btn" id="roastUsBtn" type="button">Roast Us</button>
-  <div class="roast-us-result" id="roastUsResult" aria-live="polite" aria-atomic="true"></div>
+  <div class="roast-card">
+    <div class="roast-card-copy">
+      <div class="roast-card-kicker">ROAST US</div>
+      <div class="roast-card-title">Someone deserves it.</div>
+    </div>
+    <button class="roast-us-btn" id="roastUsBtn" type="button">🔥 Roast Us</button>
+    <div class="roast-us-result" id="roastUsResult" aria-live="polite" aria-atomic="true"></div>
+  </div>
 </div>
 <div class="who-wheel-section">
   <div class="who-wheel-title">Who’s Gonna Do It?</div>
