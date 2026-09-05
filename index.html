@@ -3000,6 +3000,63 @@ font-weight:800
   #wheel .over-under-wrong{font-size:42px}
 }
 
+
+#wheel .over-under-card{
+  border-color:#9d9278;
+  background:linear-gradient(145deg,#f8f5eb 0%,#fffdf8 52%,#eee9d9 100%);
+  box-shadow:0 6px 16px rgba(0,0,0,.18);
+}
+#wheel .over-under-card::before{
+  content:'';
+  position:absolute;
+  inset:7px;
+  border:1px solid #b6a875;
+  border-radius:9px;
+  pointer-events:none;
+}
+#wheel .over-under-cover-mark{
+  position:relative;
+  z-index:1;
+  width:105px;
+  height:155px;
+  border:2px solid #5b4b7a;
+  border-radius:9px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#5b4b7a;
+  background:rgba(255,255,255,.22);
+}
+#wheel .over-under-cover-crown{
+  font:1000 11px Arial,sans-serif;
+  letter-spacing:.2em;
+}
+#wheel .over-under-cover-emblem{
+  width:57px;
+  height:57px;
+  margin:9px 0 8px;
+  border:2px solid #5b4b7a;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font:1000 12px Georgia,serif;
+  letter-spacing:.08em;
+}
+#wheel .over-under-cover-title{
+  font:700 27px Georgia,serif;
+  letter-spacing:.08em;
+}
+#wheel .over-under-cover-rule{
+  width:52px;
+  border-top:1px solid #b6a875;
+  margin:8px 0 7px;
+}
+#wheel .over-under-cover-sub{
+  font:1000 8px Arial,sans-serif;
+  letter-spacing:.16em;
+}
 </style>
 </head>
 <body>
@@ -8500,6 +8557,7 @@ function nextCard(){
 }
 
 function renderOverUnderCard(card){
+  overUnderCard.classList.remove('over-under-card-cover');
   overUnderCard.setAttribute('data-corner',`${card.rank}${card.suit}`);
   overUnderCard.innerHTML='';
   overUnderCard.classList.toggle('red-suit',card.suit==='♥'||card.suit==='♦');
@@ -8528,6 +8586,7 @@ function startOverUnder(){
 
 function makeOverUnderGuess(direction){
   if(!overUnderCurrent) return;
+
   const previous=overUnderCurrent;
   const next=nextCard();
   renderOverUnderCard(next);
@@ -8541,23 +8600,27 @@ function makeOverUnderGuess(direction){
     overUnderStreakCount++;
     updateOverUnderStreak();
   }else{
-    overUnderStreakCount=0;
-    updateOverUnderStreak();
+    // Wrong ends this game. The final streak remains visible until START GAME.
     overUnderChoices.hidden=true;
     overUnderWrongWrap.hidden=false;
   }
 }
-
 function resetOverUnder(){
   overUnderCurrent=null;
-  overUnderCard.innerHTML='';
+  overUnderCard.innerHTML=`<div class="over-under-cover-mark">
+    <div class="over-under-cover-crown">SCOTLAND</div>
+    <div class="over-under-cover-emblem">GOLF</div>
+    <div class="over-under-cover-title">2027</div>
+    <div class="over-under-cover-rule"></div>
+    <div class="over-under-cover-sub">THE TRIP</div>
+  </div>`;
   overUnderCard.removeAttribute('data-corner');
   overUnderCard.classList.remove('red-suit');
+  overUnderCard.classList.add('over-under-card-cover');
   overUnderChoices.hidden=true;
   overUnderWrongWrap.hidden=true;
   overUnderStart.hidden=false;
 }
-
 overUnderStart.addEventListener('click',startOverUnder);
 overButton.addEventListener('click',()=>makeOverUnderGuess('over'));
 underButton.addEventListener('click',()=>makeOverUnderGuess('under'));
