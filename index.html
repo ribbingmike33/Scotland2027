@@ -2937,6 +2937,9 @@ font-weight:800
   font-size:34px;
   line-height:1;
 }
+#wheel .over-under-card.red-suit{
+  color:#c62828;
+}
 #wheel .over-under-start,
 #wheel .over-under-choice{
   appearance:none;
@@ -8499,6 +8502,7 @@ function nextCard(){
 function renderOverUnderCard(card){
   overUnderCard.setAttribute('data-corner',`${card.rank}${card.suit}`);
   overUnderCard.innerHTML='';
+  overUnderCard.classList.toggle('red-suit',card.suit==='♥'||card.suit==='♦');
   const rank=document.createElement('div');
   rank.className='over-under-rank';
   rank.textContent=card.rank;
@@ -8545,11 +8549,10 @@ function makeOverUnderGuess(direction){
 }
 
 function resetOverUnder(){
-  overUnderStreakCount=0;
-  updateOverUnderStreak();
   overUnderCurrent=null;
   overUnderCard.innerHTML='';
   overUnderCard.removeAttribute('data-corner');
+  overUnderCard.classList.remove('red-suit');
   overUnderChoices.hidden=true;
   overUnderWrongWrap.hidden=true;
   overUnderStart.hidden=false;
