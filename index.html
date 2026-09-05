@@ -2536,6 +2536,23 @@ font-weight:800
 #participants .roast-us-result.show{display:block}
 
 
+/* OVER / UNDER CARD GAME */
+#wheel .over-under-section{margin-top:18px;padding-top:18px;border-top:1px solid #d7c9e8;text-align:center}
+#wheel .over-under-streak{color:#5b4b7a;font-size:14px;font-weight:1000;letter-spacing:.12em;margin:0 0 16px}
+#wheel .over-under-card-area{min-height:220px;display:flex;align-items:center;justify-content:center}
+#wheel .over-under-card{width:145px;height:205px;border:2px solid #d7c9e8;border-radius:14px;background:#fff;color:#17131f;display:flex;align-items:center;justify-content:center;font:700 76px Georgia,serif;box-shadow:0 5px 16px rgba(91,75,122,.12)}
+#wheel .over-under-start,#wheel .over-under-choice{appearance:none;border:2px solid #d7c9e8;background:#5b4b7a;color:#fff;border-radius:10px;min-height:48px;padding:0 22px;font-size:13px;font-weight:1000;letter-spacing:.08em;cursor:pointer}
+#wheel .over-under-start{min-width:150px}
+#wheel .over-under-start:hover,#wheel .over-under-choice:hover{background:#6a598c}
+#wheel .over-under-choices{display:flex;justify-content:center;gap:12px;margin-top:14px}
+#wheel .over-under-choice{flex:1 1 0;max-width:170px}
+#wheel .over-under-wrong-wrap{margin-top:16px}
+#wheel .over-under-wrong{color:#b42318;font-size:50px;line-height:1;font-weight:1000;letter-spacing:.04em}
+#wheel .over-under-reset{margin-top:14px;appearance:none;border:2px solid #d7c9e8;background:#fff;color:#5b4b7a;border-radius:10px;min-height:46px;padding:0 24px;font-size:12px;font-weight:1000;letter-spacing:.08em;cursor:pointer}
+#wheel .over-under-reset:hover{background:#f7f3fb}
+#wheel .over-under-start[hidden],#wheel .over-under-choices[hidden],#wheel .over-under-wrong-wrap[hidden]{display:none}
+@media (max-width:520px){#wheel .over-under-card{width:125px;height:178px;font-size:66px}#wheel .over-under-wrong{font-size:42px}}
+
 /* WHO'S GONNA DO IT? */
 #wheel .who-wheel-section{
   margin-top:18px;
@@ -3419,16 +3436,19 @@ Use the Omio app for the North Berwick / Edinburgh train.
     <div class="roast-us-result" id="roastUsResult" aria-live="polite" aria-atomic="true"></div>
   </div>
 </div>
-<div class="who-wheel-section">
-  <div class="who-wheel-title">Who’s Gonna Do It?</div>
-  <div class="who-wheel-subtitle">Spin the wheel. No arguing with the result.</div>
-  <div class="who-wheel-wrap">
-    <div class="who-wheel-pointer" aria-hidden="true"></div>
-    <div class="who-wheel" id="whoWheel" role="img" aria-label="Wheel containing all eight participants"></div>
-    <button class="who-wheel-center" id="whoWheelCenter" type="button" aria-label="Spin the wheel">SPIN</button>
+<div class="over-under-section">
+  <div class="over-under-streak" id="overUnderStreak" aria-live="polite">STREAK: 0</div>
+  <div class="over-under-card-area">
+    <div class="over-under-card" id="overUnderCard" aria-live="polite" aria-atomic="true"></div>
   </div>
-    <div class="who-wheel-result" id="whoWheelResult" aria-live="polite" aria-atomic="true">
-    Spin it to find out.
+  <button class="over-under-start" id="overUnderStart" type="button">START GAME</button>
+  <div class="over-under-choices" id="overUnderChoices" hidden>
+    <button class="over-under-choice" id="overButton" type="button">OVER</button>
+    <button class="over-under-choice" id="underButton" type="button">UNDER</button>
+  </div>
+  <div class="over-under-wrong-wrap" id="overUnderWrongWrap" hidden>
+    <div class="over-under-wrong" id="overUnderWrong" aria-live="assertive" aria-atomic="true">WRONG</div>
+    <button class="over-under-reset" id="overUnderReset" type="button">RESET</button>
   </div>
 </div>
 </main>
@@ -8321,55 +8341,90 @@ shuffleRoasts();
 document.getElementById('roastUsBtn').addEventListener('click',showNextRoast);
 
 /* WHO'S GONNA DO IT? */
-const WHO_WHEEL_PEOPLE = ["Mike Ribbing","Tom Chung","Eric Hopton","Zach Gordon","Brian Gordon","Clem Diglio","Veer Singh","Yeags"];
-const whoWheel = document.getElementById('whoWheel');
-const whoWheelCenter = document.getElementById('whoWheelCenter');
-const whoWheelResult = document.getElementById('whoWheelResult');
-let whoWheelRotation = 0;
-let whoWheelSpinning = false;
+const overUnderCard=document.getElementById('overUnderCard');
+const overUnderStart=document.getElementById('overUnderStart');
+const overUnderChoices=document.getElementById('overUnderChoices');
+const overButton=document.getElementById('overButton');
+const underButton=document.getElementById('underButton');
+const overUnderWrongWrap=document.getElementById('overUnderWrongWrap');
+const overUnderReset=document.getElementById('overUnderReset');
+const overUnderStreak=document.getElementById('overUnderStreak');
 
-const whoWheelLabels = [];
+const OVER_UNDER_DECK=[
+  {label:'A',value:1},{label:'2',value:2},{label:'3',value:3},{label:'4',value:4},
+  {label:'5',value:5},{label:'6',value:6},{label:'7',value:7},{label:'8',value:8},
+  {label:'9',value:9},{label:'10',value:10},{label:'J',value:10},{label:'Q',value:10},{label:'K',value:10}
+];
 
-WHO_WHEEL_PEOPLE.forEach((person,index)=>{
-  const label=document.createElement('span');
-  label.className='who-wheel-label'+(index%2===1?' light':'');
-  label.textContent=person.split(' ')[0];
-  const angle=index*45+22.5;
-  const radius=33;
-  const x=50 + Math.sin(angle*Math.PI/180)*radius;
-  const y=50 - Math.cos(angle*Math.PI/180)*radius;
-  label.style.left=`${x}%`;
-  label.style.top=`${y}%`;
-  label.style.transform='translate(-50%,-50%) rotate(0deg)';
-  whoWheel.appendChild(label);
-  whoWheelLabels.push(label);
-});
+let overUnderCurrent=null;
+let overUnderStreakCount=0;
 
-function spinWhoWheel(){
-  if(whoWheelSpinning) return;
-  whoWheelSpinning=true;
-  whoWheelCenter.disabled=true;
-  whoWheelResult.textContent='Spinning…';
-
-  const winnerIndex=Math.floor(Math.random()*WHO_WHEEL_PEOPLE.length);
-  const segmentCenter=winnerIndex*45+22.5;
-  const currentMod=((whoWheelRotation%360)+360)%360;
-  const desiredMod=(360-segmentCenter+360)%360;
-  const delta=(desiredMod-currentMod+360)%360 + 360*(5+Math.floor(Math.random()*3));
-  whoWheelRotation += delta;
-  whoWheel.style.transform=`rotate(${whoWheelRotation}deg)`;
-  whoWheelLabels.forEach(label=>{
-    label.style.transform=`translate(-50%,-50%) rotate(${-whoWheelRotation}deg)`;
-  });
-
-  const finish=()=>{
-    whoWheelSpinning=false;
-    whoWheelCenter.disabled=false;
-    whoWheelResult.textContent=`🎯 ${WHO_WHEEL_PEOPLE[winnerIndex]} — you’re gonna do it!`;
-  };
-  whoWheel.addEventListener('transitionend',finish,{once:true});
+function randomCard(){
+  return OVER_UNDER_DECK[Math.floor(Math.random()*OVER_UNDER_DECK.length)];
 }
-whoWheelCenter.addEventListener('click',spinWhoWheel);
+
+function nextCard(){
+  if(overUnderCurrent && overUnderCurrent.value===5){
+    return {label:'4',value:4};
+  }
+  return randomCard();
+}
+
+function renderCard(card){
+  overUnderCard.textContent=card.label;
+}
+
+function updateStreak(){
+  overUnderStreak.textContent=`STREAK: ${overUnderStreakCount}`;
+}
+
+function startOverUnder(){
+  overUnderStreakCount=0;
+  updateStreak();
+  overUnderWrongWrap.hidden=true;
+  overUnderStart.hidden=true;
+  overUnderCurrent=randomCard();
+  renderCard(overUnderCurrent);
+  overUnderChoices.hidden=false;
+}
+
+function makeGuess(direction){
+  if(!overUnderCurrent) return;
+  const previous=overUnderCurrent;
+  const next=nextCard();
+  renderCard(next);
+
+  const correct=direction==='over'
+    ? next.value>previous.value
+    : next.value<previous.value;
+
+  overUnderCurrent=next;
+
+  if(correct){
+    overUnderStreakCount++;
+    updateStreak();
+  }else{
+    overUnderStreakCount=0;
+    updateStreak();
+    overUnderChoices.hidden=true;
+    overUnderWrongWrap.hidden=false;
+  }
+}
+
+function resetOverUnder(){
+  overUnderStreakCount=0;
+  updateStreak();
+  overUnderCurrent=null;
+  overUnderCard.textContent='';
+  overUnderChoices.hidden=true;
+  overUnderWrongWrap.hidden=true;
+  overUnderStart.hidden=false;
+}
+
+overUnderStart.addEventListener('click',startOverUnder);
+overButton.addEventListener('click',()=>makeGuess('over'));
+underButton.addEventListener('click',()=>makeGuess('under'));
+overUnderReset.addEventListener('click',resetOverUnder);
 </script>
 </body>
 </html>
