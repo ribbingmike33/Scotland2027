@@ -2904,7 +2904,7 @@ font-weight:800
   height:64px;
   object-fit:contain;
   padding:7px;
-  border:1px solid #d5e0e6;
+  border:1px solid #bdcbd7;
   border-radius:12px;
   background:#fff;
   flex:none;
@@ -2914,10 +2914,10 @@ font-weight:800
 }
 .st-andrews-day .sa-hero-plan{
   padding:16px 17px;
-  border:1px solid #d8e1e8;
+  border:1px solid #bdcbd7;
   border-radius:13px;
-  background:linear-gradient(135deg,#f5f8fa 0%,#fff 100%);
-  margin-bottom:13px;
+  background:linear-gradient(135deg,#f3f7fa 0%,#fff 100%);
+  margin-bottom:14px;
 }
 .st-andrews-day .sa-plan-kicker,
 .st-andrews-day .sa-section-label,
@@ -2936,19 +2936,19 @@ font-weight:800
   margin-top:6px;
   font-size:13px;
   line-height:1.45;
-  color:#61788a;
+  color:#526b80;
   font-weight:700;
 }
 .st-andrews-day .sa-travel{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:14px;
   padding:13px 14px;
-  border:1px solid #d8e1e8;
+  border:1px solid #bdcbd7;
   border-radius:12px;
   background:#fff;
-  margin-bottom:17px;
+  margin-bottom:18px;
 }
 .st-andrews-day .sa-route{
   margin-top:4px;
@@ -2957,7 +2957,7 @@ font-weight:800
   color:#263c4f;
 }
 .st-andrews-day .sa-route span{
-  color:#718596;
+  color:#526b80;
   padding:0 4px;
 }
 .st-andrews-day .sa-primary-link{
@@ -2965,11 +2965,12 @@ font-weight:800
   align-items:center;
   justify-content:center;
   flex:none;
-  padding:10px 12px;
+  min-height:42px;
+  padding:10px 14px;
   border:1px solid #bdcbd7;
   border-radius:9px;
-  background:#fff;
-  color:#152f4a;
+  background:#152f4a;
+  color:#fff;
   text-decoration:none;
   font-size:12px;
   font-weight:900;
@@ -2980,15 +2981,17 @@ font-weight:800
 }
 .st-andrews-day .sa-links{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
+  grid-template-columns:1fr;
+  gap:10px;
 }
 .st-andrews-day .sa-link-card{
+  width:100%;
   min-width:0;
+  min-height:52px;
   display:grid;
   grid-template-columns:minmax(0,1fr) auto;
   align-items:stretch;
-  border:1px solid #cbd7df;
+  border:1px solid #bdcbd7;
   border-radius:11px;
   overflow:hidden;
   background:#fff;
@@ -2997,8 +3000,8 @@ font-weight:800
   min-width:0;
   display:flex;
   align-items:center;
-  gap:5px;
-  padding:13px 12px;
+  gap:6px;
+  padding:13px 14px;
   text-decoration:none;
 }
 .st-andrews-day .sa-link-name{
@@ -3006,7 +3009,7 @@ font-weight:800
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  font-size:13px;
+  font-size:14px;
   font-weight:900;
   color:#19364e;
 }
@@ -3017,24 +3020,30 @@ font-weight:800
 .st-andrews-day .sa-link-card .directions{
   display:flex;
   align-items:center;
-  padding:0 11px;
-  border-left:1px solid #cbd7df;
-  background:#f3f7fa;
-  color:#526b80;
+  justify-content:center;
+  min-width:104px;
+  padding:0 13px;
+  border-left:1px solid #bdcbd7;
+  background:#152f4a;
+  color:#fff;
   text-decoration:none;
   font-size:11px;
   font-weight:900;
   white-space:nowrap;
 }
 .st-andrews-day .sa-link-card:first-child{
-  grid-column:1 / -1;
+  grid-column:auto;
 }
 @media(max-width:600px){
   .st-andrews-day .course-logo{width:60px;height:60px}
-  .st-andrews-day .sa-travel{align-items:stretch;flex-direction:column}
+  .st-andrews-day .sa-travel{
+    align-items:stretch;
+    flex-direction:column;
+    gap:10px;
+  }
   .st-andrews-day .sa-primary-link{width:100%}
-  .st-andrews-day .sa-links{grid-template-columns:1fr}
-  .st-andrews-day .sa-link-card:first-child{grid-column:auto}
+  .st-andrews-day .sa-link-card{min-height:54px}
+  .st-andrews-day .sa-link-card .directions{min-width:102px}
 }
 </style>
 </head>
