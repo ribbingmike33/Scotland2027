@@ -5601,8 +5601,8 @@ Open-Meteo
 Zach’s Dirty 30 with the Lads • Built for the crew
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 // Participant scouting reports.
 function initializeParticipantToggles(){
   document.querySelectorAll('#participants .person-toggle').forEach(toggle=>{
@@ -5632,8 +5632,7 @@ if(document.readyState==='loading'){
 }else{
   initializeParticipantToggles();
 }
-</script>
-<script>
+
 document.querySelectorAll('.day-head').forEach(button=>{
 button.addEventListener('click',()=>{
 const day=button.parentElement;
