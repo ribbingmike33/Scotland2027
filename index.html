@@ -3156,6 +3156,11 @@ font-weight:800
   text-align:left;
   cursor:pointer;
 }
+#participants .person-toggle{
+  position:relative;
+  z-index:2;
+  pointer-events:auto;
+}
 #participants .person-toggle:hover{
   background:#f7f8fa;
 }
@@ -5598,21 +5603,35 @@ Zach’s Dirty 30 with the Lads • Built for the crew
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
-// Participant scouting reports: use event delegation so every team/player
-// toggle works reliably even if the participant cards are re-rendered.
-document.addEventListener('click',(event)=>{
-  const toggle=event.target.closest('#participants .person-toggle');
-  if(!toggle) return;
-  const person=toggle.closest('.person');
-  const details=person ? person.querySelector('.person-details') : null;
-  const chevron=toggle.querySelector('.person-chevron');
-  if(!details) return;
+// Participant scouting reports.
+function initializeParticipantToggles(){
+  document.querySelectorAll('#participants .person-toggle').forEach(toggle=>{
+    if(toggle.dataset.toggleReady==='true') return;
+    toggle.dataset.toggleReady='true';
 
-  const expanded=toggle.getAttribute('aria-expanded')==='true';
-  toggle.setAttribute('aria-expanded',String(!expanded));
-  details.hidden=expanded;
-  if(chevron) chevron.textContent=expanded?'+':'−';
-});
+    toggle.addEventListener('click',function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
+      const person=this.closest('.person');
+      const details=person ? person.querySelector('.person-details') : null;
+      const chevron=this.querySelector('.person-chevron');
+      if(!details) return;
+
+      const expanded=this.getAttribute('aria-expanded')==='true';
+      this.setAttribute('aria-expanded',expanded?'false':'true');
+      details.hidden=expanded;
+
+      if(chevron) chevron.textContent=expanded?'+':'−';
+    });
+  });
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',initializeParticipantToggles);
+}else{
+  initializeParticipantToggles();
+}
 </script>
 <script>
 document.querySelectorAll('.day-head').forEach(button=>{
