@@ -3111,6 +3111,113 @@ font-weight:800
   font:1000 8px Arial,sans-serif;
   letter-spacing:.16em;
 }
+
+
+/* PARTICIPANT TEAMS + COLLAPSIBLE SCOUTING REPORTS */
+#participants .participant-team{
+  margin:0 0 14px;
+}
+#participants .participant-team-header{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 2px 7px;
+  border-bottom:2px solid #566276;
+}
+#participants .participant-team-name{
+  color:#465266;
+  font:700 20px Georgia,serif;
+}
+#participants .participant-team-players{
+  color:#7a8491;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.06em;
+}
+#participants .participant-team .people{
+  margin-top:8px;
+}
+#participants .person{
+  padding:0;
+  overflow:hidden;
+}
+#participants .person-toggle{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border:0;
+  background:transparent;
+  padding:15px 15px 2px;
+  color:#465266;
+  font:700 21px Georgia,serif;
+  text-align:left;
+  cursor:pointer;
+}
+#participants .person-toggle:hover{
+  background:#f7f8fa;
+}
+#participants .person-chevron{
+  flex:0 0 auto;
+  color:#7a8491;
+  font:400 20px Arial,sans-serif;
+}
+#participants .person .meta,
+#participants .person > p{
+  margin-left:15px;
+  margin-right:15px;
+}
+#participants .person > p{
+  margin-bottom:15px;
+}
+#participants .person-details{
+  padding:0 15px 15px;
+}
+#participants .person-details[hidden]{
+  display:none;
+}
+#participants .participant-prediction{
+  margin-top:0;
+}
+#participants .participant-projection{
+  margin-top:9px;
+  padding:11px 12px;
+  background:#f1eadc;
+  border-left:3px solid #c6a15b;
+  border-radius:0 8px 8px 0;
+  color:#3e4d48;
+  font-size:13px;
+  line-height:1.5;
+}
+#participants .participant-projection span{
+  display:block;
+  margin-bottom:3px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.16em;
+  color:#8a6b31;
+}
+#participants .participant-projection strong{
+  display:block;
+  color:#3e4d48;
+  font-size:13px;
+  margin-bottom:8px;
+}
+#participants .participant-projection strong:last-child{
+  margin-bottom:0;
+}
+@media(max-width:700px){
+  #participants .people{
+    grid-template-columns:1fr;
+  }
+  #participants .participant-team-header{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:2px;
+  }
+}
 </style>
 </head>
 <body>
@@ -4833,50 +4940,133 @@ color:#fff
 <b>THE CREW</b><br>
 Handicaps, Venmo handles and the official scouting reports.
 </div>
+
+<div class="participant-team">
+<div class="participant-team-header">
+<div class="participant-team-name">Ribbs &amp; Hops</div>
+<div class="participant-team-players">Mike + Eric</div>
+</div>
 <div class="people">
 <div class="person">
-<h3>Mike Ribbing</h3>
+<button class="person-toggle" type="button" aria-expanded="false">
+<span>Mike Ribbing</span><span class="person-chevron">+</span>
+</button>
 <div class="meta">3.9 handicap • @mike_ribbing</div>
 <p>Had his second kid, so if the game falls off, he has the perfect excuse ready to go.</p>
-<div class="participant-prediction"><span>BOLD PREDICTION</span>The back will become the most talked-about player on the trip. If it survives, Mike contends. If not, the group gets a very expensive walking tour.</div></div>
+<div class="person-details" hidden>
+<div class="participant-prediction"><span>BOLD PREDICTION</span>Mike will spend the first three holes pretending the back is fine, the next three negotiating with it, and the last three blaming Scotland for inventing hills. Still the best golfer in the group when his body cooperates.</div>
+<div class="participant-projection"><span>PROJECTED SCORES</span><strong>R1: 75 &nbsp; R2: 76 &nbsp; R3: 75 &nbsp; R4: 76 &nbsp; R5: 75 &nbsp; R6: 76 &nbsp; R7: 75</strong><span>PROJECTED BIRDIES</span><strong>12</strong></div>
+</div>
+</div>
 <div class="person">
-<h3>Tom Chung</h3>
-<div class="meta">16.9 handicap • @tomchung11</div>
-<p>Somehow runs a physical therapy practice and teaches at the same time, yet still hasn&#x27;t managed to rehabilitate his own golf game.</p>
-<div class="participant-prediction"><span>BOLD PREDICTION</span>Tom will insist he is playing his own game while quietly judging everyone else. Then he will shoot just well enough to make the rest of us hate him for it.</div></div>
-<div class="person">
-<h3>Eric Hopton</h3>
+<button class="person-toggle" type="button" aria-expanded="false">
+<span>Eric Hopton</span><span class="person-chevron">+</span>
+</button>
 <div class="meta">12.5 handicap • @ehop57</div>
 <p>A “professor” at Georgia Tech, although the group remains convinced he actually works with aliens. Will also sacrifice at least 10 balls to the Firth of Forth.</p>
-<div class="participant-prediction"><span>BOLD PREDICTION</span>Eric will spend most of the trip looking aggressively average, then make six putts in a row and spend the rest of the week acting like he discovered golf.</div></div>
+<div class="person-details" hidden>
+<div class="participant-prediction"><span>BOLD PREDICTION</span>Eric will hit one absolutely perfect shot per round, immediately decide that is proof he has solved golf, and spend the next four hours trying to recreate it. At least one ball is going in a body of water with no witnesses.</div>
+<div class="participant-projection"><span>PROJECTED SCORES</span><strong>R1: 83 &nbsp; R2: 84 &nbsp; R3: 84 &nbsp; R4: 85 &nbsp; R5: 82 &nbsp; R6: 84 &nbsp; R7: 83</strong><span>PROJECTED BIRDIES</span><strong>7</strong></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="participant-team">
+<div class="participant-team-header">
+<div class="participant-team-name">Team TBD</div>
+<div class="participant-team-players">Brian + Clem</div>
+</div>
+<div class="people">
 <div class="person">
-<h3>Zach Gordon</h3>
-<div class="meta">9.2 handicap • @zach-Gordon-15</div>
-<p>The reason this trip exists, allegedly, because he is turning 30. As if eight guys needed an excuse to go to Scotland and drink for a week.</p>
-<div class="participant-prediction"><span>BOLD PREDICTION</span>Zach will remind everyone this is his birthday trip roughly 400 times, shoot one ridiculous round, and somehow turn it into his greatest athletic achievement for the next decade.</div></div>
-<div class="person">
-<h3>Brian Gordon</h3>
+<button class="person-toggle" type="button" aria-expanded="false">
+<span>Brian Gordon</span><span class="person-chevron">+</span>
+</button>
 <div class="meta">8.3 handicap • @Brian-Gordon-115</div>
 <p>Already holed out for birdie at the Old Course last trip. Unfortunately, he has also already told us the story roughly 400 times.</p>
-<div class="participant-prediction"><span>BOLD PREDICTION</span>Brian will string together enough good shots to convince everyone he has finally figured it out, followed immediately by a stretch of golf that settles the matter.</div></div>
+<div class="person-details" hidden>
+<div class="participant-prediction"><span>BOLD PREDICTION</span>Brian will mention the Old Course hole-out before breakfast, after breakfast, and at least once while someone is putting. Then he will play well enough that nobody can tell him to shut up.</div>
+<div class="participant-projection"><span>PROJECTED SCORES</span><strong>R1: 78 &nbsp; R2: 79 &nbsp; R3: 80 &nbsp; R4: 79 &nbsp; R5: 77 &nbsp; R6: 80 &nbsp; R7: 78</strong><span>PROJECTED BIRDIES</span><strong>11</strong></div>
+</div>
+</div>
 <div class="person">
-<h3>Clem Diglio</h3>
+<button class="person-toggle" type="button" aria-expanded="false">
+<span>Clem Diglio</span><span class="person-chevron">+</span>
+</button>
 <div class="meta">17.1 handicap • @Carol-Diglio</div>
 <p>Always has a smile and is ready to have fun. His golf game is a complete wildcard. Bonus points: his wife was Eric&#x27;s high school principal.</p>
-<div class="participant-prediction"><span>BOLD PREDICTION</span>Clem will spend three days telling everyone the breakthrough is coming. If it actually arrives, nobody will be more shocked than Clem.</div></div>
+<div class="person-details" hidden>
+<div class="participant-prediction"><span>BOLD PREDICTION</span>Clem will announce at least three separate “swing changes” that were definitely the answer. None will survive the next tee box. Somehow he will still be having more fun than everyone else.</div>
+<div class="participant-projection"><span>PROJECTED SCORES</span><strong>R1: 88 &nbsp; R2: 90 &nbsp; R3: 89 &nbsp; R4: 91 &nbsp; R5: 87 &nbsp; R6: 90 &nbsp; R7: 89</strong><span>PROJECTED BIRDIES</span><strong>4</strong></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="participant-team">
+<div class="participant-team-header">
+<div class="participant-team-name">Team TBD</div>
+<div class="participant-team-players">Zach + Yeags</div>
+</div>
+<div class="people">
 <div class="person">
-<h3>Veer Singh</h3>
-<div class="meta">17.7 handicap • @veersingh24</div>
-<p>Lives in New York now, so the golf game may be rusty. ChatGPT has already pegged him as the weak link when it comes to Guinness.</p>
-<div class="participant-prediction"><span>BOLD PREDICTION</span>Veer will convince himself he is winning the Cup by Tuesday, then make one completely unhinged golf decision that becomes the group's favorite story before dinner.</div></div>
+<button class="person-toggle" type="button" aria-expanded="false">
+<span>Zach Gordon</span><span class="person-chevron">+</span>
+</button>
+<div class="meta">9.2 handicap • @zach-Gordon-15</div>
+<p>The reason this trip exists, allegedly, because he is turning 30. As if eight guys needed an excuse to go to Scotland and drink for a week.</p>
+<div class="person-details" hidden>
+<div class="participant-prediction"><span>BOLD PREDICTION</span>Zach will weaponize the birthday card every time a shot goes badly, every time a drink gets ordered, and somehow when he gets beaten in Stableford. He will also shoot one round that makes everyone furious.</div>
+<div class="participant-projection"><span>PROJECTED SCORES</span><strong>R1: 80 &nbsp; R2: 81 &nbsp; R3: 82 &nbsp; R4: 81 &nbsp; R5: 79 &nbsp; R6: 82 &nbsp; R7: 80</strong><span>PROJECTED BIRDIES</span><strong>9</strong></div>
+</div>
+</div>
 <div class="person">
-<h3>Yeags</h3>
+<button class="person-toggle" type="button" aria-expanded="false">
+<span>Yeags</span><span class="person-chevron">+</span>
+</button>
 <div class="meta">8.5 handicap • @papa-yeags</div>
 <p>The only lefty. Hits it a mile when he finds the club face. The bigger question is whether he is going to play golf or personally eliminate Scotland&#x27;s Guinness supply.</p>
+<div class="person-details" hidden>
+<div class="participant-prediction"><span>BOLD PREDICTION</span>Yeags will hit one shot every round that looks like it came from a professional, followed immediately by a shot that looks like he has never seen a golf club before. The left-handed chaos will be spectacular.</div>
+<div class="participant-projection"><span>PROJECTED SCORES</span><strong>R1: 79 &nbsp; R2: 80 &nbsp; R3: 81 &nbsp; R4: 80 &nbsp; R5: 78 &nbsp; R6: 81 &nbsp; R7: 79</strong><span>PROJECTED BIRDIES</span><strong>10</strong></div>
 </div>
-<div class="participant-prediction"><span>BOLD PREDICTION</span>Yeags will hit one shot so good everyone will wonder where the hell that came from, then immediately make three decisions that answer the question.</div></div>
+</div>
+</div>
+</div>
+
+<div class="participant-team">
+<div class="participant-team-header">
+<div class="participant-team-name">Team TBD</div>
+<div class="participant-team-players">Tom + Veer</div>
+</div>
+<div class="people">
+<div class="person">
+<button class="person-toggle" type="button" aria-expanded="false">
+<span>Tom Chung</span><span class="person-chevron">+</span>
+</button>
+<div class="meta">16.9 handicap • @tomchung11</div>
+<p>Somehow runs a physical therapy practice and teaches at the same time, yet still hasn&#x27;t managed to rehabilitate his own golf game.</p>
+<div class="person-details" hidden>
+<div class="participant-prediction"><span>BOLD PREDICTION</span>Tom will diagnose everyone's swing flaws between shots, prescribe a fix nobody asked for, and then chunk his own approach from 90 yards. He will still somehow be the one giving lessons by dinner.</div>
+<div class="participant-projection"><span>PROJECTED SCORES</span><strong>R1: 87 &nbsp; R2: 89 &nbsp; R3: 88 &nbsp; R4: 90 &nbsp; R5: 86 &nbsp; R6: 89 &nbsp; R7: 88</strong><span>PROJECTED BIRDIES</span><strong>5</strong></div>
+</div>
+</div>
+<div class="person">
+<button class="person-toggle" type="button" aria-expanded="false">
+<span>Veer Singh</span><span class="person-chevron">+</span>
+</button>
+<div class="meta">17.7 handicap • @veersingh24</div>
+<p>Lives in New York now, so the golf game may be rusty. ChatGPT has already pegged him as the weak link when it comes to Guinness.</p>
+<div class="person-details" hidden>
+<div class="participant-prediction"><span>BOLD PREDICTION</span>Veer will have one stretch where he looks like he belongs in the Cup, followed by a decision so catastrophically stupid that the entire group will remember it longer than the actual golf.</div>
+<div class="participant-projection"><span>PROJECTED SCORES</span><strong>R1: 90 &nbsp; R2: 91 &nbsp; R3: 92 &nbsp; R4: 91 &nbsp; R5: 89 &nbsp; R6: 92 &nbsp; R7: 90</strong><span>PROJECTED BIRDIES</span><strong>4</strong></div>
+</div>
+</div>
+</div>
+</div>
 
 </main>
+
 <main id="guinness" style="display:none">
 <div class="guinness-hero">
 <div class="guinness-brand">
@@ -5406,7 +5596,19 @@ Open-Meteo
 Zach’s Dirty 30 with the Lads • Built for the crew
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+
+// Participant scouting reports are collapsed by default.
+document.querySelectorAll('#participants .person-toggle').forEach(toggle=>{
+  toggle.addEventListener('click',()=>{
+    const details=toggle.parentElement.querySelector('.person-details');
+    const expanded=toggle.getAttribute('aria-expanded')==='true';
+    toggle.setAttribute('aria-expanded',String(!expanded));
+    details.hidden=expanded;
+    toggle.querySelector('.person-chevron').textContent=expanded?'+':'−';
+  });
+});
+</script>
 <script>
 document.querySelectorAll('.day-head').forEach(button=>{
 button.addEventListener('click',()=>{
