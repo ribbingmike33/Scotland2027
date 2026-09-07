@@ -5598,15 +5598,20 @@ Zach’s Dirty 30 with the Lads • Built for the crew
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
-// Participant scouting reports are collapsed by default.
-document.querySelectorAll('#participants .person-toggle').forEach(toggle=>{
-  toggle.addEventListener('click',()=>{
-    const details=toggle.parentElement.querySelector('.person-details');
-    const expanded=toggle.getAttribute('aria-expanded')==='true';
-    toggle.setAttribute('aria-expanded',String(!expanded));
-    details.hidden=expanded;
-    toggle.querySelector('.person-chevron').textContent=expanded?'+':'−';
-  });
+// Participant scouting reports: use event delegation so every team/player
+// toggle works reliably even if the participant cards are re-rendered.
+document.addEventListener('click',(event)=>{
+  const toggle=event.target.closest('#participants .person-toggle');
+  if(!toggle) return;
+  const person=toggle.closest('.person');
+  const details=person ? person.querySelector('.person-details') : null;
+  const chevron=toggle.querySelector('.person-chevron');
+  if(!details) return;
+
+  const expanded=toggle.getAttribute('aria-expanded')==='true';
+  toggle.setAttribute('aria-expanded',String(!expanded));
+  details.hidden=expanded;
+  if(chevron) chevron.textContent=expanded?'+':'−';
 });
 </script>
 <script>
