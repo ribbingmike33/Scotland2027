@@ -982,18 +982,33 @@ margin-bottom:14px
 outline:3px solid #eadfcf;
 border-color:#8b6333
 }
+.guinness-people-head{
+display:grid;
+grid-template-columns:minmax(0,1fr) 58px 68px;
+gap:6px;
+margin:8px 0 5px;
+color:#806d59;
+font-size:10px;
+font-weight:900;
+text-transform:uppercase;
+letter-spacing:.05em;
+text-align:center
+}
+.guinness-people-head span:first-child{
+text-align:left
+}
 .guinness-people{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:8px;
-margin-top:7px
+margin-top:0
 }
 .guinness-check{
 position:relative
 }
 .guinness-check.quantity-visible{
 display:grid;
-grid-template-columns:minmax(0,1fr) 64px;
+grid-template-columns:minmax(0,1fr) 58px 68px;
 gap:6px;
 align-items:stretch;
 min-width:0
@@ -1019,7 +1034,8 @@ background:#fffdf8;
 cursor:pointer;
 text-align:center
 }
-.guinness-check .guinness-qty{
+.guinness-check .guinness-qty,
+.guinness-check .guinness-perfect{
 display:none;
 position:static;
 opacity:1;
@@ -1029,17 +1045,19 @@ box-sizing:border-box;
 border:1px solid #cdbba3;
 border-radius:8px;
 background:#fffdf8;
-padding:10px 7px;
+padding:10px 5px;
 font-size:16px;
 font-weight:900;
 color:#4b2d1c;
 text-align:center;
 outline:0
 }
-.guinness-check.quantity-visible .guinness-qty{
+.guinness-check.quantity-visible .guinness-qty,
+.guinness-check.quantity-visible .guinness-perfect{
 display:block
 }
-.guinness-check .guinness-qty:focus{
+.guinness-check .guinness-qty:focus,
+.guinness-check .guinness-perfect:focus{
 outline:3px solid #eadfcf;
 border-color:#8b6333
 }
@@ -5305,10 +5323,15 @@ type="date"
 <label>
 Who drank it?
 </label>
+<div class="guinness-people-head" aria-hidden="true">
+<span>Person</span><span>G</span><span>Perfect G</span>
+</div>
 <div class="guinness-people">
 <div class="guinness-check">
 <input type="checkbox" id="g-mike" value="Mike Ribbing">
 <label for="g-mike">Mike</label>
+<div class="guinness-stepper" data-stepper="qty">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Guinness quantity">+</button>
 <input
 class="guinness-qty"
 type="number"
@@ -5317,12 +5340,32 @@ max="100"
 step="1"
 value="1"
 inputmode="numeric"
+readonly
 aria-label="Mike Guinness quantity"
 >
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Guinness quantity">−</button>
+</div>
+<div class="guinness-stepper" data-stepper="perfect">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Perfect G split quantity">+</button>
+<input
+class="guinness-perfect"
+type="number"
+min="0"
+max="100"
+step="1"
+value="0"
+inputmode="numeric"
+readonly
+aria-label="Mike Perfect G split quantity"
+>
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Perfect G split quantity">−</button>
+</div>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-tom" value="Tom Chung">
 <label for="g-tom">Tom</label>
+<div class="guinness-stepper" data-stepper="qty">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Guinness quantity">+</button>
 <input
 class="guinness-qty"
 type="number"
@@ -5331,12 +5374,32 @@ max="100"
 step="1"
 value="1"
 inputmode="numeric"
+readonly
 aria-label="Tom Guinness quantity"
 >
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Guinness quantity">−</button>
+</div>
+<div class="guinness-stepper" data-stepper="perfect">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Perfect G split quantity">+</button>
+<input
+class="guinness-perfect"
+type="number"
+min="0"
+max="100"
+step="1"
+value="0"
+inputmode="numeric"
+readonly
+aria-label="Tom Perfect G split quantity"
+>
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Perfect G split quantity">−</button>
+</div>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-eric" value="Eric Hopton">
 <label for="g-eric">Eric</label>
+<div class="guinness-stepper" data-stepper="qty">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Guinness quantity">+</button>
 <input
 class="guinness-qty"
 type="number"
@@ -5345,12 +5408,32 @@ max="100"
 step="1"
 value="1"
 inputmode="numeric"
+readonly
 aria-label="Eric Guinness quantity"
 >
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Guinness quantity">−</button>
+</div>
+<div class="guinness-stepper" data-stepper="perfect">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Perfect G split quantity">+</button>
+<input
+class="guinness-perfect"
+type="number"
+min="0"
+max="100"
+step="1"
+value="0"
+inputmode="numeric"
+readonly
+aria-label="Eric Perfect G split quantity"
+>
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Perfect G split quantity">−</button>
+</div>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-zach" value="Zach Gordon">
 <label for="g-zach">Zach</label>
+<div class="guinness-stepper" data-stepper="qty">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Guinness quantity">+</button>
 <input
 class="guinness-qty"
 type="number"
@@ -5359,12 +5442,32 @@ max="100"
 step="1"
 value="1"
 inputmode="numeric"
+readonly
 aria-label="Zach Guinness quantity"
 >
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Guinness quantity">−</button>
+</div>
+<div class="guinness-stepper" data-stepper="perfect">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Perfect G split quantity">+</button>
+<input
+class="guinness-perfect"
+type="number"
+min="0"
+max="100"
+step="1"
+value="0"
+inputmode="numeric"
+readonly
+aria-label="Zach Perfect G split quantity"
+>
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Perfect G split quantity">−</button>
+</div>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-brian" value="Brian Gordon">
 <label for="g-brian">Brian</label>
+<div class="guinness-stepper" data-stepper="qty">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Guinness quantity">+</button>
 <input
 class="guinness-qty"
 type="number"
@@ -5373,12 +5476,32 @@ max="100"
 step="1"
 value="1"
 inputmode="numeric"
+readonly
 aria-label="Brian Guinness quantity"
 >
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Guinness quantity">−</button>
+</div>
+<div class="guinness-stepper" data-stepper="perfect">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Perfect G split quantity">+</button>
+<input
+class="guinness-perfect"
+type="number"
+min="0"
+max="100"
+step="1"
+value="0"
+inputmode="numeric"
+readonly
+aria-label="Brian Perfect G split quantity"
+>
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Perfect G split quantity">−</button>
+</div>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-clem" value="Clem Diglio">
 <label for="g-clem">Clem</label>
+<div class="guinness-stepper" data-stepper="qty">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Guinness quantity">+</button>
 <input
 class="guinness-qty"
 type="number"
@@ -5387,12 +5510,32 @@ max="100"
 step="1"
 value="1"
 inputmode="numeric"
+readonly
 aria-label="Clem Guinness quantity"
 >
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Guinness quantity">−</button>
+</div>
+<div class="guinness-stepper" data-stepper="perfect">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Perfect G split quantity">+</button>
+<input
+class="guinness-perfect"
+type="number"
+min="0"
+max="100"
+step="1"
+value="0"
+inputmode="numeric"
+readonly
+aria-label="Clem Perfect G split quantity"
+>
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Perfect G split quantity">−</button>
+</div>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-veer" value="Veer Singh">
 <label for="g-veer">Veer</label>
+<div class="guinness-stepper" data-stepper="qty">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Guinness quantity">+</button>
 <input
 class="guinness-qty"
 type="number"
@@ -5401,12 +5544,32 @@ max="100"
 step="1"
 value="1"
 inputmode="numeric"
+readonly
 aria-label="Veer Guinness quantity"
 >
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Guinness quantity">−</button>
+</div>
+<div class="guinness-stepper" data-stepper="perfect">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Perfect G split quantity">+</button>
+<input
+class="guinness-perfect"
+type="number"
+min="0"
+max="100"
+step="1"
+value="0"
+inputmode="numeric"
+readonly
+aria-label="Veer Perfect G split quantity"
+>
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Perfect G split quantity">−</button>
+</div>
 </div>
 <div class="guinness-check">
 <input type="checkbox" id="g-yeags" value="Yeags">
 <label for="g-yeags">Yeags</label>
+<div class="guinness-stepper" data-stepper="qty">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Guinness quantity">+</button>
 <input
 class="guinness-qty"
 type="number"
@@ -5415,8 +5578,26 @@ max="100"
 step="1"
 value="1"
 inputmode="numeric"
+readonly
 aria-label="Yeags Guinness quantity"
 >
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Guinness quantity">−</button>
+</div>
+<div class="guinness-stepper" data-stepper="perfect">
+<button type="button" class="guinness-step" data-step="up" aria-label="Increase Perfect G split quantity">+</button>
+<input
+class="guinness-perfect"
+type="number"
+min="0"
+max="100"
+step="1"
+value="0"
+inputmode="numeric"
+readonly
+aria-label="Yeags Perfect G split quantity"
+>
+<button type="button" class="guinness-step" data-step="down" aria-label="Decrease Perfect G split quantity">−</button>
+</div>
 </div>
 </div>
 <div class="guinness-selected" id="guinnessSelected">
@@ -5450,6 +5631,18 @@ title="Refresh leaderboard">
 <div
 class="leaderboard"
 id="guinnessLeaderboard">
+<div class="guinness-loading-prompt">
+Refresh to get standings
+</div>
+</div>
+</div>
+<div class="guinness-card">
+<div class="guinness-leader-header">
+<h3 class="guinness-leader-title">Perfect G Split Standings</h3>
+</div>
+<div
+class="leaderboard"
+id="guinnessPerfectLeaderboard">
 <div class="guinness-loading-prompt">
 Refresh to get standings
 </div>
@@ -6753,6 +6946,33 @@ return prefix+
 ': '+
 details.join(' | ');
 }
+const PERFECT_G_PREFIX='__PERFECT_G__::';
+function perfectGMarker(person){
+return PERFECT_G_PREFIX+person;
+}
+function isPerfectGMarker(value){
+return String(value).startsWith(PERFECT_G_PREFIX);
+}
+function perfectGPerson(value){
+return String(value).slice(PERFECT_G_PREFIX.length);
+}
+function calculatePerfectGTotals(){
+const totals={};
+PEOPLE.forEach(person=>{
+totals[person]=0;
+});
+guinnessLogs.forEach(log=>{
+const people=Array.isArray(log.people)?log.people:[];
+people.forEach(value=>{
+if(!isPerfectGMarker(value))return;
+const person=perfectGPerson(value);
+if(Object.prototype.hasOwnProperty.call(totals,person)){
+totals[person]++;
+}
+});
+});
+return totals;
+}
 function initializeGuinness(){
 if(!guinnessInitialized){
 guinnessInitialized=true;
@@ -6840,6 +7060,7 @@ Array.isArray(log.people)
 ?log.people
 :[];
 people.forEach(person=>{
+if(isPerfectGMarker(person))return;
 if(
 Object.prototype.hasOwnProperty.call(
 totals,
@@ -6909,6 +7130,46 @@ ${entry.count}
 </div>
 `;
 }).join('');
+const perfectTotals=calculatePerfectGTotals();
+const perfectRanked=PEOPLE
+.map(person=>({
+person,
+count:perfectTotals[person]
+}))
+.sort((a,b)=>{
+if(b.count!==a.count){
+return b.count-a.count;
+}
+return PEOPLE.indexOf(a.person)-PEOPLE.indexOf(b.person);
+});
+document.getElementById(
+'guinnessPerfectLeaderboard'
+).innerHTML=
+perfectRanked.map((entry,index)=>{
+const podiumClass=
+index===0
+?'podium-gold'
+:index===1
+?'podium-silver'
+:index===2
+?'podium-bronze'
+:'';
+return `
+<div class="leader-row ${podiumClass}">
+<div class="leader-rank">
+${index+1}
+</div>
+<div class="leader-name">
+${escapeHtml(
+shortName(entry.person)
+)}
+</div>
+<div class="leader-count">
+${entry.count}
+</div>
+</div>
+`;
+}).join('');
 renderGuinnessHistory();
 }
 function renderGuinnessHistory(){
@@ -6939,9 +7200,8 @@ const recentLogs=sorted.slice(0,10);
 history.innerHTML=
 recentLogs.map(log=>{
 const people=
-Array.isArray(log.people)
-?log.people
-:[];
+(Array.isArray(log.people)?log.people:[])
+.filter(person=>!isPerfectGMarker(person));
 return `
 <div class="guinness-history-row">
 <div>
@@ -7228,6 +7488,9 @@ selectedInputs.reduce(
 const qtyInput=
 input.closest('.guinness-check')
 .querySelector('.guinness-qty');
+const perfectInput=
+input.closest('.guinness-check')
+.querySelector('.guinness-perfect');
 const parsedQty=
 parseInt(
 qtyInput && qtyInput.value,
@@ -7243,6 +7506,13 @@ Number.isFinite(parsedQty)
 :1
 )
 );
+if(perfectInput){
+const parsedPerfect=parseInt(perfectInput.value,10);
+const perfect=Math.max(0,Math.min(qty,Number.isFinite(parsedPerfect)?parsedPerfect:0));
+if(Number.isFinite(parsedPerfect) && parsedPerfect!==perfect){
+perfectInput.value=String(perfect);
+}
+}
 return sum+qty;
 },
 0
@@ -7267,13 +7537,22 @@ input.closest('.guinness-check');
 if(!card)return;
 const qty=
 card.querySelector('.guinness-qty');
+const perfect=
+card.querySelector('.guinness-perfect');
 if(input.checked){
 card.classList.add('quantity-visible');
 if(qty && (!qty.value || Number(qty.value)<1)){
 qty.value='1';
 }
+if(perfect && (!perfect.value || Number(perfect.value)<0)){
+perfect.value='0';
+}
+if(perfect && qty){
+perfect.max=String(Math.max(1,Math.min(100,parseInt(qty.value,10)||1)));
+}
 }else{
 card.classList.remove('quantity-visible');
+if(perfect)perfect.value='0';
 }
 updateGuinnessSelected();
 }
@@ -7309,6 +7588,14 @@ if(value>100){
 value=100;
 }
 input.value=String(value);
+const perfect=input.closest('.guinness-check').querySelector('.guinness-perfect');
+if(perfect){
+perfect.max=String(value);
+const perfectValue=parseInt(perfect.value,10);
+if(Number.isFinite(perfectValue) && perfectValue>value){
+perfect.value=String(value);
+}
+}
 updateGuinnessSelected();
 }
 );
@@ -7318,9 +7605,85 @@ input.addEventListener(
 if(!input.value || Number(input.value)<1){
 input.value='1';
 }
+const perfect=input.closest('.guinness-check').querySelector('.guinness-perfect');
+if(perfect){
+perfect.max=String(Number(input.value)||1);
+if(Number(perfect.value)>Number(input.value)){
+perfect.value=String(Number(input.value));
+}
+}
 updateGuinnessSelected();
 }
 );
+});
+document.querySelectorAll(
+'.guinness-check .guinness-perfect'
+).forEach(input=>{
+input.addEventListener(
+'input',
+()=>{
+const card=input.closest('.guinness-check');
+const qtyInput=card && card.querySelector('.guinness-qty');
+const qty=Math.max(1,Math.min(100,parseInt(qtyInput && qtyInput.value,10)||1));
+input.max=String(qty);
+if(input.value===''){
+updateGuinnessSelected();
+return;
+}
+let value=parseInt(input.value,10);
+if(!Number.isFinite(value))value=0;
+value=Math.max(0,Math.min(qty,value));
+input.value=String(value);
+updateGuinnessSelected();
+}
+);
+input.addEventListener(
+'blur',
+()=>{
+const card=input.closest('.guinness-check');
+const qtyInput=card && card.querySelector('.guinness-qty');
+const qty=Math.max(1,Math.min(100,parseInt(qtyInput && qtyInput.value,10)||1));
+input.max=String(qty);
+if(!input.value || Number(input.value)<0){
+input.value='0';
+}
+let value=parseInt(input.value,10);
+if(!Number.isFinite(value))value=0;
+input.value=String(Math.max(0,Math.min(qty,value)));
+updateGuinnessSelected();
+}
+);
+});
+document.querySelectorAll(
+'.guinness-stepper .guinness-step'
+).forEach(button=>{
+button.addEventListener(
+'click',
+()=>{
+const stepper=button.closest('.guinness-stepper');
+const input=stepper && stepper.querySelector('input');
+if(!input)return;
+const card=button.closest('.guinness-check');
+const qtyInput=card && card.querySelector('.guinness-qty');
+const perfectInput=card && card.querySelector('.guinness-perfect');
+const isPerfect=input.classList.contains('guinness-perfect');
+let min=isPerfect?0:1;
+let max=isPerfect?Math.max(0,Math.min(100,parseInt(qtyInput && qtyInput.value,10)||1)):100;
+let value=parseInt(input.value,10);
+if(!Number.isFinite(value))value=min;
+const direction=button.dataset.step==='up'?1:-1;
+value=Math.max(min,Math.min(max,value+direction));
+input.value=String(value);
+if(!isPerfect && perfectInput){
+perfectInput.max=String(value);
+const perfectValue=parseInt(perfectInput.value,10);
+if(Number.isFinite(perfectValue) && perfectValue>value){
+perfectInput.value=String(value);
+}
+}
+input.dispatchEvent(new Event('input',{bubbles:true}));
+input.dispatchEvent(new Event('change',{bubbles:true}));
+});
 });
 document.getElementById(
 'logGuinness'
@@ -7337,9 +7700,9 @@ const selectedPeople=
 document.querySelectorAll(
 '.guinness-check input[type="checkbox"]:checked'
 ).forEach(input=>{
-const qtyInput=
-input.closest('.guinness-check')
-.querySelector('.guinness-qty');
+const card=input.closest('.guinness-check');
+const qtyInput=card.querySelector('.guinness-qty');
+const perfectInput=card.querySelector('.guinness-perfect');
 let quantity=
 parseInt(
 qtyInput && qtyInput.value,
@@ -7349,8 +7712,19 @@ if(!Number.isFinite(quantity)||quantity<1){
 quantity=1;
 }
 quantity=Math.min(quantity,100);
+let perfectCount=parseInt(
+perfectInput && perfectInput.value,
+10
+);
+if(!Number.isFinite(perfectCount)||perfectCount<0){
+perfectCount=0;
+}
+perfectCount=Math.min(perfectCount,quantity);
 for(let i=0;i<quantity;i++){
 selectedPeople.push(input.value);
+}
+for(let i=0;i<perfectCount;i++){
+selectedPeople.push(perfectGMarker(input.value));
 }
 });
 const message=
@@ -7415,6 +7789,11 @@ checkbox.checked=false;
 card.classList.remove('quantity-visible');
 if(qty){
 qty.value='1';
+}
+const perfect=card.querySelector('.guinness-perfect');
+if(perfect){
+perfect.value='0';
+perfect.max='1';
 }
 });
 updateGuinnessSelected();
@@ -9413,5 +9792,97 @@ if(document.readyState === 'loading'){
 /* Tab layout */
 @media (min-width: 601px) {
   .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* GUINNESS QUANTITY STEPPERS */
+.guinness-check.quantity-visible{
+grid-template-columns:minmax(0,1fr) 62px 72px
+}
+.guinness-stepper{
+display:none;
+position:relative;
+min-width:0;
+width:100%;
+height:100%;
+flex-direction:column;
+background:#fffdf8;
+border:1px solid #cdbba3;
+border-radius:8px;
+overflow:hidden;
+box-sizing:border-box
+}
+.guinness-check.quantity-visible .guinness-stepper{
+display:flex
+}
+.guinness-stepper .guinness-step{
+flex:1 0 28px;
+width:100%;
+min-height:28px;
+border:0;
+background:#f3eadf;
+color:#4b2d1c;
+font:900 16px/1 Georgia,serif;
+padding:0;
+cursor:pointer;
+touch-action:manipulation;
+-webkit-tap-highlight-color:transparent
+}
+.guinness-stepper .guinness-step:active{
+background:#e4d5c3
+}
+.guinness-stepper .guinness-step:disabled{
+opacity:.4;
+cursor:default
+}
+.guinness-stepper .guinness-qty,
+.guinness-stepper .guinness-perfect{
+display:block;
+flex:0 0 30px;
+width:100%;
+height:30px;
+min-width:0;
+box-sizing:border-box;
+border:0;
+border-top:1px solid #e2d5c5;
+border-bottom:1px solid #e2d5c5;
+border-radius:0;
+background:#fffdf8;
+padding:2px 2px;
+font-size:16px;
+font-weight:900;
+color:#4b2d1c;
+text-align:center;
+outline:0;
+appearance:textfield;
+-webkit-appearance:none;
+-moz-appearance:textfield;
+cursor:default
+}
+.guinness-stepper .guinness-qty:focus,
+.guinness-stepper .guinness-perfect:focus{
+outline:0;
+border-color:#e2d5c5
+}
+.guinness-stepper .guinness-qty::-webkit-inner-spin-button,
+.guinness-stepper .guinness-qty::-webkit-outer-spin-button,
+.guinness-stepper .guinness-perfect::-webkit-inner-spin-button,
+.guinness-stepper .guinness-perfect::-webkit-outer-spin-button{
+-webkit-appearance:none;
+margin:0
+}
+@media(max-width:520px){
+.guinness-check.quantity-visible{
+grid-template-columns:minmax(0,1fr) 60px 70px;
+gap:5px
+}
+.guinness-stepper .guinness-step{
+min-height:27px;
+flex-basis:27px
+}
+.guinness-stepper .guinness-qty,
+.guinness-stepper .guinness-perfect{
+flex-basis:29px;
+height:29px
+}
 }
 </style>
