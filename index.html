@@ -220,11 +220,13 @@ border-color:var(--navy)
 }
 /* TAB-SPECIFIC ACTIVE COLORS */
 .tab.active[data-tab="cup"]{
-background:#C9A24B;
-border-color:#152F4A;
-color:#152F4A
+background:#e6d7b5 !important;
+border-color:#152F4A !important;
+color:#152F4A !important;
+box-shadow:none
 }
-.tab.active[data-tab="cup"] .tab-icon{color:#152F4A}
+.tab.active[data-tab="cup"] .tab-icon{color:#152F4A !important}
+.tab.active[data-tab="cup"] .tab-icon svg{stroke:#152F4A !important}
 
 .tab.active[data-tab="participants"]{
 background:#A95F3D;
@@ -2560,8 +2562,16 @@ font-weight:800
 
 /* Scotland Cup — warm parchment gold */
 .tab.active[data-tab="cup"]{
-  border-color:#e6d7b5 !important;
-  box-shadow:inset 0 0 0 1px rgba(230,215,181,.25);
+  background:#e6d7b5 !important;
+  border-color:#152F4A !important;
+  color:#152F4A !important;
+  box-shadow:none !important;
+}
+.tab.active[data-tab="cup"] .tab-icon{
+  color:#152F4A !important;
+}
+.tab.active[data-tab="cup"] .tab-icon svg{
+  stroke:#152F4A !important;
 }
 #cup .score{
   border-color:#e6d7b5;
