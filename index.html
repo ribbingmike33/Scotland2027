@@ -718,15 +718,16 @@ gap:8px
 }
 .forecast-row{
 display:grid;
-grid-template-columns:1.25fr .88fr .82fr .82fr .42fr;
+grid-template-columns:1.15fr .95fr .82fr .88fr 34px;
 align-items:center;
-gap:8px;
+gap:10px;
 border:1px solid #D1E3EA;
 border-radius:8px;
-padding:11px 10px;
+padding:13px 12px;
 background:#fff;
 cursor:pointer;
-transition:.15s
+transition:.15s;
+min-width:0
 }
 .forecast-row:hover{
 background:#F4FAFC;
@@ -797,16 +798,17 @@ color:#173B4D
 }
 @media(max-width:600px){
   .forecast-row{
-    grid-template-columns:1.18fr .82fr .78fr .78fr .38fr;
-    gap:6px;
-    padding:10px 8px;
+    grid-template-columns:1.08fr .95fr .8fr .88fr 28px;
+    gap:7px;
+    padding:12px 9px;
   }
   .forecast-day{font-size:13px}
-  .forecast-date{font-size:10px}
-  .forecast-label{font-size:7.5px}
-  .forecast-value{font-size:14px}
+  .forecast-temp{font-size:14px}
+  .forecast-temp span{font-size:13px}
+  .forecast-rain span,.forecast-wind span{font-size:8px}
+  .forecast-rain strong,.forecast-wind strong{font-size:13px}
   .forecast-icon{width:24px;height:24px}
-  .forecast-icon svg{width:23px;height:23px}
+  .forecast-icon svg{width:22px;height:22px}
 }
 
 .weather-source{
@@ -3387,6 +3389,20 @@ font-weight:800
 }
 </style>
 
+<style id="weather-clean-forecast">
+.forecast-day,.forecast-temp,.forecast-rain,.forecast-wind{min-width:0;white-space:nowrap}
+.forecast-day strong{display:block;font-size:15px;color:#3b5a6d;font-weight:900;letter-spacing:.01em}
+.forecast-temp{display:flex;align-items:baseline;gap:5px;color:#173b4d}
+.forecast-temp strong{font-size:18px;font-weight:900}
+.forecast-temp span{font-size:14px;font-weight:700;color:#718596}
+.forecast-rain,.forecast-wind{display:flex;flex-direction:column;gap:2px}
+.forecast-rain span,.forecast-wind span{font-size:8px;line-height:1;font-weight:900;letter-spacing:.08em;color:#718596}
+.forecast-rain strong,.forecast-wind strong{font-size:14px;line-height:1.05;font-weight:900;color:#173b4d}
+.forecast-icon{justify-self:center}
+@media(max-width:600px){
+  .forecast-day strong{font-size:13px}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -6594,24 +6610,16 @@ const weatherCode=
 data.daily.weather_code
 ? data.daily.weather_code[index]
 : null;
+const shortDayLabel=
+index===0
+?'Today'
+:formatWeatherDay(date)+' '+Number(String(date).slice(8,10));
 return `
 <div class="forecast-row" data-weather-day="${index}" role="button" tabindex="0">
-<div class="forecast-day">
-<strong>${dayLabel}</strong>
-<span>${dateLabel}</span>
-</div>
-<div class="forecast-temp">
-<strong>${formatTemp(max)}</strong>
-<span>${formatTemp(min)}</span>
-</div>
-<div class="forecast-rain">
-<span>RAIN</span>
-<strong>${formatRain(rain)}</strong>
-</div>
-<div class="forecast-wind">
-<span>WIND</span>
-<strong>${formatWind(wind)}</strong>
-</div>
+<div class="forecast-day"><strong>${shortDayLabel}</strong></div>
+<div class="forecast-temp"><strong>${formatTemp(max)}</strong><span>${formatTemp(min)}</span></div>
+<div class="forecast-rain"><span>RAIN</span><strong>${formatRain(rain)}</strong></div>
+<div class="forecast-wind"><span>WIND</span><strong>${formatWind(wind)}</strong></div>
 ${weatherForecastIcon(weatherCode)}
 </div>
 `;
