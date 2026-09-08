@@ -251,17 +251,6 @@ border-color:#bdcbd7 !important;
 color:#fff
 }
 .tab.active[data-tab="itinerary"] .tab-icon{color:#bdcbd7}
-
-.tab[data-tab="itinerary"]{
-grid-column:1 / -1;
-order:7
-}
-.tab[data-tab="wheel"]{order:8}
-.tab[data-tab="cup"]{order:2}
-.tab[data-tab="participants"]{order:3}
-.tab[data-tab="guinness"]{order:1}
-.tab[data-tab="dues"]{order:4}.tab[data-tab="weather"]{order:5}
-.tab[data-tab="bars"]{order:6}
 main{padding:16px}
 .base,.notice{
 background:var(--pale);
@@ -1978,9 +1967,6 @@ grid-template-columns:repeat(2,1fr)
 font-size:13px;
 padding:14px 5px
 }
-.tab[data-tab="itinerary"]{
-grid-column:1 / -1
-}
 .teegrid,.people{
 grid-template-columns:1fr
 }
@@ -2788,13 +2774,6 @@ font-weight:800
 
 
 /* WHEEL TAB — plum branding */
-.tab[data-tab="itinerary"]{
-  grid-column:auto !important;
-  order:7 !important;
-}
-.tab[data-tab="wheel"]{
-  order:8 !important;
-}
 .tab.active[data-tab="wheel"]{
   background:#5b4b7a !important;
   border-color:#d7c9e8 !important;
@@ -5772,16 +5751,9 @@ if(defaultGuinnessTab){
   initializeGuinness();
 }
 document.querySelectorAll('.tab').forEach(button=>{
-  button.addEventListener('click',()=>{
-    const tabName=button.dataset.tab;
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('main[id]').forEach(section=>section.style.display='none');
-    button.classList.add('active');
-    const target=document.getElementById(tabName);
-    if(target) target.style.display='block';
-    if(tabName==='guinness' && typeof initializeGuinness==='function') initializeGuinness();
-    if(tabName==='weather' && typeof loadWeather==='function') loadWeather();
-  });
+button.addEventListener('click',()=>{
+document.querySelectorAll('.tab').forEach(tab=>{
+tab.classList.remove('active');
 });
 button.classList.add('active');
 document.querySelectorAll('main').forEach(main=>{
@@ -9315,11 +9287,6 @@ whoWheelCenter.addEventListener('click',spinWhoWheel);
 
 
 /* Scotland Cup tab — canonical final styling */
-.tab[data-tab="cup"] {
-  background: #fff;
-  color: var(--blue-gray);
-  border: 2px solid var(--line);
-}
 .tab[data-tab="cup"].active {
   background: #E6D7B5;
   color: #152F4A;
@@ -9334,11 +9301,6 @@ whoWheelCenter.addEventListener('click',spinWhoWheel);
 
 
 /* Weather tab — canonical active styling */
-.tab[data-tab="weather"] {
-  background: #fff;
-  color: var(--blue-gray);
-  border-color: var(--line);
-}
 .tab.active[data-tab="weather"] {
   background: #A8D5E8;
   color: #173B4D;
@@ -9352,14 +9314,14 @@ whoWheelCenter.addEventListener('click',spinWhoWheel);
   color: #173B4D;
 }
 
-
-/* Tab layout */
-.tab[data-tab="guinness"] { order: 1; }
-.tab[data-tab="dues"] { order: 2; }
-.tab[data-tab="itinerary"] { order: 3; }
-.tab[data-tab="bars"] { order: 4; }
-.tab[data-tab="participants"] { order: 5; }
-.tab[data-tab="weather"] { order: 6; }
-.tab[data-tab="cup"] { order: 7; }
-.tab[data-tab="wheel"] { order: 8; }
+/* Tab layout — two columns */
+.tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tab[data-tab="guinness"] { grid-column: 1; grid-row: 1; }
+.tab[data-tab="itinerary"] { grid-column: 1; grid-row: 2; }
+.tab[data-tab="participants"] { grid-column: 1; grid-row: 3; }
+.tab[data-tab="cup"] { grid-column: 1; grid-row: 4; }
+.tab[data-tab="dues"] { grid-column: 2; grid-row: 1; }
+.tab[data-tab="bars"] { grid-column: 2; grid-row: 2; }
+.tab[data-tab="weather"] { grid-column: 2; grid-row: 3; }
+.tab[data-tab="wheel"] { grid-column: 2; grid-row: 4; }
 </style>
