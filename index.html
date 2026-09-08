@@ -174,7 +174,7 @@ grid-template-columns:repeat(2,1fr);
 gap:6px
 }
 .tab{
-border:1px solid var(--line);
+border:2px solid var(--line);
 background:#fff;
 border-radius:8px;
 padding:13px 6px;
@@ -238,19 +238,7 @@ background:#41634f;
 border-color:#b9cabe !important;
 color:#fff
 }
-.tab.active[data-tab="dues"] .tab-icon{color:#b9cabe}
-
-.tab.active[data-tab="weather"]{
-background:#A8D5E8;
-border-color:#79B8D2;
-color:#173B4D
-}
-.tab.active[data-tab="weather"] .tab-icon{color:#79B8D2}
-
-.tab.active[data-tab="weather"] .tab-icon{
-color:#173B4D
-}
-.tab.active[data-tab="bars"]{
+.tab.active[data-tab="dues"] .tab-icon{color:#b9cabe}.tab.active[data-tab="bars"]{
 background:#75404a;
 border-color:#d8b9c1 !important;
 color:#fff
@@ -270,9 +258,7 @@ order:7
 }
 .tab[data-tab="participants"]{order:2}
 .tab[data-tab="guinness"]{order:3}
-.tab[data-tab="dues"]{order:4}
-.tab[data-tab="weather"]{order:5}
-.tab[data-tab="bars"]{order:6}
+.tab[data-tab="dues"]{order:4}.tab[data-tab="bars"]{order:6}
 main{padding:16px}
 .base,.notice{
 background:var(--pale);
@@ -2593,12 +2579,7 @@ font-weight:800
   border:1px solid #b9cabe;
 }
 
-/* Weather — light sky blue */
-.tab.active[data-tab="weather"]{
-  border-color:#79B8D2 !important;
-  box-shadow:inset 0 0 0 1px rgba(121,184,210,.24);
-}
-#weather .weather-hero{
+/* Weather — light sky blue */#weather .weather-hero{
   border:1px solid #79B8D2;
 }
 #weather .weather-refresh{
@@ -9322,7 +9303,7 @@ whoWheelCenter.addEventListener('click',spinWhoWheel);
 .tab[data-tab="cup"] {
   background: #fff;
   color: var(--blue-gray);
-  border: 1px solid var(--line);
+  border: 2px solid var(--line);
 }
 .tab[data-tab="cup"].active {
   background: #E6D7B5;
@@ -9334,5 +9315,25 @@ whoWheelCenter.addEventListener('click',spinWhoWheel);
 }
 .tab[data-tab="cup"].active .tab-icon {
   color: #152F4A;
+}
+
+
+/* Weather tab — canonical active styling */
+.tab[data-tab="weather"] {
+  background: #fff;
+  color: var(--blue-gray);
+  border-color: var(--line);
+}
+.tab.active[data-tab="weather"] {
+  background: #A8D5E8;
+  color: #173B4D;
+  border: 2px solid #173B4D;
+  box-shadow: none;
+}
+.tab[data-tab="weather"] .tab-icon {
+  color: var(--blue-gray);
+}
+.tab.active[data-tab="weather"] .tab-icon {
+  color: #173B4D;
 }
 </style>
