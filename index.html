@@ -3421,6 +3421,88 @@ font-weight:800
   .forecast-day strong{font-size:13px}
 }
 </style>
+
+<style id="guinness-side-by-side-standings">
+.guinness-standings-grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:14px;
+align-items:stretch;
+margin-bottom:14px
+}
+.guinness-standings-grid .guinness-card{
+margin-bottom:0;
+min-width:0
+}
+.guinness-standings-grid .guinness-leader-header{
+align-items:flex-start
+}
+.guinness-standings-grid .guinness-leader-title{
+white-space:normal;
+font-size:21px;
+line-height:1.05
+}
+.guinness-standings-grid .leader-row{
+grid-template-columns:30px minmax(0,1fr) auto;
+gap:8px;
+padding:8px 9px;
+min-height:50px
+}
+.guinness-standings-grid .leader-rank{
+width:28px;
+height:28px;
+font-size:13px
+}
+.guinness-standings-grid .leader-name{
+font-size:15px
+}
+.guinness-standings-grid .leader-count{
+font-size:23px
+}
+@media (max-width:520px){
+.guinness-standings-grid{
+gap:8px
+}
+.guinness-standings-grid .guinness-card{
+padding:11px;
+}
+.guinness-standings-grid .guinness-leader-header{
+margin-bottom:10px;
+gap:5px
+}
+.guinness-standings-grid .guinness-leader-title{
+font-size:17px;
+line-height:1.05
+}
+.guinness-standings-grid .guinness-refresh{
+width:30px;
+height:30px;
+flex-basis:30px;
+}
+.guinness-standings-grid .leaderboard{
+gap:5px
+}
+.guinness-standings-grid .leader-row{
+grid-template-columns:25px minmax(0,1fr) auto;
+gap:5px;
+padding:6px 6px;
+min-height:43px;
+border-radius:7px
+}
+.guinness-standings-grid .leader-rank{
+width:24px;
+height:24px;
+font-size:11px
+}
+.guinness-standings-grid .leader-name{
+font-size:13px
+}
+.guinness-standings-grid .leader-count{
+font-size:20px;
+min-width:22px
+}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -5615,6 +5697,7 @@ id="guinnessMessage"
 aria-live="polite">
 </div>
 </div>
+<div class="guinness-standings-grid">
 <div class="guinness-card">
 <div class="guinness-leader-header">
 <h3 class="guinness-leader-title">Guinness Standings</h3>
@@ -5645,6 +5728,7 @@ class="leaderboard"
 id="guinnessPerfectLeaderboard">
 <div class="guinness-loading-prompt">
 Refresh to get standings
+</div>
 </div>
 </div>
 </div>
