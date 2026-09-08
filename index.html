@@ -3502,6 +3502,54 @@ font-size:20px;
 min-width:22px
 }
 }
+<style id="guinness-refresh-next-to-log">
+.guinness-action-row{
+display:grid;
+grid-template-columns:minmax(0,4fr) minmax(0,1fr);
+gap:8px;
+width:100%;
+align-items:stretch;
+}
+.guinness-action-row .guinness-submit{
+width:100%;
+margin:0;
+}
+.guinness-action-row .guinness-refresh{
+width:100%;
+height:auto;
+min-height:48px;
+flex:none;
+border-radius:8px;
+}
+.guinness-action-row .guinness-refresh .refresh-label{
+display:inline;
+font-family:Georgia,serif;
+font-size:13px;
+}
+.guinness-action-row .guinness-refresh .refresh-icon{
+font-size:20px;
+width:auto;
+height:auto;
+}
+.guinness-action-row .guinness-refresh.is-loading .refresh-label{
+opacity:.7;
+}
+@media(max-width:520px){
+.guinness-action-row{
+grid-template-columns:minmax(0,4fr) minmax(0,1fr);
+gap:7px;
+}
+.guinness-action-row .guinness-submit{
+padding:14px 8px;
+font-size:15px;
+}
+.guinness-action-row .guinness-refresh{
+padding:8px 4px;
+}
+.guinness-action-row .guinness-refresh .refresh-label{
+display:none;
+}
+}
 </style>
 </head>
 <body>
@@ -5685,12 +5733,23 @@ aria-label="Yeags Perfect G split quantity"
 <div class="guinness-selected" id="guinnessSelected">
 0 people selected
 </div>
+<div class="guinness-action-row">
 <button
 class="guinness-submit"
 id="logGuinness"
 type="button">
 Log Guinness
 </button>
+<button
+class="guinness-refresh"
+id="refreshGuinness"
+type="button"
+aria-label="Refresh Guinness standings"
+title="Refresh Guinness standings">
+<span class="refresh-icon" aria-hidden="true">↻</span>
+<span class="refresh-label">Refresh</span>
+</button>
+</div>
 <div
 class="guinness-message"
 id="guinnessMessage"
@@ -5701,15 +5760,6 @@ aria-live="polite">
 <div class="guinness-card">
 <div class="guinness-leader-header">
 <h3 class="guinness-leader-title">Guinness Standings</h3>
-<button
-class="guinness-refresh"
-id="refreshGuinness"
-type="button"
-aria-label="Refresh Guinness leaderboard"
-title="Refresh leaderboard">
-<span class="refresh-icon" aria-hidden="true">↻</span>
-<span class="refresh-label">Refresh</span>
-</button>
 </div>
 <div
 class="leaderboard"
