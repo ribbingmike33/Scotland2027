@@ -3322,26 +3322,6 @@ font-weight:800
 
 
 
-/* Scotland Cup tab — inactive matches the standard tabs */
-.tab[data-tab="cup"] {
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--blue-gray);
-}
-.tab[data-tab="cup"] .tab-icon {
-  color: var(--blue-gray);
-}
-
-/* Scotland Cup tab — active state */
-.tab[data-tab="cup"].active {
-  background: #E6D7B5;
-  color: #152F4A;
-  border: 2px solid #152F4A;
-}
-.tab[data-tab="cup"].active .tab-icon {
-  color: #152F4A;
-}
-
 </style>
 </head>
 <body>
@@ -9297,25 +9277,10 @@ whoWheelCenter.addEventListener('click',spinWhoWheel);
 </html>
 
 <style>
-/* Scotland Cup tab — cream-yellow secondary accent */
-.tab.active[data-tab="cup"]{
-  background:#e6d7b5 !important;
-  color:#152F4A !important;
-  border-color:#152F4A !important;
-}
-.tab.active[data-tab="cup"] .tab-icon{
-  color:#152F4A !important;
-}
+
 </style>
 <style>
-/* Final active-tab secondary-color enforcement */
-.tab.active[data-tab="cup"]{
-  color:#28583E !important;
-  border-color:#28583E !important;
-}
-.tab.active[data-tab="cup"] .tab-icon{
-  color:#28583E !important;
-}
+
 .tab.active[data-tab="participants"]{
   color:#F4E8DF !important;
   border-color:#F4E8DF !important;
@@ -9350,5 +9315,24 @@ whoWheelCenter.addEventListener('click',spinWhoWheel);
 }
 .tab.active[data-tab="wheel"] .tab-icon{
   color:#d7c9e8 !important;
+}
+
+
+/* Scotland Cup tab — canonical final styling */
+.tab[data-tab="cup"] {
+  background: #fff;
+  color: var(--blue-gray);
+  border: 1px solid var(--line);
+}
+.tab[data-tab="cup"].active {
+  background: #E6D7B5;
+  color: #152F4A;
+  border: 2px solid #152F4A;
+}
+.tab[data-tab="cup"] .tab-icon {
+  color: var(--blue-gray);
+}
+.tab[data-tab="cup"].active .tab-icon {
+  color: #152F4A;
 }
 </style>
