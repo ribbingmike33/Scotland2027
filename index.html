@@ -3286,6 +3286,31 @@ font-weight:800
 
 
 </style>
+
+<style id="canonical-tab-hover-colors">
+/* Per-tab hover colors. Text and icons share the same accent. */
+.tabs .tab[data-tab="guinness"] { --tab-hover-color:#D6B36A; }
+.tabs .tab[data-tab="dues"] { --tab-hover-color:#41634f; }
+.tabs .tab[data-tab="itinerary"] { --tab-hover-color:#344d63; }
+.tabs .tab[data-tab="bars"] { --tab-hover-color:#75404a; }
+.tabs .tab[data-tab="participants"] { --tab-hover-color:#7F432B; }
+.tabs .tab[data-tab="weather"] { --tab-hover-color:#173B4D; }
+.tabs .tab[data-tab="cup"] { --tab-hover-color:#152F4A; }
+.tabs .tab[data-tab="wheel"] { --tab-hover-color:#5b4b7a; }
+
+.tabs .tab:not(.active):hover {
+  color:var(--tab-hover-color) !important;
+  border-color:var(--tab-hover-color) !important;
+}
+.tabs .tab:not(.active):hover svg,
+.tabs .tab:not(.active):hover svg *,
+.tabs .tab:not(.active):hover .tab-icon {
+  color:var(--tab-hover-color) !important;
+  stroke:var(--tab-hover-color) !important;
+  fill:currentColor !important;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
