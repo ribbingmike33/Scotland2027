@@ -5704,7 +5704,35 @@ Zach’s Dirty 30 with the Lads • Built for the crew
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
+<script>document.querySelectorAll('.tab').forEach(button=>{
+button.addEventListener('click',()=>{
+document.querySelectorAll('.tab').forEach(tab=>{
+tab.classList.remove('active');
+});
+button.classList.add('active');
+document.querySelectorAll('main').forEach(main=>{
+main.style.display='none';
+});
+document.getElementById(
+button.dataset.tab
+).style.display='block';
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+if(button.dataset.tab==='dues'){
+initializeDues();
+}
+if(button.dataset.tab==='guinness'){
+initializeGuinness();
+}
+if(button.dataset.tab==='weather'){
+initializeWeather();
+}
+});
+});
+
+
 // Participant scouting reports.
 function initializeParticipantToggles(){
   document.querySelectorAll('#participants .person-toggle').forEach(toggle=>{
@@ -5751,33 +5779,7 @@ const defaultGuinnessTab=document.querySelector('.tab[data-tab="guinness"]');
 if(defaultGuinnessTab){
   initializeGuinness();
 }
-document.querySelectorAll('.tab').forEach(button=>{
-button.addEventListener('click',()=>{
-document.querySelectorAll('.tab').forEach(tab=>{
-tab.classList.remove('active');
-});
-button.classList.add('active');
-document.querySelectorAll('main').forEach(main=>{
-main.style.display='none';
-});
-document.getElementById(
-button.dataset.tab
-).style.display='block';
-window.scrollTo({
-top:0,
-behavior:'smooth'
-});
-if(button.dataset.tab==='dues'){
-initializeDues();
-}
-if(button.dataset.tab==='guinness'){
-initializeGuinness();
-}
-if(button.dataset.tab==='weather'){
-initializeWeather();
-}
-});
-});
+
 
 const weatherRefreshButton=
 document.getElementById('refreshWeather');
