@@ -3287,27 +3287,106 @@ font-weight:800
 
 </style>
 
-<style id="canonical-tab-hover-colors">
-/* Per-tab hover colors. Text and icons share the same accent. */
-.tabs .tab[data-tab="guinness"] { --tab-hover-color:#D6B36A; }
-.tabs .tab[data-tab="dues"] { --tab-hover-color:#41634f; }
-.tabs .tab[data-tab="itinerary"] { --tab-hover-color:#344d63; }
-.tabs .tab[data-tab="bars"] { --tab-hover-color:#75404a; }
-.tabs .tab[data-tab="participants"] { --tab-hover-color:#7F432B; }
-.tabs .tab[data-tab="weather"] { --tab-hover-color:#173B4D; }
-.tabs .tab[data-tab="cup"] { --tab-hover-color:#152F4A; }
-.tabs .tab[data-tab="wheel"] { --tab-hover-color:#5b4b7a; }
 
-.tabs .tab:not(.active):hover {
-  color:var(--tab-hover-color) !important;
-  border-color:var(--tab-hover-color) !important;
+<style id="active-state-hover-preview">
+/* Active + hover tab treatment: light background, dark text/icon/outline. */
+.tabs .tab[data-tab="guinness"]:hover,
+.tabs .tab.active[data-tab="guinness"] {
+  background:linear-gradient(135deg,#f4e8c8 0%,#e6d7b5 100%) !important;
+  color:#6b5220 !important;
+  border-color:#6b5220 !important;
+  box-shadow:none !important;
 }
-.tabs .tab:not(.active):hover svg,
-.tabs .tab:not(.active):hover svg *,
-.tabs .tab:not(.active):hover .tab-icon {
-  color:var(--tab-hover-color) !important;
-  stroke:var(--tab-hover-color) !important;
-  fill:currentColor !important;
+.tabs .tab[data-tab="dues"]:hover,
+.tabs .tab.active[data-tab="dues"] {
+  background:#b9cabe !important;
+  color:#41634f !important;
+  border-color:#41634f !important;
+  box-shadow:none !important;
+}
+.tabs .tab[data-tab="itinerary"]:hover,
+.tabs .tab.active[data-tab="itinerary"] {
+  background:#bdcbd7 !important;
+  color:#344d63 !important;
+  border-color:#344d63 !important;
+  box-shadow:none !important;
+}
+.tabs .tab[data-tab="bars"]:hover,
+.tabs .tab.active[data-tab="bars"] {
+  background:#d8b9c1 !important;
+  color:#75404a !important;
+  border-color:#75404a !important;
+  box-shadow:none !important;
+}
+.tabs .tab[data-tab="participants"]:hover,
+.tabs .tab.active[data-tab="participants"] {
+  background:#F4E8DF !important;
+  color:#7F432B !important;
+  border-color:#7F432B !important;
+  box-shadow:none !important;
+}
+.tabs .tab[data-tab="weather"]:hover,
+.tabs .tab.active[data-tab="weather"] {
+  background:#A8D5E8 !important;
+  color:#173B4D !important;
+  border-color:#173B4D !important;
+  box-shadow:none !important;
+}
+.tabs .tab[data-tab="cup"]:hover,
+.tabs .tab.active[data-tab="cup"] {
+  background:#E6D7B5 !important;
+  color:#152F4A !important;
+  border-color:#152F4A !important;
+  box-shadow:none !important;
+}
+.tabs .tab[data-tab="wheel"]:hover,
+.tabs .tab.active[data-tab="wheel"] {
+  background:#d7c9e8 !important;
+  color:#5b4b7a !important;
+  border-color:#5b4b7a !important;
+  box-shadow:none !important;
+}
+
+/* Icons use the same dark color as the text and outline. */
+.tabs .tab[data-tab="guinness"]:hover .tab-icon,
+.tabs .tab.active[data-tab="guinness"] .tab-icon { color:#6b5220 !important; }
+.tabs .tab[data-tab="dues"]:hover .tab-icon,
+.tabs .tab.active[data-tab="dues"] .tab-icon { color:#41634f !important; }
+.tabs .tab[data-tab="itinerary"]:hover .tab-icon,
+.tabs .tab.active[data-tab="itinerary"] .tab-icon { color:#344d63 !important; }
+.tabs .tab[data-tab="bars"]:hover .tab-icon,
+.tabs .tab.active[data-tab="bars"] .tab-icon { color:#75404a !important; }
+.tabs .tab[data-tab="participants"]:hover .tab-icon,
+.tabs .tab.active[data-tab="participants"] .tab-icon { color:#7F432B !important; }
+.tabs .tab[data-tab="weather"]:hover .tab-icon,
+.tabs .tab.active[data-tab="weather"] .tab-icon { color:#173B4D !important; }
+.tabs .tab[data-tab="cup"]:hover .tab-icon,
+.tabs .tab.active[data-tab="cup"] .tab-icon { color:#152F4A !important; }
+.tabs .tab[data-tab="wheel"]:hover .tab-icon,
+.tabs .tab.active[data-tab="wheel"] .tab-icon { color:#5b4b7a !important; }
+
+/* Ensure SVG-based icons inherit the dark active/hover color. */
+.tabs .tab:hover svg,
+.tabs .tab:hover svg *,
+.tabs .tab.active svg,
+.tabs .tab.active svg * {
+  stroke:currentColor !important;
+}
+</style>
+
+
+
+<style id="guinness-dark-state">
+.tabs .tab[data-tab="guinness"]:hover,
+.tabs .tab.active[data-tab="guinness"] {
+  background:linear-gradient(135deg,#000000 0%,#1a140c 58%,#24170e 100%) !important;
+  color:#f0dc8d !important;
+  border-color:#c9a23f !important;
+  box-shadow:inset 0 0 0 1px rgba(201,162,63,.22) !important;
+}
+.tabs .tab[data-tab="guinness"]:hover .tab-icon,
+.tabs .tab.active[data-tab="guinness"] .tab-icon {
+  color:#c9a23f !important;
 }
 </style>
 
