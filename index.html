@@ -242,7 +242,7 @@ color:#fff
 
 .tab.active[data-tab="dues"]{
 background:#41634f;
-border-color:#b9cabe;
+border-color:#b9cabe !important;
 color:#fff
 }
 .tab.active[data-tab="dues"] .tab-icon{color:#b9cabe}
@@ -259,14 +259,14 @@ color:#173B4D
 }
 .tab.active[data-tab="bars"]{
 background:#75404a;
-border-color:#d8b9c1;
+border-color:#d8b9c1 !important;
 color:#fff
 }
 .tab.active[data-tab="bars"] .tab-icon{color:#d8b9c1}
 
 .tab.active[data-tab="itinerary"]{
 background:#344d63;
-border-color:#bdcbd7;
+border-color:#bdcbd7 !important;
 color:#fff
 }
 .tab.active[data-tab="itinerary"] .tab-icon{color:#bdcbd7}
@@ -2568,6 +2568,7 @@ font-weight:800
 .tab.active[data-tab="dues"]{
   border-color:#b9cabe !important;
   box-shadow:inset 0 0 0 1px rgba(185,202,190,.22);
+  color:#b9cabe !important;
 }
 #dues .primary-btn,
 #dues .debt-player-tab.active,
@@ -2598,6 +2599,7 @@ font-weight:800
 .tab.active[data-tab="bars"]{
   border-color:#d8b9c1 !important;
   box-shadow:inset 0 0 0 1px rgba(216,185,193,.22);
+  color:#d8b9c1 !important;
 }
 #bars .bar-filter.active{
   border-color:#d8b9c1 !important;
@@ -2613,6 +2615,7 @@ font-weight:800
 .tab.active[data-tab="itinerary"]{
   border-color:#bdcbd7 !important;
   box-shadow:inset 0 0 0 1px rgba(189,203,215,.22);
+  color:#bdcbd7 !important;
 }
 #itinerary .get-home-btn{
   border-color:#bdcbd7 !important;
@@ -2797,7 +2800,7 @@ font-weight:800
 }
 .tab.active[data-tab="wheel"]{
   background:#5b4b7a !important;
-  border-color:#d7c9e8;
+  border-color:#d7c9e8 !important;
   color:#fff !important;
   box-shadow:inset 0 0 0 1px rgba(215,201,232,.24);
 }
@@ -9271,5 +9274,33 @@ whoWheelCenter.addEventListener('click',spinWhoWheel);
 }
 .tab.active[data-tab="participants"] .tab-icon{
   color:#F4E8DF !important;
+}
+</style>
+
+<style>
+/* Final active-tab secondary-color enforcement */
+.tab.active[data-tab="dues"]{
+  color:#b9cabe !important;
+}
+.tab.active[data-tab="dues"] .tab-icon{
+  color:#b9cabe !important;
+}
+.tab.active[data-tab="bars"]{
+  color:#d8b9c1 !important;
+}
+.tab.active[data-tab="bars"] .tab-icon{
+  color:#d8b9c1 !important;
+}
+.tab.active[data-tab="itinerary"]{
+  color:#bdcbd7 !important;
+}
+.tab.active[data-tab="itinerary"] .tab-icon{
+  color:#bdcbd7 !important;
+}
+.tab.active[data-tab="wheel"]{
+  color:#d7c9e8 !important;
+}
+.tab.active[data-tab="wheel"] .tab-icon{
+  color:#d7c9e8 !important;
 }
 </style>
