@@ -3320,36 +3320,26 @@ font-weight:800
   }
 }
 
-/* Scotland Cup tab — final explicit theme */
-.tab.scotland-cup-tab.active,
-.tab.scotland-cup-tab.active svg,
 
 
-/* Scotland Cup tab — single source of truth */
-.tab.scotland-cup-tab:hover,
-.tab.scotland-cup-tab.active,
-.tab.scotland-cup-tab:focus,
-
-
-/* Scotland Cup tab — canonical */
+/* Scotland Cup tab — inactive matches the standard tabs */
 .tab[data-tab="cup"] {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--blue-gray);
+}
+.tab[data-tab="cup"] .tab-icon {
+  color: var(--blue-gray);
+}
+
+/* Scotland Cup tab — active state */
+.tab[data-tab="cup"].active {
   background: #E6D7B5;
   color: #152F4A;
   border: 2px solid #152F4A;
 }
-.tab[data-tab="cup"]:hover,
-.tab[data-tab="cup"].active,
-.tab[data-tab="cup"]:focus,
-.tab[data-tab="cup"]:active {
-  background: #E6D7B5;
+.tab[data-tab="cup"].active .tab-icon {
   color: #152F4A;
-  border-color: #152F4A;
-}
-.tab[data-tab="cup"] .tab-icon {
-  color: #152F4A;
-}
-.tab[data-tab="cup"] .tab-icon svg {
-  stroke: #152F4A;
 }
 
 </style>
