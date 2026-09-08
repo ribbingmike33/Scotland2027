@@ -9851,6 +9851,36 @@ if(document.readyState === 'loading'){
   }
 }
 </style>
+
+<style id="guinness-counter-labels-v157">
+/* Keep the counter labels visible above each mobile stepper. */
+#guinness .guinness-check.quantity-visible .guinness-stepper{
+  overflow:visible !important;
+}
+#guinness .guinness-check.quantity-visible .guinness-stepper::before{
+  content:'';
+  position:absolute;
+  left:0;
+  right:0;
+  top:-20px;
+  height:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#806d59;
+  font:900 9px/1 Georgia,serif;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  pointer-events:none;
+  white-space:nowrap;
+}
+#guinness .guinness-check.quantity-visible .guinness-stepper[data-stepper="qty"]::before{
+  content:'GUINNESS';
+}
+#guinness .guinness-check.quantity-visible .guinness-stepper[data-stepper="perfect"]::before{
+  content:'PERFECT G';
+}
+</style>
 </body>
 </html>
 
