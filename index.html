@@ -3503,52 +3503,60 @@ min-width:22px
 }
 }
 <style id="guinness-refresh-next-to-log">
+/* Log and Refresh are always separate buttons on the same row. */
 .guinness-action-row{
-display:grid;
-grid-template-columns:minmax(0,4fr) minmax(0,1fr);
-gap:8px;
-width:100%;
-align-items:stretch;
+  display:grid !important;
+  grid-template-columns:minmax(0,4fr) minmax(64px,1fr) !important;
+  gap:8px;
+  width:100%;
+  align-items:stretch;
 }
-.guinness-action-row .guinness-submit{
-width:100%;
-margin:0;
+.guinness-action-row > .guinness-submit,
+.guinness-action-row > .guinness-refresh{
+  display:flex !important;
+  width:100% !important;
+  min-width:0;
+  box-sizing:border-box;
+  margin:0 !important;
 }
-.guinness-action-row .guinness-refresh{
-width:100%;
-height:auto;
-min-height:48px;
-flex:none;
-border-radius:8px;
+.guinness-action-row > .guinness-submit{
+  min-height:48px;
+}
+.guinness-action-row > .guinness-refresh{
+  height:auto !important;
+  min-height:48px;
+  flex:none !important;
+  border-radius:8px;
+  align-items:center;
+  justify-content:center;
 }
 .guinness-action-row .guinness-refresh .refresh-label{
-display:inline;
-font-family:Georgia,serif;
-font-size:13px;
+  display:none !important;
 }
 .guinness-action-row .guinness-refresh .refresh-icon{
-font-size:20px;
-width:auto;
-height:auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:auto;
+  height:auto;
+  font-size:22px;
+  line-height:1;
 }
 .guinness-action-row .guinness-refresh.is-loading .refresh-label{
-opacity:.7;
+  opacity:.7;
 }
 @media(max-width:520px){
-.guinness-action-row{
-grid-template-columns:minmax(0,4fr) minmax(0,1fr);
-gap:7px;
-}
-.guinness-action-row .guinness-submit{
-padding:14px 8px;
-font-size:15px;
-}
-.guinness-action-row .guinness-refresh{
-padding:8px 4px;
-}
-.guinness-action-row .guinness-refresh .refresh-label{
-display:none;
-}
+  .guinness-action-row{
+    grid-template-columns:minmax(0,4fr) minmax(64px,1fr) !important;
+    gap:7px;
+  }
+  .guinness-action-row > .guinness-submit{
+    padding:14px 8px;
+    font-size:15px;
+  }
+  .guinness-action-row > .guinness-refresh{
+    padding:8px 4px;
+  }
 }
 </style>
 </head>
