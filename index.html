@@ -701,6 +701,10 @@ font-size:12px;
 color:var(--muted);
 margin:-7px 0 10px
 }
+.forecast-card{
+background:#A8D5E8;
+border-color:#79B8D2
+}
 .forecast-list{
 display:flex;
 flex-direction:column;
@@ -708,66 +712,97 @@ gap:8px
 }
 .forecast-row{
 display:grid;
-grid-template-columns:1.2fr 1fr 1fr 1fr;
+grid-template-columns:1.25fr .88fr .82fr .82fr .42fr;
 align-items:center;
-gap:10px;
-border:1px solid var(--line);
+gap:8px;
+border:1px solid #D1E3EA;
 border-radius:8px;
-padding:13px;
+padding:11px 10px;
 background:#fff;
 cursor:pointer;
 transition:.15s
 }
 .forecast-row:hover{
-background:#f7f9fb;
-border-color:#b9c9d5
+background:#F4FAFC;
+border-color:#79B8D2
 }
 .forecast-row.today{
-background:var(--pale);
-border-color:#b9c9d5
+background:#EAF5FA;
+border-color:#79B8D2
 }
 .forecast-row.selected{
-background:var(--navy);
-border-color:var(--navy);
-color:#fff
+background:#83BCD3;
+border-color:#5D91AE;
+color:#173B4D
 }
 .forecast-row.selected .forecast-day,
 .forecast-row.selected .forecast-date,
 .forecast-row.selected .forecast-label,
 .forecast-row.selected .forecast-value{
-color:#fff
+color:#173B4D
 }
 .forecast-row.selected .forecast-date,
 .forecast-row.selected .forecast-label{
-opacity:.7
+opacity:.78
 }
 .forecast-day{
 font-weight:900;
-color:var(--navy-mid)
+font-size:14px;
+color:#31586B;
+white-space:nowrap
 }
 .forecast-date{
-font-size:12px;
-color:var(--muted);
+font-size:11px;
+color:#718596;
 margin-top:2px
 }
 .forecast-label{
-font-size:9px;
+font-size:8px;
 font-weight:900;
 letter-spacing:.06em;
-color:var(--muted);
+color:#718596;
 margin-bottom:3px
 }
 .forecast-value{
-font-size:16px;
+font-size:15px;
 font-weight:900;
-color:var(--navy)
+color:#173B4D
 }
 .forecast-rain .forecast-value{
-color:var(--blue-gray)
+color:#31586B
 }
-.forecast-row.selected .forecast-rain .forecast-value{
-color:#fff
+.forecast-icon{
+width:28px;
+height:28px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#5D91AE;
+justify-self:end
 }
+.forecast-icon svg{
+width:26px;
+height:26px;
+display:block;
+stroke:currentColor
+}
+.forecast-row.selected .forecast-icon{
+color:#173B4D
+}
+@media(max-width:600px){
+  .forecast-row{
+    grid-template-columns:1.18fr .82fr .78fr .78fr .38fr;
+    gap:6px;
+    padding:10px 8px;
+  }
+  .forecast-day{font-size:13px}
+  .forecast-date{font-size:10px}
+  .forecast-label{font-size:7.5px}
+  .forecast-value{font-size:14px}
+  .forecast-icon{width:24px;height:24px}
+  .forecast-icon svg{width:23px;height:23px}
+}
+
 .weather-source{
 font-size:11px;
 color:var(--muted);
@@ -5641,7 +5676,7 @@ Hourly precipitation probability
 </div>
 </div>
 </div>
-<div class="weather-card">
+<div class="weather-card forecast-card">
 <div class="weather-header-row">
 <h3>7-Day Forecast</h3>
 <button class="weather-refresh" id="refreshWeather" type="button">
@@ -5735,6 +5770,16 @@ initializeWeather();
 }
 });
 });
+
+const weatherRefreshButton=
+document.getElementById('refreshWeather');
+if(weatherRefreshButton){
+weatherRefreshButton.addEventListener(
+'click',
+()=>{
+loadWeather();
+}
+);}
 
 const barFilterButtons=document.querySelectorAll('#barFilters [data-bar-filter]');
 const barFilterCards=document.querySelectorAll('#bars .bar-card');
@@ -5917,6 +5962,36 @@ displayHour=hour-12;
 suffix='PM';
 }
 return displayHour+':'+minute+' '+suffix;
+}
+function weatherForecastIcon(code){
+const c=Number(code);
+let type='cloud';
+if(c===0){
+type='sun';
+}else if(c===1||c===2||c===3||c===45||c===48){
+type='cloud';
+}else if((c>=51&&c<=67)||(c>=80&&c<=82)){
+type='rain';
+}else if(c>=71&&c<=77||c>=85&&c<=86){
+type='snow';
+}else if(c>=95&&c<=99){
+type='wind';
+}
+const labels={
+sun:'Clear',
+cloud:'Cloudy',
+rain:'Rain',
+snow:'Snow',
+wind:'Wind'
+};
+const paths={
+sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+cloud:'<path d="M6.5 18h10a4 4 0 0 0 .3-8 5.5 5.5 0 0 0-10.6-1A4.5 4.5 0 0 0 6.5 18Z"/>',
+rain:'<path d="M6.5 15h10a4 4 0 0 0 .3-8 5.5 5.5 0 0 0-10.6-1A4.5 4.5 0 0 0 6.5 15Z"/><path d="M8 18l-1 2M12 18l-1 2M16 18l-1 2"/>',
+snow:'<path d="M6.5 15h10a4 4 0 0 0 .3-8 5.5 5.5 0 0 0-10.6-1A4.5 4.5 0 0 0 6.5 15Z"/><path d="M8 18v4M6.3 19l3.4 2M9.7 19l-3.4 2M16 18v4M14.3 19l3.4 2M17.7 19l-3.4 2"/>',
+wind:'<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a2 2 0 1 1-2 2"/><path d="M3 16h11"/>'
+};
+return `<span class="forecast-icon" aria-label="${labels[type]}" title="${labels[type]}"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[type]}</svg></span>`;
 }
 function updateWeatherHero(dayIndex){
 if(!weatherData)return;
@@ -6348,7 +6423,7 @@ const url=
 '&longitude=-3.1883'+
 '&current=temperature_2m,wind_speed_10m'+
 '&hourly=precipitation_probability'+
-'&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max'+
+'&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,weather_code'+
 '&temperature_unit=fahrenheit'+
 '&wind_speed_unit=mph'+
 '&timezone=Europe%2FLondon'+
@@ -6429,6 +6504,10 @@ const wind=
 data.daily.wind_speed_10m_max[index];
 const rain=
 data.daily.precipitation_probability_max[index];
+const weatherCode=
+data.daily.weather_code
+? data.daily.weather_code[index]
+: null;
 return `
 <div class="forecast-row" data-weather-day="${index}" role="button" tabindex="0">
 <div class="forecast-day">
@@ -6447,6 +6526,7 @@ return `
 <span>WIND</span>
 <strong>${formatWind(wind)}</strong>
 </div>
+${weatherForecastIcon(weatherCode)}
 </div>
 `;
 })
