@@ -9766,8 +9766,8 @@ if(document.readyState === 'loading'){
 }
 </style>
 
-<style id="guinness-mobile-clarity-v155">
-/* Mobile-first Guinness entry: each person owns a clearly labeled Guinness and Perfect G counter. */
+<style id="guinness-two-person-layout-v156">
+/* Mobile-friendly two-person grid: every person has explicit labels above each counter. */
 #guinness .guinness-people-head{
   display:none !important;
 }
@@ -9775,11 +9775,12 @@ if(document.readyState === 'loading'){
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:10px;
+  margin-top:0;
 }
 #guinness .guinness-check.quantity-visible{
   display:grid !important;
   grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
-  gap:8px !important;
+  gap:7px !important;
   align-items:stretch;
   width:100%;
   min-width:0;
@@ -9794,10 +9795,11 @@ if(document.readyState === 'loading'){
   align-items:center;
   justify-content:center;
   box-sizing:border-box;
-  padding:8px 10px;
+  padding:8px 6px;
   margin:0;
+  font-size:15px;
 }
-#guinness .guinness-stepper{
+#guinness .guinness-check.quantity-visible .guinness-stepper{
   position:relative;
   width:100% !important;
   min-width:0 !important;
@@ -9805,7 +9807,7 @@ if(document.readyState === 'loading'){
   min-height:0;
   margin-top:22px;
 }
-#guinness .guinness-stepper::before{
+#guinness .guinness-check.quantity-visible .guinness-stepper::before{
   position:absolute;
   left:0;
   right:0;
@@ -9815,40 +9817,37 @@ if(document.readyState === 'loading'){
   align-items:center;
   justify-content:center;
   color:#806d59;
-  font:900 10px/1 Georgia,serif;
-  letter-spacing:.05em;
+  font:900 9px/1 Georgia,serif;
+  letter-spacing:.035em;
   text-transform:uppercase;
   pointer-events:none;
+  white-space:nowrap;
 }
-#guinness .guinness-stepper[data-stepper="qty"]::before{
+#guinness .guinness-check.quantity-visible .guinness-stepper[data-stepper="qty"]::before{
   content:'GUINNESS';
 }
-#guinness .guinness-stepper[data-stepper="perfect"]::before{
+#guinness .guinness-check.quantity-visible .guinness-stepper[data-stepper="perfect"]::before{
   content:'PERFECT G';
 }
-#guinness .guinness-stepper .guinness-step{
-  min-height:32px;
-  flex-basis:32px;
+#guinness .guinness-check.quantity-visible .guinness-stepper .guinness-step{
+  min-height:31px;
+  flex-basis:31px;
   font-size:16px;
 }
-#guinness .guinness-stepper .guinness-qty,
-#guinness .guinness-stepper .guinness-perfect{
+#guinness .guinness-check.quantity-visible .guinness-stepper .guinness-qty,
+#guinness .guinness-check.quantity-visible .guinness-stepper .guinness-perfect{
   flex-basis:34px;
   height:34px;
   font-size:18px;
 }
 @media(max-width:700px){
   #guinness .guinness-people{
-    grid-template-columns:1fr;
-    gap:10px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
   }
   #guinness .guinness-check.quantity-visible{
     grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
-    gap:9px !important;
-  }
-  #guinness .guinness-check.quantity-visible > label{
-    min-height:50px;
-    font-size:16px;
+    gap:7px !important;
   }
 }
 </style>
