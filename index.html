@@ -826,17 +826,17 @@ pointer-events:none
 .guinness-logo-white{filter:brightness(0) invert(1)}
 .guinness-logo-gold{clip-path:inset(0 82% 0 0)}
 .guinness-tab-icon{
-width:25px;
-height:28px;
+width:22px;
+height:25px;
 display:inline-flex;
 align-items:center;
 justify-content:flex-start;
 overflow:hidden;
-flex:0 0 28px;
+flex:0 0 22px;
 position:relative
 }
 .guinness-tab-icon img{
-height:30px;
+height:25px;
 width:auto;
 max-width:none;
 display:block;
@@ -4544,19 +4544,46 @@ color:#9A5A36
 
 /* COMPONENT ACCENT THEMES — MATCH ACTIVE TAB COLORS */
 #cup{
---component-accent:#8a6b2f;
---component-accent-dark:#705522;
---component-pale:#f7f1e3
+--component-accent:#C9A24B;
+--component-accent-dark:#8A681F;
+--component-pale:#F5E9C9
 }
 #cup .score{
-border-color:#d8c9a9
+background:#FBF6E9;
+border-color:#C9A24B;
+box-shadow:0 14px 40px rgba(74,54,20,.14)
 }
 #cup .score-head{
-background:var(--component-accent);
+background:linear-gradient(135deg,#17120B 0%,#2A2114 100%);
+color:#fff;
+border-bottom:4px solid #C9A24B;
+}
+#cup .score-head:before{
+background:#F0DC8D
+}
+#cup .score-head .eyebrow{
+color:#F0DC8D
 }
 #cup .score-head .eyebrow:before,
 #cup .score-head .eyebrow:after{
-background:#ead8a6
+background:#F0DC8D
+}
+#cup .score-head h2{
+color:#fff
+}
+#cup .score-head p,
+#cup .score-head>div:last-child{
+color:#F5E9C9
+}
+#cup .score-body{
+background:#F5E9C9;
+border-color:#D7BE7A;
+padding:7px
+}
+#cup .score-body iframe{
+background:#fff;
+border:1px solid #D7BE7A!important;
+border-radius:9px!important
 }
 
 #participants{
