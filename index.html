@@ -1,4 +1,4 @@
-l<!doctype html>
+<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -9762,6 +9762,93 @@ if(document.readyState === 'loading'){
   #guinness .guinness-check.quantity-visible{
     grid-template-columns:minmax(0,1fr) 50px 60px !important;
     gap:5px !important;
+  }
+}
+</style>
+
+<style id="guinness-mobile-clarity-v155">
+/* Mobile-first Guinness entry: each person owns a clearly labeled Guinness and Perfect G counter. */
+#guinness .guinness-people-head{
+  display:none !important;
+}
+#guinness .guinness-people{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+#guinness .guinness-check.quantity-visible{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+  gap:8px !important;
+  align-items:stretch;
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  padding:0;
+}
+#guinness .guinness-check.quantity-visible > label{
+  grid-column:1 / -1;
+  width:100%;
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  padding:8px 10px;
+  margin:0;
+}
+#guinness .guinness-stepper{
+  position:relative;
+  width:100% !important;
+  min-width:0 !important;
+  height:auto !important;
+  min-height:0;
+  margin-top:22px;
+}
+#guinness .guinness-stepper::before{
+  position:absolute;
+  left:0;
+  right:0;
+  top:-21px;
+  height:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#806d59;
+  font:900 10px/1 Georgia,serif;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  pointer-events:none;
+}
+#guinness .guinness-stepper[data-stepper="qty"]::before{
+  content:'GUINNESS';
+}
+#guinness .guinness-stepper[data-stepper="perfect"]::before{
+  content:'PERFECT G';
+}
+#guinness .guinness-stepper .guinness-step{
+  min-height:32px;
+  flex-basis:32px;
+  font-size:16px;
+}
+#guinness .guinness-stepper .guinness-qty,
+#guinness .guinness-stepper .guinness-perfect{
+  flex-basis:34px;
+  height:34px;
+  font-size:18px;
+}
+@media(max-width:700px){
+  #guinness .guinness-people{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  #guinness .guinness-check.quantity-visible{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+    gap:9px !important;
+  }
+  #guinness .guinness-check.quantity-visible > label{
+    min-height:50px;
+    font-size:16px;
   }
 }
 </style>
