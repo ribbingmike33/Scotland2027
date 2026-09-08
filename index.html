@@ -219,15 +219,6 @@ color:#fff;
 border-color:var(--navy)
 }
 /* TAB-SPECIFIC ACTIVE COLORS */
-.tab.active[data-tab="cup"]{
-background:#e6d7b5 !important;
-border-color:#152F4A !important;
-color:#152F4A !important;
-box-shadow:none
-}
-.tab.active[data-tab="cup"] .tab-icon{color:#152F4A !important}
-.tab.active[data-tab="cup"] .tab-icon svg{stroke:#152F4A !important}
-
 .tab.active[data-tab="participants"]{
 background:#A95F3D;
 border-color:#F4E8DF;
@@ -277,7 +268,6 @@ color:#fff
 grid-column:1 / -1;
 order:7
 }
-.tab[data-tab="cup"]{order:1}
 .tab[data-tab="participants"]{order:2}
 .tab[data-tab="guinness"]{order:3}
 .tab[data-tab="dues"]{order:4}
@@ -2561,18 +2551,6 @@ font-weight:800
    complementary border/accent for contrast, matching the Guinness treatment. */
 
 /* Scotland Cup — warm parchment gold */
-.tab.active[data-tab="cup"]{
-  background:#e6d7b5 !important;
-  border-color:#152F4A !important;
-  color:#152F4A !important;
-  box-shadow:none !important;
-}
-.tab.active[data-tab="cup"] .tab-icon{
-  color:#152F4A !important;
-}
-.tab.active[data-tab="cup"] .tab-icon svg{
-  stroke:#152F4A !important;
-}
 #cup .score{
   border-color:#e6d7b5;
 }
@@ -3348,21 +3326,29 @@ font-weight:800
 
 
 /* Scotland Cup tab — single source of truth */
-.tab.scotland-cup-tab {
+.tab.scotland-cup-tab:hover,
+.tab.scotland-cup-tab.active,
+.tab.scotland-cup-tab:focus,
+
+
+/* Scotland Cup tab — canonical */
+.tab[data-tab="cup"] {
   background: #E6D7B5;
   color: #152F4A;
   border: 2px solid #152F4A;
 }
-.tab.scotland-cup-tab:hover,
-.tab.scotland-cup-tab.active,
-.tab.scotland-cup-tab:focus,
-.tab.scotland-cup-tab:active {
+.tab[data-tab="cup"]:hover,
+.tab[data-tab="cup"].active,
+.tab[data-tab="cup"]:focus,
+.tab[data-tab="cup"]:active {
   background: #E6D7B5;
   color: #152F4A;
   border-color: #152F4A;
 }
-.tab.scotland-cup-tab svg {
+.tab[data-tab="cup"] .tab-icon {
   color: #152F4A;
+}
+.tab[data-tab="cup"] .tab-icon svg {
   stroke: #152F4A;
 }
 
