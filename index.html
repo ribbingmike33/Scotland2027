@@ -244,6 +244,9 @@ background:#A8D5E8;
 border-color:#79B8D2;
 color:#173B4D
 }
+.tab.active[data-tab="weather"] .tab-icon{
+color:#173B4D
+}
 .tab.active[data-tab="bars"]{
 background:#75404a;
 border-color:#75404a;
@@ -592,7 +595,7 @@ margin-bottom:14px;
 border:1px solid #79B8D2
 }
 .weather-hero .eyebrow{
-color:#F8FCFE;
+color:#173B4D;
 opacity:1
 }
 .weather-location{
@@ -4658,12 +4661,13 @@ border-top:3px solid var(--component-accent)
 }
 
 #weather{
---component-accent:#4d7085;
---component-accent-dark:#3b5a6d;
---component-pale:#edf3f6
+--component-accent:#A8D5E8;
+--component-accent-dark:#5D91AE;
+--component-pale:#EAF5FA
 }
 #weather .weather-hero{
-background:var(--component-accent)
+background:var(--component-accent);
+color:#173B4D
 }
 #weather .weather-card{
 border-top:3px solid var(--component-accent)
