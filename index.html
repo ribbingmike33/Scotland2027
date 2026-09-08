@@ -240,9 +240,9 @@ border-color:#41634f;
 color:#fff
 }
 .tab.active[data-tab="weather"]{
-background:#4d7085;
-border-color:#4d7085;
-color:#fff
+background:#A8D5E8;
+border-color:#79B8D2;
+color:#173B4D
 }
 .tab.active[data-tab="bars"]{
 background:#75404a;
@@ -584,15 +584,16 @@ color:var(--navy-mid)
 }
 /* WEATHER */
 .weather-hero{
-background:var(--navy);
-color:#fff;
+background:linear-gradient(160deg,#A8D5E8 0%,#83BCD3 100%);
+color:#173B4D;
 border-radius:10px;
 padding:22px;
-margin-bottom:14px
+margin-bottom:14px;
+border:1px solid #79B8D2
 }
 .weather-hero .eyebrow{
-color:#fff;
-opacity:.7
+color:#F8FCFE;
+opacity:1
 }
 .weather-location{
 font:700 29px Georgia,serif;
@@ -600,14 +601,15 @@ margin:3px 0
 }
 .weather-date{
 font-size:13px;
-opacity:.72;
+opacity:.9;
 margin-bottom:17px
 }
 .weather-selected-label{
 font-size:10px;
 font-weight:900;
 letter-spacing:.14em;
-opacity:.7;
+color:#31586B;
+opacity:1;
 margin-bottom:5px
 }
 .weather-current{
@@ -616,7 +618,7 @@ grid-template-columns:1.2fr 1fr 1fr 1fr;
 gap:9px
 }
 .weather-current-main{
-background:rgba(255,255,255,.09);
+background:rgba(255,255,255,.32);
 border-radius:8px;
 padding:13px
 }
@@ -627,11 +629,12 @@ line-height:1
 .weather-current-label{
 font-size:10px;
 font-weight:800;
-opacity:.7;
+color:#31586B;
+opacity:1;
 margin-top:6px
 }
 .weather-stat{
-background:rgba(255,255,255,.09);
+background:rgba(255,255,255,.32);
 border-radius:8px;
 padding:13px
 }
@@ -639,7 +642,8 @@ padding:13px
 font-size:9px;
 font-weight:900;
 letter-spacing:.08em;
-opacity:.68;
+color:#31586B;
+opacity:1;
 margin-bottom:5px
 }
 .weather-stat-value{
@@ -2521,17 +2525,17 @@ font-weight:800
 
 /* Weather — light sky blue */
 .tab.active[data-tab="weather"]{
-  border-color:#4F7890 !important;
-  box-shadow:inset 0 0 0 1px rgba(184,203,213,.22);
+  border-color:#79B8D2 !important;
+  box-shadow:inset 0 0 0 1px rgba(121,184,210,.24);
 }
 #weather .weather-hero{
-  border:1px solid #4F7890;
+  border:1px solid #79B8D2;
 }
 #weather .weather-refresh{
-  border-color:#4F7890;
+  border-color:#79B8D2;
 }
 #weather .forecast-row.selected{
-  border-color:#4F7890 !important;
+  border-color:#79B8D2 !important;
 }
 
 /* Bars / Restaurants — muted dusty rose */
