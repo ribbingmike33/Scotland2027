@@ -3344,15 +3344,26 @@ font-weight:800
 
 /* Scotland Cup tab — final explicit theme */
 .tab.scotland-cup-tab.active,
-.tab.scotland-cup-tab:active {
-  background: #E6D7B5 !important;
-  color: #152F4A !important;
-  border-color: #152F4A !important;
-}
 .tab.scotland-cup-tab.active svg,
-.tab.scotland-cup-tab:active svg {
-  color: #152F4A !important;
-  stroke: #152F4A !important;
+
+
+/* Scotland Cup tab — single source of truth */
+.tab.scotland-cup-tab {
+  background: #E6D7B5;
+  color: #152F4A;
+  border: 2px solid #152F4A;
+}
+.tab.scotland-cup-tab:hover,
+.tab.scotland-cup-tab.active,
+.tab.scotland-cup-tab:focus,
+.tab.scotland-cup-tab:active {
+  background: #E6D7B5;
+  color: #152F4A;
+  border-color: #152F4A;
+}
+.tab.scotland-cup-tab svg {
+  color: #152F4A;
+  stroke: #152F4A;
 }
 
 </style>
