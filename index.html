@@ -3559,6 +3559,84 @@ min-width:22px
   }
 }
 </style>
+
+<style id="guinness-action-layout-v161">
+/* One Refresh button: visible beside Log Guinness before opening the form,
+   then moved beside the submit button while the form is open. */
+.guinness-top-action-row,
+.guinness-submit-row{
+  display:grid;
+  grid-template-columns:minmax(0,4fr) minmax(72px,1fr);
+  gap:8px;
+  width:100%;
+  align-items:stretch;
+}
+.guinness-top-action-row{
+  margin-bottom:14px;
+}
+.guinness-top-action-row > .guinness-log-btn,
+.guinness-top-action-row > .guinness-refresh,
+.guinness-submit-row > .guinness-submit,
+.guinness-submit-row > .guinness-refresh{
+  width:100% !important;
+  min-width:0;
+  box-sizing:border-box;
+  margin:0 !important;
+}
+.guinness-top-action-row > .guinness-log-btn{
+  min-height:48px;
+}
+.guinness-top-action-row > .guinness-refresh,
+.guinness-submit-row > .guinness-refresh{
+  min-height:48px;
+  height:auto !important;
+  border-radius:8px;
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  flex:none !important;
+}
+.guinness-submit-row > .guinness-submit{
+  min-height:48px;
+}
+.guinness-top-action-row .guinness-refresh .refresh-label,
+.guinness-submit-row .guinness-refresh .refresh-label{
+  display:inline !important;
+  font-size:14px;
+  white-space:nowrap;
+}
+.guinness-top-action-row .guinness-refresh .refresh-icon,
+.guinness-submit-row .guinness-refresh .refresh-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:auto;
+  height:auto;
+  font-size:20px;
+  line-height:1;
+}
+@media(max-width:520px){
+  .guinness-top-action-row,
+  .guinness-submit-row{
+    grid-template-columns:minmax(0,4fr) minmax(72px,1fr);
+    gap:7px;
+  }
+  .guinness-top-action-row > .guinness-log-btn,
+  .guinness-submit-row > .guinness-submit{
+    padding:14px 8px;
+    font-size:15px;
+  }
+  .guinness-top-action-row > .guinness-refresh,
+  .guinness-submit-row > .guinness-refresh{
+    padding:8px 4px;
+  }
+  .guinness-top-action-row .guinness-refresh .refresh-label,
+  .guinness-submit-row .guinness-refresh .refresh-label{
+    font-size:12px;
+  }
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -5441,12 +5519,23 @@ GROUP TOTAL
 </div>
 
 </div>
+<div class="guinness-top-action-row" id="guinnessTopActionRow">
 <button
 class="guinness-log-btn"
 id="showGuinnessForm"
 type="button">
 Log Guinness
 </button>
+<button
+class="guinness-refresh"
+id="refreshGuinness"
+type="button"
+aria-label="Refresh Guinness and Perfect G standings"
+title="Refresh Guinness and Perfect G standings">
+<span class="refresh-icon" aria-hidden="true">↻</span>
+<span class="refresh-label">Refresh</span>
+</button>
+</div>
 <div
 class="guinness-form"
 id="guinnessForm"
@@ -5741,21 +5830,12 @@ aria-label="Yeags Perfect G split quantity"
 <div class="guinness-selected" id="guinnessSelected">
 0 people selected
 </div>
-<div class="guinness-action-row">
+<div class="guinness-submit-row" id="guinnessSubmitRow">
 <button
 class="guinness-submit"
 id="logGuinness"
 type="button">
 Log Guinness
-</button>
-<button
-class="guinness-refresh"
-id="refreshGuinness"
-type="button"
-aria-label="Refresh Guinness standings"
-title="Refresh Guinness standings">
-<span class="refresh-icon" aria-hidden="true">↻</span>
-<span class="refresh-label">Refresh</span>
 </button>
 </div>
 <div
@@ -7136,10 +7216,16 @@ const leaderboard=
 document.getElementById(
 'guinnessLeaderboard'
 );
-leaderboard.innerHTML=
+const perfectLeaderboard=
+document.getElementById(
+'guinnessPerfectLeaderboard'
+);
+const loadingMarkup=
 '<div class="guinness-loading" aria-label="Loading Guinness standings">'+
 '<span aria-hidden="true">Updating standings…</span>'+
 '</div>';
+if(leaderboard)leaderboard.innerHTML=loadingMarkup;
+if(perfectLeaderboard)perfectLeaderboard.innerHTML=loadingMarkup;
 try{
 const {data,error}=
 await supabaseClient.rpc(
@@ -7154,7 +7240,7 @@ console.error(
 'Guinness load error:',
 error
 );
-leaderboard.innerHTML=
+const errorMarkup=
 '<div class="empty-state">'+
 escapeHtml(
 formatSupabaseError(
@@ -7163,6 +7249,8 @@ error
 )
 )+
 '</div>';
+if(leaderboard)leaderboard.innerHTML=errorMarkup;
+if(perfectLeaderboard)perfectLeaderboard.innerHTML=errorMarkup;
 guinnessLoading=false;
 return;
 }
@@ -7178,7 +7266,7 @@ console.error(
 'Guinness connection error:',
 error
 );
-leaderboard.innerHTML=
+const errorMarkup=
 '<div class="empty-state">'+
 escapeHtml(
 formatSupabaseError(
@@ -7187,6 +7275,8 @@ error
 )
 )+
 '</div>';
+if(leaderboard)leaderboard.innerHTML=errorMarkup;
+if(perfectLeaderboard)perfectLeaderboard.innerHTML=errorMarkup;
 }finally{
 guinnessLoading=false;
 }
@@ -7598,6 +7688,18 @@ const button=
 document.getElementById(
 'showGuinnessForm'
 );
+const refreshButton=
+document.getElementById(
+'refreshGuinness'
+);
+const topRow=
+document.getElementById(
+'guinnessTopActionRow'
+);
+const submitRow=
+document.getElementById(
+'guinnessSubmitRow'
+);
 if(form.style.display==='none'){
 const dateInput=
 document.getElementById(
@@ -7607,12 +7709,16 @@ if(dateInput && !dateInput.value){
 dateInput.value=todayString();
 }
 form.style.display='block';
-button.textContent=
-'Cancel';
+button.textContent='Cancel';
+if(refreshButton && submitRow){
+submitRow.appendChild(refreshButton);
+}
 }else{
 form.style.display='none';
-button.textContent=
-'Log Guinness';
+button.textContent='Log Guinness';
+if(refreshButton && topRow){
+topRow.appendChild(refreshButton);
+}
 }
 });
 function updateGuinnessSelected(){
@@ -7972,11 +8078,28 @@ const button=
 document.getElementById(
 'refreshGuinness'
 );
+const guinnessBoard=
+document.getElementById(
+'guinnessLeaderboard'
+);
+const perfectBoard=
+document.getElementById(
+'guinnessPerfectLeaderboard'
+);
+const label=button.querySelector('.refresh-label');
 button.disabled=true;
 button.classList.add('is-loading');
+if(label)label.textContent='Updating';
+const loadingMarkup=
+'<div class="guinness-loading" aria-label="Updating standings">'+
+'<span aria-hidden="true">Updating…</span>'+
+'</div>';
+if(guinnessBoard)guinnessBoard.innerHTML=loadingMarkup;
+if(perfectBoard)perfectBoard.innerHTML=loadingMarkup;
 await loadGuinness();
 button.classList.remove('is-loading');
 button.disabled=false;
+if(label)label.textContent='Refresh';
 });
 function escapeHtml(value){
 return String(value)
