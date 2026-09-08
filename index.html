@@ -5772,9 +5772,16 @@ if(defaultGuinnessTab){
   initializeGuinness();
 }
 document.querySelectorAll('.tab').forEach(button=>{
-button.addEventListener('click',()=>{
-document.querySelectorAll('.tab').forEach(tab=>{
-tab.classList.remove('active');
+  button.addEventListener('click',()=>{
+    const tabName=button.dataset.tab;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('main[id]').forEach(section=>section.style.display='none');
+    button.classList.add('active');
+    const target=document.getElementById(tabName);
+    if(target) target.style.display='block';
+    if(tabName==='guinness' && typeof initializeGuinness==='function') initializeGuinness();
+    if(tabName==='weather' && typeof loadWeather==='function') loadWeather();
+  });
 });
 button.classList.add('active');
 document.querySelectorAll('main').forEach(main=>{
