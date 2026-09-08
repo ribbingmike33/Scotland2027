@@ -221,17 +221,17 @@ border-color:var(--navy)
 /* TAB-SPECIFIC ACTIVE COLORS */
 .tab.active[data-tab="cup"]{
 background:#C9A24B;
-border-color:#F0DC8D;
-color:#fff
+border-color:#28583E;
+color:#28583E
 }
-.tab.active[data-tab="cup"] .tab-icon{color:#F0DC8D}
+.tab.active[data-tab="cup"] .tab-icon{color:#28583E}
 
 .tab.active[data-tab="participants"]{
 background:#A95F3D;
-border-color:#789B78;
-color:#fff
+border-color:#F4E8DF;
+color:#F4E8DF
 }
-.tab.active[data-tab="participants"] .tab-icon{color:#789B78}
+.tab.active[data-tab="participants"] .tab-icon{color:#F4E8DF}
 
 .tab.active[data-tab="guinness"]{
 background:linear-gradient(135deg,#000000 0%,#1a140c 55%,#2b1a12 100%);
@@ -2545,10 +2545,14 @@ font-weight:800
   border-bottom:2px solid #e6d7b5;
 }
 
-/* Participants — soft blue-gray */
+/* Participants — warm terracotta with ivory secondary */
 .tab.active[data-tab="participants"]{
-  border-color:#789B78 !important;
-  box-shadow:inset 0 0 0 1px rgba(203,212,223,.22);
+  border-color:#F4E8DF !important;
+  color:#F4E8DF !important;
+  box-shadow:inset 0 0 0 1px rgba(244,232,223,.28);
+}
+.tab.active[data-tab="participants"] .tab-icon{
+  color:#F4E8DF !important;
 }
 #participants .person{
   border-top-color:#789B78;
@@ -9252,3 +9256,20 @@ whoWheelCenter.addEventListener('click',spinWhoWheel);
 </script>
 </body>
 </html>
+<style>
+/* Final active-tab secondary-color enforcement */
+.tab.active[data-tab="cup"]{
+  color:#28583E !important;
+  border-color:#28583E !important;
+}
+.tab.active[data-tab="cup"] .tab-icon{
+  color:#28583E !important;
+}
+.tab.active[data-tab="participants"]{
+  color:#F4E8DF !important;
+  border-color:#F4E8DF !important;
+}
+.tab.active[data-tab="participants"] .tab-icon{
+  color:#F4E8DF !important;
+}
+</style>
