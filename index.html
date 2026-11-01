@@ -7951,6 +7951,35 @@ input.dispatchEvent(new Event('input',{bubbles:true}));
 input.dispatchEvent(new Event('change',{bubbles:true}));
 });
 });
+function showGuinness100Celebration(){
+const overlay=document.getElementById('guinness100Celebration');
+if(!overlay)return;
+overlay.classList.add('show');
+overlay.setAttribute('aria-hidden','false');
+const colors=['#d6ad3b','#173b2b','#f7f0df','#b63b32','#ffffff','#7a9b69'];
+for(let i=0;i<150;i++){
+const piece=document.createElement('span');
+piece.className='guinness-confetti';
+piece.style.left=(Math.random()*100)+'%';
+piece.style.backgroundColor=colors[i%colors.length];
+piece.style.animationDuration=(2.6+Math.random()*3.2)+'s';
+piece.style.animationDelay=(Math.random()*1.2)+'s';
+piece.style.setProperty('--drift',((Math.random()-.5)*260)+'px');
+piece.style.transform='rotate('+(Math.random()*360)+'deg)';
+overlay.appendChild(piece);
+}
+}
+function closeGuinness100Celebration(){
+const overlay=document.getElementById('guinness100Celebration');
+if(!overlay)return;
+overlay.classList.remove('show');
+overlay.setAttribute('aria-hidden','true');
+overlay.querySelectorAll('.guinness-confetti').forEach(piece=>piece.remove());
+}
+document.getElementById('closeGuinness100')?.addEventListener('click',closeGuinness100Celebration);
+document.getElementById('guinness100Celebration')?.addEventListener('click',event=>{
+if(event.target.id==='guinness100Celebration')closeGuinness100Celebration();
+});
 document.getElementById(
 'logGuinness'
 ).addEventListener(
@@ -7961,6 +7990,7 @@ document.getElementById(
 'guinnessDate'
 ).value ||
 todayString();
+const totalBefore=Object.values(calculateGuinnessTotals()).reduce((sum,value)=>sum+value,0);
 const selectedPeople=
 [];
 document.querySelectorAll(
@@ -8068,6 +8098,10 @@ message.textContent=
 message.className=
 'guinness-message success';
 await loadGuinness();
+const totalAfter=Object.values(calculateGuinnessTotals()).reduce((sum,value)=>sum+value,0);
+if(totalBefore<100 && totalAfter>=100){
+showGuinness100Celebration();
+}
 setTimeout(()=>{
 message.textContent='';
 },2500);
@@ -10164,6 +10198,16 @@ if(document.readyState === 'loading'){
   content:'PERFECT G';
 }
 </style>
+
+<div class="guinness-celebration" id="guinness100Celebration" role="dialog" aria-modal="true" aria-labelledby="guinness100Title">
+  <div class="guinness-celebration-card">
+    <div class="guinness-celebration-kicker">The 100th Guinness</div>
+    <h2 id="guinness100Title">CONGRATULATIONS!</h2>
+    <p>You win a <span class="mulligan">MULLIGAN OFF THE TEE</span> at any point during the trip.</p>
+    <p class="guinness-terms"><strong>TERMS &amp; CONDITIONS:</strong> Must screenshot and send to group chat to cash in.</p>
+    <button class="guinness-celebration-close" id="closeGuinness100" type="button">I’ll take it</button>
+  </div>
+</div>
 </body>
 </html>
 
@@ -10334,4 +10378,20 @@ flex-basis:29px;
 height:29px
 }
 }
+
+/* 100TH GUINNESS CELEBRATION */
+.guinness-celebration{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(10,18,13,.82);backdrop-filter:blur(5px);overflow:hidden}
+.guinness-celebration.show{display:flex}
+.guinness-celebration-card{position:relative;z-index:2;width:min(520px,100%);padding:38px 28px 30px;text-align:center;background:linear-gradient(145deg,#fffdf6,#f4ead7);border:3px solid #c9a23f;border-radius:24px;box-shadow:0 24px 90px rgba(0,0,0,.5);animation:guinnessPop .45s cubic-bezier(.2,1.5,.5,1) both}
+.guinness-celebration-kicker{font-size:12px;letter-spacing:3px;font-weight:900;color:#8a6a21;text-transform:uppercase}
+.guinness-celebration-card h2{margin:12px 0 10px;color:#173b2b;font-size:clamp(30px,8vw,46px);line-height:1.02;font-weight:1000}
+.guinness-celebration-card p{margin:0 auto 24px;max-width:390px;color:#382b1f;font-size:19px;line-height:1.45;font-weight:750}
+.guinness-celebration-card .mulligan{display:block;margin-top:8px;color:#9b7120;font-size:23px;font-weight:1000}
+.guinness-celebration-card .guinness-terms{margin:0 auto 22px;max-width:390px;color:#756858;font-size:12px;line-height:1.45;font-weight:650;letter-spacing:.35px;text-transform:uppercase}
+.guinness-celebration-card .guinness-terms strong{color:#8a6a21;font-weight:950}
+.guinness-celebration-close{border:0;border-radius:999px;padding:13px 30px;background:#173b2b;color:#fff;font-weight:900;font-size:15px;cursor:pointer}
+.guinness-confetti{position:absolute;z-index:1;top:-18px;width:10px;height:18px;opacity:.95;animation:guinnessConfettiFall linear forwards}
+@keyframes guinnessPop{from{transform:scale(.55) rotate(-5deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+@keyframes guinnessConfettiFall{to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.9}}
+@media(prefers-reduced-motion:reduce){.guinness-celebration-card{animation:none}.guinness-confetti{animation-duration:1ms!important}}
 </style>
