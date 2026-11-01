@@ -7976,9 +7976,16 @@ overlay.classList.remove('show');
 overlay.setAttribute('aria-hidden','true');
 overlay.querySelectorAll('.guinness-confetti').forEach(piece=>piece.remove());
 }
-document.getElementById('closeGuinness100')?.addEventListener('click',closeGuinness100Celebration);
-document.getElementById('guinness100Celebration')?.addEventListener('click',event=>{
-if(event.target.id==='guinness100Celebration')closeGuinness100Celebration();
+// Delegate these clicks because the celebration markup is appended later in the file.
+document.addEventListener('click',event=>{
+if(event.target.closest && event.target.closest('#closeGuinness100')){
+event.preventDefault();
+closeGuinness100Celebration();
+return;
+}
+if(event.target && event.target.id==='guinness100Celebration'){
+closeGuinness100Celebration();
+}
 });
 document.getElementById(
 'logGuinness'
@@ -10389,6 +10396,14 @@ height:29px
 .guinness-celebration-card .mulligan{display:block;margin-top:8px;color:#9b7120;font-size:23px;font-weight:1000}
 .guinness-celebration-card .guinness-terms{margin:0 auto 22px;max-width:390px;color:#756858;font-size:12px;line-height:1.45;font-weight:650;letter-spacing:.35px;text-transform:uppercase}
 .guinness-celebration-card .guinness-terms strong{color:#8a6a21;font-weight:950}
+
+/* Mobile layout and readable headline */
+.guinness-celebration{box-sizing:border-box;padding:16px;overflow-y:auto}
+.guinness-celebration-card{box-sizing:border-box;width:min(520px,calc(100vw - 32px));max-width:100%;min-width:0;padding:clamp(26px,6vw,38px) clamp(16px,5vw,28px) 26px;overflow-wrap:anywhere}
+.guinness-celebration-card h2{font-size:clamp(24px,6vw,36px);letter-spacing:-1.2px;line-height:1.08;white-space:normal;overflow-wrap:anywhere}
+.guinness-celebration-card p{max-width:100%;overflow-wrap:break-word}
+.guinness-celebration-card .mulligan{font-size:clamp(19px,5.5vw,23px)}
+.guinness-celebration-card .guinness-terms{font-size:11px;letter-spacing:.2px}
 .guinness-celebration-close{border:0;border-radius:999px;padding:13px 30px;background:#173b2b;color:#fff;font-weight:900;font-size:15px;cursor:pointer}
 .guinness-confetti{position:absolute;z-index:1;top:-18px;width:10px;height:18px;opacity:.95;animation:guinnessConfettiFall linear forwards}
 @keyframes guinnessPop{from{transform:scale(.55) rotate(-5deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
